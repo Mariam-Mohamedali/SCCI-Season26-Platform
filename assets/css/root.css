@@ -40,6 +40,17 @@
     --color-info: #3498db;
 
     /* ================================
+     🎨 CUSTOM & GRADIENTS
+    ===================================*/
+    --color-parchment: #E0C08F;
+
+    --gradient-blue-fade: linear-gradient(90deg, #1D44B3 23%, rgba(32, 68, 179, 0.07) 88%, rgba(33, 68, 179, 0) 94%);
+    --gradient-purple-fade: linear-gradient(90deg, #673AB7 0%, rgba(103, 58, 183, 0) 94%);
+    --gradient-nav-red: linear-gradient(90deg, #5F1212 0%, #C52525 50%, #5F1212 100%);
+    --gradient-magic-purple: linear-gradient(90deg, #7A41DC 13%, #5B2AB5 100%);
+    --gradient-white-shine: linear-gradient(90deg, #D4D2D2 0%, #FFFFFF 50%, #D4D2D2 100%);
+
+    /* ================================
      🔤 TEXT SYSTEM
   ===================================*/
     --text-main: var(--color-black);
