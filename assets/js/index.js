@@ -1,3 +1,8 @@
+// Initialize AOS
+AOS.init({
+  duration: 1000,
+  once: true,
+});
 
 // Scroll To Top Functionality
         const scrollTopBtn = document.getElementById('scrollTopBtn');
