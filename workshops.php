@@ -1,5 +1,5 @@
 <?php
-include('./includes/config.php');
+include('config.php');
 
 $select = "SELECT * FROM `workshops` ";
 $result = mysqli_query($connect, $select);
