@@ -21,6 +21,17 @@ if(isset($_POST['login1'])){
      $user_id=$fetch['user_id'];
             $_SESSION['user_id']=$user_id;
    echo "m3lm radwan";
+
+     if (isset($_POST['remember'])) {
+                setcookie("remember_email", $email, time() + 3600 * 24 * 365); 
+                setcookie("remember_password", $password, time() + 3600 * 24 * 365);   
+                setcookie("remember", $remember, time() + 3600 * 24 * 365);
+            } else {
+                // If 'Remember Me' is not checked, delete cookies
+                setcookie("remember_email", "", time() - 3600); 
+                setcookie("remember_password", "", time() - 3600); 
+                setcookie("remember", "", time() - 3600);
+            }
 }else{
 
     $error_notv= "your account is not activated";
@@ -92,7 +103,8 @@ if(isset($_POST['login1'])){
                 <footer class="form-footer">
                     <label class="remember-me">
                         Remember me
-                        <input type="checkbox">
+                        <input type="checkbox"  name="remember" value="1">
+                             <?php echo (!empty($remember) || isset($_COOKIE['remember'])) ? 'checked' : ''; ?>>
                         <span class="checkmark"></span>
                     </label>
                 </footer>
