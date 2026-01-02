@@ -264,3 +264,93 @@ body {
         font-size: var(--fs-2xl);
     }
 }
+
+/* Popup Styles */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+    animation: fadeIn 0.3s ease;
+}
+
+.popup-content {
+    background: var(--card-bg, #fff8eb);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(197, 37, 37, 0.6);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    border: 2px solid var(--color-primary, #c52525);
+    position: relative;
+    animation: popupScale 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background-image: 
+        radial-gradient(circle at center, rgba(255,255,255,0.8), transparent),
+        linear-gradient(to bottom, rgba(255, 248, 235, 0.95), rgba(235, 210, 165, 0.95));
+}
+
+.popup-content::before {
+    content: "✦";
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    color: #FFD700;
+    font-size: 2rem;
+    animation: floatStar 3s ease-in-out infinite;
+}
+
+.popup-content::after {
+    content: "✦";
+    position: absolute;
+    bottom: -15px;
+    right: -15px;
+    color: #FFD700;
+    font-size: 2rem;
+    animation: floatStar 3s ease-in-out infinite reverse;
+}
+
+@keyframes popupScale {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.popup-message {
+    font-size: 1.3rem;
+    color: var(--color-primary-dark, #8b0000);
+    margin-bottom: 25px;
+    font-family: 'Irish Grover', cursive;
+    line-height: 1.4;
+}
+
+.popup-close-btn {
+    background: linear-gradient(to bottom, var(--color-primary), var(--color-primary-dark));
+    color: white;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: all 0.3s;
+    box-shadow: 0 4px 10px rgba(197, 37, 37, 0.3);
+    font-family: inherit;
+}
+
+.popup-close-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(197, 37, 37, 0.5);
+    filter: brightness(1.1);
+}
