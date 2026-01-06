@@ -91,6 +91,133 @@
   z-index: 1;
 }
 
+/* cards */
+/*  workshop cards  */
+
+.workshopsSection {
+    padding: var(--space-8) 0;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+/* Workshops Grid Section */
+
+.workshopCardsGrid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: var(--space-8);
+    justify-items: center;
+}
+
+
+
+.cardsContainer {
+    transition: all 0.3s ease;
+    perspective: 1000px;
+}
+
+.cardsContainer:hover {
+    transform: translateY(-10px);
+    filter: drop-shadow(0 15px 25px rgba(171, 32, 32, 0.4));
+}
+
+.flipCard {
+    position: relative;
+    width: 320px;
+    height: 500px;
+    transform-style: preserve-3d;
+    transform: rotateY(0deg);
+}
+
+.frontCard,
+.backCard {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    inset: 0;
+    backface-visibility: hidden;
+}
+
+.backCard {
+    transform: rotateY(180deg);
+}
+
+
+.frontCard img,
+.backCard img {
+    width: 100%;
+    height: 100%;
+    border-radius: 40px;
+
+}
+
+
+/*  animation apply  */
+
+.cardsContainer.aos-animate .flipCard {
+    animation: flip 1.2s 1s cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
+}
+
+@keyframes flip {
+    0% {
+        transform: rotateY(0deg);
+    }
+
+    100% {
+        transform: rotateY(180deg);
+    }
+}
+
+
+/* Explore Button */
+.cardContent {
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    text-align: center;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+.cardText{
+  color: var(--color-primary);
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-bold);
+}
+
+/* sponsors */
+.statContainer{
+  display: flex;
+  flex-wrap: wrap; 
+}
+.sponsors{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* gap: 40px; */
+  flex-wrap: wrap; 
+}
+.stat{
+  position: relative;
+  width: 300px;
+  height: 200px;
+}
+.sponsorInfo{
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  text-align: center;
+}
+.sponsorName{
+  color: var(--color-secondary-dark);
+  /* font-size: var(--fs-lg); */
+  font-weight: var(--fw-semibold);
+}
+
 @media (max-width: 850px) {
   .aboutSection img {
     transform: rotate(270deg);
