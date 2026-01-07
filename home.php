@@ -1,12 +1,3 @@
-<!--
- Things to remeber:
-    -sidenav image
-    -add 4 stats images
-    -about img
-    -contact img
-
-  -->
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -164,44 +155,42 @@
         <!-- sponsors container -->
         <div class="sponsorContainer">
 
-            <div class="sponsorTrack">
-                <!-- sponsor card -->
-                <div class="sponsor">
-                    <img loading="lazy" src="./assets/img/sponsorBackground1.1.png" alt="">
+            <!-- sponsor card -->
+            <div class="sponsor">
+                <img loading="lazy" src="./assets/img/sponsorBackground1.1.png" alt="">
 
-                    <div class="sponsorInfo">
-                        <!-- sponsor logo -->
-                        <img src="./assets/./icons/logoSCCI.png" alt="" class="sponsorLogo">
+                <div class="sponsorInfo">
+                    <!-- sponsor logo -->
+                    <img src="./assets/./icons/logoSCCI.png" alt="" class="sponsorLogo">
 
-                        <!-- sponsor name -->
-                        <p>sponsor name</p>
-                    </div>
+                    <!-- sponsor name -->
+                    <p>sponsor name</p>
                 </div>
+            </div>
 
-                <!-- sponsor card -->
-                <div class="sponsor">
-                    <img loading="lazy" src="./assets/img/sponsorBackground1.1.png" alt="">
+            <!-- sponsor card -->
+            <div class="sponsor">
+                <img loading="lazy" src="./assets/img/sponsorBackground1.1.png" alt="">
 
-                    <div class="sponsorInfo">
-                        <!-- sponsor logo -->
-                        <img src="./assets/./icons/logoSCCI.png" alt="" class="sponsorLogo">
+                <div class="sponsorInfo">
+                    <!-- sponsor logo -->
+                    <img src="./assets/./icons/logoSCCI.png" alt="" class="sponsorLogo">
 
-                        <!-- sponsor name -->
-                        <p>sponsor name</p>
-                    </div>
+                    <!-- sponsor name -->
+                    <p>sponsor name</p>
                 </div>
+            </div>
 
-                <!-- sponsor card -->
-                <div class="sponsor">
-                    <img loading="lazy" src="./assets/img/sponsorBackground1.1.png" alt="">
+            <!-- sponsor card -->
+            <div class="sponsor">
+                <img loading="lazy" src="./assets/img/sponsorBackground1.1.png" alt="">
 
-                    <div class="sponsorInfo">
-                        <!-- sponsor logo -->
-                        <img src="./assets/./icons/logoSCCI.png" alt="" class="sponsorLogo">
+                <div class="sponsorInfo">
+                    <!-- sponsor logo -->
+                    <img src="./assets/./icons/logoSCCI.png" alt="" class="sponsorLogo">
 
-                        <!-- sponsor name -->
-                        <p>sponsor name</p>
-                    </div>
+                    <!-- sponsor name -->
+                    <p>sponsor name</p>
                 </div>
             </div>
 
@@ -239,16 +228,19 @@
                 <div class="input-group">
                     <label for="">Full Name</label>
                     <input type="text" id="name" name="name" placeholder="Enter your full name">
+                    <small class="error"></small>
                 </div>
 
                 <div class="input-group">
                     <label for="email">Email</label>
                     <input type="text" id="email" name="email" placeholder="Enter your email">
+                    <small class="error"></small>
                 </div>
 
                 <div class="input-group">
                     <label for="message">Message</label>
                     <textarea type="text" id="message" name="message" placeholder="Enter your message"></textarea>
+                    <small class="error"></small>
                 </div>
 
 
@@ -259,7 +251,8 @@
         </div>
     </section>
 
-    <script src="../assets/js/all.min.js"></script>
+    <script src="../assets/js/all.min.js" defer></script>
+    <script src="./assets/js/home.validation.js"></script>
 </body>
 
 </html>
