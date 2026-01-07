@@ -250,7 +250,6 @@
   justify-content: center;
   align-items: center;
   /* gap: 40px; */
-  flex-wrap: wrap;
 }
 
 .sponsor {
@@ -342,6 +341,21 @@ select {
 .input-group textarea:focus {
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.4), 0 0 6px rgba(197, 37, 37, 0.4);
 }
+
+/* validation form */
+
+.input-group input.invalid,
+.input-group textarea.invalid {
+  border-color: #8b1e1e;
+  box-shadow: 0 0 6px rgba(139, 30, 30, 0.4);
+}
+
+.error {
+  font-size: 13px;
+  color: #8b1e1e;
+  min-height: 14px;
+}
+
 
 @media (max-width: 1000px) {
   .contactUsContainer {
