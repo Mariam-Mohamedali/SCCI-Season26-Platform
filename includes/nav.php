@@ -45,7 +45,7 @@
         <nav class="navAccount navRespnsive">
             <a href="../auth/login.php" id="loginNav">Log In</a>
             <!-- profile -->
-            <a href="../crew.php" id="profileNav">
+            <a href="../profile.php" id="profileNav">
                 <img loading="lazy" src="../assets/img/profilePhoto.png" alt="profile img">
             </a>
         </nav>
@@ -70,7 +70,7 @@
             <a href="../auth/login.php" src="../"><i class="fa-solid fa-user"></i> LogIn</a>
             <!-- profile -->
             <hr>
-            <a href="../crew.php" id="profileNav">
+            <a href="../profile.php" id="profileNav">
                 <img loading="lazy" src="../assets/img/profilePhoto.png" alt="profile img">
             </a>
         </div>
