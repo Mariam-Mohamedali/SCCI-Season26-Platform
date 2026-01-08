@@ -28,7 +28,7 @@
     <!-- navbar ----------------------------------------------------------------- -->
     <header>
         <a href="home.css" class="logo">
-            <img src="../assets/icons/logoSCCI.png" alt="" loading="lazy" />
+            <img src="../assets/icons/logoSCCI.png" alt="SCCI logo" loading="lazy" />
             <h1>SCCI</h1>
             <!-- <a target="_blank" href="https://www.facebook.com/scci.cu"><i class="fa-brands fa-facebook"></i> <span class="socialText"> facebook page</span></a> -->
         </a>
@@ -46,7 +46,7 @@
             <a href="../auth/login.php" id="loginNav">Log In</a>
             <!-- profile -->
             <a href="../crew.php" id="profileNav">
-                <img loading="lazy" src="../assets/img/profilePhoto.png" alt="">
+                <img loading="lazy" src="../assets/img/profilePhoto.png" alt="profile img">
             </a>
         </nav>
 
@@ -71,16 +71,16 @@
             <!-- profile -->
             <hr>
             <a href="../crew.php" id="profileNav">
-                <img loading="lazy" src="../assets/img/profilePhoto.png" alt="">
+                <img loading="lazy" src="../assets/img/profilePhoto.png" alt="profile img">
             </a>
         </div>
     </aside>
 
     <!-- navbar js -->
      
-    <script src="../assets/js/nav.js"></script>
+    <script src="../assets/js/nav.js" defer></script>
 
-    <script src="../assets/js/all.min.js"></script>
+    <script src="../assets/js/all.min.js" defer></script>
 
 </body>
 
