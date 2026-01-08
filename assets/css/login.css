@@ -6,7 +6,7 @@ body {
 
 /* main container */
 
-.main-container {
+.mainContainer {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -23,7 +23,7 @@ body {
 
 /*login card*/
 
-.login-card {
+.loginCard {
     width: 450px;
     padding: var(--space-8);
     border-radius: var(--radius-xl);
@@ -41,15 +41,15 @@ body {
     position: relative;
 }
 
-.login-card:hover {
+.loginCard:hover {
     /* transform: translateY(-2px); */
     box-shadow: 0 8px 22px rgba(98, 14, 14, 0.6);
     transition: transform 0.4s ease, box-shadow 0.6s ease;
 }
 
 /* Magical Floating Stars around Card */
-.login-card::before,
-.login-card::after {
+.loginCard::before,
+.loginCard::after {
     content: "✦";
     position: absolute;
     color: #FFD700;
@@ -59,13 +59,13 @@ body {
     margin: -10px;
 }
 
-.login-card::before {
+.loginCard::before {
     top: -15px;
     right: -10px;
     animation: floatStar 3s ease-in-out infinite alternate;
 }
 
-.login-card::after {
+.loginCard::after {
     bottom: -15px;
     left: -10px;
     font-size: 1.8rem;
@@ -74,7 +74,7 @@ body {
 }
 
 /* titlt */
-.login-title {
+.loginTitle {
     font-size: var(--fs-3xl);
     letter-spacing: 2px;
     margin-bottom: var(--space-2);
@@ -110,24 +110,24 @@ body {
 
 /* form */
 
-.login-form {
+.loginForm {
     display: flex;
     flex-direction: column;
     text-align: left;
 }
 
-.input-group {
+.inputGroup {
     margin-bottom: var(--space-5);
 }
 
-.input-group label {
+.inputGroup label {
     font-size: var(--fs-sm);
     color: var(--color-primary-dark);
     margin-bottom: var(--space-2);
     display: block;
 }
 
-.input-group input {
+.inputGroup input {
     width: 100%;
     padding: var(--space-3);
     border-radius: var(--radius-md);
@@ -139,12 +139,12 @@ body {
     outline: none;
 }
 
-.input-group input::placeholder {
+.inputGroup input::placeholder {
     color: var(--text-light);
     font-style: italic;
 }
 
-.input-group input:focus {
+.inputGroup input:focus {
     box-shadow:
         inset 0 3px 5px rgba(0, 0, 0, 0.4),
         0 0 6px rgba(197, 37, 37, 0.4);
@@ -152,7 +152,7 @@ body {
 
 /* form footer */
 
-.form-footer {
+.formFooter {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -160,22 +160,22 @@ body {
     font-size: var(--fs-sm);
 }
 
-.forgot-pass {
+.forgotPass {
     color: var(--text-main);
 }
 
-.forgot-pass:hover {
+.forgotPass:hover {
     text-decoration: underline;
 }
 
-.remember-me {
+.rememberMe {
     display: flex;
     align-items: center;
     gap: var(--space-2);
     cursor: pointer;
 }
 
-.remember-me input {
+.rememberMe input {
     display: none;
 }
 
@@ -187,7 +187,7 @@ body {
     position: relative;
 }
 
-.remember-me input:checked+.checkmark::after {
+.rememberMe input:checked+.checkmark::after {
     content: "✔";
     color: var(--color-white);
     font-size: 14px;
@@ -199,7 +199,7 @@ body {
 
 /* submit button */
 
-.submit-btn {
+.submitBtn {
     width: 100%;
     padding: var(--space-3);
     border-radius: 50px;
@@ -216,14 +216,14 @@ body {
     position: relative;
 }
 
-.submit-btn:hover {
+.submitBtn:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 22px rgba(197, 37, 37, 0.6);
 }
 
 /* Magical Floating Starson Both Sides of Button */
-.submit-btn::before,
-.submit-btn::after {
+.submitBtn::before,
+.submitBtn::after {
     content: "✦";
     position: absolute;
     top: 50%;
@@ -236,18 +236,18 @@ body {
     transition: all 0.3s ease;
 }
 
-.submit-btn::before {
+.submitBtn::before {
     left: 15px;
     animation: floatStar 3s ease-in-out infinite alternate;
 }
 
-.submit-btn::after {
+.submitBtn::after {
     right: 15px;
     animation: floatStar 3s ease-in-out infinite alternate-reverse;
 }
 
-.submit-btn:hover::before,
-.submit-btn:hover::after {
+.submitBtn:hover::before,
+.submitBtn:hover::after {
     filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.8));
     color: #fff;
 }
@@ -255,18 +255,18 @@ body {
 /* responsive */
 
 @media (max-width: 500px) {
-    .login-card {
+    .loginCard {
         width: 90%;
         padding: var(--space-6);
     }
 
-    .login-title {
+    .loginTitle {
         font-size: var(--fs-2xl);
     }
 }
 
 /* Popup Styles */
-.popup-overlay {
+.popupOverlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -281,7 +281,7 @@ body {
     animation: fadeIn 0.3s ease;
 }
 
-.popup-content {
+.popupContent {
     background: var(--card-bg, #fff8eb);
     padding: 30px;
     border-radius: 15px;
@@ -292,12 +292,12 @@ body {
     border: 2px solid var(--color-primary, #c52525);
     position: relative;
     animation: popupScale 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    background-image: 
-        radial-gradient(circle at center, rgba(255,255,255,0.8), transparent),
+    background-image:
+        radial-gradient(circle at center, rgba(255, 255, 255, 0.8), transparent),
         linear-gradient(to bottom, rgba(255, 248, 235, 0.95), rgba(235, 210, 165, 0.95));
 }
 
-.popup-content::before {
+.popupContent::before {
     content: "✦";
     position: absolute;
     top: -15px;
@@ -307,7 +307,7 @@ body {
     animation: floatStar 3s ease-in-out infinite;
 }
 
-.popup-content::after {
+.popupContent::after {
     content: "✦";
     position: absolute;
     bottom: -15px;
@@ -318,16 +318,28 @@ body {
 }
 
 @keyframes popupScale {
-    from { transform: scale(0.8); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
-.popup-message {
+.popupMessage {
     font-size: 1.3rem;
     color: var(--color-primary-dark, #8b0000);
     margin-bottom: 25px;
@@ -335,7 +347,7 @@ body {
     line-height: 1.4;
 }
 
-.popup-close-btn {
+.popupCloseBtn {
     background: linear-gradient(to bottom, var(--color-primary), var(--color-primary-dark));
     color: white;
     border: none;
@@ -349,7 +361,7 @@ body {
     font-family: inherit;
 }
 
-.popup-close-btn:hover {
+.popupCloseBtn:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 15px rgba(197, 37, 37, 0.5);
     filter: brightness(1.1);

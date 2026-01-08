@@ -56,6 +56,7 @@ if(isset($_POST['login1'])){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SCCI Login</title>
+     <link rel="icon" href="assets/icons/logoSCCI.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap" rel="stylesheet">
@@ -63,12 +64,13 @@ if(isset($_POST['login1'])){
 
 </head>
 
+<!-- main container -->
 
 <body>
-    <main class="main-container">
-    
-        <section class="login-card">
-            <h1 class="login-title">LOGIN</h1>
+    <main class="mainContainer">
+<!-- login card -->
+        <section class="loginCard">
+            <h1 class="loginTitle">LOGIN</h1>
             <div class="divider">
                 <span class="line"></span>
                 <span class="diamond"></span>
@@ -82,34 +84,34 @@ if(isset($_POST['login1'])){
             
             if(!empty($popup_error)):
             ?>
-            <div class="popup-overlay" id="errorPopup">
-                <div class="popup-content">
-                    <p class="popup-message"><?php echo $popup_error; ?></p>
-                    <button class="popup-close-btn" onclick="document.getElementById('errorPopup').style.display='none'">Close</button>
+            <div class="popupOverlay" id="errorPopup">
+                <div class="popupContent">
+                    <p class="popupMessage"><?php echo $popup_error; ?></p>
+                    <button class="popupCloseBtn" onclick="document.getElementById('errorPopup').style.display='none'">Close</button>
                 </div>
             </div>
             <?php endif; ?>
-            <form class="login-form" method="POST">
-                <div class="input-group">
+            <form class="loginForm" method="POST">
+                <div class="inputGroup">
                     <label for="email">E-mail</label>
                     <input type="email" name="email" id="email" placeholder="Enter your email">
                 </div>
-
-                <div class="input-group">
+<!-- user input -->
+                <div class="inputGroup">
                     <label for="password">Password</label>
                     <input type="password" name="password" id="password" placeholder="Enter your pass">
                 </div>
-
-                <footer class="form-footer">
-                    <label class="remember-me">
+<!-- form footer -->
+                <footer class="formFooter">
+                    <label class="rememberMe">
                         Remember me
                         <input type="checkbox"  name="remember" value="1">
                              <?php echo (!empty($remember) || isset($_COOKIE['remember'])) ? 'checked' : ''; ?>>
                         <span class="checkmark"></span>
                     </label>
                 </footer>
-
-                <button type="submit" name="login1" class="submit-btn">Submit</button>
+<!-- button -->
+                <button type="submit" name="login1" class="submitBtn">Submit</button>
             </form>
         </section>
     </main>
