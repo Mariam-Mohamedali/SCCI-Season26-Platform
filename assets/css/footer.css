@@ -5,10 +5,6 @@
   font-family: "Almendra", serif;
 }
 
-:root {
-  --background-footer: #450d0d;
-}
-
 /* -- footer --------------------------------------------------------------------------------------- */
 
 footer {
@@ -134,7 +130,6 @@ footer h3::after {
 }
 
 footer p {
-  font-family: sans-serif;
   margin-top: 6px;
   font-size: 13px;
   color: var(--color-gray-lighter);
@@ -146,11 +141,11 @@ footer p {
   /* footer responsive */
 
   .footerCont {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 3rem;
     justify-content: center;
     padding: 4rem 5rem;
-    row-gap: 7rem;
+    row-gap: 9rem;
     column-gap: 0rem;
   }
 
@@ -180,7 +175,7 @@ footer p {
 
   .footerCont {
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 6rem;
     padding: 4rem 5rem;
   }
 
@@ -191,13 +186,5 @@ footer p {
 
   .footerLeft img {
     width: 210px !important;
-  }
-
-  .footerCont {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 5rem;
   }
 }
