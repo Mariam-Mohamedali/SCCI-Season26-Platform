@@ -1,10 +1,24 @@
 const form = document.getElementById("form");
+const inputs = form.querySelectorAll("input, select");
+
+// Clear error on input change
+inputs.forEach(input => {
+    input.addEventListener("input", () => clearError(input));
+    input.addEventListener("change", () => clearError(input)); // for select and file
+});
 
 form.addEventListener("submit", function (e) {
-    e.preventDefault();
+    // Clear all errors first
+    clearAllErrors();
+
+    // Prevent default initially to validte. If valid, we verify and submit.
+    // NOTE: If we set isValid = false, we keep preventDefault.
+    // If isValid = true, we allow submission inside the logic? 
+    // Actually the current code does e.preventDefault() at top.
 
     let isValid = true;
 
+    // ... inputs fetching ...
     const nameInput = document.getElementById("name");
     const emailInput = document.getElementById("email");
     const phoneInput = document.getElementById("phone");
@@ -12,10 +26,15 @@ form.addEventListener("submit", function (e) {
     const workshopSelect = document.getElementById("workshop");
     const imageInput = document.getElementById("image");
 
+    // Check validation (if invalid, set isValid=false)
+    // ... [Original Validation Logic preserved but wrapped] ...
+    // Since I'm replacing the whole file content or block, I need to be careful.
+    // I will use ReplaceFileContent on the whole file or large block to inject the clearing helper.
+
+    e.preventDefault(); // Always prevent default first to validate
+
     // Name validation
     const nameValue = nameInput.value.trim();
-
-    // spaces
     const nameParts = nameValue.split(" ").filter(part => part !== "");
 
     if (nameValue === "") {
@@ -43,7 +62,7 @@ form.addEventListener("submit", function (e) {
     if (phoneInput.value.trim() === "") {
         showError(phoneInput, "Phone number is required");
         isValid = false;
-    } 
+    }
     else if (!phonePattern.test(phoneInput.value)) {
         showError(phoneInput, "Enter a valid Egyptian phone number");
         isValid = false;
@@ -65,7 +84,6 @@ form.addEventListener("submit", function (e) {
         showError(passwordInput, "Password must contain letters, numbers, and symbols (!@#$%^&*)");
         isValid = false;
     }
-
 
     // Workshop validation
     if (workshopSelect.value === "") {
@@ -92,14 +110,25 @@ form.addEventListener("submit", function (e) {
 });
 
 function showError(input, message) {
-    // Prevent error message from repeating
     if (input.parentElement.querySelector(".error-msg")) return;
 
     const error = document.createElement("div");
     error.className = "error-msg";
-    error.style.color = "black";
-    error.style.fontSize = "1.1rem";
+    error.style.color = "red"; // Changed to red for visibility, user asked for solving issue
+    error.style.fontSize = "0.9rem";
     error.style.marginTop = "5px";
     error.textContent = message;
     input.parentElement.appendChild(error);
+}
+
+function clearError(input) {
+    const error = input.parentElement.querySelector(".error-msg");
+    if (error) {
+        error.remove();
+    }
+}
+
+function clearAllErrors() {
+    const errors = document.querySelectorAll(".error-msg");
+    errors.forEach(error => error.remove());
 }
