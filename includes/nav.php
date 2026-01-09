@@ -1,6 +1,22 @@
 <?php
 include(__DIR__ . '/config.php');
 
+// Fetch user's profile image if logged in
+$user_image = 'default.png'; // Default fallback
+if(isset($_SESSION['user_id'])){
+    $user_id = $_SESSION['user_id'];
+    $select_user_image = "SELECT image FROM users WHERE user_id = ?";
+    $stmt = mysqli_prepare($connect, $select_user_image);
+    if($stmt) {
+        mysqli_stmt_bind_param($stmt, "i", $user_id);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        if($row = mysqli_fetch_assoc($result)) {
+            $user_image = $row['image'] ?? 'default.png';
+        }
+        mysqli_stmt_close($stmt);
+    }
+}
 ?>
 <header>
     <a href="/SCCI-Season26-Platform/home.php" class="logo">
@@ -18,7 +34,7 @@ include(__DIR__ . '/config.php');
         <?php
         if(isset($_SESSION['user_id'])){
             echo '<a href="/SCCI-Season26-Platform/profile.php" id="profileNav">
-            <img loading="lazy" src="/SCCI-Season26-Platform/assets/img/profilePhoto.png" alt="profile img">
+            <img loading="lazy" src="/SCCI-Season26-Platform/assets/uploadedImages/' . htmlspecialchars($user_image) . '" alt="profile img">
         </a>';
         }else{
             echo '<a href="/SCCI-Season26-Platform/auth/login.php" id="loginNav">Log In</a>';
@@ -38,10 +54,18 @@ include(__DIR__ . '/config.php');
         <a href="/SCCI-Season26-Platform/gallary.php"><i class="fa-solid fa-images"></i> gallery</a>
         <a href="/SCCI-Season26-Platform/workshops.php"><i class="fa-solid fa-graduation-cap"></i> workshops</a>
         <a href="/SCCI-Season26-Platform/crew.php"><i class="fa-solid fa-users"></i> crew</a>
-        <a href="/SCCI-Season26-Platform/auth/login.php"><i class="fa-solid fa-user"></i> LogIn</a>
+        <?php
+        if(isset($_SESSION['user_id'])){
+            echo '<a href="/SCCI-Season26-Platform/profile.php"><i class="fa-solid fa-user"></i> Profile</a>';
+        }else{
+            echo '<a href="/SCCI-Season26-Platform/auth/login.php"><i class="fa-solid fa-user"></i> LogIn</a>';
+        }
+        ?>
         <hr>
+        <?php if(isset($_SESSION['user_id'])): ?>
         <a href="/SCCI-Season26-Platform/profile.php" id="profileNav">
-            <img loading="lazy" src="/SCCI-Season26-Platform/assets/img/profilePhoto.png" alt="profile img">
+            <img loading="lazy" src="/SCCI-Season26-Platform/assets/uploadedImages/<?php echo htmlspecialchars($user_image); ?>" alt="profile img">
         </a>
+        <?php endif; ?>
     </div>
 </aside>

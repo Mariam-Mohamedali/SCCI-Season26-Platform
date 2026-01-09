@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 
             $image    = $_FILES['image']['name'];
             $tempname = $_FILES['image']['tmp_name'];
-            $folder   = "../assets/img/uploadedImages/" . $image;
+            $folder   = "../assets/uploadedImages/" . $image;
 
             if (move_uploaded_file($tempname, $folder)) {
 

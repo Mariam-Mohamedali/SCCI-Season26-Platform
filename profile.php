@@ -138,7 +138,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_POST['logout'])) {
       <!-- Cover -->
       <div class="profileCover">
         <div class="profileImageWrapper">
-          <img src="assets/img/uploadedImages/<?php echo htmlspecialchars($user['image'] ?? 'default.png'); ?>" alt="Profile Photo" class="profileImage"
+          <img src="assets/uploadedImages/<?php echo htmlspecialchars($user['image'] ?? 'default.png'); ?>" alt="Profile Photo" class="profileImage"
             loading="lazy">
         </div>
       </div>
@@ -194,17 +194,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_POST['logout'])) {
                 </div>
                 <!-- LinkedIn -->
                 <div class="socialItem">
+                                    <?php if (!empty($user['linkedin'])): ?>
+
                   <i class="fa-brands fa-linkedin"></i>
                   <a href="<?php echo htmlspecialchars($user['linkedin']); ?>" target="_blank">
                     <?php echo htmlspecialchars($user['linkedin']); ?>
                   </a>
+                  <?php endif; ?>
                 </div>
                 <!-- GitHub -->
                 <div class="socialItem">
+                  <?php if (!empty($user['githup'])): ?>
                   <i class="fa-brands fa-github"></i>
                   <a href="<?php echo htmlspecialchars($user['githup']); ?>" target="_blank">
                     <?php echo htmlspecialchars($user['githup']); ?>
                   </a>
+                  <?php endif; ?>
                 </div>
                 <div class="socialItem">
                   <i class="fa-solid fa-phone"></i>
@@ -224,9 +229,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_POST['logout'])) {
               <div class="infoLabel">Department</div>
               <div class="infoValue">
                 <?php 
-                  $committee = $user['committe_name'] ?? 'Not assigned';
-                  $workshop = $user['workshop_name'] ?? 'Not assigned';
-                  echo htmlspecialchars($committee . ' - ' . $workshop); 
+                  $parts = [];
+                  if (!empty($user['committe_name'])) {
+                      $parts[] = $user['committe_name'];
+                  }
+                  if (!empty($user['workshop_name'])) {
+                      $parts[] = $user['workshop_name'];
+                  }
+                  
+                  if (empty($parts)) {
+                      
+                  } else {
+                      echo htmlspecialchars(implode(' - ', $parts));
+                  }
                 ?>
               </div>
             </div>
