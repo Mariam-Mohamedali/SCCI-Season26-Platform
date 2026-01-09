@@ -20,18 +20,19 @@ if(isset($_POST['login1'])){
        if($status== 1){
      $user_id=$fetch['user_id'];
             $_SESSION['user_id']=$user_id;
-   echo "m3lm radwan";
 
-     if (isset($_POST['remember'])) {
-                setcookie("remember_email", $email, time() + 3600 * 24 * 365); 
-                setcookie("remember_password", $password, time() + 3600 * 24 * 365);   
-                setcookie("remember", $remember, time() + 3600 * 24 * 365);
+     if (isset($_POST['remember']) && $_POST['remember'] == '1') {
+                setcookie("remember_email", $email, time() + 3600 * 24 * 30, "/"); // 30 days
+                setcookie("remember", "1", time() + 3600 * 24 * 30, "/");
             } else {
                 // If 'Remember Me' is not checked, delete cookies
-                setcookie("remember_email", "", time() - 3600); 
-                setcookie("remember_password", "", time() - 3600); 
-                setcookie("remember", "", time() - 3600);
+                setcookie("remember_email", "", time() - 3600, "/"); 
+                setcookie("remember", "", time() - 3600, "/");
             }
+            
+            // Redirect to profile page
+            header("Location: ../profile.php");
+            exit();
 }else{
 
     $error_notv= "your account is not activated";
@@ -92,7 +93,7 @@ if(isset($_POST['login1'])){
             <form class="login-form" method="POST">
                 <div class="input-group">
                     <label for="email">E-mail</label>
-                    <input type="email" name="email" id="email" placeholder="Enter your email">
+                    <input type="email" name="email" id="email" placeholder="Enter your email" value="<?php echo isset($_COOKIE['remember_email']) ? htmlspecialchars($_COOKIE['remember_email']) : ''; ?>">
                 </div>
 
                 <div class="input-group">
@@ -103,8 +104,7 @@ if(isset($_POST['login1'])){
                 <footer class="form-footer">
                     <label class="remember-me">
                         Remember me
-                        <input type="checkbox"  name="remember" value="1">
-                             <?php echo (!empty($remember) || isset($_COOKIE['remember'])) ? 'checked' : ''; ?>>
+                        <input type="checkbox" name="remember" value="1" <?php echo (isset($_COOKIE['remember']) && $_COOKIE['remember'] == '1') ? 'checked' : ''; ?>>
                         <span class="checkmark"></span>
                     </label>
                 </footer>
