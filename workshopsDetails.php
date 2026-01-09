@@ -1,5 +1,5 @@
 <?php
-include('includes/config.php');
+include('./includes/nav.php');
 if (isset($_GET['category_id'])) {
     $workshop_id = $_GET['category_id'];
     $select_workshop = "SELECT * FROM `workshops` WHERE `workshop_id` = '$workshop_id'";
@@ -49,7 +49,6 @@ if (isset($_GET['category_id'])) {
 <body>
 
     <!-- Navigation -->
-    <?php include 'includes/nav.php'; ?>
 
 
     <main>
@@ -151,7 +150,7 @@ if (isset($_GET['category_id'])) {
                                 <div class="backCard">
                                     <div class="memberInfo">
                                         <div class="memberImageContainer">
-                                            <img src="assets/img/anaaq/<?php echo $members['Image']; ?>"
+                                            <img src="assets/uploadedImages/<?php echo $members['Image']; ?>"
                                                 alt="<?php echo $members['user_name']; ?>" loading="lazy"
                                                 class="memberImage">
                                         </div>
