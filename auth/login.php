@@ -1,5 +1,5 @@
 <?php
-include('../includes/config.php');
+include('../includes/nav.php');
 $error_msgp="";
 $error_msge="";
 $error_notv="";

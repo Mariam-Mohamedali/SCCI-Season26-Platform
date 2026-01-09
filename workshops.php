@@ -1,5 +1,5 @@
 <?php
-include('config.php');
+include('./includes/nav.php');
 
 $select = "SELECT * FROM `workshops` ";
 $result = mysqli_query($connect, $select);
@@ -36,7 +36,6 @@ $result = mysqli_query($connect, $select);
 <body>
 
     <!-- Navigation -->
-    <?php include 'includes/nav.php'; ?>
 
     <!-- Hero Section -->
     <header class="workshopsHero">
