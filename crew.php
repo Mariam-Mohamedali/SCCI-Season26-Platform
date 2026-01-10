@@ -86,7 +86,9 @@ include './includes/config.php';
                        <div class="flipCard smCard card1" data-aos="flip">
                            <div class="flipInner">
                                <div class="flipSide flipFront"><img src="./assets/img/backCardCrew.png" loading="lazy"></div>
-                               <div class="flipSide flipBack"></div>
+                               <div class="flipSide flipBack">
+                                <img src="./assets/uploadedImages/Mahmoud Alaam.jpg" loading="lazy" alt="Technical" />
+                               </div>
                            </div>
                        </div>
                        <a href="crewDetails.php?committee_id=6" class="btn btnPrimary btnSm">Discover More</a>
@@ -97,7 +99,9 @@ include './includes/config.php';
                        <div class="flipCard smCard card2" data-aos="flip">
                            <div class="flipInner">
                                <div class="flipSide flipFront"><img src="./assets/img/backCardCrew.png" loading="lazy"></div>
-                               <div class="flipSide flipBack"></div>
+                               <div class="flipSide flipBack">
+                                <img src="./assets/uploadedImages/Mohamed El Hossiny.jpg" loading="lazy" alt="Technical" />
+                               </div>
                            </div>
                        </div>
                        <a href="crewDetails.php?committee_id=7" class="btn btnPrimary btnSm">Discover More</a>
@@ -108,7 +112,9 @@ include './includes/config.php';
                        <div class="flipCard smCard card3" data-aos="flip">
                            <div class="flipInner">
                                <div class="flipSide flipFront"><img src="./assets/img/backCardCrew.png" loading="lazy"></div>
-                               <div class="flipSide flipBack"></div>
+                               <div class="flipSide flipBack">
+                                <img src="./assets/uploadedImages/Omar Ahmed.jpg" loading="lazy" alt="Technical" />
+                               </div>
                            </div>
                        </div>   
                        <a href="crewDetails.php?committee_id=10" class="btn btnPrimary btnSm">Discover More</a>
@@ -119,7 +125,9 @@ include './includes/config.php';
                        <div class="flipCard smCard card4" data-aos="flip">
                            <div class="flipInner">
                                <div class="flipSide flipFront"><img src="./assets/img/backCardCrew.png" loading="lazy"></div>
-                               <div class="flipSide flipBack"></div>
+                               <div class="flipSide flipBack">
+                                <img src="./assets/uploadedImages/Nour Mohamed.jpg" loading="lazy" alt="Technical" />
+                               </div>
                            </div>
                        </div>   
                        <a href="crewDetails.php?committee_id=5" class="btn btnPrimary btnSm">Discover More</a>
@@ -150,7 +158,7 @@ include './includes/config.php';
                             <img src="./assets/img/backCardCrew.png" alt="HR" />
                         </div>
                         <div class="flipSide flipBack">
-
+                            <img src="./assets/uploadedImages/Alaa Aboelazm.jpg" alt="HR" />
                         </div>
                     </div>
                 </div>
@@ -166,7 +174,7 @@ include './includes/config.php';
                             <img src="./assets/img/backCardCrew.png" loading="lazy">
                         </div>
                         <div class="flipSide flipBack">
-
+                            <img src="./assets/uploadedImages/Mohamed Hesham.jpg" alt="ER" />
                         </div>
                     </div>
                 </div>
@@ -180,7 +188,9 @@ include './includes/config.php';
                        <div class="flipCard smCard card1" data-aos="flip">
                            <div class="flipInner">
                                <div class="flipSide flipFront"><img src="./assets/img/backCardCrew.png" loading="lazy"></div>
-                               <div class="flipSide flipBack"></div>
+                               <div class="flipSide flipBack">
+                                <img src="./assets/uploadedImages/Omar Hesham.jpg" alt="BD" />
+                               </div>
                            </div>
                        </div>   
                        <a href="crewDetails.php?committee_id=4" class="btn btnPrimary btnSm">Discover More</a>
@@ -191,7 +201,9 @@ include './includes/config.php';
                        <div class="flipCard smCard card2" data-aos="flip">
                            <div class="flipInner">
                                <div class="flipSide flipFront"><img src="./assets/img/backCardCrew.png" loading="lazy"></div>
-                               <div class="flipSide flipBack"></div>
+                               <div class="flipSide flipBack">
+                                <img src="./assets/uploadedImages/Asser El-Sayed.jpg" alt="L" />
+                               </div>
                            </div>
                        </div>   
                        <a href="crewDetails.php?committee_id=9" class="btn btnPrimary btnSm">Discover More</a>
@@ -202,7 +214,9 @@ include './includes/config.php';
                        <div class="flipCard smCard card3" data-aos="flip">
                            <div class="flipInner">
                                <div class="flipSide flipFront"><img src="./assets/img/backCardCrew.png" loading="lazy"></div>
-                               <div class="flipSide flipBack"></div>
+                               <div class="flipSide flipBack">
+                                <img src="./assets/uploadedImages/Belal Omar.jpg" alt="CR" />
+                               </div>
                            </div>
                        </div>   
                        <a href="crewDetails.php?committee_id=8" class="btn btnPrimary btnSm">Discover More</a>
@@ -213,7 +227,9 @@ include './includes/config.php';
                        <div class="flipCard smCard card4" data-aos="flip">
                            <div class="flipInner">
                                <div class="flipSide flipFront"><img src="./assets/img/backCardCrew.png" loading="lazy"></div>
-                               <div class="flipSide flipBack"></div>
+                               <div class="flipSide flipBack">
+                                <img src="./assets/uploadedImages/Yasmine Gawish.jpg" alt="PR" />
+                               </div>
                            </div>
                        </div>   
                        <a href="crewDetails.php?committee_id=11" class="btn btnPrimary btnSm">Discover More</a>

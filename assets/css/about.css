@@ -19,6 +19,7 @@ body {
   position: relative;
   width: 100vw;
   height: 100vh;
+}
 
   /* ===============================
    GLOBAL BACKGROUND
@@ -832,5 +833,4 @@ body {
       width: 90vw;
       height: calc(90vw * 0.8);
     }
-  } 
-  
+  }
