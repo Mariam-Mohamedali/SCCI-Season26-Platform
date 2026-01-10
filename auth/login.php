@@ -70,11 +70,7 @@ if(isset($_POST['login1'])){
     
         <section class="login-card">
             <h1 class="login-title">LOGIN</h1>
-            <div class="divider">
-                <span class="line"></span>
-                <span class="diamond"></span>
-                <span class="line"></span>
-            </div>
+            <hr>
             <?php
             $popup_error = "";
             if(!empty($error_msgp)) $popup_error = $error_msgp;
@@ -101,15 +97,15 @@ if(isset($_POST['login1'])){
                     <input type="password" name="password" id="password" placeholder="Enter your pass">
                 </div>
 
-                <footer class="form-footer">
+                <div class="form-footer">
                     <label class="remember-me">
                         Remember me
                         <input type="checkbox" name="remember" value="1" <?php echo (isset($_COOKIE['remember']) && $_COOKIE['remember'] == '1') ? 'checked' : ''; ?>>
                         <span class="checkmark"></span>
                     </label>
-                </footer>
+                </div>
 
-                <button type="submit" name="login1" class="submit-btn">Submit</button>
+                <button type="submit" name="login1" class="btn btn-primary" style="width: 100%;">Submit</button>
             </form>
         </section>
     </main>

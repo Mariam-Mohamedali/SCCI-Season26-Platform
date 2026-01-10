@@ -168,33 +168,59 @@ body {
     text-decoration: underline;
 }
 
+/* Toggle Switch */
 .remember-me {
     display: flex;
     align-items: center;
     gap: var(--space-2);
     cursor: pointer;
+    font-size: var(--fs-sm);
+    user-select: none;
 }
 
 .remember-me input {
     display: none;
 }
 
-.checkmark {
-    width: 20px;
+.toggle-switch {
+    width: 40px;
     height: 20px;
-    background-color: var(--color-secondary-dark);
-    border-radius: var(--radius-sm);
+    background-color: var(--color-gray-medium);
+    /* Inactive color */
+    border-radius: 20px;
     position: relative;
+    transition: background-color var(--transition-normal);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.remember-me input:checked+.checkmark::after {
-    content: "✔";
-    color: var(--color-white);
-    font-size: 14px;
+.toggle-switch::after {
+    content: '';
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    background-color: var(--color-white);
+    border-radius: 50%;
+    transition: transform var(--transition-normal);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.remember-me input:checked+.toggle-switch {
+    background-color: var(--color-primary);
+    /* Active color */
+}
+
+.remember-me input:checked+.toggle-switch::after {
+    transform: translateX(20px);
+}
+
+.remember-me:hover .toggle-switch::after {
+    transform: scale(1.1);
+}
+
+.remember-me input:checked:hover+.toggle-switch::after {
+    transform: translateX(20px) scale(1.1);
 }
 
 /* submit button */
@@ -292,8 +318,8 @@ body {
     border: 2px solid var(--color-primary, #c52525);
     position: relative;
     animation: popupScale 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    background-image: 
-        radial-gradient(circle at center, rgba(255,255,255,0.8), transparent),
+    background-image:
+        radial-gradient(circle at center, rgba(255, 255, 255, 0.8), transparent),
         linear-gradient(to bottom, rgba(255, 248, 235, 0.95), rgba(235, 210, 165, 0.95));
 }
 
@@ -318,13 +344,25 @@ body {
 }
 
 @keyframes popupScale {
-    from { transform: scale(0.8); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 .popup-message {
