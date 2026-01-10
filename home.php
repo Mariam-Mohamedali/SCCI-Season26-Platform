@@ -74,10 +74,10 @@
                             <img src="assets/img/backCardCrew.png" alt="Workshops" loading="lazy">
                         </div>
                         <div class="backCard">
-                            <img src="assets/img/workshopCard.png" alt="Workshops" loading="lazy">
+                            <!-- <img src="assets/img/workshops/workshopCard.png" alt="Workshops" loading="lazy"> -->
                             <div class="cardContent">
                                 <p class="cardText">OUR WORKSHOPS</p>
-                                <img src="assets/img/workShopsLogo.jpg" alt="Workshops">
+                                <img src="assets/img/home/workShopsLogo.jpg" alt="Workshops">
                                 <a href="workshops.php" class="btn btn-primary btn-sm">
                                     Explore More
                                 </a>
@@ -92,10 +92,10 @@
                             <img src="assets/img/backCardCrew.png" alt="Crew" loading="lazy">
                         </div>
                         <div class="backCard">
-                            <img src="assets/img/workshopCard.png" alt="Crew" loading="lazy">
+                            <!-- <img src="assets/img/workshops/workshopCard.png" alt="Crew" loading="lazy"> -->
                             <div class="cardContent">
-                                <p class="cardText">OUR CREW</p>
-                                <img src="assets/img/workShopsLogo.jpg" alt="Crew">
+                                <p class="cardText">OUR <br> CREW</p>
+                                <img src="assets/img/home/crewLogo.png" loading="lazy" alt="Crew">
                                 <a href="crew.php" class="btn btn-primary btn-sm">
                                     Explore More
                                 </a>
@@ -122,25 +122,25 @@
         <div class="statContainer">
             <!-- stats container -->
             <div class="stat">
-                <img loading="lazy" src="./assets/img/stat-calender.png" alt="">
+                <i class="fas fa-calendar-alt statIcon"></i>
                 <h4 class="statNumber">21</h4>
                 <h4 class="statUnit">years</h4>
             </div>
 
             <div class="stat">
-                <img loading="lazy" src="./assets/img/stat-members.png" alt="">
+                <i class="fas fa-users statIcon"></i>
                 <h4 class="statNumber">300</h4>
                 <h4 class="statUnit">participants</h4>
             </div>
 
             <div class="stat">
-                <img loading="lazy" src="./assets/img/stat-participant.png" alt="">
+                <i class="fas fa-user-shield statIcon"></i>
                 <h4 class="statNumber">200</h4>
                 <h4 class="statUnit">members</h4>
             </div>
 
             <div class="stat">
-                <img loading="lazy" src="./assets/img/stat-session.png" alt="">
+                <i class="fas fa-clock statIcon"></i>
                 <h4 class="statNumber">16</h4>
                 <h4 class="statUnit">sessions</h4>
             </div>
