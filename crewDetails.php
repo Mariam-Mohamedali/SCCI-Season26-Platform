@@ -1,5 +1,5 @@
 <?php
-include './includes/config.php';
+include('./includes/nav.php');
 
 if(isset($_GET['committee_id'])) {
     $committee_id = $_GET['committee_id'];
@@ -16,7 +16,7 @@ if(isset($_GET['committee_id'])) {
     $head = mysqli_fetch_assoc($run_head);
 
     // Fetch members
-    $select_members = "SELECT u.user_id, u.user_name, w.workshop_name FROM users u JOIN workshops w ON u.workshop_id = w.workshop_id WHERE u.committee_id = '$committee_id' AND u.user_id != '$head_id' And status=1 " ;
+    $select_members = "SELECT * FROM users u JOIN workshops w ON u.workshop_id = w.workshop_id WHERE u.committee_id = '$committee_id' AND u.user_id != '$head_id' And status=1 " ;
     $members = mysqli_query($connect, $select_members);
 }
 ?>
@@ -40,7 +40,6 @@ if(isset($_GET['committee_id'])) {
 </head>
 
 <body>
-<?php include './includes/nav.php'; ?>
 
       <!-- Back Button -->
     <a href="crew.php" class="backButton" aria-label="Go back to crew page">
@@ -70,11 +69,12 @@ if(isset($_GET['committee_id'])) {
                         <div class="flipSide flipBack">
                             <div class="backCard">
                                     <div class="memberImageContainer">
-                                        <img src="<?php echo $head['image']; ?>" class="memberImage" alt="<?php echo $head['user_name']; ?>">
+                                        <img src="./assets/uploadedImages/<?php echo $head['image']; ?>" class="memberImage" alt="<?php echo $head['user_name']; ?>">
                                     </div>
                                     <div class="memberName">
                                         <h3><?php echo $head['user_name']; ?></h3>
                                     </div>
+                                   
                             </div>
                         </div>
                     </div>
@@ -102,34 +102,35 @@ if(isset($_GET['committee_id'])) {
         </div>
 
         <div class="membersGrid">
-            <?php
-            if($members && mysqli_num_rows($members) > 0) {
-                while($member = mysqli_fetch_assoc($members)) {
-                    echo '<a href="profile.php?user_id=' . $member['user_id'] . '" class="memberCardLink">
-                        <div class="flipCard memberCard smCard" data-aos="flip">
-                            <div class="flipInner">
-                                <div class="flipSide flipFront">
-                                    <img src="./assets/img/crew/backCardCrew.png" loading="lazy" />
-                                </div>
-                                <div class="flipSide flipBack">
-                                    <div class="backCard">
-                                        <div class="memberImageContainer">
-                                                <img src="./assets/img/default-user.png" class="memberImage" alt="' . $member['user_name'] . '">
-                                            </div>
-                                            <div class="memberName">
-                                                <h5>' . $member['user_name'] . '</h5>
-                                            </div>
-                                    </div>
-                                </div>
+           <?php foreach ($members as $member) { ?>
+    <a href="profile.php?user_id=<?= $member['user_id'] ?>" class="memberCardLink">
+        <div class="flipCard memberCard smCard" data-aos="flip">
+            <div class="flipInner">
+                <div class="flipSide flipFront">
+                    <img src="./assets/img/crew/backCardCrew.png" loading="lazy" />
+                </div>
+                <div class="flipSide flipBack">
+                    <div class="backCard">
+                        <div class="memberInfo">
+                            <div class="memberImageContainer">
+                               <img src="assets/uploadedImages/<?php echo $member['Image']; ?>"
+                                                    alt="<?php echo $member['user_name']; ?>" loading="lazy"
+                                                    class="memberImage">
+                            </div>
+                            <div class="memberName">
+                                <h5><?= htmlspecialchars($member['user_name']) ?></h5>
+                            </div>
+                            <div class="memberTitle">
+                                <p><?= htmlspecialchars($member['workshop_name']) ?></p>
                             </div>
                         </div>
-                    </a>';
-                }
-            } else {
-                echo '<p>No members found for this committee.</p>';
-            }
-            ?>
+                    </div>
+                </div>
+            </div>
         </div>
+    </a>
+<?php } ?>
+
     </section>
 
     <!-- Scroll Top Button -->

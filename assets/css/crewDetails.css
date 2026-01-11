@@ -321,111 +321,46 @@
 .flipCard.card4[data-aos="flip"].aos-animate .flipInner {
   animation-delay: 1.2s !important;
 }
-
 /* ===============================================================================
-   ✨ MAGICAL MEMBER CARD STYLING
+   ✨ MAGICAL MEMBER CARD STYLING FOR CREW PAGE
    =============================================================================== */
 
 /* Magical BackCard Design */
 .flipBack .backCard {
-  background: linear-gradient(135deg,
-      #2d1810 0%,
-      #4a2418 25%,
-      #5c2e1f 50%,
-      #4a2418 75%,
-      #2d1810 100%);
-  border-radius: 40px;
+  background: transparent;
+  border-radius: 0;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: var(--space-6);
   height: 100%;
+  width: 100%;
+  flex-direction: column;
+  justify-content: space-evenly;
+  gap: 0.5rem;
+  text-align: center;
 }
 
 /* Magical border effect */
-.flipBack .backCard::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 40px;
-  padding: 3px;
-  background: linear-gradient(135deg,
-      #d4af37 0%,
-      #f4e4b1 25%,
-      #d4af37 50%,
-      #c5a028 75%,
-      #d4af37 100%);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  opacity: 0.8;
-  z-index: 1;
-}
+/* Magical border effect removed */
 
-/* Twinkling stars decoration */
-.flipBack .backCard::after {
-  content: '✦';
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  font-size: 1.5rem;
-  color: #d4af37;
-  text-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
-  animation: twinkle 2s ease-in-out infinite;
-  z-index: 2;
-}
-
-@keyframes twinkle {
-
-  0%,
-  100% {
-    opacity: 1;
-    transform: scale(1) rotate(0deg);
-  }
-
-  50% {
-    opacity: 0.5;
-    transform: scale(1.2) rotate(180deg);
-  }
-}
 
 /* Member Info Container */
-.memberInfo {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 85%;
-  height: 85%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
-  text-align: center;
-  z-index: 2;
-  background: radial-gradient(circle at center,
-      rgba(93, 46, 31, 0.4) 0%,
-      rgba(45, 24, 16, 0.6) 100%);
-  border-radius: 30px;
-  padding: 2rem;
-  backdrop-filter: blur(2px);
-}
+
 
 /* Member Image Container with Golden Glow */
-.memberImageContainer {
+.flipBack .memberImageContainer {
   position: relative;
-  width: 220px;
-  height: 220px;
-  border-radius: 30px;
-  padding: 4px;
-  background: linear-gradient(135deg, #FFD700, #FFA500, #FFD700);
-  box-shadow: 0 0 30px rgba(255, 215, 0, 0.6),
-    inset 0 0 15px rgba(255, 215, 0, 0.3);
-  animation: goldenGlow 3s ease-in-out infinite;
+  width: auto;
+  height: 80%;
+  aspect-ratio: 1/1;
+  border-radius: 25px;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+  animation: none;
   flex-shrink: 0;
 }
 
@@ -433,40 +368,39 @@
 
   0%,
   100% {
-    box-shadow: 0 0 30px rgba(255, 215, 0, 0.6),
-      inset 0 0 15px rgba(255, 215, 0, 0.3);
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.6),
+      inset 0 0 12px rgba(255, 215, 0, 0.3);
   }
 
   50% {
-    box-shadow: 0 0 45px rgba(255, 215, 0, 0.8),
-      inset 0 0 25px rgba(255, 215, 0, 0.5);
+    box-shadow: 0 0 35px rgba(255, 215, 0, 0.8),
+      inset 0 0 20px rgba(255, 215, 0, 0.5);
   }
 }
 
-.memberImage {
+.flipBack .memberImage {
   width: 100%;
   height: 100%;
-  border-radius: 26px;
-  object-fit: cover;
-  border: 2px solid rgba(255, 255, 255, 0.9);
+  border-radius: 21px;
+  object-fit: contain;
+  border: none;
 }
 
 /* Member Name Styling */
-.memberName {
+.flipBack .memberName {
   text-align: center;
-  padding: var(--space-2) var(--space-5);
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  border: 2px solid rgba(255, 215, 0, 0.5);
-  min-width: 200px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  padding: var(--space-2) var(--space-4);
+  background: transparent;
+  backdrop-filter: none;
+  border-radius: 0;
+  border: none;
+  min-width: unset;
+  box-shadow: none;
 }
 
-.memberName h5,
-.memberName h3 {
+.flipBack .memberName h3 {
   font-family: 'Irish Grover', cursive;
-  font-size: var(--fs-lg);
+  font-size: var(--fs-base);
   color: #FFD700;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5),
     0 0 10px rgba(255, 215, 0, 0.5);
