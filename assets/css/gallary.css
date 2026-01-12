@@ -1,27 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap');
 @import url(root.css);
-
-footer {
-    position: relative;
-    z-index: 10;
-}
-
-
-body {
-    margin: 0;
-    padding: 0;
-    background-color: #e5c8a4;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    height: 100vh;
-    font-family: 'Georgia', serif;
-    overflow-y: auto;
-    background-image:
-        radial-gradient(circle at center, rgba(255, 255, 255, 0.3) 0%, transparent 55%, rgba(60, 30, 10, 0.6) 150%);
-    color: #4a3b2a;
-}
-
 main {
     width: 100%;
     flex-direction: column;

@@ -256,7 +256,7 @@
   position: absolute;
   color: var(--color-warning);
   font-size: 2rem;
-  animation: Twinkles 3s ease-in-out infinite;
+  animation:  star 3s ease-in-out infinite;
   z-index: 10;
   pointer-events: none;
 }
@@ -273,7 +273,7 @@
   animation-delay: 1.5s;
 }
 
-@keyframes Twinkles {
+@keyframes star {
 
   0%,
   100% {
