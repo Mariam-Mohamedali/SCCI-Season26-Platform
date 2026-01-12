@@ -34,33 +34,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
         $error = "Email or Phone already exists";
     } else {
 
-        // Image validation
-        if (empty($_FILES['image']['name'])) {
-            $error = "Please upload an image";
+        $insert_p = "INSERT INTO `users`
+        (`user_id`,`workshop_id`,`committee_id`,`user_name`,`email`,`phone`,
+         `password`,`role`,`Image`,`githup`,`linkedin`,`status`)
+        VALUES
+        (NULL,'$workshop',$committeeId,'$name','$email','$phone',
+         '$passwordhashing','$roleID','default.png','$getHup','$linkedin',0)";
+
+        if (mysqli_query($connect, $insert_p)) {
+            $success = "Registered Successfully";
         } else {
-
-            $image    = $_FILES['image']['name'];
-            $tempname = $_FILES['image']['tmp_name'];
-            $folder   = "../assets/uploadedImages/" . $image;
-
-            if (move_uploaded_file($tempname, $folder)) {
-
-                $insert_p = "INSERT INTO `users`
-                (`user_id`,`workshop_id`,`committee_id`,`user_name`,`email`,`phone`,
-                 `password`,`role`,`Image`,`githup`,`linkedin`,`status`)
-                VALUES
-                (NULL,'$workshop',$committeeId,'$name','$email','$phone',
-                 '$passwordhashing','$roleID','$image','$getHup','$linkedin',0)";
-
-                if (mysqli_query($connect, $insert_p)) {
-                    $success = "Registered Successfully";
-                } else {
-                    $error = "Database Error: " . mysqli_error($connect);
-                }
-
-            } else {
-                $error = "Failed to upload image";
-            }
+            $error = "Database Error: " . mysqli_error($connect);
         }
     }
 }
@@ -82,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 <body>
 
 <div class="main-content">
-    <form class="form-content" id="form" action="" method="POST" enctype="multipart/form-data">
+    <form class="form-content" id="form" action="" method="POST">
 
         <h1 class="register-title">Register</h1>
         <div class="divider">
@@ -161,10 +145,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
             <input type="text" name="linkedin">
         </div>
 
-        <div class="input-group">
-            <label>Image</label>
-            <input type="file" name="image" accept="image/*" required>
-        </div>
+
 
         <button class="submit-btn" type="submit" name="submit">Register</button>
 
