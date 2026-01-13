@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                  `password`,`role`,`Image`,`status`)
                 VALUES
                 (NULL,'$workshop','$name','$email','$phone',
-                 '$passwordhashing','1','$image',0)";
+                 `password`='$passwordhashing','1','$image',0)";
 
                 if (mysqli_query($connect, $insert_p)) {
                     $success = "Registered Successfully";
@@ -67,10 +67,12 @@ $run_w = mysqli_query($connect, $select_w);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>SCCI - Register</title>
+    <link rel="icon" href="../assets/icons/logoSCCI.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Stencil&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/registerParticipant.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
@@ -78,7 +80,7 @@ $run_w = mysqli_query($connect, $select_w);
 <body>
 
 <div class="main-content">
-    <form class="form-content" id="form" action="" method="POST" enctype="multipart/form-data">
+    <form class="form-content" id="form" action="" method="POST" enctype="multipart/form-data" novalidate>
 
         <h1 class="register-title">Register</h1>
         <div class="divider">
@@ -89,27 +91,31 @@ $run_w = mysqli_query($connect, $select_w);
 
         <div class="input-group">
             <label>Full Name</label>
-            <input type="text" name="name" placeholder="Enter your full name" required>
+            <input type="text" name="name" id="name" placeholder="e.g. John Doe" required>
+            <div class="error-text" id="error-name"></div>
         </div>
 
         <div class="input-group">
             <label>Email</label>
-            <input type="email" name="email" placeholder="Enter your email" required>
+            <input type="email" name="email" id="email" placeholder="example@mail.com" required>
+            <div class="error-text" id="error-email"></div>
         </div>
 
         <div class="input-group">
             <label>Phone</label>
-            <input type="text" name="phone" placeholder="Enter phone number" required>
+            <input type="text" name="phone" id="phone" placeholder="01xxxxxxxxx" required>
+            <div class="error-text" id="error-phone"></div>
         </div>
 
         <div class="input-group">
             <label>Password</label>
-            <input type="password" name="password" placeholder="Enter password" required>
+            <input type="password" name="password" id="password" placeholder="••••••••" required>
+            <div class="error-text" id="error-password"></div>
         </div>
 
         <div class="input-group">
             <label>Workshop</label>
-            <select name="workshop" required>
+            <select name="workshop" id="workshop" required>
                 <option value="">Select Workshop</option>
                 <?php while ($row_w = mysqli_fetch_assoc($run_w)) { ?>
                     <option value="<?php echo $row_w['workshop_id']; ?>">
@@ -117,17 +123,22 @@ $run_w = mysqli_query($connect, $select_w);
                     </option>
                 <?php } ?>
             </select>
+            <div class="error-text" id="error-workshop"></div>
         </div>
 
         <div class="input-group">
             <label>Image</label>
-            <input type="file" name="image" accept="image/*" required>
+            <input type="file" name="image" id="image" accept="image/*" required>
+            <div class="error-text" id="error-image"></div>
         </div>
 
         <button type="submit" name="submit" class="submit-btn">Register</button>
 
     </form>
 </div>
+
+<!-- Validation Script -->
+<script src="../assets/js/registerParticipant.js"></script>
 
 <?php if (!empty($error)) { ?>
 <script>

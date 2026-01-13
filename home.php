@@ -6,9 +6,8 @@
     <!-- google font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <!-- almendra font -->
-    <link href="https://fonts.googleapis.com/css2?family=Almendra:ital,wght@0,400;0,700;1,400;1,700&display=swap"
-        rel="stylesheet" />
+    <!-- Irish Grover font -->
+    <link href="https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap" rel="stylesheet" />
 
 
     <!-- site icon -->
@@ -17,11 +16,6 @@
     <!-- css other link -->
     <link rel="stylesheet" href="./assets/css/all.min.css">
     <link rel="stylesheet" href="./assets/css/root.css">
-    <link rel="stylesheet" href="./assets/css/nav.css">
-    <link rel="stylesheet" href="./assets/css/footer.css">
-
-    <!-- css registration link -->
-    <link rel="stylesheet" href="./assets/css/registerParticipant.css">
 
     <!-- css page link -->
     <link rel="stylesheet" href="./assets/css/home.css">
@@ -44,7 +38,7 @@
                 which helps you in bringing the gap between the technical life and the practical
                 life in the market place. You can know more about our organization right here.
             </p>
-            <a href="./about.php" class="submit-btn homeBtn">explore more</a>
+            <a href="./about.php" class="btn btn-primary">explore more</a>
         </div>
     </section>
 
@@ -58,11 +52,10 @@
                 experience that will stay in your heart & you'll watch it in your
                 personality developmentand that is what SCCI is all about, unleashing your
             </p>
-            <a href="./about.php" class="submit-btn homeBtn">explore more</a>
+            <a href="./about.php" class="btn btn-primary">explore more</a>
         </div>
-        <img class="aboutBG" loading="lazy" src="./assets/img/paperHome.png" alt="">
-        <img class="aboutBGresponsive" loading="lazy" src="./assets/img/paperHomeResponsive.png" alt="">
     </section>
+
 
     <!-- Main Cards -->
     <section class="workshopsSection">
@@ -78,12 +71,12 @@
                             <div class="cardContent">
                                 <p class="cardText">OUR WORKSHOPS</p>
                                 <img src="assets/img/home/workShopsLogo.jpg" alt="Workshops">
-                                <a href="workshops.php" class="btn btn-primary btn-sm">
-                                    Explore More
-                                </a>
                             </div>
                         </div>
                     </div>
+                    <a href="workshops.php" class="btn btn-primary btn-sm">
+                        Explore More
+                    </a>
                 </div>
 
                 <div class="cardsContainer aos-animate" data-aos="flip">
@@ -96,12 +89,12 @@
                             <div class="cardContent">
                                 <p class="cardText">OUR <br> CREW</p>
                                 <img src="assets/img/home/crewLogo.png" loading="lazy" alt="Crew">
-                                <a href="crew.php" class="btn btn-primary btn-sm">
-                                    Explore More
-                                </a>
                             </div>
                         </div>
                     </div>
+                    <a href="crew.php" class="btn btn-primary btn-sm">
+                        Explore More
+                    </a>
                 </div>
 
             </div>
@@ -227,8 +220,6 @@
 
             <form class="form-content" id="form" action="" method="POST" enctype="multipart/form-data">
                 <img class="homeBird" loading="lazy" src="./assets/img/bird.png" alt="">
-
-
                 <!-- inputs -->
                 <div class="input-group">
                     <label for="">Full Name</label>

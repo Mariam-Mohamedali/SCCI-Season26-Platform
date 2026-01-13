@@ -18,6 +18,13 @@ if(isset($_SESSION['user_id'])){
     }
 }
 ?>
+<head>
+    <link rel="icon" href="assets/icons/logoSCCI.png" type="image/png">
+    <!-- Irish Grover font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap" rel="stylesheet">
+</head>
 <header>
     <a href="/SCCI-Season26-Platform/home.php" class="logo">
         <img src="/SCCI-Season26-Platform/assets/icons/logoSCCI.png" alt="SCCI logo" loading="lazy" />
@@ -41,14 +48,16 @@ if(isset($_SESSION['user_id'])){
         }
         ?>
     </nav>
-    <button class="sideBtn"><i class="fa-solid fa-bars sideBars"></i></button>
+    <button class="sideBtn">
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+    </button>
 </header>
 
 <!-- side navbar -->
 <aside class="sideNav">
     <div class="sideNavLinks">
-        <p class="closeNav">X</p>
-        <hr>
         <a href="/SCCI-Season26-Platform/home.php"><i class="fa-solid fa-house"></i> home</a>
         <a href="/SCCI-Season26-Platform/about.php"><i class="fa-solid fa-book-open"></i> about us</a>
         <a href="/SCCI-Season26-Platform/gallary.php"><i class="fa-solid fa-images"></i> gallery</a>
@@ -69,4 +78,4 @@ if(isset($_SESSION['user_id'])){
         <?php endif; ?>
     </div>
 </aside>
-<script src="/SCCI-Season26-Platform/assets/js/index.js"></script>
+<script src="/SCCI-Season26-Platform/assets/js/index.js?v=<?php echo time(); ?>"></script>

@@ -1,26 +1,3 @@
-/* =============================================================================
-   PROFILE PAGE STYLES
-   Fonts & colors from root.css only
-============================================================================= */
-
-/* ---------------------------------------------------------------------------
-   Layout
---------------------------------------------------------------------------- */
-body {
-  background-color: var(--color-parchment);
-  background-image:
-    radial-gradient(circle at 50% 50%, rgba(255, 250, 240, 0.9) 0%, transparent 55%),
-    radial-gradient(circle at 50% 50%, transparent 70%, rgba(61, 42, 24, 0.22) 100%),
-    radial-gradient(circle at 20% 30%, rgba(139, 69, 19, 0.05) 0%, transparent 60%),
-    radial-gradient(circle at 80% 80%, rgba(160, 82, 45, 0.07) 0%, transparent 70%);
-  margin: 0;
-  font-family: Arial, sans-serif;
-}
-
-.profileSection {
-  width: 100%;
-}
-
 /* ---------------------------------------------------------------------------
    Cover
 --------------------------------------------------------------------------- */
@@ -49,10 +26,54 @@ body {
 }
 
 .profileImage {
+  background: rgba(255, 255, 255, 0.1);
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  object-fit: cover;
+  object-fit: contain;
+  box-shadow:
+    0 4px 12px rgba(197, 37, 37, 0.3),
+    0 0 0 6px rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease;
+  position: relative;
+}
+
+/* ---------------------------------------------------------------------------
+   Rotating Stars around Profile Image
+--------------------------------------------------------------------------- */
+.profileImageWrapper::before,
+.profileImageWrapper::after {
+  content: '★';
+  position: absolute;
+  font-size: clamp(20px, 4vw, 30px);
+  color: #ffd700;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+  animation: rotateStar 8s linear infinite;
+  pointer-events: none;
+}
+
+.profileImageWrapper::before {
+  top: 10%;
+  left: 50%;
+  transform-origin: 50% 200%;
+}
+
+.profileImageWrapper::after {
+  top: 10%;
+  left: 50%;
+  transform-origin: 50% 200%;
+  animation-delay: -4s;
+  /* Start at opposite side */
+}
+
+@keyframes rotateStar {
+  0% {
+    transform: translate(-50%, 0) rotate(0deg) translateX(clamp(100px, 30vw, 170px)) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(-50%, 0) rotate(360deg) translateX(clamp(100px, 30vw, 170px)) rotate(-360deg);
+  }
 }
 
 /* ---------------------------------------------------------------------------
@@ -122,7 +143,8 @@ body {
   transform-origin: top left;
 
   z-index: 50;
-  pointer-events: none; /* مهم */
+  pointer-events: none;
+  /* مهم */
 }
 
 /* opening */
@@ -146,6 +168,7 @@ body {
     opacity: 0;
     transform: translateY(-50%) translateY(20px) scaleY(0);
   }
+
   to {
     opacity: 1;
     transform: translateY(-50%) translateY(0) scaleY(1);
@@ -157,6 +180,7 @@ body {
     opacity: 1;
     transform: translateY(-50%) translateY(0) scaleY(1);
   }
+
   to {
     opacity: 0;
     transform: translateY(-50%) translateY(20px) scaleY(0);
@@ -198,7 +222,9 @@ body {
   transition: color 0.2s ease;
 }
 
-.settingsLink:hover { color: var(--color-primary); }
+.settingsLink:hover {
+  color: var(--color-primary);
+}
 
 /* ---------------------------------------------------------------------------
    Info Papers
@@ -215,7 +241,7 @@ body {
 .infoPaperWrapper {
   position: relative;
   width: min(320px, 92%);
-  margin:10px 20px;
+  margin: 10px 20px;
 }
 
 .infoPaperImg {
@@ -233,7 +259,7 @@ body {
   transform: translate(-50%, -50%);
   width: 75%;
   text-align: center;
-  
+
 }
 
 .infoLabel {
@@ -243,6 +269,7 @@ body {
   font-weight: var(--fw-bold);
   text-align: center;
 }
+
 .infoValue {
   font-size: var(--fs-md);
   color: var(--color-black);
@@ -274,20 +301,21 @@ body {
 .socialItem i {
   font-size: 1.6rem;
   color: var(--color-secondary-dark);
-  
+
 }
 
 .socialItem a {
   color: var(--color-black);
   text-decoration: none;
   font-weight: var(--fw-bold);
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 
 }
 
 .socialItem a:hover {
   color: var(--color-primary);
 }
+
 /* ---------------------------------------------------------------------------
    History Section
 --------------------------------------------------------------------------- */
@@ -298,7 +326,7 @@ body {
 }
 
 .card-container {
-  background: linear-gradient(135deg,#c8a97e 0%,#e3cfae 40%,#fff3e3 50%,#e3cfae 60%,#c8a97e 100%);
+  background: linear-gradient(135deg, #c8a97e 0%, #e3cfae 40%, #fff3e3 50%, #e3cfae 60%, #c8a97e 100%);
   border-radius: 8px;
   padding: 30px 40px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
@@ -337,7 +365,9 @@ body {
   z-index: 1;
 }
 
-.role-item:last-child { margin-bottom: 0; }
+.role-item:last-child {
+  margin-bottom: 0;
+}
 
 .diamond {
   width: 20px;
@@ -350,10 +380,10 @@ body {
   border: 1px solid #5c2e0a;
 }
 
-.role-content { 
-  flex: 1; 
+.role-content {
+  flex: 1;
   margin: 0 0 18px 0;
- 
+
 }
 
 .role-title {
@@ -361,7 +391,7 @@ body {
   font-weight: bold;
   color: #5c2e0a;
   margin-top: 0 0 10px 0;
-  
+
 }
 
 .role-description {
@@ -376,31 +406,77 @@ body {
    Responsive
 --------------------------------------------------------------------------- */
 @media (max-width: 1024px) {
-  .card-container { width: 75%; }
+  .card-container {
+    width: 75%;
+  }
 }
 
 @media (max-width: 768px) {
-  .profileName { font-size: var(--fs-2xl); }
-  .profileHeaderName { gap: 6px; }
+  .profileName {
+    font-size: var(--fs-2xl);
+  }
+
+  .profileHeaderName {
+    gap: 6px;
+  }
+
   .settingsMenu {
     left: 50%;
     top: 120%;
     transform-origin: top center;
   }
-  .settingsPaperImg { width: 180px; left: -90px; top: 20px; }
-  .settingsLinks { left: -90px; }
-  .infoPapersContainer { flex-direction: column; align-items: center; }
-  .card-container { width: 90%; padding: 20px 25px; }
-  .vertical-line { left: 32px; }
+
+  .settingsPaperImg {
+    width: 180px;
+    left: -90px;
+    top: 20px;
+  }
+
+  .settingsLinks {
+    left: -90px;
+  }
+
+  .infoPapersContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card-container {
+    width: 90%;
+    padding: 20px 25px;
+  }
+
+  .vertical-line {
+    left: 32px;
+  }
 }
 
 @media (max-width: 480px) {
-  .settingsIcon { font-size: 1.2rem; }
-  .infoLabel { font-size: 1.3rem; }
-  .infoValue { font-size: 0.95rem; }
-  .role-title { font-size: 0.95rem; }
-  .role-description { font-size: 0.8rem; }
-  .diamond { width: 16px; height: 16px; margin-right: 10px; }
+  .settingsIcon {
+    font-size: 1.2rem;
+  }
+
+  .infoLabel {
+    font-size: 1.3rem;
+  }
+
+  .infoValue {
+    font-size: 0.95rem;
+  }
+
+  .role-title {
+    font-size: 0.95rem;
+  }
+
+  .role-description {
+    font-size: 0.8rem;
+  }
+
+  .diamond {
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+  }
 }
 
 /* ---------------------------------------------------------------------------
@@ -433,7 +509,7 @@ body {
   padding: 40px 30px;
   background: var(--color-parchment);
   border-radius: 6px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
 .editPaperImg {
@@ -455,43 +531,43 @@ body {
 /* form */
 
 .login-form {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
 }
 
 .input-group {
-    margin-bottom: var(--space-5);
+  margin-bottom: var(--space-5);
 }
 
 .input-group label {
-    font-size: var(--fs-sm);
-    color: var(--color-primary-dark);
-    margin-bottom: var(--space-2);
-    display: block;
+  font-size: var(--fs-sm);
+  color: var(--color-primary-dark);
+  margin-bottom: var(--space-2);
+  display: block;
 }
 
 .input-group input {
-    width: 100%;
-    padding: var(--space-3);
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border-dark);
-    background: linear-gradient(to bottom, #5a5a5a, #6d6d6d);
-    color: var(--color-white);
-    font-size: var(--fs-sm);
-    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.4);
-    outline: none;
+  width: 100%;
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-dark);
+  background: linear-gradient(to bottom, #5a5a5a, #6d6d6d);
+  color: var(--color-white);
+  font-size: var(--fs-sm);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.4);
+  outline: none;
 }
 
 .input-group input::placeholder {
-    color: var(--text-light);
-    font-style: italic;
+  color: var(--text-light);
+  font-style: italic;
 }
 
 .input-group input:focus {
-    box-shadow:
-        inset 0 3px 5px rgba(0, 0, 0, 0.4),
-        0 0 6px rgba(197, 37, 37, 0.4);
+  box-shadow:
+    inset 0 3px 5px rgba(0, 0, 0, 0.4),
+    0 0 6px rgba(197, 37, 37, 0.4);
 }
 
 .closePopup {
@@ -521,4 +597,3 @@ body {
 .saveProfile:hover {
   background: var(--color-secondary-dark);
 }
-

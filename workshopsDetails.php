@@ -29,15 +29,14 @@ if (isset($_GET['category_id'])) {
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Irish+Grover&display=swap"
         rel="stylesheet">
 
-    <!-- Icons -->
-    <link rel="icon" href="assets/icons/logoSCCI.png" type="image/x-icon">
+     <!-- site icon -->
+
+
     <!-- Font Awesome (Standard CDN) -->
     <link rel="stylesheet" href="assets/css/all.min.css" />
 
     <!-- Styles -->
     <link rel="stylesheet" href="assets/css/root.css?v=<?php echo time(); ?>">
-    <link rel="stylesheet" href="assets/css/navbar.css?v=<?php echo time(); ?>">
-    <link rel="stylesheet" href="assets/css/footer.css">
     <link rel="stylesheet" href="assets/css/workshops.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="assets/css/workshopsDetails.css?v=<?php echo time(); ?>">
     <!-- Custom Page Styles -->

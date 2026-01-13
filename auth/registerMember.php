@@ -34,33 +34,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
         $error = "Email or Phone already exists";
     } else {
 
-        // Image validation
-        if (empty($_FILES['image']['name'])) {
-            $error = "Please upload an image";
+        $insert_p = "INSERT INTO `users`
+        (`user_id`,`workshop_id`,`committee_id`,`user_name`,`email`,`phone`,
+         `password`,`role`,`Image`,`githup`,`linkedin`,`status`)
+        VALUES
+        (NULL,'$workshop',$committeeId,'$name','$email','$phone',
+         '$passwordhashing','$roleID','default.png','$getHup','$linkedin',0)";
+
+        if (mysqli_query($connect, $insert_p)) {
+            $success = "Registered Successfully";
         } else {
-
-            $image    = $_FILES['image']['name'];
-            $tempname = $_FILES['image']['tmp_name'];
-            $folder   = "../assets/uploadedImages/" . $image;
-
-            if (move_uploaded_file($tempname, $folder)) {
-
-                $insert_p = "INSERT INTO `users`
-                (`user_id`,`workshop_id`,`committee_id`,`user_name`,`email`,`phone`,
-                 `password`,`role`,`Image`,`githup`,`linkedin`,`status`)
-                VALUES
-                (NULL,'$workshop',$committeeId,'$name','$email','$phone',
-                 '$passwordhashing','$roleID','$image','$getHup','$linkedin',0)";
-
-                if (mysqli_query($connect, $insert_p)) {
-                    $success = "Registered Successfully";
-                } else {
-                    $error = "Database Error: " . mysqli_error($connect);
-                }
-
-            } else {
-                $error = "Failed to upload image";
-            }
+            $error = "Database Error: " . mysqli_error($connect);
         }
     }
 }
@@ -71,10 +55,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>SCCI - Register</title>
+    <link rel="icon" href="../assets/icons/logoSCCI.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Stencil&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/registerMember.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
@@ -82,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 <body>
 
 <div class="main-content">
-    <form class="form-content" id="form" action="" method="POST" enctype="multipart/form-data">
+    <form class="form-content" id="form" action="" method="POST" novalidate>
 
         <h1 class="register-title">Register</h1>
         <div class="divider">
@@ -93,27 +79,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 
         <div class="input-group">
             <label>Full Name</label>
-            <input type="text" name="name" required>
+            <input type="text" name="name" id="name" required placeholder="e.g. John Doe">
+            <div class="error-text" id="error-name"></div>
         </div>
 
         <div class="input-group">
             <label>Email</label>
-            <input type="email" name="email" required>
+            <input type="email" name="email" id="email" required placeholder="example@mail.com">
+            <div class="error-text" id="error-email"></div>
         </div>
 
         <div class="input-group">
             <label>Phone</label>
-            <input type="text" name="phone" required>
+            <input type="text" name="phone" id="phone" required placeholder="01xxxxxxxxx">
+            <div class="error-text" id="error-phone"></div>
         </div>
 
         <div class="input-group">
             <label>Password</label>
-            <input type="password" name="password" required>
+            <input type="password" name="password" id="password" required placeholder="••••••••">
+            <div class="error-text" id="error-password"></div>
         </div>
 
         <div class="input-group">
             <label>Workshop</label>
-            <select name="workshop" required>
+            <select name="workshop" id="workshop" required>
                 <option value="">Select Workshop</option>
                 <?php while ($row_w = mysqli_fetch_assoc($run_w)) { ?>
                     <option value="<?php echo $row_w['workshop_id']; ?>">
@@ -121,11 +111,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                     </option>
                 <?php } ?>
             </select>
+            <div class="error-text" id="error-workshop"></div>
         </div>
 
         <div class="input-group">
             <label>Committee</label>
-            <select name="committeeId" required>
+            <select name="committeeId" id="committeeId" required>
                 <option value="">Select Committee</option>
                 <?php while ($row_c = mysqli_fetch_assoc($run_c)) { ?>
                     <option value="<?php echo $row_c['committee_id']; ?>">
@@ -133,11 +124,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                     </option>
                 <?php } ?>
             </select>
+            <div class="error-text" id="error-committee"></div>
         </div>
 
         <div class="input-group">
             <label>Member in</label>
-            <select name="roleID" required>
+            <select name="roleID" id="roleID" required>
                 <option value="2">hr</option>
                 <option value="2">acs</option>
                 <option value="2">it</option>
@@ -152,24 +144,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
         </div>
 
         <div class="input-group">
-            <label>GitHub</label>
-            <input type="text" name="github">
+            <label>GitHub (Optional)</label>
+            <input type="text" name="github" id="github" placeholder="github.com/username">
         </div>
 
         <div class="input-group">
-            <label>LinkedIn</label>
-            <input type="text" name="linkedin">
-        </div>
-
-        <div class="input-group">
-            <label>Image</label>
-            <input type="file" name="image" accept="image/*" required>
+            <label>LinkedIn (Optional)</label>
+            <input type="text" name="linkedin" id="linkedin" placeholder="linkedin.com/in/username">
         </div>
 
         <button class="submit-btn" type="submit" name="submit">Register</button>
 
     </form>
 </div>
+
+<!-- Validation Script -->
+<script src="../assets/js/registerMember.js"></script>
 
 <?php if (!empty($error)) { ?>
 <script>

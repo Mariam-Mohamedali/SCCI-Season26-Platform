@@ -1,9 +1,4 @@
-<?php
-include('./includes/nav.php');
 
-$select = "SELECT * FROM `workshops` ";
-$result = mysqli_query($connect, $select);
-?>
 
 
 <!DOCTYPE html>
@@ -19,8 +14,10 @@ $result = mysqli_query($connect, $select);
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Irish+Grover&display=swap"
         rel="stylesheet">
 
-    <!-- Icons -->
-    <link rel="icon" href="assets/icons/logoSCCI.png" type="image/x-icon">
+    <!-- site icon -->
+     <link rel="icon" href="assets/icons/logoSCCI.png" type="image/png">
+
+
     <!-- Font Awesome (Standard CDN) -->
     <link rel="stylesheet" href="assets/css/all.min.css" />
 
@@ -34,7 +31,12 @@ $result = mysqli_query($connect, $select);
 </head>
 
 <body>
+<?php
+include('./includes/nav.php');
 
+$select = "SELECT * FROM `workshops` ";
+$result = mysqli_query($connect, $select);
+?>
     <!-- Navigation -->
 
     <!-- Hero Section -->

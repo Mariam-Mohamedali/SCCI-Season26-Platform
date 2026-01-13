@@ -374,10 +374,7 @@
         font-size: var(--fs-3xl);
     }
 
-    .backBtn {
-        padding: 10px 20px;
-        font-size: 0.9rem;
-    }
+    
 
     .workshopDescription {
         flex-direction: column;
@@ -455,14 +452,6 @@
     .heroTitle {
         font-size: var(--fs-2xl);
     }
-
-    .backBtn {
-        padding: 8px 16px;
-        font-size: 0.8rem;
-        top: 15px;
-        left: 15px;
-    }
-
     .workshopImage {
         width: 200px;
     }

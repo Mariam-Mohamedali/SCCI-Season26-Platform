@@ -1,6 +1,4 @@
-<?php
-include './includes/config.php';
-?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,20 +6,31 @@ include './includes/config.php';
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SCCI Crew</title>
-    <link rel="icon" href="./assets/icons/logoSCCI.png" type="image/png">
+    <title>SCCI - Crew</title>
+  <link rel="icon" href="./assets/icons/logoSCCI.png" type="image/png">
+
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="./assets/css/all.min.css" />
+    
+    <!-- CSS Files -->
     <link rel="stylesheet" href="./assets/css/root.css" />
+    <link rel="stylesheet" href="./assets/css/navbar.css" />
+    <link rel="stylesheet" href="./assets/css/footer.css" />
     <link rel="stylesheet" href="./assets/css/crew.css" />
     
+    <!-- AOS Animation -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <!-- font  -->
+    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap" rel="stylesheet">
 </head>
 
 <body >
-<?php include './includes/nav.php'; ?>
+
+ <?php include('./includes/nav.php'); ?>
 
 
     <section class="sectionBlock container">
@@ -363,6 +372,7 @@ include './includes/config.php';
     </script>
     <script src="./assets/js/index.js"></script>
     <script src="./assets/js/crew.js"></script>
+    <script src="./assets/js/all.min.js"></script>
 </body>
 <?php
 include './includes/footer.php';

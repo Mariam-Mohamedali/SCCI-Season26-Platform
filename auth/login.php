@@ -1,5 +1,5 @@
 <?php
-include('../includes/nav.php');
+include('../includes/config.php');
 $error_msgp="";
 $error_msge="";
 $error_notv="";
@@ -56,17 +56,26 @@ if(isset($_POST['login1'])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SCCI Login</title>
+    <title>SCCI - Login</title>
+    
+    <!-- site icon -->
+    <link rel="icon" type="image/png" href="../assets/icons/logoSCCI.png" />
+
+    <link rel="stylesheet" href="../assets/css/root.css">
+    <link rel="stylesheet" href="../assets/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/login.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/login.css">
 
 </head>
 
 
 <body>
     <main class="main-container">
+        <a href="../home.php" class="backBtn">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
     
         <section class="login-card">
             <h1 class="login-title">LOGIN</h1>
@@ -89,12 +98,12 @@ if(isset($_POST['login1'])){
             <form class="login-form" method="POST">
                 <div class="input-group">
                     <label for="email">E-mail</label>
-                    <input type="email" name="email" id="email" placeholder="Enter your email" value="<?php echo isset($_COOKIE['remember_email']) ? htmlspecialchars($_COOKIE['remember_email']) : ''; ?>">
+                    <input type="email" name="email" id="email" placeholder="Enter your email" value="<?php echo isset($_COOKIE['remember_email']) ? htmlspecialchars($_COOKIE['remember_email']) : ''; ?>" required>
                 </div>
 
                 <div class="input-group">
                     <label for="password">Password</label>
-                    <input type="password" name="password" id="password" placeholder="Enter your pass">
+                    <input type="password" name="password" id="password" placeholder="Enter your pass" required>
                 </div>
 
                 <div class="form-footer">
@@ -109,6 +118,7 @@ if(isset($_POST['login1'])){
             </form>
         </section>
     </main>
+    <script src="../assets/js/all.min.js"></script>
 </body>
 
 </html>
