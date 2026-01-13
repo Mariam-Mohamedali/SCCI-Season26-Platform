@@ -64,7 +64,7 @@
                 <div class="cardsContainer aos-animate" data-aos="flip">
                     <div class="flipCard">
                         <div class="frontCard">
-                            <img src="assets/img/backCardCrew.png" alt="Workshops" loading="lazy">
+                            <img src="assets/img/crew/backCardCrew.png" alt="Workshops" loading="lazy">
                         </div>
                         <div class="backCard">
                             <!-- <img src="assets/img/workshops/workshopCard.png" alt="Workshops" loading="lazy"> -->
@@ -82,7 +82,7 @@
                 <div class="cardsContainer aos-animate" data-aos="flip">
                     <div class="flipCard">
                         <div class="frontCard">
-                            <img src="assets/img/backCardCrew.png" alt="Crew" loading="lazy">
+                            <img src="assets/img/crew/backCardCrew.png" alt="Crew" loading="lazy">
                         </div>
                         <div class="backCard">
                             <!-- <img src="assets/img/workshops/workshopCard.png" alt="Crew" loading="lazy"> -->
