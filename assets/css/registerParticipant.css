@@ -7,11 +7,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-
-    /* Fallback */
 }
-
-/* Inherit twinkling background from root.css if applied to body */
 
 .main-content {
     display: flex;
@@ -29,6 +25,11 @@ body {
     position: relative;
 
     /* Glassmorphism Effect */
+    background: rgba(45, 20, 15, 0.7);
+    /* Dark reddish-brown tint */
+    backdrop-filter: blur(12px) saturate(120%);
+    -webkit-backdrop-filter: blur(12px) saturate(120%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 30px;
     padding: var(--space-8) var(--space-6);
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
@@ -118,7 +119,6 @@ body {
 }
 
 .input-group label {
-    font-family: "Stencil", system-ui;
     font-size: var(--fs-sm);
     color: var(--color-parchment);
     /* Lighter color for visibility on dark glass */
@@ -131,6 +131,7 @@ body {
 .input-group input,
 .input-group select {
     font-family: "Stencil", system-ui;
+    /* Keeping requested font */
     width: 100%;
     padding: var(--space-3) var(--space-4);
     border-radius: var(--radius-lg);
@@ -148,6 +149,7 @@ body {
     color: rgba(255, 255, 255, 0.4);
     font-style: italic;
     font-family: "Irish Grover", system-ui;
+    /* Match overall theme fonts if preferred, or keep simple */
 }
 
 .input-group input:focus,
@@ -161,32 +163,6 @@ body {
 .input-group select option {
     background-color: #2a1810;
     color: white;
-}
-
-/* Custom File Input */
-.input-group input[type="file"] {
-    background: transparent;
-    border: none;
-    box-shadow: none;
-    padding-left: 0;
-}
-
-.input-group input[type="file"]::file-selector-button {
-    padding: 8px 20px;
-    margin-right: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 50px;
-    background: var(--color-primary);
-    color: #fff;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.input-group input[type="file"]::file-selector-button:hover {
-    background: var(--color-primary-dark);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 /* Error Message Styling */
@@ -283,6 +259,7 @@ body {
     .main-content {
         padding: var(--space-4) var(--space-2);
         align-items: flex-start;
+        /* Prevent cut-off on very small screens */
     }
 
     .form-content {
