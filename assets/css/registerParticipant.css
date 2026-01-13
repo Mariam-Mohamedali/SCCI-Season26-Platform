@@ -7,7 +7,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* background-color: var(--body-bg); */
+
     /* Fallback */
 }
 
@@ -29,11 +29,6 @@ body {
     position: relative;
 
     /* Glassmorphism Effect */
-    background: rgba(45, 20, 15, 0.7);
-    /* Dark reddish-brown tint */
-    backdrop-filter: blur(12px) saturate(120%);
-    -webkit-backdrop-filter: blur(12px) saturate(120%);
-    border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 30px;
     padding: var(--space-8) var(--space-6);
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
