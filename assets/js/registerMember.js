@@ -1,122 +1,119 @@
-const form = document.getElementById("form");
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('form');
 
-form.addEventListener("submit", function (e) {
-    e.preventDefault();
+    // Inputs
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const phoneInput = document.getElementById('phone');
+    const passwordInput = document.getElementById('password');
+    const workshopSelect = document.getElementById('workshop');
+    const committeeSelect = document.getElementById('committeeId');
 
-    const errors = form.querySelectorAll(".error-msg");
-    errors.forEach(err => err.remove());
+    // Error Containers
+    const errorName = document.getElementById('error-name');
+    const errorEmail = document.getElementById('error-email');
+    const errorPhone = document.getElementById('error-phone');
+    const errorPassword = document.getElementById('error-password');
+    const errorWorkshop = document.getElementById('error-workshop');
+    const errorCommittee = document.getElementById('error-committee');
 
-    let isValid = true;
-
-    const nameInput = document.getElementById("name");
-    const emailInput = document.getElementById("email");
-    const phoneInput = document.getElementById("phone");
-    const passwordInput = document.getElementById("password");
-    const workshopSelect = document.getElementById("workshop");
-    const roleSelect = document.getElementById("roleID");
-    const githubInput = document.getElementById("github");
-    const linkedinInput = document.getElementById("linkedin");
-    const imageInput = document.getElementById("image");
-
-    // Name validation
-    const nameValue = nameInput.value.trim();
-    const nameParts = nameValue.split(" ").filter(part => part !== "");
-    if (nameValue === "") {
-        showError(nameInput, "Name is required");
-        isValid = false;
-    } else if (nameParts.length < 2) {
-        showError(nameInput, "Please enter your full name (first and last name)");
-        isValid = false;
+    function showError(input, element, message) {
+        element.textContent = message;
+        element.style.display = 'block';
+        input.parentElement.classList.add('error');
     }
 
-    // Email validation
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const emailValue = emailInput.value.trim();
-    if (emailValue === "") {
-        showError(emailInput, "Email is required");
-        isValid = false;
-    } else if (!emailPattern.test(emailValue)) {
-        showError(emailInput, "Enter a valid email");
-        isValid = false;
+    function clearError(input, element) {
+        element.textContent = '';
+        element.style.display = 'none';
+        input.parentElement.classList.remove('error');
     }
 
-    // Phone validation (Egyptian)
-    const phonePattern = /^01[0-2,5][0-9]{8}$/;
-    const phoneValue = phoneInput.value.trim();
-    if (phoneValue === "") {
-        showError(phoneInput, "Phone number is required");
-        isValid = false;
-    } else if (!phonePattern.test(phoneValue)) {
-        showError(phoneInput, "Enter a valid Egyptian phone number");
-        isValid = false;
+    function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(String(email).toLowerCase());
     }
 
-    // Password validation (letters + numbers + symbols)
-    const passwordValue = passwordInput.value.trim();
-    const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{6,}$/;
-    if (passwordValue === "") {
-        showError(passwordInput, "Password is required");
-        isValid = false;
-    } else if (passwordValue.length < 6) {
-        showError(passwordInput, "Password must be at least 6 characters");
-        isValid = false;
-    } else if (!passwordPattern.test(passwordValue)) {
-        showError(passwordInput, "Password must contain letters, numbers, and symbols (!@#$%^&*)");
-        isValid = false;
+    function validatePhone(phone) {
+        // Egyptian phone validation (starts with 01, 11 digits)
+        const re = /^01[0-2,5]{1}[0-9]{8}$/;
+        return re.test(phone);
     }
 
-    // Workshop validation
-    if (workshopSelect.value === "") {
-        showError(workshopSelect, "Please select a workshop");
-        isValid = false;
-    }
+    form.addEventListener('submit', (e) => {
+        let valid = true;
 
-    // Role validation
-    if (roleSelect.value === "") {
-        showError(roleSelect, "Please select a role");
-        isValid = false;
-    }
-
-    // GitHub & LinkedIn (basic URL validation)
-    const urlPattern = /^(https?:\/\/)?([\w\d-]+\.){1,2}[\w]{2,}(\/\S*)?$/i;
-
-    if (githubInput.value.trim() !== "" && !urlPattern.test(githubInput.value.trim())) {
-        showError(githubInput, "Enter a valid GitHub URL");
-        isValid = false;
-    }
-
-    if (linkedinInput.value.trim() !== "" && !urlPattern.test(linkedinInput.value.trim())) {
-        showError(linkedinInput, "Enter a valid LinkedIn URL");
-        isValid = false;
-    }
-
-    if (imageInput.files.length === 0) {
-        showError(imageInput, "Please choose an image");
-        isValid = false;
-    } else {
-        const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
-        if (!allowedTypes.includes(imageInput.files[0].type)) {
-            showError(imageInput, "Only JPEG, PNG, GIF are allowed");
-            isValid = false;
+        // Name Validation
+        if (nameInput.value.trim().length === 0) {
+            showError(nameInput, errorName, 'Name is required');
+            valid = false;
+        } else if (nameInput.value.trim().length < 3) {
+            showError(nameInput, errorName, 'Name must be at least 3 characters');
+            valid = false;
+        } else {
+            clearError(nameInput, errorName);
         }
-    }
 
-    if (isValid) {
-        form.submit();
-    }
+        // Email Validation
+        if (emailInput.value.trim().length === 0) {
+            showError(emailInput, errorEmail, 'Email is required');
+            valid = false;
+        } else if (!validateEmail(emailInput.value.trim())) {
+            showError(emailInput, errorEmail, 'Please enter a valid email');
+            valid = false;
+        } else {
+            clearError(emailInput, errorEmail);
+        }
+
+        // Phone Validation
+        if (phoneInput.value.trim().length === 0) {
+            showError(phoneInput, errorPhone, 'Phone is required');
+            valid = false;
+        } else if (!validatePhone(phoneInput.value.trim())) {
+            showError(phoneInput, errorPhone, 'Phone must be a valid 11-digit number');
+            valid = false;
+        } else {
+            clearError(phoneInput, errorPhone);
+        }
+
+        // Password Validation
+        if (passwordInput.value.length === 0) {
+            showError(passwordInput, errorPassword, 'Password is required');
+            valid = false;
+        } else if (passwordInput.value.length < 6) {
+            showError(passwordInput, errorPassword, 'Password must be at least 6 characters');
+            valid = false;
+        } else {
+            clearError(passwordInput, errorPassword);
+        }
+
+        // Dropdown Validation
+        if (workshopSelect.value === "") {
+            showError(workshopSelect, errorWorkshop, 'Please select a workshop');
+            valid = false;
+        } else {
+            clearError(workshopSelect, errorWorkshop);
+        }
+
+        if (committeeSelect.value === "") {
+            showError(committeeSelect, errorCommittee, 'Please select a committee');
+            valid = false;
+        } else {
+            clearError(committeeSelect, errorCommittee);
+        }
+
+        if (!valid) {
+            e.preventDefault(); // Stop form submission
+        }
+    });
+
+    // Real-time validation cleanup
+    const inputs = [nameInput, emailInput, phoneInput, passwordInput, workshopSelect, committeeSelect];
+    inputs.forEach(input => {
+        input.addEventListener('input', () => {
+            input.parentElement.classList.remove('error');
+            const errorDisplay = input.parentElement.querySelector('.error-text');
+            if (errorDisplay) errorDisplay.style.display = 'none';
+        });
+    });
 });
-
-
-function showError(input, message) {
-    // Prevent error message from repeating
-    if (input.parentElement.querySelector(".error-msg")) return;
-    
-    const error = document.createElement("div");
-    error.className = "error-msg";
-    error.style.color = "red";
-    error.style.fontSize = "0.9rem";
-    error.style.marginTop = "5px";
-    error.style.textAlign = "left"; // Error على الشمال
-    error.textContent = message;
-    input.parentElement.appendChild(error);
-}

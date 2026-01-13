@@ -119,6 +119,7 @@ body {
 }
 
 .input-group label {
+    font-family: "Stencil", system-ui;
     font-size: var(--fs-sm);
     color: var(--color-parchment);
     /* Lighter color for visibility on dark glass */
