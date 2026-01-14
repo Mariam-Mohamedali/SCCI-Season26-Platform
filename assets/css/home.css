@@ -47,35 +47,42 @@
   z-index: 10;
   padding: 3rem 2.5rem;
 }
-
 /* about us */
 
 .aboutSection {
-  padding: var(--space-8) var(--space-4);
+  position: relative;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 60vh;
+}
+
+.aboutSection .aboutBG {
+  width: 100%;
+  height: 100%;
+  max-width: 1000px;
+  min-width: 800px;
+  aspect-ratio: 4 / 3;
+  margin: auto;
+}
+
+.aboutSection .aboutBGresponsive {
+  display: none;
 }
 
 .aboutContainer {
-  max-width: 900px;
-  width: 100%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 65%;
+  max-width: 530px;
+  min-width: 430px;
   text-align: center;
-  padding: 4rem 3rem;
+  z-index: 1;
+}
 
-  /* Glassmorphism styling */
-  background: linear-gradient(135deg,
-      rgba(93, 46, 31, 0.5) 0%,
-      rgba(45, 24, 16, 0.6) 100%);
-  backdrop-filter: blur(20px) saturate(150%);
-  -webkit-backdrop-filter: blur(20px) saturate(150%);
 
-  border-radius: 30px;
-  border: 2px solid rgba(212, 175, 55, 0.3);
-  box-shadow:
-    0 8px 40px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+.aboutContainer p {
+  color: var(--color-gray-dark);
+  margin-bottom: 4rem;
 }
 
 /* cards */
@@ -306,7 +313,7 @@
 
 .statIcon {
   font-size: 8rem;
-  color: var(--color-primary-dark);
+  color: var(--color-secondary);
   text-shadow:
     0 4px 8px rgba(171, 32, 32, 0.3),
     0 0 20px rgba(171, 32, 32, 0.2);
@@ -438,6 +445,7 @@
   transform: rotate(30deg);
 }
 
+.input-group input,
 .input-group textarea,
 select {
   width: 100%;
@@ -632,7 +640,7 @@ select {
     width: 90%;
   }
 
- 
+
 
   .aboutContainer {
     width: 85%;

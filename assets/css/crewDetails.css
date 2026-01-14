@@ -28,16 +28,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-10);
+  gap: var(--space-5);
   flex-wrap: wrap;
-  /* Responsive wrap */
 }
 
 .headCard {
   width: 100%;
   max-width: 360px;
-  /* Enlarged for better visibility */
-  flex-shrink: 0;
+  flex: 1 1 280px;
 }
 
 /* ===== Paper Scroll Component ===== */
@@ -45,6 +43,8 @@
   position: relative;
   width: 100%;
   max-width: 700px;
+  flex: 2 1 300px;
+  min-width: 280px;
   aspect-ratio: 1.5 / 1;
   background-image: url('../img/paperHome.png');
   background-size: 100% 100%;

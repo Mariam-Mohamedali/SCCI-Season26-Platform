@@ -19,12 +19,7 @@
 }
 
 
-.heroTitle {
-    font-size: var(--fs-5xl);
-    color: var(--color-secondary-dark);
-    margin-bottom: var(--space-2);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-}
+
 
 .heroTitle span {
     color: var(--color-primary);

@@ -173,42 +173,17 @@ body {
   text-transform: capitalize;
   font-size: var(--fs-base);
   color: var(--text-main);
-  background-color: #2a1810;
+ background:
+        radial-gradient(circle at 30% 50%,
+            #f7eabf 0%,
+            #f4eade 40%,
+            #ead3bd 70%,
+            #f4e4b1 100%);
+    filter: brightness(1.1);
   line-height: var(--lh-normal);
   overflow-x: hidden;
   transition: background-color var(--transition-normal), color var(--transition-normal);
   position: relative;
-}
-
-/* Twinkling stars background layer */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  background-image:
-    url("data:image/svg+xml,%3Csvg width='30' height='30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M15 2l1.5 4.5L21 8l-4.5 1.5L15 14l-1.5-4.5L9 8l4.5-1.5z' fill='%23d4af37' opacity='0.3'/%3E%3C/svg%3E"),
-    url("data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 3l1 3 3 1-3 1-1 3-1-3-3-1 3-1z' fill='%23f4e4b1' opacity='0.2'/%3E%3C/svg%3E");
-  background-size: 30px 30px, 40px 40px;
-  background-position: 0 0, 15px 15px;
-  animation: twinkle 4s ease-in-out infinite;
-  pointer-events: none;
-}
-
-/* Twinkling animation */
-@keyframes twinkle {
-
-  0%,
-  100% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: 0.7;
-  }
 }
 
 /* ===============================================================================
@@ -263,7 +238,9 @@ img {
   margin-bottom: var(--space-4);
   opacity: 0.8;
 }
-
+i {
+  color: var(--color-secondary);
+}
 
 /* ===============================================================================
    📝 TYPOGRAPHY
@@ -299,6 +276,7 @@ h3 {
 }
 
 h4 {
+  color: var(--color-secondary);
   font-size: var(--fs-xl);
 }
 
@@ -312,10 +290,10 @@ h6 {
 
 /* Paragraph global styling */
 p {
-  text-transform: lowercase;
-  color: black;
+  text-transform:lowercase;
+     color: var(--color-gray-dark);
   /* Secondary blue for paragraphs */
-  font-family: "Stencil", system-ui;
+  font-family: "system-ui", system-ui;
   font-size: var(--fs-base);
   line-height: var(--lh-normal);
   margin-bottom: var(--space-3);
@@ -710,6 +688,7 @@ hr::after {
 
 header {
   width: 100%;
+  height: 8vh;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -799,7 +778,7 @@ header.navbar-hidden {
   border-radius: 30px 30px 0px 0px;
   position: absolute;
   left: 50%;
-  bottom: -24px;
+  bottom: -15px;
   transition: ease-in-out 0.3s;
 }
 
@@ -1028,7 +1007,7 @@ header.navbar-hidden {
   font-size: 24px;
   width: 30px;
   text-align: center;
-  color: #d4af37;
+  color: var(--color-secondary);
   text-shadow: 0 2px 8px rgba(212, 175, 55, 0.5);
   transition: all 0.3s ease;
 }

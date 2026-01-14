@@ -36,8 +36,6 @@
 .workshopDetails {
     font-size: var(--fs-lg);
     font-weight: var(--fw-semibold);
-    color: var(--color-primary-dark);
-    font-family: 'Cinzel', serif;
     width: 55%;
     letter-spacing: 2px;
 }
@@ -318,13 +316,6 @@
     letter-spacing: 1px;
 }
 
-.contentBlock p {
-    font-family: 'Cinzel', serif;
-    color: var(--color-secondary-dark);
-    line-height: 1.7;
-    font-size: var(--fs-sm);
-    text-align: justify;
-}
 
 @keyframes fadeIn {
     from {
