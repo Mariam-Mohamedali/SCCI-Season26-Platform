@@ -1,0 +1,808 @@
+
+.hero {
+  display: grid;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+  /* ===============================
+   Default Hero Styles
+================================ */
+  .hero {
+    display: grid;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    place-items: center;
+    overflow: hidden;
+    animation: clip-hero-anim 1.25s cubic-bezier(0.29, 0.8, 0.8, 0.98);
+    will-change: clip-path;
+  }
+
+  /* Hero Background and Content Grid */
+  .heroBackground,
+  .heroLogo {
+    align-self: center;
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+  }
+
+  /* Background */
+  .heroBackground {
+    display: grid;
+    position: relative;
+    z-index: 0;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    place-items: center;
+    animation: fade-in 0.75s linear;
+    will-change: opacity;
+  }
+
+  /* Optional background overlay */
+  .heroBackground::before {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: 5;
+    top: -10%;
+    right: -10%;
+    bottom: -10%;
+    left: -10%;
+    background: rgba(41, 4, 47, 0.4);
+    background-blend-mode: screen;
+  }
+
+  /* Picture inside background */
+  .heroBackground picture {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    animation: scaling-hero-anim 4s 0.25s cubic-bezier(0, 0.71, 0.4, 0.97) forwards;
+    will-change: transform;
+  }
+
+  .heroBackground img {
+    display: block;
+    object-fit: cover;
+    object-position: 77% 50%;
+    height: auto;
+    width: 100%;
+  }
+
+  /* Fade overlay at the bottom to blend into page background */
+  .heroBackground::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 150px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, var(--color-parchment) 100%);
+    z-index: 5;
+    pointer-events: none;
+  }
+
+  /* Hero Content */
+  .heroLogo {
+    display: grid;
+    position: relative;
+    place-items: center;
+    z-index: 10;
+    color: #FFF;
+    font-size: 2.5vw;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fade-in 0.75s 1.5s linear forwards;
+  }
+
+  .logoSCCI {
+    height: 500px;
+    width: 500px;
+  }
+
+  .heroLogo h1 {
+    position: relative;
+    margin-top: 10%;
+    margin-bottom: 0;
+    color: var(--color-primary);
+    font-size: 8.5rem;
+    font-weight: bolder;
+    text-align: center;
+  }
+
+  /* ===============================
+   HERO RESPONSIVE BREAKPOINTS
+================================ */
+
+  /* Tablets */
+  @media (max-width: 992px) {
+    .hero {
+      height: 80vh;
+    }
+
+    .heroBackground picture {
+      height: 80vh;
+    }
+
+    .logoSCCI {
+      height: 350px;
+      width: 350px;
+    }
+
+    .heroLogo h1 {
+      font-size: 5.5rem;
+    }
+
+    .heroBackground::after {
+      height: 100px;
+    }
+  }
+
+  /* Small tablets / large phones */
+  @media (max-width: 600px) {
+    .hero {
+      height: 70vh;
+    }
+
+    .heroBackground picture {
+      height: 70vh;
+    }
+
+    .logoSCCI {
+      height: 250px;
+      width: 250px;
+    }
+
+    .heroLogo h1 {
+      font-size: 3.5rem;
+    }
+
+    .heroBackground::after {
+      height: 80px;
+    }
+  }
+
+  /* Phones */
+  @media (max-width: 400px) {
+    .hero {
+      height: 60vh;
+    }
+
+    .heroBackground picture {
+      height: 60vh;
+    }
+
+    .logoSCCI {
+      height: 200px;
+      width: 200px;
+    }
+
+    .heroLogo h1 {
+      font-size: 2.5rem;
+    }
+
+    .heroBackground::after {
+      height: 60px;
+    }
+  }
+
+  /* ===============================
+   Hero Section Animations
+================================ */
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes scaling-hero-anim {
+    from {
+      transform: scale(1.25);
+    }
+
+    to {
+      transform: scale(1.1);
+    }
+  }
+
+  @keyframes clip-hero-anim {
+    from {
+      clip-path: polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%);
+    }
+
+    to {
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+    }
+  }
+
+
+  /* ===============================
+   SECTION WRAPPER
+================================ */
+  .aboutSection {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 60px 0;
+  }
+
+  .aboutComponents {
+    width: 100%;
+  }
+
+  /* ===============================
+   CARD CONTAINER
+================================ */
+  .aboutBackground {
+    display: flex;
+    justify-content: center;
+  }
+
+  .card-container {
+
+    width: 70%;
+    height: auto;
+    padding: 40px;
+    position: relative;
+
+    background: linear-gradient(135deg,
+        #c8a97e 0%,
+        #e3cfae 40%,
+        #fff3e3 50%,
+        #e3cfae 60%,
+        #c8a97e 100%);
+
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Inner border */
+  .card-container::before {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    border: 1px solid #a0866b;
+    border-radius: 4px;
+    pointer-events: none;
+  }
+
+  /* ===============================
+   FLEX LAYOUT
+================================ */
+  .cardInner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+    height: 100%;
+  }
+
+  /* ===============================
+   TEXT CONTENT - RESPONSIVE
+================================ */
+  .aboutContent {
+    flex: 1;
+    padding: 0 20px;
+    /* add some padding for small screens */
+  }
+
+  /* Title wrapper */
+  .titleWrapper,
+  .titleWrapper2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .aboutTitle {
+    font-weight: 700;
+    text-align: center;
+    margin: 0;
+    font-size: 3rem;
+    /* default font size */
+  }
+
+  .titleHr {
+    width: 100%;
+    max-width: 500px;
+    height: 2px;
+    border: none;
+    background-color: var(--color-primary);
+    /* add color for HR */
+  }
+
+  .aboutParagraph {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: left;
+    margin: 20px auto 0 auto;
+  }
+
+  .aboutParagraph {
+    width: 80%;
+  }
+
+  /* ===============================
+   RESPONSIVE BREAKPOINTS
+================================ */
+
+  /* Tablets (max-width: 992px) */
+  @media (max-width: 992px) {
+    .aboutTitle {
+      font-size: 2.5rem;
+    }
+
+    .aboutParagraph {
+      font-size: 1.8rem;
+      width: 90%;
+      margin-left: 0;
+      text-align: center;
+    }
+
+    .titleHr {
+      max-width: 70%;
+    }
+  }
+
+  /* Mobile / small tablets (max-width: 600px) */
+  @media (max-width: 600px) {
+    .aboutTitle {
+      font-size: 2rem;
+    }
+
+    .aboutParagraph {
+      font-size: 1.1rem;
+      width: 95%;
+      text-align: left;
+      margin: 15px auto 0 auto;
+    }
+
+    .titleHr {
+      max-width: 80%;
+    }
+
+    .titleWrapper {
+      gap: 5px;
+    }
+  }
+
+  /* Phones (max-width: 400px) */
+  @media (max-width: 400px) {
+    .aboutTitle {
+      font-size: 1.8rem;
+    }
+
+    .aboutParagraph {
+      font-size: 1.4rem;
+    }
+
+    .titleHr {
+      max-width: 90%;
+    }
+  }
+
+
+  .crewPicture {
+    flex: 0 0 clamp(350px, 40%, 500px);
+    /* keeps size */
+    display: flex;
+    align-items: flex-start;
+    /* aligns content inside to top */
+    justify-content: flex-end;
+    /* keeps it on the right */
+    position: relative;
+    /* enable top adjustment */
+    top: -160px;
+    /* move up */
+  }
+
+  /* Crew image inside */
+  .crewPicture img {
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+    object-fit: contain;
+  }
+
+  /*==================================
+    What Makes Us Different Cards
+==================================*/
+
+  .titleWrapper2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4%;
+  }
+
+  /* Container for cards */
+  .cardRow {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    /* allows wrapping on smaller screens */
+    gap: 0.5vw;
+    /* reduced gap to fit 5 cards in one row */
+  }
+
+  /* Individual card */
+  .cardRow .glass {
+    position: relative;
+    width: clamp(180px, 18vw, 260px);
+    /* reduced width to fit 5 cards */
+    height: clamp(280px, 28vw, 380px);
+    /* adjusted height proportionally */
+    background: linear-gradient(135deg,
+        #c8a97e 0%,
+        #e3cfae 40%,
+        #fae3c4 50%,
+        #e3cfae 60%,
+        #c8a97e 100%);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.6s ease-in-out;
+    border: 3px solid #AB2020;
+    inset: 4px;
+    margin: 0 -1.5vw;
+    /* reduced negative margin for 5 cards */
+    backdrop-filter: blur(10px);
+    transform: rotate(calc(var(--r) * 1deg));
+    flex-direction: column;
+  }
+
+  /* Hover effect */
+  .cardRow:hover .glass {
+    transform: rotate(0deg);
+    margin: 0 0.8vw;
+    /* smaller spacing on hover to fit all 5 cards */
+  }
+
+  /* Card overlay text at the bottom */
+  .cardRow .glass::before {
+    content: attr(data-text);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: clamp(0.8rem, 1.5vw, 1rem);
+
+
+  }
+
+  /* Card heading */
+  .cardRow h4 {
+    color: var(--color-primary);
+    text-align: center;
+    font-size: clamp(1rem, 2.2vw, 1.8rem);
+    /* scales with viewport */
+    margin: 0.5rem 0;
+  }
+
+  /* Card paragraph */
+  .cardRow p {
+    color: var(--color-secondary);
+    text-align: center;
+    font-size: clamp(1rem, 2vw, 2rem);
+    /* responsive text */
+    margin: 10% 5% 0 5%;
+    /* top margin + side padding */
+    font-weight: bold;
+  }
+
+  .titleWrapper3 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 6%;
+  }
+
+  /*==================================
+    Media Query Adjustments
+==================================*/
+
+  /* ==================================
+   Tablet and below: make cards phone-like
+================================== */
+  @media (max-width: 1024px) {
+    .cardRow {
+      flex-direction: column;
+      /* stack cards vertically */
+      align-items: center;
+      /* center horizontally */
+      gap: 1.5rem;
+      /* spacing between cards */
+      margin: 0 auto;
+      /* center container */
+    }
+
+    .cardRow .glass {
+      width: 30vw;
+      /* take most of screen width */
+      height: 30vh;
+      /* let height adjust automatically */
+      margin: 1rem 0;
+      /* spacing above/below each card */
+      --r: 0 !important;
+      /* disable rotation */
+      transform: rotate(0deg) !important;
+      /* disable inline rotation */
+      transition: none !important;
+      /* remove hover/animation effects */
+      pointer-events: auto;
+      /* allow clicks on all cards */
+    }
+
+    .cardRow:hover .glass {
+      transform: none !important;
+      /* disable hover rotation effect */
+      margin: 1rem 0 !important;
+      /* maintain spacing */
+    }
+
+    .cardRow p {
+      text-align: center;
+      /* ensure text is centered */
+      font-size: clamp(1.5rem, 2.5vw, 2rem);
+      /* responsive text */
+    }
+
+    .cardRow h4 {
+      text-align: center;
+      font-size: clamp(1.5rem, 2.5vw, 3rem);
+    }
+  }
+
+
+  /* Tablets / medium screens */
+  @media (max-width: 992px) {
+    .cardRow .glass {
+      width: clamp(200px, 30vw, 280px);
+      height: clamp(250px, 32vw, 360px);
+      margin: 1vw;
+      --r: 0;
+      transform: rotate(0deg);
+    }
+  }
+
+  /* Small tablets / large phones */
+  @media (max-width: 600px) {
+    .cardRow {
+      flex-direction: column;
+      /* stack cards */
+      align-items: center;
+      /* center them horizontally */
+      gap: 1.5rem;
+      /* spacing between cards */
+      margin: 0 auto;
+      /* center container */
+    }
+
+    .cardRow .glass {
+      width: 75vw;
+      /* take most of screen width */
+      height: 35vh;
+      /* let height adjust automatically */
+      margin: 1rem 0;
+      /* spacing above/below each card */
+      transform: rotate(0deg);
+      /* remove rotation for stacked layout */
+    }
+
+
+    .cardRow p {
+      font-size: clamp(1.5rem, 3vw, 1.5rem);
+    }
+
+    .cardRow h4 {
+      font-size: clamp(2rem, 3vw, 1.4rem);
+    }
+  }
+
+  /* Phones / very small screens */
+  @media (max-width: 400px) {
+    .cardRow .glass {
+      width: 90vw;
+      height: auto;
+      /* allows height to adjust automatically */
+      margin: 1vw 0;
+    }
+
+    .cardRow p {
+      font-size: 1rem;
+    }
+
+    .cardRow h4 {
+      font-size: 1rem;
+    }
+  }
+
+
+
+  /*==================================
+            Cards System
+==================================*/
+
+  .sliderWrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    margin-bottom: 120px;
+    gap: 0;
+    /* default gap for desktop */
+  }
+
+  .cardStack {
+    margin-top: 10%;
+    position: relative;
+    width: min(90vw, 750px);
+    height: calc(min(90vw, 750px) * 0.7);
+  }
+
+  /* Cards */
+  .crewCard {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 1;
+    transform: translateX(0);
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    pointer-events: auto;
+    transform-origin: center;
+    background-color: none;
+  }
+
+  .crewCard.active {
+    z-index: 10;
+  }
+
+  .crewCard.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Slide out to right */
+  .crewCard.slide-right {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+
+  /* Slide back */
+  .crewCard.slide-back {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  /* Arrows */
+  .arrow {
+    position: absolute;
+    top: 63.5%;
+    transform: translateY(-50%);
+    z-index: 20;
+    background-color: rgba(123, 63, 42, 0.8);
+    border: none;
+    color: white;
+    font-size: 5rem;
+    cursor: pointer;
+    width: 115px;
+    height: 115px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .arrow.left {
+    left: calc(50% - 750px / 2 - 150px);
+  }
+
+  .arrow.right {
+    right: calc(50% - 750px / 2 - 150px);
+  }
+
+  .arrow.arrow.left:hover,
+  .arrow.arrow.right:hover {
+    background-color: rgba(123, 63, 42, 1);
+  }
+
+  /* ===============================
+   RESPONSIVE
+================================ */
+
+  /* Large screens / desktop */
+  @media (min-width: 1201px) {
+    .crewPicture {
+      flex: 0 0 clamp(350px, 40%, 500px);
+      justify-content: flex-end;
+      position: relative;
+      top: -160px;
+      align-items: flex-start;
+    }
+  }
+
+  /* Laptops / medium screens */
+  @media (max-width: 1200px) and (min-width: 993px) {
+    .crewPicture {
+      flex: 0 0 clamp(300px, 38%, 450px);
+      justify-content: flex-end;
+      position: relative;
+      top: -120px;
+      align-items: flex-start;
+    }
+  }
+
+  /* Tablet and below */
+  @media (max-width: 992px) {
+    .sliderWrapper {
+      flex-direction: column;
+      /* stack cards first, arrows second */
+      align-items: center;
+      gap: 1rem;
+      /* space between cards and arrows */
+    }
+
+    .cardStack {
+      order: 1;
+      width: min(90vw, 750px);
+      height: calc(min(90vw, 750px) * 0.7);
+      position: relative;
+    }
+
+    .arrowsContainer {
+      order: 2;
+      /* below cards */
+      display: flex;
+      /* row layout for arrows */
+      justify-content: center;
+      /* center horizontally */
+      gap: 10px;
+      /* small gap between arrows */
+      width: auto;
+    }
+
+    .arrow {
+      position: static;
+      /* normal flow */
+      transform: none;
+      width: 80px;
+      height: 80px;
+      font-size: 3.5rem;
+    }
+  }
+
+  /* Small phones */
+  @media (max-width: 600px) {
+    .arrow {
+      width: 70px;
+      height: 70px;
+      font-size: 3rem;
+    }
+
+    .cardStack {
+      width: 90vw;
+      height: calc(90vw * 0.8);
+    }
+  }

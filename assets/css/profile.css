@@ -1,0 +1,599 @@
+/* ---------------------------------------------------------------------------
+   Cover
+--------------------------------------------------------------------------- */
+.profileCover {
+  width: 100%;
+  height: clamp(180px, 35vw, 300px);
+  background-image: url('../img/profileBackground.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+/* ---------------------------------------------------------------------------
+   Profile Image
+--------------------------------------------------------------------------- */
+.profileImageWrapper {
+  position: absolute;
+  bottom: calc(-1 * clamp(70px, 22vw, 110px));
+  left: 50%;
+  transform: translateX(-50%);
+  width: clamp(160px, 45vw, 290px);
+  height: clamp(160px, 45vw, 290px);
+  border-radius: 50%;
+  z-index: 5;
+}
+
+.profileImage {
+  background: rgba(255, 255, 255, 0.1);
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: contain;
+  box-shadow:
+    0 4px 12px rgba(197, 37, 37, 0.3),
+    0 0 0 6px rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease;
+  position: relative;
+}
+
+/* ---------------------------------------------------------------------------
+   Rotating Stars around Profile Image
+--------------------------------------------------------------------------- */
+.profileImageWrapper::before,
+.profileImageWrapper::after {
+  content: '★';
+  position: absolute;
+  font-size: clamp(20px, 4vw, 30px);
+  color: #ffd700;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+  animation: rotateStar 8s linear infinite;
+  pointer-events: none;
+}
+
+.profileImageWrapper::before {
+  top: 10%;
+  left: 50%;
+  transform-origin: 50% 200%;
+}
+
+.profileImageWrapper::after {
+  top: 10%;
+  left: 50%;
+  transform-origin: 50% 200%;
+  animation-delay: -4s;
+  /* Start at opposite side */
+}
+
+@keyframes rotateStar {
+  0% {
+    transform: translate(-50%, 0) rotate(0deg) translateX(clamp(100px, 30vw, 170px)) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(-50%, 0) rotate(360deg) translateX(clamp(100px, 30vw, 170px)) rotate(-360deg);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Content
+--------------------------------------------------------------------------- */
+.profileContent {
+  padding-top: clamp(90px, 25vw, 120px);
+  text-align: center;
+  padding-inline: 12px;
+}
+
+/* ---------------------------------------------------------------------------
+   Name + Settings
+--------------------------------------------------------------------------- */
+.profileHeaderName {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.profileName {
+  font-size: clamp(1.8rem, 5vw, var(--fs-3xl));
+  color: var(--color-secondary-dark);
+  line-height: 1;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+/* ---------------------------------------------------------------------------
+   Settings Icon
+--------------------------------------------------------------------------- */
+.settingsContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* icon */
+.settingsIcon {
+  font-size: var(--fs-lg);
+  color: var(--color-secondary-dark);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.settingsIcon:hover {
+  transform: rotate(90deg);
+  color: var(--color-primary);
+}
+
+/* menu base state */
+.settingsMenu {
+  position: absolute;
+  left: 140%;
+  top: 20%;
+  width: 155px;
+  height: 220px;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transform: translateY(-50%) translateY(20px) scaleY(0);
+  transform-origin: top left;
+
+  z-index: 50;
+  pointer-events: none;
+  /* مهم */
+}
+
+/* opening */
+.settingsMenu.opening {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  animation: rollUp 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* closing */
+.settingsMenu.closing {
+  visibility: visible;
+  pointer-events: none;
+  animation: rollUpReverse 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* animations */
+@keyframes rollUp {
+  from {
+    opacity: 0;
+    transform: translateY(-50%) translateY(20px) scaleY(0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(-50%) translateY(0) scaleY(1);
+  }
+}
+
+@keyframes rollUpReverse {
+  from {
+    opacity: 1;
+    transform: translateY(-50%) translateY(0) scaleY(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-50%) translateY(20px) scaleY(0);
+  }
+}
+
+
+/* ---------------------------------------------------------------------------
+   Settings Paper
+--------------------------------------------------------------------------- */
+.settingsPaperImg {
+  width: 200px;
+  position: absolute;
+  top: 40px;
+  left: -40px;
+  transform: rotate(90deg);
+  transform-origin: center;
+}
+
+.settingsLinks {
+  position: absolute;
+  top: 50%;
+  left: -40px;
+  transform: translateY(-50%);
+  width: 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.settingsLink {
+  font-size: var(--fs-base);
+  font-weight: var(--fw-bold);
+  color: var(--color-black);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.settingsLink:hover {
+  color: var(--color-primary);
+}
+
+/* ---------------------------------------------------------------------------
+   Info Papers
+--------------------------------------------------------------------------- */
+.infoPapersContainer {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  margin-top: 30px;
+  padding: 10px;
+  flex-wrap: wrap;
+}
+
+.infoPaperWrapper {
+  position: relative;
+  width: min(320px, 92%);
+  margin: 10px 20px;
+}
+
+.infoPaperImg {
+  width: 120%;
+  max-width: none;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%) scaleY(1.1);
+}
+
+.infoPaperContent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 75%;
+  text-align: center;
+
+}
+
+.infoLabel {
+  font-size: 1.6rem;
+  color: var(--color-secondary);
+  text-transform: uppercase;
+  font-weight: var(--fw-bold);
+  text-align: center;
+}
+
+.infoValue {
+  font-size: var(--fs-md);
+  color: var(--color-black);
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-weight: bold;
+  text-align: center;
+  padding: 20px;
+}
+
+/* ---------------------------------------------------------------------------
+   Social Links (with text)
+--------------------------------------------------------------------------- */
+.profileSocial {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
+}
+
+.socialItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.socialItem i {
+  font-size: 1.6rem;
+  color: var(--color-secondary-dark);
+
+}
+
+.socialItem a {
+  color: var(--color-black);
+  text-decoration: none;
+  font-weight: var(--fw-bold);
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+}
+
+.socialItem a:hover {
+  color: var(--color-primary);
+}
+
+/* ---------------------------------------------------------------------------
+   History Section
+--------------------------------------------------------------------------- */
+.historySection {
+  margin: 2%;
+  display: flex;
+  justify-content: center;
+}
+
+.card-container {
+  background: linear-gradient(135deg, #c8a97e 0%, #e3cfae 40%, #fff3e3 50%, #e3cfae 60%, #c8a97e 100%);
+  border-radius: 8px;
+  padding: 30px 40px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  position: relative;
+  width: 50%;
+  height: 500px;
+}
+
+.card-container::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  border: 1px solid #a0866b;
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+.vertical-line {
+  position: absolute;
+  border-left: #5c2e0a dashed 3px;
+  left: 49px;
+  top: 35px;
+  bottom: 175px;
+  width: 3px;
+  background-color: none;
+}
+
+.role-item {
+  display: flex;
+  margin-bottom: 25px;
+  align-items: flex-start;
+  position: relative;
+  z-index: 1;
+}
+
+.role-item:last-child {
+  margin-bottom: 0;
+}
+
+.diamond {
+  width: 20px;
+  height: 20px;
+  background-color: #8b4513;
+  transform: rotate(45deg);
+  flex-shrink: 0;
+  margin-right: 15px;
+  margin-top: 5px;
+  border: 1px solid #5c2e0a;
+}
+
+.role-content {
+  flex: 1;
+  margin: 0 0 18px 0;
+
+}
+
+.role-title {
+  font-size: 2.3rem;
+  font-weight: bold;
+  color: #5c2e0a;
+  margin-top: 0 0 10px 0;
+
+}
+
+.role-description {
+  font-size: 1.7rem;
+  color: #6b4423;
+  line-height: 1.4;
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ---------------------------------------------------------------------------
+   Responsive
+--------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .card-container {
+    width: 75%;
+  }
+}
+
+@media (max-width: 768px) {
+  .profileName {
+    font-size: var(--fs-2xl);
+  }
+
+  .profileHeaderName {
+    gap: 6px;
+  }
+
+  .settingsMenu {
+    left: 50%;
+    top: 120%;
+    transform-origin: top center;
+  }
+
+  .settingsPaperImg {
+    width: 180px;
+    left: -90px;
+    top: 20px;
+  }
+
+  .settingsLinks {
+    left: -90px;
+  }
+
+  .infoPapersContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card-container {
+    width: 90%;
+    padding: 20px 25px;
+  }
+
+  .vertical-line {
+    left: 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .settingsIcon {
+    font-size: 1.2rem;
+  }
+
+  .infoLabel {
+    font-size: 1.3rem;
+  }
+
+  .infoValue {
+    font-size: 0.95rem;
+  }
+
+  .role-title {
+    font-size: 0.95rem;
+  }
+
+  .role-description {
+    font-size: 0.8rem;
+  }
+
+  .diamond {
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Edit Profile Popup
+--------------------------------------------------------------------------- */
+.editProfileOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(61, 42, 24, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.editProfileOverlay.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.editProfilePopup {
+  position: relative;
+  width: min(420px, 90%);
+  padding: 40px 30px;
+  background: var(--color-parchment);
+  border-radius: 6px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.editPaperImg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.25;
+  z-index: -1;
+}
+
+.editTitle {
+  text-align: center;
+  color: var(--color-secondary-dark);
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+/* form */
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.input-group {
+  margin-bottom: var(--space-5);
+}
+
+.input-group label {
+  font-size: var(--fs-sm);
+  color: var(--color-primary-dark);
+  margin-bottom: var(--space-2);
+  display: block;
+}
+
+.input-group input {
+  width: 100%;
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-dark);
+  background: linear-gradient(to bottom, #5a5a5a, #6d6d6d);
+  color: var(--color-white);
+  font-size: var(--fs-sm);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.4);
+  outline: none;
+}
+
+.input-group input::placeholder {
+  color: var(--text-light);
+  font-style: italic;
+}
+
+.input-group input:focus {
+  box-shadow:
+    inset 0 3px 5px rgba(0, 0, 0, 0.4),
+    0 0 6px rgba(197, 37, 37, 0.4);
+}
+
+.closePopup {
+  margin-top: 16px;
+  width: 100%;
+  padding: 8px;
+  border: none;
+  background: var(--color-secondary-dark);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.saveProfile {
+  margin-top: 10px;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: var(--color-primary);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: background 0.2s ease;
+}
+
+.saveProfile:hover {
+  background: var(--color-secondary-dark);
+}

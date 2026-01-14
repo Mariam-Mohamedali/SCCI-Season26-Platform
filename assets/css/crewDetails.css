@@ -1,0 +1,450 @@
+/* ===== Layout Utilities ===== */
+.sectionBlock {
+  padding: var(--space-8) 0;
+}
+
+.titleWrapper {
+  text-align: center;
+  margin-bottom: var(--space-8);
+}
+
+.mainTitle {
+  font-size: var(--fs-4xl);
+  font-family: "Irish Grover", cursive;
+  margin-bottom: var(--space-4);
+}
+
+/* Helper Classes for Title Colors */
+.textPrimary {
+  color: var(--color-primary);
+}
+
+.textDark {
+  color: var(--color-primary-dark);
+}
+
+/* ===== Head Section Layout ===== */
+.headLayout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-10);
+  flex-wrap: wrap;
+  /* Responsive wrap */
+}
+
+.headCard {
+  width: 100%;
+  max-width: 360px;
+  /* Enlarged for better visibility */
+  flex-shrink: 0;
+}
+
+/* ===== Paper Scroll Component ===== */
+.paperScroll {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  aspect-ratio: 1.5 / 1;
+  background-image: url('../img/paperHome.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 10% 12%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.paperContent {
+  width: 100%;
+  text-align: center;
+  max-height: 100%;
+  overflow-y: auto;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+/* .paperContent::-webkit-scrollbar {
+  display: none;
+} */
+
+.paperTitle {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  color: var(--color-secondary);
+  margin-bottom: var(--space-4);
+  font-family: "Irish Grover", cursive;
+}
+
+.paperText {
+  /* الخط يصغر في الشاشات الصغيرة */
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  font-weight: var(--fw-bold);
+  color: var(--color-primary-dark);
+  line-height: 1.6;
+  text-align: center;
+  padding: 0 10px;
+}
+
+/* ===== Members Grid Layout ===== */
+.membersGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-8) var(--space-6);
+  justify-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--space-4);
+}
+
+.memberCard {
+  width: 100%;
+  max-width: 320px;
+  /* Larger cards for better visibility */
+}
+
+/* ===== Flip Card Logic (camelCase) ===== */
+.flipCard {
+  width: 100%;
+  height: 80%;
+  aspect-ratio: 2/3.2;
+  /* Maintains card shape */
+  perspective: 1200px;
+  cursor: pointer;
+  position: relative;
+}
+
+.flipInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  /* Bouncy realistic effect */
+  transform-style: preserve-3d;
+  /* Static shadow on wrapper */
+  border-radius: var(--radius-lg);
+}
+
+/* Active State Class */
+.flipCard.isFlipped .flipInner {
+  transform: rotateY(180deg);
+}
+
+/* Hover State - Flips back to show the decorative back */
+.flipCard:hover .flipInner {
+  transform: rotateY(0deg);
+  animation: none;
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+  /* Smooth 3D flip effect */
+}
+
+/* Keep animation running during auto-flip */
+.flipCard[data-aos="flip"].aos-animate .flipInner {
+  animation: flip 1s ease-in-out forwards !important;
+  transition: none !important;
+  /* Disable transition during animation */
+}
+
+.flipSide {
+  position: absolute;
+  width: 100%;
+  height: auto;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.flipSide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.flipBack {
+  background-color: var(--color-secondary-dark);
+  /* Dark background to replace white */
+  border: 4px double var(--color-parchment);
+  /* Gold/Parchment double border */
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.7);
+  transform: rotateY(180deg);
+}
+
+.sm-card,
+.smCard {
+  width: 100%;
+  /* Fill column */
+  max-width: 200px;
+  /* Increased for better visibility */
+  aspect-ratio: 2/3.2;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.sm-card:hover,
+.smCard:hover {
+  transform: translateY(-5px);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 900px) {
+  .headCard {
+    max-width: 280px;
+  }
+
+  .paperScroll {
+    max-width: 550px;
+  }
+}
+
+@media (max-width: 768px) {
+  .headLayout {
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .sectionBlock {
+    padding: var(--space-6) 0;
+  }
+
+  .mainTitle {
+    font-size: var(--fs-3xl);
+  }
+
+  .headLayout {
+    gap: var(--space-4);
+  }
+
+  .headCard {
+    max-width: 100%;
+    width: 300px;
+  }
+
+  .paperScroll {
+    width: 100%;
+    max-width: 450px;
+    padding: 70px 35px;
+    aspect-ratio: unset;
+    min-height: 400px;
+    background-size: 100% 100%;
+  }
+
+  .paperTitle {
+    font-size: var(--fs-xl);
+    margin-bottom: var(--space-2);
+  }
+
+  .paperText {
+    font-size: var(--fs-sm);
+    padding: 0;
+    text-align: justify;
+  }
+
+  .membersGrid {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    /* allow smaller cards */
+    gap: var(--space-4);
+    padding: 0 var(--space-4);
+  }
+
+  .memberCard {
+    max-width: 320px;
+  }
+}
+
+@media (max-width: 480px) {
+  .membersGrid {
+    grid-template-columns: 1fr;
+    /* Force 1 column on very small screens */
+    place-items: center;
+  }
+
+  .headCard,
+  .memberCard {
+    width: 90%;
+    max-width: 300px;
+  }
+}
+
+/* ===============================================================================
+   🔄 AUTO FLIP ANIMATION
+   =============================================================================== */
+
+@keyframes flip {
+  from {
+    transform: rotateY(0deg);
+  }
+
+  to {
+    transform: rotateY(180deg);
+  }
+}
+
+/* 
+   Ensure animation overrides transition 
+   Target .flipInner specifically as it holds the transform 
+*/
+[data-aos="flip"].aos-animate .flipInner,
+.flipCard[data-aos="flip"].aos-animate .flipInner {
+  animation: flip 1s ease-in-out forwards !important;
+  transition: none !important;
+  /* Disable hover transition during anim */
+  transform-style: preserve-3d;
+}
+
+/* Staggered Delays */
+[data-aos="flip"].aos-animate.card1 .flipInner,
+.flipCard.card1[data-aos="flip"].aos-animate .flipInner {
+  animation-delay: 0.3s !important;
+}
+
+[data-aos="flip"].aos-animate.card2 .flipInner,
+.flipCard.card2[data-aos="flip"].aos-animate .flipInner {
+  animation-delay: 0.6s !important;
+}
+
+[data-aos="flip"].aos-animate.card3 .flipInner,
+.flipCard.card3[data-aos="flip"].aos-animate .flipInner {
+  animation-delay: 0.9s !important;
+}
+
+[data-aos="flip"].aos-animate.card4 .flipInner,
+.flipCard.card4[data-aos="flip"].aos-animate .flipInner {
+  animation-delay: 1.2s !important;
+}
+
+/* ===============================================================================
+   ✨ MAGICAL MEMBER CARD STYLING FOR CREW PAGE
+   =============================================================================== */
+
+/* Magical BackCard Design */
+.flipBack .backCard {
+  background: transparent;
+  border-radius: 0;
+  position: relative;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  justify-content: space-evenly;
+  gap: 0.5rem;
+  text-align: center;
+}
+
+/* Magical border effect */
+/* Magical border effect removed */
+
+
+/* Member Info Container */
+
+
+/* Member Image Container with Golden Glow */
+.flipBack .memberImageContainer {
+  position: relative;
+  width: auto;
+  height: 80%;
+  aspect-ratio: 1/1;
+  border-radius: 25px;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+  animation: none;
+  flex-shrink: 0;
+}
+
+@keyframes goldenGlow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.6),
+      inset 0 0 12px rgba(255, 215, 0, 0.3);
+  }
+
+  50% {
+    box-shadow: 0 0 35px rgba(255, 215, 0, 0.8),
+      inset 0 0 20px rgba(255, 215, 0, 0.5);
+  }
+}
+
+.flipBack .memberImage {
+  width: 100%;
+  height: 100%;
+  border-radius: 21px;
+  object-fit: contain;
+  border: none;
+}
+
+/* Member Name Styling */
+.flipBack .memberName {
+  text-align: center;
+  padding: var(--space-2) var(--space-4);
+  background: transparent;
+  backdrop-filter: none;
+  border-radius: 0;
+  border: none;
+  min-width: unset;
+  box-shadow: none;
+}
+
+.flipBack .memberName h3 {
+  font-family: 'Irish Grover', cursive;
+  font-size: var(--fs-base);
+  color: #FFD700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5),
+    0 0 10px rgba(255, 215, 0, 0.5);
+  margin: 0;
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+
+/* Member Title/Workshop */
+.memberTitle {
+  text-align: center;
+  padding: var(--space-1) var(--space-4);
+  background: rgba(171, 32, 32, 0.3);
+  backdrop-filter: blur(5px);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+.memberTitle p {
+  font-family: 'Irish Grover', cursive;
+  font-size: var(--fs-sm);
+  color: #f4e4b1;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+/* Clickable Card Link Styling */
+a.memberCardLink {
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  height: 100%;
+  color: inherit;
+}
+
+a.memberCardLink:hover {
+  text-decoration: none;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .memberImageContainer {
+    width: 150px;
+    height: 150px;
+  }
+
+  .memberName h5,
+  .memberName h3 {
+    font-size: var(--fs-base);
+  }
+}

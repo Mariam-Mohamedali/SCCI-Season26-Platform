@@ -1,0 +1,520 @@
+/* Workshop Description */
+.workshopDescription {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: var(--space-10);
+    flex-wrap: wrap;
+}
+
+.workshopImage {
+    width: 450px;
+    height: auto;
+    animation: floatImage 4s ease-in-out infinite;
+}
+
+@keyframes floatImage {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    25% {
+        transform: translateY(-15px) rotate(-2deg);
+    }
+
+    50% {
+        transform: translateY(-25px) rotate(0deg);
+    }
+
+    75% {
+        transform: translateY(-15px) rotate(2deg);
+    }
+}
+
+.workshopDetails {
+    font-size: var(--fs-lg);
+    font-weight: var(--fw-semibold);
+    color: var(--color-primary-dark);
+    font-family: 'Cinzel', serif;
+    width: 55%;
+    letter-spacing: 2px;
+}
+
+/* Member Cards */
+
+.MemberCardTitle {
+    text-align: center;
+    margin-bottom: var(--space-8);
+}
+
+/* Back Card Member Info Styling */
+.backCard {
+    background: linear-gradient(135deg, var(--color-secondary-dark) 0%, var(--color-primary-dark) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-6);
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-xl);
+}
+
+/* Decorative Stars */
+.backCard::before,
+.backCard::after {
+    content: '✦';
+    position: absolute;
+    color: var(--color-warning);
+    font-size: 2rem;
+    animation: twinkle 3s ease-in-out infinite;
+}
+
+.backCard::before {
+    top: 20px;
+    left: 20px;
+    animation-delay: 0s;
+}
+
+.backCard::after {
+    bottom: 20px;
+    right: 20px;
+    animation-delay: 1.5s;
+}
+
+@keyframes twinkle {
+
+    0%,
+    100% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.8;
+        transform: scale(1.2);
+    }
+}
+
+.memberInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-5);
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.memberImageContainer {
+    position: relative;
+    width: 280px;
+    height: 280px;
+    border-radius: 40px;
+    padding: 6px;
+    background: linear-gradient(135deg, #FFD700, #FFA500, #FFD700);
+    box-shadow: 0 0 40px rgba(255, 215, 0, 0.7),
+        inset 0 0 20px rgba(255, 215, 0, 0.3);
+    animation: goldenGlow 3s ease-in-out infinite;
+}
+
+@keyframes goldenGlow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 40px rgba(255, 215, 0, 0.7),
+            inset 0 0 20px rgba(255, 215, 0, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 60px rgba(255, 215, 0, 0.9),
+            inset 0 0 30px rgba(255, 215, 0, 0.5);
+    }
+}
+
+.memberImage {
+    width: 100%;
+    height: 100%;
+    border-radius: 35px;
+    object-fit: cover;
+    border: 3px solid rgba(255, 255, 255, 0.9);
+}
+
+.memberName {
+    text-align: center;
+    padding: var(--space-3) var(--space-6);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 25px;
+    border: 2px solid rgba(255, 215, 0, 0.6);
+    min-width: 250px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.memberName h3 {
+    font-family: 'Cinzel', serif;
+    font-size: var(--fs-xl);
+    color: #FFD700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5),
+        0 0 10px rgba(255, 215, 0, 0.5);
+    margin: 0;
+    letter-spacing: 2px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.workshopDetailsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-8);
+    justify-items: center;
+}
+
+/* animation delay */
+[data-aos].aos-animate .card5 {
+    animation: flip 1s ease-in-out forwards;
+    animation-delay: 1.5s;
+}
+
+[data-aos].aos-animate .card6 {
+    animation: flip 1s ease-in-out forwards;
+    animation-delay: 1.8s;
+}
+
+/* Workshop Journey Section */
+.workshopJourneySection {
+    padding: var(--space-10) 0;
+    text-align: center;
+}
+
+.journeyContainer {
+    display: flex;
+    gap: var(--space-8);
+    align-items: center;
+    justify-content: center;
+    margin-top: var(--space-8);
+    flex-wrap: wrap;
+}
+
+/* Navigation Buttons */
+.journeyNav {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
+.journeyBtn {
+    background: rgba(171, 32, 32, 0.8);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    padding: 15px 30px;
+    border-radius: 30px;
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 200px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.journeyBtn:hover {
+    background: rgba(171, 32, 32, 1);
+    transform: translateX(10px);
+    box-shadow: 0 4px 15px rgba(171, 32, 32, 0.4);
+}
+
+.journeyBtn.active {
+    background: rgba(171, 32, 32, 1);
+    box-shadow: 0 0 20px rgba(171, 32, 32, 0.6);
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+/* Card Display */
+.journeyCard {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(250, 245, 235, 0.98) 100%);
+    border-radius: 25px;
+    padding: var(--space-6) var(--space-7);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15),
+        0 0 15px rgba(171, 32, 32, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    border: 2px solid rgba(171, 32, 32, 0.25);
+    width: 100%;
+    max-width: 650px;
+    min-height: 320px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.journeyCard:hover {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2),
+        0 0 25px rgba(171, 32, 32, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    transform: translateY(-2px);
+}
+
+.journeyCard::before {
+    content: '✦';
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2rem;
+    color: rgba(171, 32, 32, 0.12);
+    animation: twinkle 3s ease-in-out infinite;
+}
+
+.journeyCard::after {
+    content: '✦';
+    position: absolute;
+    bottom: 15px;
+    left: 20px;
+    font-size: 1.8rem;
+    color: rgba(171, 32, 32, 0.12);
+    animation: twinkle 3s ease-in-out infinite;
+    animation-delay: 1.5s;
+}
+
+.cardContentWrapper {
+    max-height: 380px;
+    overflow-y: auto;
+    padding-right: var(--space-3);
+    scrollbar-width: thin;
+    scrollbar-color: rgba(171, 32, 32, 0.4) rgba(171, 32, 32, 0.08);
+}
+
+.cardContentWrapper::-webkit-scrollbar {
+    width: 6px;
+}
+
+.cardContentWrapper::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.cardContentWrapper::-webkit-scrollbar-thumb {
+    background: rgba(171, 32, 32, 0.5);
+    border-radius: 3px;
+}
+
+.contentBlock {
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+
+.contentBlock.active {
+    display: block;
+}
+
+.contentBlock h3 {
+    font-family: 'Cinzel', serif;
+    color: var(--color-primary-dark);
+    margin-bottom: var(--space-3);
+    font-size: var(--fs-xl);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.contentBlock p {
+    font-family: 'Cinzel', serif;
+    color: var(--color-secondary-dark);
+    line-height: 1.7;
+    font-size: var(--fs-sm);
+    text-align: justify;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .workshopDescription {
+        gap: var(--space-6);
+    }
+
+    .workshopImage {
+        width: 300px;
+    }
+
+    .workshopDetails {
+        width: 65%;
+        font-size: var(--fs-sm);
+    }
+
+    .journeyCard {
+        max-width: 550px;
+        padding: var(--space-5);
+        min-height: 300px;
+    }
+
+    .cardContentWrapper {
+        max-height: 350px;
+    }
+}
+
+@media (max-width: 768px) {
+    .workshopsHero {
+        padding: var(--space-8) 0 var(--space-4);
+        min-height: 300px;
+    }
+
+    .heroTitle {
+        font-size: var(--fs-3xl);
+    }
+
+    
+
+    .workshopDescription {
+        flex-direction: column;
+        gap: var(--space-4);
+    }
+
+    .workshopImage {
+        width: 250px;
+    }
+
+    .workshopDetails {
+        width: 90%;
+        font-size: var(--fs-sm);
+        text-align: center;
+    }
+
+    .journeyContainer {
+        flex-direction: column;
+        gap: var(--space-6);
+    }
+
+    .journeyNav {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .journeyBtn {
+        min-width: 140px;
+        padding: 12px 20px;
+        font-size: 0.85rem;
+    }
+
+    .journeyCard {
+        width: 100%;
+        max-width: 100%;
+        padding: var(--space-4);
+        min-height: 280px;
+    }
+
+    .cardContentWrapper {
+        max-height: 320px;
+    }
+
+    .contentBlock h3 {
+        font-size: var(--fs-xl);
+    }
+
+    .contentBlock p {
+        font-size: var(--fs-sm);
+        line-height: 1.6;
+    }
+
+    .memberImageContainer {
+        width: 220px;
+        height: 220px;
+    }
+
+    .memberName {
+        min-width: 200px;
+    }
+
+    .memberName h3 {
+        font-size: var(--fs-lg);
+    }
+
+    .workshopDetailsGrid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: var(--space-6);
+    }
+}
+
+@media (max-width: 480px) {
+    .heroTitle {
+        font-size: var(--fs-2xl);
+    }
+    .workshopImage {
+        width: 200px;
+    }
+
+    .workshopDetails {
+        width: 95%;
+        font-size: var(--fs-xs);
+    }
+
+    .journeyNav {
+        gap: var(--space-2);
+    }
+
+    .journeyBtn {
+        min-width: 120px;
+        padding: 10px 16px;
+        font-size: 0.75rem;
+    }
+
+    .journeyCard {
+        padding: var(--space-3);
+        min-height: 250px;
+    }
+
+    .cardContentWrapper {
+        max-height: 280px;
+    }
+
+    .contentBlock h3 {
+        font-size: var(--fs-lg);
+    }
+
+    .contentBlock p {
+        font-size: var(--fs-xs);
+    }
+
+    .memberImageContainer {
+        width: 180px;
+        height: 180px;
+    }
+
+    .memberName {
+        min-width: 160px;
+        padding: var(--space-2) var(--space-4);
+    }
+
+    .memberName h3 {
+        font-size: var(--fs-base);
+    }
+
+    .workshopDetailsGrid {
+        grid-template-columns: 1fr;
+        gap: var(--space-5);
+    }
+}
+
+/* Clickable Card Link Styling */
+a.memberCardLink {
+    text-decoration: none;
+    display: block;
+    color: inherit;
+}
+
+a.memberCardLink:hover {
+    text-decoration: none;
+}
