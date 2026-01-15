@@ -40,7 +40,7 @@
                     <div class="groupInputs">
                         <label class="formLabel" for="taskName">Task Name:</label>
                         <input class="textInput"  type="text" name="taskName" id="taskName">
-                        <p id="taskNameMessage"></p>
+                        <p  id="taskNameMessage"></p>
                     </div>
                     <!-- add task deadline -->
                     <div class="groupInputs">
@@ -50,7 +50,7 @@
                     </div>
                 </div>
                     <!-- add task Description -->
-                <div class="descriptionContainer">
+                <div class="groupInputs">
                     <label class="formLabel" for="description" id="descriptionLabel">Task Description:</label>
                     <textarea class="textInput" name="description" id="descriptionInput"  rows="5"></textarea> 
                     <p id="descriptionMessage"></p>
@@ -65,9 +65,10 @@
                         <div class="uploadIcon"></div>
                     </label>
                     
-                    <p class="uploadText">
+                    <p class="uploadText" id="fileUploadState">
                     Drag and drop or click to browse
                     </p>
+                    <p id="fileUploadedName"></p>
                     <label class="btn btn-primary btn-sm" for="taskFile">Upload File</label>
                     <input  type="file" name="taskFile" id="taskFile">
                     

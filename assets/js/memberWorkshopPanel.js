@@ -1,21 +1,50 @@
 // Add Task Section
+
+let taskNameMessage = document.getElementById('taskNameMessage');
+let fileMessage = document.getElementById('fileMessage');
+let descriptionMessage = document.getElementById('descriptionMessage');
+let deadlineMessage = document.getElementById('dueDateMessage');
+
+taskNameMessage.textContent = "";
+fileMessage.textContent = "";
+descriptionMessage.textContent = "";
+deadlineMessage.textContent = "";
+
+// file upload
+const taskFileInput = document.getElementById('taskFile');
+const fileState = document.getElementById('fileUploadState');
+const fileUploadedName = document.getElementById('fileUploadedName');
+
+taskFileInput.addEventListener('change', function () {
+  if (this.files.length > 0) {
+    const fileName = this.files[0].name;
+    fileMessage.textContent = "";
+    fileState.textContent = "File Uploaded Successfully!";
+    fileState.style.color = "green";
+    fileUploadedName.textContent = fileName;
+    fileUploadedName.style.display = "block";
+
+  } else {
+    fileState.textContent = "Drag and drop or click to browse";
+    fileState.style.color = "";
+    fileUploadedName.textContent = "";
+    fileUploadedName.style.display = "none";
+  }
+});
+
 // validate form
+
 const submitForm = document.getElementById('validForm');
 
 submitForm.addEventListener('submit', (event) => {
     event.preventDefault(); 
     let taskNameInput = document.getElementById('taskName').value.trim();
-    let descriptionInput = document.getElementById('description').value.trim();
+    let descriptionInput = document.getElementById('descriptionInput').value.trim();
     let deadlineInput = document.getElementById('dueDate').value;
     let taskFileInput = document.getElementById('taskFile').files[0];
     console.log(taskFileInput,taskNameInput);
+
     
-
-    let taskNameMessage = document.getElementById('taskNameMessage');
-    let fileMessage = document.getElementById('fileMessage');
-    let descriptionMessage = document.getElementById('descriptionMessage');
-    let deadlineMessage = document.getElementById('dueDateMessage');
-
     taskNameMessage.textContent = "";
     fileMessage.textContent = "";
     descriptionMessage.textContent = "";
