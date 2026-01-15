@@ -42,7 +42,6 @@ submitForm.addEventListener('submit', (event) => {
     let descriptionInput = document.getElementById('descriptionInput').value.trim();
     let deadlineInput = document.getElementById('dueDate').value;
     let taskFileInput = document.getElementById('taskFile').files[0];
-    console.log(taskFileInput,taskNameInput);
 
     
     taskNameMessage.textContent = "";
