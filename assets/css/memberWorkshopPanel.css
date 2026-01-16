@@ -49,10 +49,6 @@
   width:50% ;
 }
 
-#taskUploadContainer{
-  background-color: var(--color-white-neutral)!important; 
-  border: 2px dashed var(--color-secondary);
-}
 #taskFile{
   display: none;
 }
@@ -233,9 +229,9 @@
 }
 
 .uploadContainer {
-    background-color: #fbefe5;
+    background-color: var(--color-white-neutral); 
+    border: 2px dashed var(--color-secondary);
     /* Light peach/tan background */
-    border: 2px dashed #d6bba7;
     border-radius: 16px;
     padding: var(--space-8);
     display: flex;

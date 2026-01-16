@@ -97,18 +97,18 @@
           <article id="materialItem">
 
             <div class="materialInfo">
-              <span class="viewTasks" id="viewTaskName">
-                    view Task Name
-              </span>
-              <span class="viewTasks" id="viewTaskDesctiption">
-                    view Task Desctiption
-              </span>
-              <span class="viewTasks" id="viewTaskDeadline">
-                    view Tas kDeadline
-              </span>
-              <span id="viewTaskFile" class="materialFileName">
-                    view Task File
-              </span>
+              <p class="viewTasks" >
+                    Task Name: <span id="viewTaskName"></span>
+              </p>
+              <p class="viewTasks">
+                    Task Deadline: <span id="viewTaskDesctiption"></span>
+              </p>
+              <p class="viewTasks" >
+                    Task Desctiption: <span id="viewTaskDeadline"></span>
+              </p>
+              <p id="viewTaskFile" class="materialFileName">
+                    Task File: <span id="viewTaskFile"></span>
+              </p>
             </div>
             <div class="materialActions">
               <button id="deleteTask" class="deleteMaterialButton">Delete</button>
@@ -149,7 +149,7 @@
           Drag and drop or click to browse
         </p>
 
-        <button class="btn">Upload File</button>
+        <button class="btn btn-secondary btn-sm">Upload File</button>
 
       </div>
     </section>
