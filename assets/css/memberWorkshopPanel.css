@@ -73,7 +73,38 @@
   /* Cleaner font for file names usually */
 
 }
+#materialTypeButton{
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-family: inherit;
+    font-weight: bold;
+    font-size: var(--fs-sm);
+    cursor: pointer;
+    border: 2px solid var(--color-secondary);
+    color: var(--color-secondary);
+    transition: background-color var(--transition-fast), color var(--transition-fast);
+}
 
+#materialList {
+    background-color: var(--color-white-neutral);
+    padding: var(--space-6);
+    border-radius: 20px;
+    box-shadow: var(--shadow-light);
+    max-width: 1000px;
+    margin: 10% auto;
+}
+#materialItem {
+    background-color: #d1d1d1;
+    /* Gray stripe */
+    padding: 12px 20px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
 
 @media (max-width: 1000px) {
@@ -540,6 +571,11 @@
         justify-content: center;
         white-space: nowrap;
     }
+    #materialTypeButton {
+        flex: 1;
+        justify-content: center;
+        white-space: nowrap;
+    }
     .uploadContainer {
       padding: var(--space-5);
         min-height: 200px;
@@ -567,6 +603,11 @@
         align-items: flex-start;
     }
 
+    #materialItem {
+        flex-direction: column;
+        gap: var(--space-3);
+        align-items: flex-start;
+    }
     .materialActions {
         width: 100%;
         justify-content: flex-end;

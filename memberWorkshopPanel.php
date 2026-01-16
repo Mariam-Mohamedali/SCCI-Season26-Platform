@@ -81,20 +81,20 @@
         </form>
     </section>
     <!-- View Task Section -->
-    <section class="materialList">
+    <section id="materialList">
       <h3 class="materialTitle">Task</h3>
       <div class="materialContent">
 
         <!-- material type -->
         <aside class="materialType">
-          <button class="materialTypeButton">
+          <button id="materialTypeButton">
             Task Details
           </button>
         </aside>
 
         <!-- materials items List -->
         <div class="materialItemsList">
-          <article class="materialItem">
+          <article id="materialItem">
 
             <div class="materialInfo">
               <span class="viewTasks" id="viewTaskName">
