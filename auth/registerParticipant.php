@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                  `password`,`role`,`Image`,`status`)
                 VALUES
                 (NULL,'$workshop','$name','$email','$phone',
-                 `password`='$passwordhashing','1','$image',0)";
+                 '$passwordhashing','1','$image',0)";   
 
                 if (mysqli_query($connect, $insert_p)) {
                     $success = "Registered Successfully";
