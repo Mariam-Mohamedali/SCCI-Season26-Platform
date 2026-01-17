@@ -1,0 +1,616 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css");
+
+/* ===============================================================================
+   MEMBER WORKSHOP PANEL STYLES
+   =============================================================================== */
+
+
+
+/* Main Page Container */
+.materialPage {
+    padding: var(--space-6) var(--space-8);
+    max-width: 1400px;
+    margin: 0 auto;
+    font-family: 'Irish Grover', cursive;
+}
+
+/* Add Task Section */
+.taskContainer{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  margin: 0 auto;
+  
+}
+
+.sideInputs{
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  align-items: start;
+  padding-left: var(--space-8);
+}
+.groupInputs {
+    align-items: center;
+    gap: var(--space-3);
+    flex: 1;
+}
+.descriptionContainer{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+
+}
+#descriptionLabel {
+    vertical-align: top;
+}
+#descriptionInput{
+  width:50% ;
+}
+
+#taskFile{
+  display: none;
+}
+#fileUploadedName{
+  background-color: var(--color-white);
+  width: 40%;
+  color: var(--color-gray-dark);
+  display: none;
+}
+
+.viewTasks{
+
+  color: var(--color-black);
+  font-size: var(--fs-sm);
+  align-items: center;
+  gap: 10px;
+  font-family: 'Inter', sans-serif;
+  /* Cleaner font for file names usually */
+
+}
+#materialTypeButton{
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-family: inherit;
+    font-weight: bold;
+    font-size: var(--fs-sm);
+    cursor: pointer;
+    border: 2px solid var(--color-secondary);
+    color: var(--color-secondary);
+    transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+#materialList {
+    background-color: var(--color-white-neutral);
+    padding: var(--space-6);
+    border-radius: 20px;
+    box-shadow: var(--shadow-light);
+    max-width: 1000px;
+    margin: 10% auto;
+}
+#materialItem {
+    background-color: #d1d1d1;
+    /* Gray stripe */
+    padding: 12px 20px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+@media (max-width: 1000px) {
+  .taskContainer{
+    width: 90%;
+    margin: 20% auto;
+  }
+  .sideInputs{
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    padding-left: 0;
+  }
+  .groupInputs {
+        width: 100%;
+        flex-direction: column;
+        /* Stack label and input */
+        align-items: flex-start;
+        text-align: start;
+        gap: 0.5rem;
+  }
+  .descriptionContainer{
+    flex-direction: column;
+    width: 100%;
+  }
+  #descriptionInput{
+    width:100% ;
+  }
+
+}
+
+@media (max-width: 620px){
+  .sideInputs{
+    flex-direction: column;
+    padding-left: 0;
+  }
+}
+
+/* ================================
+   ADD MATERIALS SECTION
+===================================*/
+.addMaterial {
+    margin-bottom: var(--space-8);
+}
+
+.sectionTitle {
+    color: var(--color-primary);
+    font-size: var(--fs-2xl);
+    margin-bottom: var(--space-3);
+    text-transform: capitalize;
+    text-align: center;
+}
+
+/* The layout for Material Name | Session Type */
+.materialForm {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    background-color: var(--color-white-neutral);
+    /* Slight off-white/cream */
+    padding: var(--space-3) var(--space-6);
+    border-radius: 50px;
+    /* Pill shape */
+    box-shadow: var(--shadow-light);
+    border: 1px solid var(--border-light);
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    margin-bottom: var(--space-6);
+}
+
+.formGroup {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex: 1;
+}
+
+.formLabel {
+    font-size: var(--fs-lg);
+    color: var(--color-secondary);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.textInput,
+.selectInput {
+    flex: 1;
+    border: 2px solid var(--color-secondary);
+    border-radius: 20px;
+    padding: 0.6rem 1.2rem;
+    font-family: inherit;
+    font-size: var(--fs-sm);
+    color: var(--color-secondary);
+    background: transparent;
+    outline: none;
+    transition: box-shadow var(--transition-fast);
+}
+
+.textInput:focus,
+.selectInput:focus {
+    box-shadow: 0 0 0 3px rgba(0, 0, 91, 0.1);
+}
+
+/* Divider between the two form groups */
+.materialForm .formGroup:first-child {
+    border-right: 2px solid var(--color-gray-light);
+    padding-right: var(--space-4);
+    margin-right: var(--space-4);
+    flex: 1.5;
+    /* Give input slightly more space */
+}
+
+/* ================================
+   FILE UPLOAD SECTION
+===================================*/
+.fileUpload {
+    margin-bottom: var(--space-8);
+    /* border: 3px solid #3498db; */
+    /* Specific light blue from design */
+    border-radius: 20px;
+    padding: var(--space-4);
+    background-color: transparent;
+    max-width: 1000px;
+    margin: 0 auto var(--space-8);
+}
+
+.uploadContainer {
+    background-color: var(--color-white-neutral); 
+    border: 2px dashed var(--color-secondary);
+    /* Light peach/tan background */
+    border-radius: 16px;
+    padding: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3);
+    text-align: center;
+    min-height: 300px;
+    /* Force some height */
+}
+
+.uploadIcon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, var(--color-secondary), var(--color-secondary-dark));
+    /* background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark)); */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 2.5rem;
+    margin-bottom: var(--space-2);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+/* Using FontAwesome unicode for download symbol if not provided in HTML */
+.uploadIcon::before {
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    content: "\f019";
+    /* fa-download */
+}
+
+.uploadText {
+    color: #8d6e63;
+    /* Brownish text color */
+    font-size: var(--fs-lg);
+    line-height: 1.4;
+}
+
+.uploadText small {
+    display: block;
+    font-size: var(--fs-sm);
+    opacity: 0.8;
+}
+
+/* The Upload Button */
+.uploadContainer .btn {
+    position: relative;
+    margin-top: var(--space-4);
+    /* background: linear-gradient(135deg, var(--color-secondary), var(--color-secondary-dark)); */
+    color: var(--color-white);
+    padding: 12px 50px;
+    border-radius: 20px;
+    border: none;
+    font-family: inherit;
+    font-size: var(--fs-base);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    /* Removed gap since we are using absolute positioned stars */
+}
+
+/* Floating Stars on both sides (Replicating/Enforcing Root Style) */
+.uploadContainer .btn::before,
+.uploadContainer .btn::after {
+    content: "✦";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #FFD700;
+    font-size: 1rem;
+    pointer-events: none;
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.6);
+    font-family: sans-serif;
+    /* Ensure star renders correctly */
+    font-weight: normal;
+}
+
+.uploadContainer .btn::before {
+    left: 15px;
+    animation: floatStar 3s ease-in-out infinite alternate;
+}
+
+.uploadContainer .btn::after {
+    right: 15px;
+    animation: floatStar 3s ease-in-out infinite alternate-reverse;
+}
+
+/* Drag over state for JS */
+.uploadContainer.drag-over {
+    border-color: var(--color-primary);
+    background-color: #fff5e6;
+    transform: scale(1.01);
+    transition: all 0.2s ease;
+}
+
+/* ================================
+   MATERIALS LIST SECTION
+===================================*/
+.materialList {
+    background-color: var(--color-white-neutral);
+    padding: var(--space-6);
+    border-radius: 20px;
+    box-shadow: var(--shadow-light);
+    max-width: 1000px;
+    margin: 10% auto;
+}
+
+.materialTitle {
+    color: var(--color-secondary);
+    font-size: var(--fs-xl);
+    margin-bottom: var(--space-6);
+    text-align: center;
+}
+
+.materialContent {
+    display: flex;
+    gap: var(--space-6);
+}
+
+/* Sidebar Buttons */
+.materialType {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    min-width: 220px;
+}
+
+.materialTypeButton {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-family: inherit;
+    font-weight: bold;
+    font-size: var(--fs-sm);
+    cursor: pointer;
+    border: 2px solid var(--color-secondary);
+    color: var(--color-secondary);
+    transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.materialTypeButton:hover {
+    background-color: var(--color-gray-medium);
+
+}
+
+/* First button specific adjustments removed in favor of .active class logic */
+/* But we keep the icon logic */
+
+
+/* Icons for buttons */
+.materialTypeButton::before {
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    content: "\f04b";
+    font-size: 0.8em;
+}
+
+.materialTypeButton:nth-child(2) {
+    /* Soft skills */
+    background-color: var(--color-white);
+}
+
+.materialTypeButton:nth-child(2)::before {
+    content: "\f04b";
+    color: var(--color-secondary);
+}
+
+.materialTypeButton:nth-child(2):hover {
+    background-color: var(--color-gray-medium);
+}
+
+
+/* List Items */
+.materialItemsList {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.materialItem {
+    background-color: #d1d1d1;
+    /* Gray stripe */
+    padding: 12px 20px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.materialInfo {
+    display: flex;
+    gap: 10%;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.materialFileName {
+    color: var(--color-black);
+    font-size: var(--fs-sm);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Inter', sans-serif;
+    /* Cleaner font for file names usually */
+}
+
+/* File Icon */
+.materialFileName::before {
+    display: inline-block;
+    font-family: "Font Awesome 6 Free";
+    font-weight: 400;
+    /* Regular style */
+    content: "\f15b";
+    /* fa-file */
+    font-size: 1.2em;
+    min-width: 20px;
+}
+
+.materialActions {
+    display: flex;
+    gap: var(--space-4);
+}
+
+.editMaterialButton,
+.deleteMaterialButton {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: var(--fs-xs);
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: opacity 0.2s;
+}
+
+.editMaterialButton {
+    color: var(--color-black);
+}
+
+.editMaterialButton::before {
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    content: "\f044";
+    /* fa-edit */
+}
+
+.deleteMaterialButton {
+    color: var(--color-primary);
+}
+
+.deleteMaterialButton::before {
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    content: "\f2ed";
+    /* fa-trash-alt */
+}
+
+.editMaterialButton:hover,
+.deleteMaterialButton:hover {
+    opacity: 0.7;
+    transform: scale(1.1);
+}
+
+/* Ensure Icons appear correctly */
+.editMaterialButton::before,
+.deleteMaterialButton::before {
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* MEDIA QUERIES for responsiveness */
+/* MEDIA QUERIES for responsiveness */
+@media (max-width: 850px) {
+    .materialForm {
+        flex-direction: column;
+        border-radius: 20px;
+        padding: var(--space-4);
+        align-items: stretch;
+        /* Stretch children */
+    }
+
+    .materialForm .formGroup:first-child {
+        border-right: none;
+        border-bottom: 2px solid var(--color-gray-light);
+        padding-right: 0;
+        margin-right: 0;
+        padding-bottom: var(--space-3);
+        margin-bottom: var(--space-3);
+        flex: none;
+        width: 100%;
+    }
+
+    .formGroup {
+        width: 100%;
+        flex-direction: column;
+        /* Stack label and input */
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .textInput,
+    .selectInput {
+        width: 100%;
+    }
+
+    .materialContent {
+        flex-direction: column;
+    }
+
+    .materialType {
+        flex-direction: row;
+        overflow-x: auto;
+        padding-bottom: 10px;
+        /* Scrollbar space */
+    }
+
+    .materialTypeButton {
+        flex: 1;
+        justify-content: center;
+        white-space: nowrap;
+    }
+    #materialTypeButton {
+        flex: 1;
+        justify-content: center;
+        white-space: nowrap;
+    }
+    .uploadContainer {
+      padding: var(--space-5);
+        min-height: 200px;
+    }
+    #uploadText{
+        font-size: var(--fs-sm);
+            /* margin: 0 auto var(--space-4); */
+    }
+    .fileUpload {
+        margin: 0 auto var(--space-4); 
+    }
+    #submitBtn{
+      height: 40px !important;
+    }
+}
+
+@media (max-width: 500px) {
+    .materialPage {
+        padding: var(--space-4);
+    }
+
+    .materialItem {
+        flex-direction: column;
+        gap: var(--space-3);
+        align-items: flex-start;
+    }
+
+    #materialItem {
+        flex-direction: column;
+        gap: var(--space-3);
+        align-items: flex-start;
+    }
+    .materialActions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .materialType {
+        flex-direction: column;
+        /* Stack buttons on very small screens */
+    }
+}
