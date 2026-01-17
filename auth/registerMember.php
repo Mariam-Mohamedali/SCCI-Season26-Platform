@@ -26,25 +26,50 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $getHup   = mysqli_real_escape_string($connect, $_POST['github']);
     $linkedin = mysqli_real_escape_string($connect, $_POST['linkedin']);
 
-    // Check duplicate email or phone
-    $select = "SELECT * FROM `users` WHERE `email`='$email' OR `phone`='$phone'";
-    $run_select = mysqli_query($connect, $select);
+    // Image Upload Logic
+    $image = "default.png"; // Default image
+    if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
+        $allowed_ext = ['jpg', 'jpeg', 'png'];
+        $file_name = $_FILES['image']['name'];
+        $file_size = $_FILES['image']['size'];
+        $file_tmp = $_FILES['image']['tmp_name'];
+        $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
 
-    if (mysqli_num_rows($run_select) > 0) {
-        $error = "Email or Phone already exists";
-    } else {
-
-        $insert_p = "INSERT INTO `users`
-        (`user_id`,`workshop_id`,`committee_id`,`user_name`,`email`,`phone`,
-         `password`,`role`,`Image`,`githup`,`linkedin`,`status`)
-        VALUES
-        (NULL,'$workshop',$committeeId,'$name','$email','$phone',
-         '$passwordhashing','$roleID','default.png','$getHup','$linkedin',0)";
-
-        if (mysqli_query($connect, $insert_p)) {
-            $success = "Registered Successfully";
+        if (in_array($file_ext, $allowed_ext)) {
+            $new_image_name = uniqid("IMG-", true) . '.' . $file_ext;
+            $upload_path = '../assets/uploadedImages/' . $new_image_name;
+            
+            if (move_uploaded_file($file_tmp, $upload_path)) {
+                $image = $new_image_name;
+            } else {
+                $error = "Failed to upload image.";
+            }
         } else {
-            $error = "Database Error: " . mysqli_error($connect);
+            $error = "Invalid file type. Only JPG, JPEG, and PNG are allowed.";
+        }
+    }
+
+    if (empty($error)) {
+        // Check duplicate email or phone
+        $select = "SELECT * FROM `users` WHERE `email`='$email' OR `phone`='$phone'";
+        $run_select = mysqli_query($connect, $select);
+    
+        if (mysqli_num_rows($run_select) > 0) {
+            $error = "Email or Phone already exists";
+        } else {
+    
+            $insert_p = "INSERT INTO `users`
+            (`user_id`,`workshop_id`,`committee_id`,`user_name`,`email`,`phone`,
+             `password`,`role`,`Image`,`githup`,`linkedin`,`status`)
+            VALUES
+            (NULL,NULL,$committeeId,'$name','$email','$phone',
+             '$passwordhashing','$roleID','$image','$getHup','$linkedin',0)";
+    
+            if (mysqli_query($connect, $insert_p)) {
+                $success = "Registered Successfully";
+            } else {
+                $error = "Database Error: " . mysqli_error($connect);
+            }
         }
     }
 }
@@ -68,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 <body>
 
 <div class="main-content">
-    <form class="form-content" id="form" action="" method="POST" novalidate>
+    <form class="form-content" id="form" action="" method="POST" enctype="multipart/form-data" novalidate>
 
         <h1 class="register-title">Register</h1>
         <div class="divider">
@@ -100,7 +125,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
             <input type="password" name="password" id="password" required placeholder="••••••••">
             <div class="error-text" id="error-password"></div>
         </div>
-
+<!-- 
         <div class="input-group">
             <label>Workshop</label>
             <select name="workshop" id="workshop" required>
@@ -112,7 +137,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                 <?php } ?>
             </select>
             <div class="error-text" id="error-workshop"></div>
-        </div>
+        </div> -->
 
         <div class="input-group">
             <label>Committee</label>
@@ -141,6 +166,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                 <option value="3">br</option>
                 <option value="3">logistes</option>
             </select>
+        </div>
+
+        <div class="input-group">
+            <label>Profile Photo</label>
+            <input type="file" name="image" id="image" accept="image/png, image/jpeg, image/jpg">
         </div>
 
         <div class="input-group">
