@@ -1,4 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // Initialize AOS
+  AOS.init({
+    duration: 800,
+    easing: 'ease-in-out',
+    once: false,
+    mirror: true
+  });
+
   const flipCards = document.querySelectorAll(".flipCard");
 
   flipCards.forEach(card => {

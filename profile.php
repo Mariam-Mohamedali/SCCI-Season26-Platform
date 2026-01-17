@@ -19,7 +19,7 @@ if (isset($_POST['logout'])) {
 }
 
 // Fetch user data using prepared statement
-$select_user = "SELECT u.user_name, u.email, u.image, u.githup, u.phone, u.password, u.linkedin, c.committe_name, w.workshop_name 
+$select_user = "SELECT u.user_name, u.email, u.image, u.githup, u.phone, u.password, u.linkedin, u.role, c.committe_name, w.workshop_name 
                 FROM users u 
                 LEFT JOIN committees c ON u.committee_id = c.committee_id 
                 LEFT JOIN workshops w ON u.workshop_id = w.workshop_id 
@@ -229,20 +229,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_POST['logout'])) {
               <div class="infoLabel">Department</div>
               <div class="infoValue">
                 <?php 
+                if ($user['role'] == 4) {
+                  $dept = !empty($user['committe_name']) ? $user['committe_name'] . " Head" : "Head";
+                  echo htmlspecialchars($dept);
+                } else {
                   $parts = [];
                   if (!empty($user['committe_name'])) {
-                      $parts[] = $user['committe_name'];
+                    $parts[] = $user['committe_name'];
                   }
                   if (!empty($user['workshop_name'])) {
-                      $parts[] = $user['workshop_name'];
+                    $parts[] = $user['workshop_name'];
                   }
-                  
-                  if (empty($parts)) {
-                      
-                  } else {
-                      echo htmlspecialchars(implode(' - ', $parts));
+                  if (!empty($parts)) {
+                    echo htmlspecialchars(implode(' - ', $parts));
                   }
-                ?>
+                }
+                    ?>
               </div>
             </div>
           </div>
@@ -313,38 +315,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_POST['logout'])) {
 
   <!-- History Section -->
 
-  <section class="historySection">
-    <div class="card-container">
-      <div class="vertical-line"></div>
-
-      <div class="role-item">
-        <div class="diamond"></div>
-        <div class="role-content">
-          <h3 class="role-title">IT Head</h3>
-          <p class="role-description">The IT head has a lot of responsibilities to take care of, like making the system
-            all the SCU user in their daily bases, he leads the IT members to accomplish this goal.</p>
-        </div>
-      </div>
-
-      <div class="role-item">
-        <div class="diamond"></div>
-        <div class="role-content">
-          <h3 class="role-title">IT Member</h3>
-          <p class="role-description">The IT member makes the system all the SCU user in their daily bases, and support
-            the workshops</p>
-        </div>
-      </div>
-
-      <div class="role-item">
-        <div class="diamond"></div>
-        <div class="role-content">
-          <h3 class="role-title">DEYO Participant</h3>
-          <p class="role-description">They take course on how to build websites from scratch using cutting edge
-            technologies, and then participate in the conference</p>
-        </div>
-      </div>
-    </div>
-  </section>
+  
   </main>
   <?php include './includes/footer.php'; ?>
 

@@ -2,7 +2,7 @@
 .heroSection {
   min-height: 100vh;
   min-height: 100dvh;
-  /* Dynamic viewport height for mobile browsers */
+
   height: 100vh;
   height: 100dvh;
   z-index: 5;
@@ -45,52 +45,49 @@
   align-items: center;
   flex-direction: column;
   z-index: 10;
-  /* Above column */
-
-  /* Premium glassmorphism effect */
-  background: linear-gradient(135deg,
-      rgba(93, 46, 31, 0.5) 0%,
-      rgba(45, 24, 16, 0.6) 100%);
-  backdrop-filter: blur(2px) saturate(100%);
-  /* -webkit-backdrop-filter: blur(20px) saturate(150%); */
-
   padding: 3rem 2.5rem;
-  border-radius: 30px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+}
 
-  /* box-shadow:
-    0 8px 40px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1); */
+.heroText {
+  color: var(--color-white);
 }
 
 /* about us */
 
 .aboutSection {
-  padding: var(--space-8) var(--space-4);
+  position: relative;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 60vh;
+}
+
+.aboutSection .aboutBG {
+  width: 100%;
+  height: 100%;
+  max-width: 1000px;
+  min-width: 800px;
+  aspect-ratio: 4 / 3;
+  margin: auto;
+}
+
+.aboutSection .aboutBGresponsive {
+  display: none;
 }
 
 .aboutContainer {
-  max-width: 900px;
-  width: 100%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 65%;
+  max-width: 530px;
+  min-width: 430px;
   text-align: center;
-  padding: 4rem 3rem;
+  z-index: 1;
+}
 
-  /* Glassmorphism styling */
-  background: linear-gradient(135deg,
-      rgba(93, 46, 31, 0.5) 0%,
-      rgba(45, 24, 16, 0.6) 100%);
-  backdrop-filter: blur(20px) saturate(150%);
-  -webkit-backdrop-filter: blur(20px) saturate(150%);
 
-  border-radius: 30px;
-  border: 2px solid rgba(212, 175, 55, 0.3);
-  box-shadow:
-    0 8px 40px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+.aboutContainer p {
+  color: var(--color-gray-dark);
+  margin-bottom: 4rem;
 }
 
 /* cards */
@@ -287,8 +284,6 @@
 }
 
 .cardContent img {
-  width: 120px;
-  height: 120px;
   object-fit: contain;
   filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4));
   transition: transform 0.3s ease;
@@ -323,7 +318,7 @@
 
 .statIcon {
   font-size: 8rem;
-  color: var(--color-primary-dark);
+  color: var(--color-secondary);
   text-shadow:
     0 4px 8px rgba(171, 32, 32, 0.3),
     0 0 20px rgba(171, 32, 32, 0.2);
@@ -426,57 +421,121 @@
 
 .contactUsContainer {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+  gap: 5rem;
   padding: 0 4rem;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 /* form */
 
+/* Contact Paper Container */
 .homeContactPaper {
   position: relative;
-  align-content: center;
+  display: block;
 }
 
+/* Contact Paper Images */
+.contactPaper {
+  display: block;
+  width: 600px;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2));
+}
+
+.contactPaperResponsive {
+  display: none;
+}
+
+/* Contact Text Positioning */
 .contactText {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 55%;
+  left: 45%;
   transform: translate(-50%, -50%);
+  width: 60%;
   text-align: center;
   color: var(--btn-primary-hover);
-  font-size: 23px;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.6;
+  z-index: 2;
 }
 
 .homeBird {
   position: absolute;
-  top: -17%;
-  right: -20px;
-  width: 130px;
-  transform: rotate(30deg);
+  top: -60px;
+  right: -40px;
+  width: 100px;
+  transform: rotate(15deg);
+  filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.2));
+  z-index: 5;
 }
 
+/* Form Styling Improvement */
+.form-content {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 3rem;
+  width: 100%;
+  max-width: 500px;
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.1),
+    inset 0 0 20px rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  position: relative;
+  backdrop-filter: blur(10px);
+}
+
+.input-group {
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 0.8rem;
+  color: var(--color-primary);
+  font-family: 'Irish Grover', cursive;
+  font-size: 1.4rem;
+  letter-spacing: 1px;
+}
+
+.input-group input,
 .input-group textarea,
 select {
   width: 100%;
-  padding: var(--space-3);
-  border-radius: var(--radius-md);
-  border: 1px solid var(--border-dark);
-  background: linear-gradient(to bottom, #5a5a5a, #6d6d6d);
-  color: var(--color-white);
-  font-size: var(--fs-sm);
-  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.4);
+  padding: 1.2rem 1.5rem;
+  border-radius: 12px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.03);
+  color: #333;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
   outline: none;
-  resize: both;
+  resize: vertical;
 }
 
+.input-group input::placeholder,
 .input-group textarea::placeholder {
-  color: var(--text-light);
-  font-style: italic;
+  color: #999;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-style: normal;
+  font-size: 0.95rem;
+  opacity: 0.8;
 }
 
+.input-group input:focus,
 .input-group textarea:focus {
-  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.4), 0 0 6px rgba(197, 37, 37, 0.4);
+  background: #fff;
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 12px rgba(171, 32, 32, 0.15);
+  transform: translateY(-2px);
 }
+
+/* Removed old focus styles as they are now handled above */
 
 /* validation form */
 
@@ -501,6 +560,38 @@ select {
 
   .contactUsContainer {
     padding: 0 3rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 4rem;
+  }
+
+  .homeContactPaper {
+    display: block;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .contactPaper {
+    display: none;
+  }
+
+  .contactPaperResponsive {
+    display: block;
+    width: 100%;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2));
+  }
+
+  .contactText {
+    top: 50%;
+    left: 50%;
+    width: 70%;
+    font-size: 1.1rem;
+    line-height: 1.8;
+  }
+
+  .form-content {
+    width: 100%;
   }
 
   .statContainer {
@@ -509,13 +600,9 @@ select {
 }
 
 @media (max-width: 1000px) {
-  .contactUsContainer {
-    justify-content: center;
-  }
+  /* Removed duplicate contactUsContainer block */
 
-  .homeContactPaper {
-    display: none;
-  }
+  /* Removed display:none from homeContactPaper */
 
   .heroContainer {
     width: 75%;
@@ -649,7 +736,7 @@ select {
     width: 90%;
   }
 
- 
+
 
   .aboutContainer {
     width: 85%;

@@ -42,7 +42,7 @@
                     <div class="flipSide flipFront">
                         <img src="./assets/img/crew/backCardCrew.png" loading="lazy" alt="backCard" />
                     </div>
-                    <div class="flipSide flipBack">
+                    <div class="flipSide flipBack" data-title="PRESIDENT">
                          <div class="backCard">
                                     <div class="memberImageContainer">
                                         <img src="./assets/uploadedImages/Mohamed Ali.jpg" alt="Mohamed Ali" class="memberImage" />
@@ -77,8 +77,8 @@
 
         <div class="cardsGrid">
 
-            <div class="boardItem js-auto-flip" data-aos="fade-up" data-aos-delay="400" onclick="openModal(this)">
-                <h3 class="roleTitle" style="cursor: pointer;">Technical</h3>
+            <div class="boardItem js-auto-flip" data-aos="fade-up" data-aos-delay="400">
+                <h3 class="roleTitle">Technical</h3>
                 <div class="flipCard  " data-aos="flip">
                     <span class="sideLabel left">IT DD</span>
                     <span class="sideLabel right purpleText">MP SMM</span>
@@ -86,7 +86,7 @@
                         <div class="flipSide  flipFront">
                             <img src="./assets/img/crew/backCardCrew.png" loading="lazy" alt="backCard" />
                         </div>
-                        <div class="flipSide flipBack">
+                        <div class="flipSide flipBack" data-title="TECHNICAL">
                             <div class="backCard">
 
                                     <div class="memberImageContainer">
@@ -96,12 +96,12 @@
                                         <h3>Marwan Wael</h3>
                                     </div>
                                    
-
+                                </div>
                             </div>
-                        </div>
                     </div>
                      
                 </div>
+                <a href="javascript:void(0)" onclick="openModal(this.closest('.boardItem'))" class="btn btn-primary ">Discover More</a>
 
                 <!-- Sub Cards Container -->
                 <div class="subCrewGrid hiddenGrid">
@@ -113,7 +113,7 @@
                                <div class="flipSide flipFront">
                                 <img src="./assets/img/crew/backCardCrew.png" loading="lazy" alt="backCard" />
                             </div>
-                               <div class="flipSide flipBack">
+                               <div class="flipSide flipBack" data-title="IT">
                                  <div class="backCard">
                                     <div class="memberImageContainer">
                                         <img src="./assets/uploadedImages/Mahmoud Alaam.jpg" alt="Mahmoud Alaam" class="memberImage" />
@@ -125,7 +125,7 @@
                                </div>
                            </div>
                        </div>
-                       <a href="crewDetails.php?committee_id=6" class="btn btnPrimary btnSm">Discover More</a>
+                       <a href="crewDetails.php?committee_id=6" class="btn btn-primary ">Know Us !</a>
                     </div>
                     <!-- 2. DD -->
                     <div class="subCard">
@@ -133,7 +133,7 @@
                        <div class="flipCard smCard card2" data-aos="flip">
                            <div class="flipInner">
                                <div class="flipSide flipFront"><img src="./assets/img/crew/backCardCrew.png" loading="lazy" alt="backCard" /></div>
-                               <div class="flipSide flipBack">
+                               <div class="flipSide flipBack" data-title="DD">
                                  <div class="backCard">
                                     <div class="memberImageContainer">
                                         <img src="./assets/uploadedImages/Mohamed El Hossiny.jpg" alt="Mohamed El Hossiny" class="memberImage" />
@@ -145,7 +145,7 @@
                                </div>
                            </div>
                        </div>
-                       <a href="crewDetails.php?committee_id=7" class="btn btnPrimary btnSm">Discover More</a>
+                       <a href="crewDetails.php?committee_id=7" class="btn btn-primary ">Know Us !</a>
                     </div>
                     <!-- 3. MP -->
                     <div class="subCard">
@@ -153,7 +153,7 @@
                        <div class="flipCard smCard card3" data-aos="flip">
                            <div class="flipInner">
                                <div class="flipSide flipFront"><img src="./assets/img/crew/backCardCrew.png" loading="lazy" alt="backCard" /></div>
-                               <div class="flipSide flipBack">
+                               <div class="flipSide flipBack" data-title="MP">
                                  <div class="backCard">
                                     <div class="memberImageContainer">
                                         <img src="./assets/uploadedImages/Omar Ahmed.jpg" alt="Omar Ahmed" class="memberImage" />
@@ -165,7 +165,7 @@
                                </div>
                            </div>
                        </div>   
-                       <a href="crewDetails.php?committee_id=10" class="btn btnPrimary btnSm">Discover More</a>
+                       <a href="crewDetails.php?committee_id=10" class="btn btn-primary ">Know Us !</a>
                     </div>
                     <!-- 4. SMM -->
                     <div class="subCard">
@@ -173,7 +173,7 @@
                        <div class="flipCard smCard card4" data-aos="flip">
                            <div class="flipInner">
                                <div class="flipSide flipFront"><img src="./assets/img/crew/backCardCrew.png" loading="lazy" alt="backCard" /></div>
-                               <div class="flipSide flipBack">
+                               <div class="flipSide flipBack" data-title="SMM">
                                  <div class="backCard">
                                     <div class="memberImageContainer">
                                         <img src="./assets/uploadedImages/Nour Mohamed.jpg" alt="Nour Mohamed" class="memberImage" />
@@ -185,7 +185,7 @@
                                </div>
                            </div>
                        </div>   
-                       <a href="crewDetails.php?committee_id=5" class="btn btnPrimary btnSm">Discover More</a>
+                       <a href="crewDetails.php?committee_id=5" class="btn btn-primary ">Know Us !</a>
                     </div>
                 </div>
             </div>
@@ -197,7 +197,7 @@
                         <div class="flipSide flipFront">
                             <img src="./assets/img/crew/backCardCrew.png" alt="backCard" />
                         </div>
-                        <div class="flipSide flipBack">
+                        <div class="flipSide flipBack" data-title="ACADEMIC">
                             <div class="backCard">
 
                                     <div class="memberImageContainer">
@@ -211,7 +211,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="crewDetails.php?committee_id=3" class="btn btnPrimary btnSm">Know Us !</a>
+                <a href="crewDetails.php?committee_id=3" class="btn btn-primary ">Know Us !</a>
             </div>
 
             <div class="boardItem" data-aos="fade-up" data-aos-delay="300">
@@ -221,7 +221,7 @@
                         <div class="flipSide flipFront">
                             <img src="./assets/img/crew/backCardCrew.png" alt="backCard" />
                         </div>
-                        <div class="flipSide flipBack">
+                        <div class="flipSide flipBack" data-title="HR">
                             <div class="backCard">
 
                                     <div class="memberImageContainer">
@@ -235,18 +235,18 @@
                         </div>
                     </div>
                 </div>
-                <a href="crewDetails.php?committee_id=12" class="btn btnPrimary btnSm">Know Us !</a>
+                <a href="crewDetails.php?committee_id=12" class="btn btn-primary ">Know Us !</a>
             </div>
-            <div class="boardItem" data-aos="fade-up" data-aos-delay="400" onclick="openModal(this)">
-                <h3 class="roleTitle" style="cursor: pointer;">External Relations</h3>
+            <div class="boardItem" data-aos="fade-up" data-aos-delay="400">
+                <h3 class="roleTitle">External Relations</h3>
                 <div class="flipCard" data-aos="flip">
-                    <span class="sideLabel left">BD L</span>
-                    <span class="sideLabel right purpleText">CR PR</span>
+                    
+                    
                     <div class="flipInner">
                         <div class="flipSide flipFront">
                             <img src="./assets/img/crew/backCardCrew.png" loading="lazy">
                         </div>
-                        <div class="flipSide flipBack">
+                        <div class="flipSide flipBack" data-title="ER">
                             <div class="backCard">
                                     <div class="memberImageContainer">
                                         <img src="./assets/uploadedImages/Mohamed Hesham.jpg" alt="Mohamed Hesham" class="memberImage" />
@@ -258,6 +258,7 @@
                         </div>
                     </div>
                 </div>
+                <a href="javascript:void(0)" onclick="openModal(this.closest('.boardItem'))" class="btn btn-primary ">Discover More</a>
                 <!-- Sub Cards Container -->
                 <div class="subCrewGrid hiddenGrid">
                     <!-- 1. BD -->
@@ -266,7 +267,7 @@
                        <div class="flipCard smCard card1" data-aos="flip">
                            <div class="flipInner">
                                <div class="flipSide flipFront"><img src="./assets/img/crew/backCardCrew.png" loading="lazy"></div>
-                               <div class="flipSide flipBack">
+                               <div class="flipSide flipBack" data-title="BD">
                                  <div class="backCard">
                                     <div class="memberImageContainer">
                                         <img src="./assets/uploadedImages/Omar Hesham.jpg" alt="Omar Hesham" class="memberImage" />
@@ -278,7 +279,7 @@
                                </div>
                            </div>
                        </div>   
-                       <a href="crewDetails.php?committee_id=4" class="btn btnPrimary btnSm">Discover More</a>
+                       <a href="crewDetails.php?committee_id=4" class="btn btn-primary ">Know Us !</a>
                     </div>
                     <!-- 2. L -->
                     <div class="subCard">
@@ -286,7 +287,7 @@
                        <div class="flipCard smCard card2" data-aos="flip">
                            <div class="flipInner">
                                <div class="flipSide flipFront"><img src="./assets/img/crew/backCardCrew.png" loading="lazy"></div>
-                               <div class="flipSide flipBack">
+                               <div class="flipSide flipBack" data-title="LOGISTICS">
                                  <div class="backCard">
                                     <div class="memberImageContainer">
                                         <img src="./assets/uploadedImages/Asser El-Sayed.jpg" alt="Asser El-Sayed" class="memberImage" />
@@ -298,7 +299,7 @@
                                </div>
                            </div>
                        </div>   
-                       <a href="crewDetails.php?committee_id=9" class="btn btnPrimary btnSm">Discover More</a>
+                       <a href="crewDetails.php?committee_id=9" class="btn btn-primary ">Know Us !</a>
                     </div>
                     <!-- 3. CR -->
                     <div class="subCard">
@@ -306,7 +307,7 @@
                        <div class="flipCard smCard card3" data-aos="flip">
                            <div class="flipInner">
                                <div class="flipSide flipFront"><img src="./assets/img/crew/backCardCrew.png" loading="lazy"></div>
-                               <div class="flipSide flipBack">
+                               <div class="flipSide flipBack" data-title="CR">
                                  <div class="backCard">
                                     <div class="memberImageContainer">
                                         <img src="./assets/uploadedImages/Belal Omar.jpg" alt="Belal Omar" class="memberImage" />
@@ -318,7 +319,7 @@
                                </div>
                            </div>
                        </div>   
-                       <a href="crewDetails.php?committee_id=8" class="btn btnPrimary btnSm">Discover More</a>
+                       <a href="crewDetails.php?committee_id=8" class="btn btn-primary ">Know Us !</a>
                     </div>
                     <!-- 4. PR -->
                     <div class="subCard">
@@ -326,7 +327,7 @@
                        <div class="flipCard smCard card4" data-aos="flip">
                            <div class="flipInner">
                                <div class="flipSide flipFront"><img src="./assets/img/crew/backCardCrew.png" loading="lazy"></div>
-                               <div class="flipSide flipBack">
+                               <div class="flipSide flipBack" data-title="PR">
                                  <div class="backCard">
                                     <div class="memberImageContainer">
                                         <img src="./assets/uploadedImages/Yasmine Gawish.jpg" alt="Yasmine Gawish" class="memberImage" />
@@ -338,7 +339,7 @@
                                </div>
                            </div>
                        </div>   
-                       <a href="crewDetails.php?committee_id=11" class="btn btnPrimary btnSm">Discover More</a>
+                       <a href="crewDetails.php?committee_id=11" class="btn btn-primary ">Know Us !</a>
                     </div>
                 </div>
             </div>

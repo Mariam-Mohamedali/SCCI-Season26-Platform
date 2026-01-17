@@ -33,7 +33,7 @@
         <div class="heroContainer">
             <h1>seek the peak</h1>
             <hr>
-            <p>
+            <p class="heroText">
                 SCCI is an abbreviation for Student's Conference for Communication and Information,
                 which helps you in bringing the gap between the technical life and the practical
                 life in the market place. You can know more about our organization right here.
@@ -42,8 +42,8 @@
         </div>
     </section>
 
-    <!-- Main About section -->
-    <section  class="aboutSection">
+   <!-- Main About section -->
+    <section class="aboutSection">
         <div class="aboutContainer">
             <h1>about us</h1>
             <hr>
@@ -52,9 +52,12 @@
                 experience that will stay in your heart & you'll watch it in your
                 personality developmentand that is what SCCI is all about, unleashing your
             </p>
-            <a href="./about.php" class="btn btn-primary">explore more</a>
+            <a href="./about.php" class=" btn btn-primary">explore more</a>
         </div>
+        <img class="aboutBG" loading="lazy" src="./assets/img/paperHome.png" alt="paperHome">
+        <img class="aboutBGresponsive" loading="lazy" src="./assets/img/paperHomeResponsive.png" alt="paperHomeResponsive">
     </section>
+
 
 
     <!-- Main Cards -->
@@ -64,7 +67,7 @@
                 <div class="cardsContainer aos-animate" data-aos="flip">
                     <div class="flipCard">
                         <div class="frontCard">
-                            <img src="assets/img/backCardCrew.png" alt="Workshops" loading="lazy">
+                            <img src="assets/img/crew/backCardCrew.png" alt="Workshops" loading="lazy">
                         </div>
                         <div class="backCard">
                             <!-- <img src="assets/img/workshops/workshopCard.png" alt="Workshops" loading="lazy"> -->
@@ -82,7 +85,7 @@
                 <div class="cardsContainer aos-animate" data-aos="flip">
                     <div class="flipCard">
                         <div class="frontCard">
-                            <img src="assets/img/backCardCrew.png" alt="Crew" loading="lazy">
+                            <img src="assets/img/crew/backCardCrew.png" alt="Crew" loading="lazy">
                         </div>
                         <div class="backCard">
                             <!-- <img src="assets/img/workshops/workshopCard.png" alt="Crew" loading="lazy"> -->
@@ -214,11 +217,11 @@
                     or for any sponsorship deals, don't hesitate to contact us right here.
                 </div>
 
-                <img loading="lazy" src="./assets/img/paperContact.png" alt="">
-
+                <img class="contactPaper" loading="lazy" src="./assets/img/paperContact.png" alt="">
+                <img class="contactPaperResponsive" loading="lazy" src="./assets/img/paperHomeResponsive.png" alt="">
             </div>
 
-            <form class="form-content" id="form" action="" method="POST" enctype="multipart/form-data">
+            <form class="form-content card" id="form" action="" method="POST" enctype="multipart/form-data">
                 <img class="homeBird" loading="lazy" src="./assets/img/bird.png" alt="">
                 <!-- inputs -->
                 <div class="input-group">
@@ -241,7 +244,7 @@
 
 
                 <!-- submit-button -->
-                <button type="submit" name="submit" class="submit-btn">Register</button>
+                <button type="submit" name="submit" class="btn btn-primary submit-btn">Register</button>
             </form>
 
         </div>

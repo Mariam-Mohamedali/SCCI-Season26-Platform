@@ -28,7 +28,7 @@ if(isset($_SESSION['user_id'])){
 <header>
     <a href="/SCCI-Season26-Platform/home.php" class="logo">
         <img src="/SCCI-Season26-Platform/assets/icons/logoSCCI.png" alt="SCCI logo" loading="lazy" />
-        <h1>SCCI</h1>
+        <h1 id="logo">SCCI</h1>
     </a>
     <nav class="navLinks navRespnsive">
         <a href="/SCCI-Season26-Platform/home.php" id="homeNavLine">home</a>
