@@ -49,49 +49,70 @@
 
 /* Back Card Member Info Styling */
 .backCard {
-    background: linear-gradient(135deg, var(--color-secondary-dark) 0%, var(--color-primary-dark) 100%);
+    background: linear-gradient(180deg, #1a1a2e 0%, #0f1929 100%);
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: var(--space-6);
     position: relative;
     overflow: hidden;
     border-radius: var(--radius-xl);
+    border: 4px solid var(--color-parchment);
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.4),
+        0 0 80px rgba(224, 192, 143, 0.2),
+        inset 0 0 60px rgba(224, 192, 143, 0.05);
 }
 
-/* Decorative Stars */
-.backCard::before,
+/* Card Header - Red banner with Title */
+.backCard::before {
+    content: attr(data-title);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 85px;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Irish Grover', cursive;
+    font-size: var(--fs-xl);
+    font-weight: 900;
+    color: var(--color-parchment);
+    text-shadow:
+        0 0 30px rgba(224, 192, 143, 1),
+        0 3px 8px rgba(0, 0, 0, 0.8);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
+    box-shadow: 0 8px 30px rgba(197, 37, 37, 0.6);
+    z-index: 1;
+}
+
+/* Decorative Stars in Corners */
 .backCard::after {
     content: '✦';
     position: absolute;
-    color: var(--color-warning);
-    font-size: 2rem;
-    animation: twinkle 3s ease-in-out infinite;
-}
-
-.backCard::before {
-    top: 20px;
-    left: 20px;
-    animation-delay: 0s;
-}
-
-.backCard::after {
     bottom: 20px;
     right: 20px;
-    animation-delay: 1.5s;
+    font-size: 2rem;
+    color: var(--color-parchment);
+    text-shadow: 0 0 25px var(--color-parchment);
+    animation: star 3s ease-in-out infinite;
+    z-index: 10;
 }
 
-@keyframes twinkle {
+@keyframes star {
 
     0%,
     100% {
         opacity: 0.3;
-        transform: scale(1);
+        transform: scale(1) rotate(0deg);
     }
 
     50% {
         opacity: 0.8;
-        transform: scale(1.2);
+        transform: scale(1.2) rotate(180deg);
     }
 }
 
@@ -104,63 +125,115 @@
     width: 100%;
     height: 100%;
     z-index: 1;
+    padding: 110px var(--space-6) var(--space-6);
 }
 
+/* Top Left Star */
+.memberInfo::before {
+    content: '✦';
+    position: absolute;
+    top: 100px;
+    left: 20px;
+    font-size: 2rem;
+    color: var(--color-parchment);
+    text-shadow: 0 0 25px var(--color-parchment);
+    animation: star 3s ease-in-out infinite;
+    animation-delay: 1.5s;
+    z-index: 10;
+}
+
+/* Photo Frame - Gradient Border */
 .memberImageContainer {
     position: relative;
-    width: 280px;
-    height: 280px;
-    border-radius: 40px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 240px;
+    aspect-ratio: 2/3;
+    border-radius: 25px;
     padding: 6px;
-    background: linear-gradient(135deg, #FFD700, #FFA500, #FFD700);
-    box-shadow: 0 0 40px rgba(255, 215, 0, 0.7),
-        inset 0 0 20px rgba(255, 215, 0, 0.3);
-    animation: goldenGlow 3s ease-in-out infinite;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+    box-shadow:
+        0 15px 50px rgba(0, 0, 0, 0.5),
+        0 0 80px rgba(224, 192, 143, 0.3),
+        inset 0 0 40px rgba(224, 192, 143, 0.15);
+    flex-shrink: 0;
+    margin-bottom: 0.5rem;
 }
 
-@keyframes goldenGlow {
-
-    0%,
-    100% {
-        box-shadow: 0 0 40px rgba(255, 215, 0, 0.7),
-            inset 0 0 20px rgba(255, 215, 0, 0.3);
-    }
-
-    50% {
-        box-shadow: 0 0 60px rgba(255, 215, 0, 0.9),
-            inset 0 0 30px rgba(255, 215, 0, 0.5);
-    }
+/* Outer Gold Border for Photo Frame */
+.memberImageContainer::before {
+    content: '';
+    position: absolute;
+    top: -12px;
+    left: -12px;
+    right: -12px;
+    bottom: -12px;
+    border: 3px solid var(--color-parchment);
+    border-radius: 30px;
+    opacity: 0.6;
+    box-shadow: 0 0 30px rgba(224, 192, 143, 0.4);
 }
 
+/* Inner Photo Container */
+.memberImageContainer::after {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    background: linear-gradient(135deg, var(--color-secondary), var(--color-secondary-lighter));
+    border-radius: 20px;
+    z-index: -1;
+}
+
+/* Member Image */
 .memberImage {
     width: 100%;
     height: 100%;
-    border-radius: 35px;
+    margin-top: 10px;
+    border-radius: 20px;
     object-fit: cover;
-    border: 3px solid rgba(255, 255, 255, 0.9);
+    display: block;
+    position: relative;
+    z-index: 1;
 }
 
+/* Member Name with Decorative Line */
 .memberName {
     text-align: center;
-    padding: var(--space-3) var(--space-6);
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border-radius: 25px;
-    border: 2px solid rgba(255, 215, 0, 0.6);
-    min-width: 250px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    padding: 0;
+    background: transparent;
+    border: none;
+    min-width: unset;
+    box-shadow: none;
+    position: relative;
+    width: 100%;
 }
 
 .memberName h3 {
-    font-family: 'Cinzel', serif;
-    font-size: var(--fs-xl);
-    color: #FFD700;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5),
-        0 0 10px rgba(255, 215, 0, 0.5);
+    font-family: 'Irish Grover', cursive;
+    font-size: var(--fs-lg);
+    color: var(--color-parchment);
+    text-shadow:
+        2px 2px 4px rgba(0, 0, 0, 0.5),
+        0 0 10px rgba(224, 192, 143, 0.5);
     margin: 0;
     letter-spacing: 2px;
     font-weight: 700;
-    text-transform: uppercase;
+}
+
+/* Center Star Decoration */
+.memberName::after {
+    content: '✦';
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+    height: auto;
+    background: none;
+    box-shadow: none;
+    font-size: 20px;
+    color: var(--color-parchment);
+    text-shadow: 0 0 15px var(--color-parchment);
 }
 
 .workshopDetailsGrid {
@@ -365,7 +438,7 @@
         font-size: var(--fs-3xl);
     }
 
-    
+
 
     .workshopDescription {
         flex-direction: column;
@@ -443,6 +516,7 @@
     .heroTitle {
         font-size: var(--fs-2xl);
     }
+
     .workshopImage {
         width: 200px;
     }

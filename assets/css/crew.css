@@ -371,7 +371,7 @@ body {
 .flipBack .memberImage {
   width: 100%;
   height: 100%;
-  margin-top:10px;
+  margin-top: 10px;
   border-radius: 20px;
   object-fit: cover;
   display: block;
@@ -575,8 +575,8 @@ body {
   pointer-events: auto;
   cursor: pointer;
   margin-bottom: 0;
-  max-width: 250px;
-  max-height: 350px;
+  max-width: 320px;
+  max-height: 480px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -591,13 +591,14 @@ body {
 .crewModal .subCrewGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-4);
-  width: 100%;
-  max-width: 850px;
+  gap: var(--space-6);
+  width: 95%;
+  max-width: 1400px;
   opacity: 1;
   transform: translateY(0);
   margin-top: 0;
   pointer-events: auto;
+  padding: var(--space-6) var(--space-4);
 }
 
 .boardItem .sub-crew-grid,
@@ -644,9 +645,10 @@ body {
 .sm-card,
 .smCard {
   width: 100%;
-  aspect-ratio: 2/3.2;
+  aspect-ratio: 2/3;
   cursor: pointer;
   transition: transform 0.2s;
+  min-width: 200px;
 }
 
 .sm-card:hover,
