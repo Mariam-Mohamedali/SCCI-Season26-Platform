@@ -62,8 +62,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
             (`user_id`,`workshop_id`,`committee_id`,`user_name`,`email`,`phone`,
              `password`,`role`,`Image`,`githup`,`linkedin`,`status`)
             VALUES
-            (NULL,NULL,$committeeId,'$name','$email','$phone',
-             '$passwordhashing','$roleID','$image','$getHup','$linkedin',0)";
+            (NULL, $workshop,$committeeId,'$name','$email','$phone',
+             '$passwordhashing','$roleID','$image','$getHup','$linkedin',1)";
     
             if (mysqli_query($connect, $insert_p)) {
                 $success = "Registered Successfully";
@@ -125,7 +125,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
             <input type="password" name="password" id="password" required placeholder="••••••••">
             <div class="error-text" id="error-password"></div>
         </div>
-<!-- 
+
         <div class="input-group">
             <label>Workshop</label>
             <select name="workshop" id="workshop" required>
@@ -137,7 +137,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                 <?php } ?>
             </select>
             <div class="error-text" id="error-workshop"></div>
-        </div> -->
+        </div>
 
         <div class="input-group">
             <label>Committee</label>

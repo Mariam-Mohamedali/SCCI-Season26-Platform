@@ -5,18 +5,29 @@ if(isset($_GET['committee_id'])) {
     $committee_id = $_GET['committee_id'];
 
     // Fetch committee details
-    $select_committee = "SELECT committe_name, head_id, committee_description FROM committees WHERE committee_id = '$committee_id'";
+    $select_committee = "SELECT committe_name, head_id, committee_description 
+                         FROM committees 
+                         WHERE committee_id = '$committee_id'";
     $run_committee = mysqli_query($connect, $select_committee);
     $committee = mysqli_fetch_assoc($run_committee);
 
     // Fetch head details
     $head_id = $committee['head_id'];
-    $select_head = "SELECT user_name, image FROM users WHERE user_id = '$head_id'";
+    $select_head = "SELECT user_name, image 
+                    FROM users 
+                    WHERE user_id = '$head_id'";
     $run_head = mysqli_query($connect, $select_head);
     $head = mysqli_fetch_assoc($run_head);
 
-    // Fetch members
-    $select_members = "SELECT * FROM users u JOIN workshops w ON u.workshop_id = w.workshop_id WHERE u.committee_id = '$committee_id' AND u.user_id != '$head_id' And status=1 " ;
+    // ✅ FIXED MEMBERS QUERY
+    $select_members = "
+        SELECT u.*, w.workshop_name
+        FROM users u
+        LEFT JOIN workshops w ON u.workshop_id = w.workshop_id
+        WHERE u.committee_id = '$committee_id'
+        AND u.status = 1
+        AND u.user_id != '$head_id'
+    ";
     $members = mysqli_query($connect, $select_members);
 }
 ?>
@@ -89,57 +100,59 @@ if(isset($_GET['committee_id'])) {
 
     <section class="sectionBlock container">
         <div class="titleWrapper" >
-            <h1 class="mainTitle" data-aos="fade-up>
+            <h1 class="mainTitle" data-aos="fade-up">
                 <span class="textPrimary"><?php echo $committee['committe_name']; ?></span>
                 <span class="textDark">Members</span>
             </h1>
             <div class="sectionDivider"></div>
         </div>
 
-        <div class="membersGrid">
-           <?php 
-           // Fetch all members into an array
-           $membersList = [];
-           while($row = mysqli_fetch_assoc($members)) {
-               $membersList[] = $row;
-           }
-           
-           // If no members, create a dummy one for visualization if needed, or handle empty.
-           // Assuming at least one member or cycling logic:
-           $count = count($membersList);
-           
-           for ($i = 0; $i < 12; $i++) { 
-                // Cycle through members if fewer than 10
-                $member = ($count > 0) ? $membersList[$i % $count] : null;
-                if (!$member) continue; // Skip if absolutely no data
-           ?>
-    <a href="profile.php?user_id=<?= $member['user_id'] ?>" class="memberCardLink">
+       <div class="membersGrid">
+<?php 
+$membersList = [];
+
+if ($members && mysqli_num_rows($members) > 0) {
+    while($row = mysqli_fetch_assoc($members)) {
+        $membersList[] = $row;
+    }
+}
+
+foreach ($membersList as $member) { 
+?>
+    <a href="ViewProfile.php?user_id=<?= $member['user_id'] ?>" class="memberCardLink">
         <div class="flipCard memberCard smCard" data-aos="flip">
             <div class="flipInner">
                 <div class="flipSide flipFront">
                     <img src="./assets/img/crew/backCardCrew.png" loading="lazy" />
                 </div>
-                <div class="flipSide flipBack" data-title="<?php echo strtoupper(htmlspecialchars($member['workshop_name'])); ?>">
+
+                <div class="flipSide flipBack" data-title="<?= strtoupper(htmlspecialchars($member['workshop_name'])) ?>">
                     <div class="backCard">
                         <div class="memberInfo">
                             <div class="memberImageContainer">
-                               <img src="assets/uploadedImages/<?php echo $member['Image']; ?>"
-                                                    alt="<?php echo $member['user_name']; ?>" loading="lazy"
-                                                    class="memberImage">
+                                <img src="assets/uploadedImages/<?= htmlspecialchars($member['Image']) ?>"
+                                     alt="<?= htmlspecialchars($member['user_name']) ?>"
+                                     class="memberImage"
+                                     loading="lazy">
                             </div>
+
                             <div class="memberName">
                                 <h5><?= htmlspecialchars($member['user_name']) ?></h5>
                             </div>
+
                             <div class="memberTitle">
                                 <p><?= htmlspecialchars($member['workshop_name']) ?></p>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </a>
 <?php } ?>
+</div>
+
 
     </section>
 
