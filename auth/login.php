@@ -110,7 +110,7 @@ if(isset($_POST['login1'])){
                     <label class="remember-me">
                         Remember me
                         <input type="checkbox" name="remember" value="1" <?php echo (isset($_COOKIE['remember']) && $_COOKIE['remember'] == '1') ? 'checked' : ''; ?>>
-                        <span class="checkmark"></span>
+                        <span class="toggle-switch"></span>
                     </label>
                 </div>
 
