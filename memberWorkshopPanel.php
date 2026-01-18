@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="assets/css/navbar.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="assets/css/footer.css">
     <link rel="stylesheet" href="assets/css/memberWorkshopPanel.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="assets/css/feedbackModal.css?v=<?php echo time(); ?>">
     <!-- Custom Page Styles -->
 
     <title>SCCI-Panel</title>
@@ -993,8 +994,9 @@
                                     </td>
                                     <td>
                                         <button
-                                            class="btn evaluateFeedback btn-primary"
-                                            type="submit">
+                                            class="btn evaluateFeedback btn-primary addFeedbackBtn"
+                                            type="button"
+                                            onclick="openFeedbackModal('Omar Raslan', '1')">
                                             Add Feedback
                                         </button>
                                     </td>
@@ -3897,10 +3899,97 @@
     <!-- end add materials section-->
 
 
+    <!-- Feedback Modal Popup (Instructor Input Form) -->
+    <div id="feedbackModal" class="modalOverlay">
+        <div class="modalContainer">
+            <!-- Modal Header -->
+            <div class="modalHeader">
+                <h3>
+                    <i class="fas fa-comment-dots"></i>
+                    Add Session Feedback
+                </h3>
+                <button class="modalCloseBtn" onclick="closeFeedbackModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modalBody">
+                <form id="feedbackForm">
+                    <!-- Session Information -->
+                    <div class="feedbackSessionInfo">
+                        <label class="feedbackSessionLabel">Participant:</label>
+                        <span class="feedbackSessionValue" id="participantName">Omar Raslan</span>
+                    </div>
+
+                    <!-- Session Selection -->
+                    <div class="feedbackFormGroup">
+                        <label class="feedbackLabel">Session:</label>
+                        <select id="sessionSelect" class="feedbackInput" required>
+                            <option value="">Select Session</option>
+                            <option value="1">Session 1 - Build your first website</option>
+                            <option value="2">Session 2 - JavaScript Basics</option>
+                            <option value="3">Session 3 - DOM Manipulation</option>
+                            <option value="4">Session 4 - Responsive Design</option>
+                            <option value="5">Session 5 - Bootstrap Framework</option>
+                            <option value="6">Session 6 - API Integration</option>
+                            <option value="7">Session 7 - Final Project</option>
+                        </select>
+                    </div>
+
+                    <!-- Rating Section -->
+                    <div class="feedbackFormGroup">
+                        <label class="feedbackLabel">Rating:</label>
+                        <div class="feedbackStarsInput">
+                            <i class="far fa-star" data-rating="1"></i>
+                            <i class="far fa-star" data-rating="2"></i>
+                            <i class="far fa-star" data-rating="3"></i>
+                            <i class="far fa-star" data-rating="4"></i>
+                            <i class="far fa-star" data-rating="5"></i>
+                        </div>
+                        <input type="hidden" id="ratingValue" name="rating" value="0" required>
+                    </div>
+
+                    <!-- Feedback Message -->
+                    <div class="feedbackFormGroup">
+                        <label class="feedbackLabel">Feedback Message:</label>
+                        <textarea 
+                            id="feedbackMessage" 
+                            class="feedbackTextarea" 
+                            rows="8" 
+                            placeholder="Enter your detailed feedback here...&#10;&#10;Example:&#10;✅ Great work on...&#10;⚠️ Consider improving...&#10;💡 Suggestion for next time..."
+                            required
+                        ></textarea>
+                    </div>
+
+                    <!-- Instructor Info (Auto-filled) -->
+                    <div class="feedbackInstructor">
+                        <i class="fas fa-user-tie"></i>
+                        <span>Instructor: Dr. Ahmed Mohamed</span>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modalFooter">
+                <button class="modalCancelBtn" onclick="closeFeedbackModal()">
+                    <i class="fas fa-times"></i>
+                    Cancel
+                </button>
+                <button class="modalSaveBtn" onclick="saveFeedback()">
+                    <i class="fas fa-save"></i>
+                    Save Feedback
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- JAVASCRIPT -->
 
     <script src="assets/js/all.min.js" defer></script>
     <script src="assets/js/memberWorkshopPanel.js" defer></script>
+    <script src="assets/js/feedbackModal.js" defer></script>
+
 
 </body>
 
