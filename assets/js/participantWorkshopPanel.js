@@ -49,12 +49,52 @@ document.addEventListener('DOMContentLoaded', function () {
 
   weekTabs.forEach(tab => {
     tab.addEventListener('click', function () {
+      // Remove active class from all tabs
       weekTabs.forEach(t => t.classList.remove('active'));
+      // Add active class to clicked tab
       this.classList.add('active');
 
-      const weekNumber = this.getAttribute('data-week');
+      const sessionNumber = this.getAttribute('data-week');
+      updateTaskContent(sessionNumber);
     });
   });
+
+  // Function to update task content based on selected session
+  function updateTaskContent(sessionNum) {
+    // Select elements to update
+    const taskNameEl = document.querySelector('.cardBody .taskRow:nth-child(1) .taskValue');
+    const deadlineEl = document.querySelector('.cardBody .taskRow:nth-child(2) .taskValue');
+    const sessionEl = document.querySelector('.cardBody .taskRow:nth-child(3) .taskValue');
+    const bioEl = document.querySelector('.taskBioContent');
+
+    // Sample data for demonstration (In real app, fetch from backend)
+    const sessionData = {
+      '1': { name: 'Build your first website', deadline: '12/12/2025', bio: 'Create a simple personal portfolio website using HTML and CSS.' },
+      '2': { name: 'JavaScript Basics', deadline: '19/12/2025', bio: 'Implement variables, loops, and functions to solve basic algorithms.' },
+      '3': { name: 'DOM Manipulation', deadline: '26/12/2025', bio: 'Create an interactive to-do list application using JavaScript DOM API.' },
+      '4': { name: 'Responsive Design', deadline: '02/01/2026', bio: 'Make your portfolio website fully responsive for mobile and tablet devices.' },
+      '5': { name: 'Bootstrap Framework', deadline: '09/01/2026', bio: 'Rebuild your landing page within 2 hours using Bootstrap components.' },
+      '6': { name: 'API Integration', deadline: '16/01/2026', bio: 'Fetch data from a public API and display it dynamically on your page.' },
+      '7': { name: 'Final Project', deadline: '23/01/2026', bio: 'Plan and start developing your final course project with all learned skills.' }
+    };
+
+    const data = sessionData[sessionNum];
+
+    if (data) {
+      // Animate content change
+      const cardBody = document.querySelector('.cardBody');
+      cardBody.style.opacity = '0';
+
+      setTimeout(() => {
+        if (taskNameEl) taskNameEl.textContent = data.name;
+        if (deadlineEl) deadlineEl.textContent = data.deadline;
+        if (sessionEl) sessionEl.textContent = sessionNum;
+        if (bioEl) bioEl.textContent = data.bio;
+
+        cardBody.style.opacity = '1';
+      }, 300);
+    }
+  }
 
   /* ================== FILE UPLOAD HANDLING ================== */
   /* Manages file selection, drag & drop, and validation */
@@ -131,4 +171,80 @@ document.addEventListener('DOMContentLoaded', function () {
     submitForm.submit();
   });
 
+  /* ================== MATERIAL CATEGORY SWITCHING ================== */
+  /* Handles switching between Technical and Soft-skills materials */
+  const categoryBtns = document.querySelectorAll('.materialCategoryBtn');
+  const materialsLists = document.querySelectorAll('.materialsList');
+
+  categoryBtns.forEach(btn => {
+    btn.addEventListener('click', function () {
+      // Remove active class from all buttons
+      categoryBtns.forEach(b => b.classList.remove('active'));
+
+      // Add active class to clicked button
+      this.classList.add('active');
+
+      // Get target category
+      const targetCategory = this.getAttribute('data-category');
+
+      // Hide all materials lists
+      materialsLists.forEach(list => {
+        list.classList.remove('activeMaterialsList');
+      });
+
+      // Show target list
+      const targetList = document.getElementById(targetCategory);
+      if (targetList) {
+        targetList.classList.add('activeMaterialsList');
+      }
+    });
+  });
+
+});
+
+/* ================== FEEDBACK MODAL CONTROL ================== */
+/* Functions to open and close the feedback modal popup */
+
+function openFeedbackModal(sessionName, rating, feedbackText, instructor) {
+  const modal = document.getElementById('feedbackModal');
+
+  // Update modal content (for now static, backend will populate this)
+  // These parameters can be used when backend integration is ready
+
+  modal.classList.add('show');
+  // Allow background scrolling while modal is open
+
+  // Scroll to top of page when modal opens
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function closeFeedbackModal() {
+  const modal = document.getElementById('feedbackModal');
+  modal.classList.remove('show');
+}
+
+// Close modal when clicking outside
+document.addEventListener('click', function (event) {
+  const modal = document.getElementById('feedbackModal');
+  if (event.target === modal) {
+    closeFeedbackModal();
+  }
+});
+
+// Close modal with Escape key
+document.addEventListener('keydown', function (event) {
+  if (event.key === 'Escape') {
+    closeFeedbackModal();
+  }
+});
+
+// Attach click handlers to feedback buttons
+document.addEventListener('DOMContentLoaded', function () {
+  const feedbackBtns = document.querySelectorAll('.feedbackBtn');
+
+  feedbackBtns.forEach(btn => {
+    btn.addEventListener('click', function () {
+      openFeedbackModal();
+    });
+  });
 });
