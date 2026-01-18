@@ -1150,7 +1150,7 @@
         <section id="review" class="panelSection evaluateContainer">
             <h4>dashboard</h4>
 
-            <div class="panelWhiteBox">
+            <div>
                 <!-- Sessions -->
                 <div class="sessionsSelectorFrame">
                     <div class="sessionsSelector">
@@ -2902,7 +2902,7 @@
                 </div>
             </div>
                 <!-- add task section -->
-            <div class="panelWhiteBox">
+            <div>
                 <form id="validForm" action="" method="post">
                     <div class="materialForm">
                         <div class="sideInputs">
@@ -2930,19 +2930,18 @@
 
                     <!-- upload task file -->
                     <div class="fileUpload" id="taskUpload">
-                        <div class="formLabel">Upload File:</div>
-                        <div class="uploadContainer" id="taskUploadContainer">
+                        <div class="uploadContainer" id ="taskUploadContainer">
                             <label class="formLabel" for="taskFile">
                                 <div class="uploadIcon"></div>
                             </label>
-
+                            
                             <p class="uploadText" id="fileUploadState">
-                                Drag and drop or click to browse
+                            Drag and drop or click to browse
                             </p>
                             <p id="fileUploadedName"></p>
-                            <label class=" btn btn-secondary btn-sm" for="taskFile">Upload File</label>
-                            <input type="file" name="taskFile" id="taskFile">
-
+                            <label  class=" btn btn-secondary btn-sm" for="taskFile">Upload File</label>
+                            <input  type="file" name="taskFile" id="taskFile">
+                            
                             <p id="fileMessage"></p>
                         </div>
                     </div>
@@ -2979,7 +2978,7 @@
         
         
         <!-- adding materials section ---------------------------------- -->
-        <section class="evaluateContainer panelSection" id="addMaterial">
+        <section class="evaluateContainer panelSection" class="addMaterial" id="addMaterial">
             <h4>Add Materials</h4>
 
             <div class="panelWhiteBox">
@@ -3805,44 +3804,51 @@
                 </div>
             </div>
             
-            <div class="panelWhiteBox">
-                <form id="validForm" action="" method="post">
-                    <div class="sideInputs">
-                        <div class="formGroup">
-                            <label class="formLabel">Material Name</label>
-                            <input class="textInput" type="text" />
-                        </div>
-                        <!-- Session Type Select -->
-                        <div class="formGroup">
-                            <label class="formLabel">Session Type</label>
-                            <select class="selectInput">
-                                <option>Technical</option>
-                                <option>Soft Skills</option>
-                            </select>
-                        </div>
+            <div>
+                <form id="validMaterialForm" action="" method="post">
+                  <div class="materialForm">
+                    <div class="formGroup">
+                <!-- adding materials name -->
+                      <label class="formLabel" for="materialName">Material Name</label>
+                      <input class="textInput" type="text" id="materialName"name="materialName" />
+                      <p id="materialNameMessage"></p>
                     </div>
-    
-                    <!-- upload material file -->
-                    <div class="fileUpload" id="taskUpload">
-                        <div class="formLabel">Upload File:</div>
-                        <div class="uploadContainer" id="taskUploadContainer">
-                            <label class="formLabel" for="taskFile">
-                                <div class="uploadIcon"></div>
-                            </label>
-    
-                            <p class="uploadText" id="fileUploadState">
-                                Drag and drop or click to browse
-                            </p>
-                            <p id="fileUploadedName"></p>
-                            <label class=" btn btn-secondary btn-sm" for="taskFile">Upload File</label>
-                            <input type="file" name="taskFile" id="taskFile">
-    
-                            <p id="fileMessage"></p>
-                        </div>
+                    <!-- Session Type Select -->
+                    <div class="formGroup">
+                      <label class="formLabel" for="sessionType">Session Type</label>
+                      <select class="selectInput"  id="sessionType" name="sessionType">
+                        <option value="">Select Type</option>
+                        <option value="Technical">Technical</option>
+                        <option value="Soft Skills">Soft Skills</option>
+                      </select>
+                      <p id="sessionTypeMessage"></p>
                     </div>
-    
-                    <button id="submitBtn" class="btn btn-primary btn-sm" type="submit">Add Task</button>
-                </form>
+                  </div>
+            
+            <!--file upload section-->
+            <div class="fileUpload" id="materialUpload">
+              <div class="uploadContainer" id="materialUploadContainer">
+                <label class="formLabel" for="materialFile">
+                <div class="uploadIcon"></div>
+                </label>
+                <p class="uploadText"  id="materialFileState">
+                  Drag and drop or click to browse
+                </p>
+                <p id="materialFileUploadedName"></p>
+                <label class="btn btn-secondary btn-sm" for="materialFile">Upload File</label>
+                <input type="file" name="materialFile" id="materialFile">
+                    <p id="materialFileMessage"></p>
+
+                </div>
+              </div>
+
+                <!--end of file upload section-->
+
+                <div>
+                  <button id="addMaterialBtn" class="btn btn-primary btn-sm" type="submit">Add Material</button>
+                </div>
+
+              </form>
             </div>
 
             <!--materials list section ----------------------------- -->

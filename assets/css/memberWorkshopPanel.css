@@ -535,24 +535,33 @@ Table
 
 /* The layout for Material Name | Session Type */
 .materialForm {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  gap: var(--space-5);
-  justify-content: space-around;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: var(--color-white-neutral);
+    padding: var(--space-3) var(--space-6);
+    border-radius: 50px;
+    box-shadow: var(--shadow-light);
+    border: 1px solid var(--border-light);
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    margin-bottom: var(--space-6);
 }
 
 .sideInputs {
-  display: flex;
-  justify-content: space-between;
-  gap: var(--space-9);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    align-items: start;
+    padding-left: 10%;
 }
 
 .groupInputs {
-  display: flex;
-  /* align-items: center; */
-  gap: var(--space-3);
-  flex: 1;
+    align-items: center;
+    /* text-align: center; */
+    gap: var(--space-3);
+    flex: 1;
 }
 
 .descriptionContainer {
@@ -578,6 +587,16 @@ Table
 #taskFile {
   display: none;
 }
+#materialFile{
+    display: none;
+}
+.addMaterial {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    margin: 0 auto var(--space-8);
+}
 #fileUploadedName {
   background-color: var(--color-white);
   width: 60%;
@@ -585,6 +604,7 @@ Table
   border-radius: 10px;
   margin: 8px;
   margin-bottom: 0;
+  text-align: center;
   display: none;
 }
 
@@ -667,6 +687,7 @@ Table
   .materialInput {
     flex-direction: column;
     gap: var(--space-5);
+    padding-left: 0;
   }
 }
 
@@ -728,9 +749,12 @@ Table
    FILE UPLOAD SECTION
 =================================== */
 .fileUpload {
-  border-radius: 20px;
-  background-color: transparent;
-  margin: var(--space-5) 0 var(--space-8);
+    margin-bottom: var(--space-8);
+    border-radius: 20px;
+    padding: var(--space-4);
+    background-color: var(--color-white-neutral);
+    max-width: 1000px;
+    margin: 0 auto var(--space-8);
 }
 
 .uploadContainer {
@@ -1097,17 +1121,13 @@ Table
 
 /* MEDIA QUERIES for responsiveness */
 @media (max-width: 800px) {
-  .materialForm .formGroup:first-child {
-    border-right: none;
-    border-bottom: 2px solid var(--color-gray-light);
-    padding-right: 0;
-    margin-right: 0;
-    padding-bottom: var(--space-3);
-    margin-bottom: var(--space-3);
-    flex: none;
-    width: 100%;
-  }
-
+  .materialForm {
+        flex-direction: column;
+        border-radius: 20px;
+        padding: var(--space-4);
+        align-items: stretch;
+        /* Stretch children */
+    }
   .formGroup {
     width: 100%;
     flex-direction: column;
