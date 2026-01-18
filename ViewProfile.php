@@ -30,7 +30,7 @@ if (isset($user['role']) && $user['role'] == 4) {
 
 
 
-?>
+
 
 <!DOCTYPE html>
 <html lang="en">
