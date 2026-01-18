@@ -1,5 +1,35 @@
+<?php
+include('./includes/nav.php');
 
+// Define names to fetch
+$target_names = [
+    'Mohamed Ali',
+    'Marwan Wael',
+    'Mohamed Ahmed',
+    'Alaa Aboelazm',
+    'Mohamed Hesham',
+    'Mahmoud Alaam', 
+    'Mohamed El Hossiny',
+    'Omar Ahmed',
+    'Nour Mohamed',
+    'Omar Hesham',
+    'Asser El-Sayed',
+    'Belal Omar',
+    'Yasmine Gawish'
+];
 
+$names_string = "'" . implode("','", $target_names) . "'";
+// Fetch IDs
+$crew_ids = [];
+$query = "SELECT user_id, user_name FROM users WHERE user_name IN ($names_string)";
+$result = mysqli_query($connect, $query);
+
+if ($result) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        $crew_ids[trim($row['user_name'])] = $row['user_id'];
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,13 +60,15 @@
 
 <body >
 
- <?php include('./includes/nav.php'); ?>
+
 
 
     <section class="sectionBlock container">
         <h1 class="mainTitle" data-aos="zoom-in">President</h1>
         <hr>
         <div class="presidentGrid">
+        
+            <a href="ViewProfile.php?user_id=<?= $crew_ids['Mohamed Ali'] ?? '#' ?>" class="memberCardLink">
             <div class="flipCard " data-aos="flip">
                 <div class="flipInner">
                     <div class="flipSide flipFront">
@@ -45,7 +77,7 @@
                     <div class="flipSide flipBack" data-title="PRESIDENT">
                          <div class="backCard">
                                     <div class="memberImageContainer">
-                                        <img src="./assets/uploadedImages/Mohamed Ali.jpg" alt="Mohamed Ali" class="memberImage" />
+                                        <img src="./assets/uploadedImages/SCCI Board/Mohamed Ali.jpg" loading="lazy" alt="Mohamed Ali" class="memberImage" />
                                     </div>
                                     <div class="memberName">
                                         <h3>Mohamed Ali</h3>
@@ -54,6 +86,7 @@
                     </div>
                 </div>
             </div >
+            </a>
 
             <div class="paperScroll js-auto-flip" data-aos="fade-left">
                 <div class="paperContent">
@@ -79,6 +112,7 @@
 
             <div class="boardItem js-auto-flip" data-aos="fade-up" data-aos-delay="400">
                 <h3 class="roleTitle">Technical</h3>
+                <a href="ViewProfile.php?user_id=<?= $crew_ids['Marwan Wael'] ?? '#' ?>" class="memberCardLink">
                 <div class="flipCard  " data-aos="flip">
                     <span class="sideLabel left">IT DD</span>
                     <span class="sideLabel right purpleText">MP SMM</span>
@@ -90,7 +124,7 @@
                             <div class="backCard">
 
                                     <div class="memberImageContainer">
-                                        <img src="./assets/uploadedImages/Marwan Wael.jpg" loading="lazy" alt="Marwan Wael" class="memberImage" />
+                                        <img src="./assets/uploadedImages/SCCI Board/Marwan Wael.jpg" loading="lazy" alt="Marwan Wael" class="memberImage" />
                                     </div>
                                     <div class="memberName">
                                         <h3>Marwan Wael</h3>
@@ -101,6 +135,7 @@
                     </div>
                      
                 </div>
+                </a>
                 <a href="javascript:void(0)" onclick="openModal(this.closest('.boardItem'))" class="btn btn-primary ">Discover More</a>
 
                 <!-- Sub Cards Container -->
@@ -116,7 +151,7 @@
                                <div class="flipSide flipBack" data-title="IT">
                                  <div class="backCard">
                                     <div class="memberImageContainer">
-                                        <img src="./assets/uploadedImages/Mahmoud Alaam.jpg" alt="Mahmoud Alaam" class="memberImage" />
+                                        <img src="./assets/uploadedImages/SCCI Board/Mahmoud Alaam.jpg" loading="lazy" alt="Mahmoud Alaam" class="memberImage" />
                                     </div>
                                     <div class="memberName">
                                         <h3>Mahmoud Alaam</h3>
@@ -125,6 +160,7 @@
                                </div>
                            </div>
                        </div>
+                       </a>
                        <a href="crewDetails.php?committee_id=6" class="btn btn-primary ">Know Us !</a>
                     </div>
                     <!-- 2. DD -->
@@ -136,7 +172,7 @@
                                <div class="flipSide flipBack" data-title="DD">
                                  <div class="backCard">
                                     <div class="memberImageContainer">
-                                        <img src="./assets/uploadedImages/Mohamed El Hossiny.jpg" alt="Mohamed El Hossiny" class="memberImage" />
+                                        <img src="./assets/uploadedImages/SCCI Board/Mohamed El Hossiny.jpg" loading="lazy" alt="Mohamed El Hossiny" class="memberImage" />
                                     </div>
                                     <div class="memberName">
                                         <h3>Mohamed El Hossiny</h3>
@@ -145,6 +181,7 @@
                                </div>
                            </div>
                        </div>
+                       </a>
                        <a href="crewDetails.php?committee_id=7" class="btn btn-primary ">Know Us !</a>
                     </div>
                     <!-- 3. MP -->
@@ -156,7 +193,7 @@
                                <div class="flipSide flipBack" data-title="MP">
                                  <div class="backCard">
                                     <div class="memberImageContainer">
-                                        <img src="./assets/uploadedImages/Omar Ahmed.jpg" alt="Omar Ahmed" class="memberImage" />
+                                        <img src="./assets/uploadedImages/SCCI Board/Omar Ahmed.jpg" loading="lazy" alt="Omar Ahmed" class="memberImage" />
                                     </div>
                                     <div class="memberName">
                                         <h3>Omar Ahmed</h3>
@@ -164,7 +201,8 @@
                             </div>
                                </div>
                            </div>
-                       </div>   
+                       </div>
+                       </a>   
                        <a href="crewDetails.php?committee_id=10" class="btn btn-primary ">Know Us !</a>
                     </div>
                     <!-- 4. SMM -->
@@ -176,7 +214,7 @@
                                <div class="flipSide flipBack" data-title="SMM">
                                  <div class="backCard">
                                     <div class="memberImageContainer">
-                                        <img src="./assets/uploadedImages/Nour Mohamed.jpg" alt="Nour Mohamed" class="memberImage" />
+                                        <img src="./assets/uploadedImages/SCCI Board/Nour Mohamed.jpg" loading="lazy" alt="Nour Mohamed" class="memberImage" />
                                     </div>
                                     <div class="memberName">
                                         <h3>Nour Mohamed</h3>
@@ -184,7 +222,8 @@
                             </div>
                                </div>
                            </div>
-                       </div>   
+                       </div>
+                       </a>   
                        <a href="crewDetails.php?committee_id=5" class="btn btn-primary ">Know Us !</a>
                     </div>
                 </div>
@@ -192,6 +231,7 @@
 
             <div class="boardItem" data-aos="fade-up" data-aos-delay="200">
                 <h3 class="roleTitle">Academic Committee</h3>
+                <a href="ViewProfile.php?user_id=<?= $crew_ids['Mohamed Ahmed'] ?? '#' ?>" class="memberCardLink">
                 <div class="flipCard" data-aos="flip">
                     <div class="flipInner">
                         <div class="flipSide flipFront">
@@ -201,7 +241,7 @@
                             <div class="backCard">
 
                                     <div class="memberImageContainer">
-                                        <img src="./assets/uploadedImages/Mohamed Ahmed.jpg" alt="Mohamed Ahmed" class="memberImage" />
+                                        <img src="./assets/uploadedImages/SCCI Board/Mohamed Ahmed.jpg" loading="lazy" alt="Mohamed Ahmed" class="memberImage" />
                                     </div>
                                     <div class="memberName">
                                         <h3>Mohamed Ahmed</h3>
@@ -211,11 +251,13 @@
                         </div>
                     </div>
                 </div>
+                </a>
                 <a href="crewDetails.php?committee_id=3" class="btn btn-primary ">Know Us !</a>
             </div>
 
             <div class="boardItem" data-aos="fade-up" data-aos-delay="300">
                 <h3 class="roleTitle">Human Resource</h3>
+                <a href="ViewProfile.php?user_id=<?= $crew_ids['Alaa Aboelazm'] ?? '#' ?>" class="memberCardLink">
                 <div class="flipCard" data-aos="flip">
                     <div class="flipInner">
                         <div class="flipSide flipFront">
@@ -225,7 +267,7 @@
                             <div class="backCard">
 
                                     <div class="memberImageContainer">
-                                        <img src="./assets/uploadedImages/Alaa Aboelazm.jpg" alt="Alaa Aboelazm" class="memberImage" />
+                                        <img src="./assets/uploadedImages/SCCI Board/Alaa Aboelazm.jpg" loading="lazy" alt="Alaa Aboelazm" class="memberImage" />
                                     </div>
                                     <div class="memberName">
                                         <h3>Alaa Aboelazm</h3>
@@ -235,10 +277,12 @@
                         </div>
                     </div>
                 </div>
+                </a>
                 <a href="crewDetails.php?committee_id=12" class="btn btn-primary ">Know Us !</a>
             </div>
             <div class="boardItem" data-aos="fade-up" data-aos-delay="400">
                 <h3 class="roleTitle">External Relations</h3>
+                <a href="ViewProfile.php?user_id=<?= $crew_ids['Mohamed Hesham'] ?? '#' ?>" class="memberCardLink">
                 <div class="flipCard" data-aos="flip">
                     
                     
@@ -249,7 +293,7 @@
                         <div class="flipSide flipBack" data-title="ER">
                             <div class="backCard">
                                     <div class="memberImageContainer">
-                                        <img src="./assets/uploadedImages/Mohamed Hesham.jpg" alt="Mohamed Hesham" class="memberImage" />
+                                        <img src="./assets/uploadedImages/SCCI Board/Mohamed Hesham.jpg" loading="lazy" alt="Mohamed Hesham" class="memberImage" />
                                     </div>
                                     <div class="memberName">
                                         <h3>Mohamed Hesham</h3>
@@ -258,6 +302,7 @@
                         </div>
                     </div>
                 </div>
+                </a>
                 <a href="javascript:void(0)" onclick="openModal(this.closest('.boardItem'))" class="btn btn-primary ">Discover More</a>
                 <!-- Sub Cards Container -->
                 <div class="subCrewGrid hiddenGrid">
@@ -270,7 +315,7 @@
                                <div class="flipSide flipBack" data-title="BD">
                                  <div class="backCard">
                                     <div class="memberImageContainer">
-                                        <img src="./assets/uploadedImages/Omar Hesham.jpg" alt="Omar Hesham" class="memberImage" />
+                                        <img src="./assets/uploadedImages/SCCI Board/Omar Hesham.jpg" loading="lazy" alt="Omar Hesham" class="memberImage" />
                                     </div>
                                     <div class="memberName">
                                         <h3>Omar Hesham</h3>
@@ -278,7 +323,8 @@
                             </div>
                                </div>
                            </div>
-                       </div>   
+                       </div>
+                       </a>   
                        <a href="crewDetails.php?committee_id=4" class="btn btn-primary ">Know Us !</a>
                     </div>
                     <!-- 2. L -->
@@ -290,7 +336,7 @@
                                <div class="flipSide flipBack" data-title="LOGISTICS">
                                  <div class="backCard">
                                     <div class="memberImageContainer">
-                                        <img src="./assets/uploadedImages/Asser El-Sayed.jpg" alt="Asser El-Sayed" class="memberImage" />
+                                        <img src="./assets/uploadedImages/SCCI Board/Asser El-Sayed.jpg" loading="lazy" alt="Asser El-Sayed" class="memberImage" />
                                     </div>
                                     <div class="memberName">
                                         <h3>Asser El-Sayed</h3>
@@ -298,7 +344,8 @@
                             </div>
                                </div>
                            </div>
-                       </div>   
+                       </div>
+                       </a>   
                        <a href="crewDetails.php?committee_id=9" class="btn btn-primary ">Know Us !</a>
                     </div>
                     <!-- 3. CR -->
@@ -310,7 +357,7 @@
                                <div class="flipSide flipBack" data-title="CR">
                                  <div class="backCard">
                                     <div class="memberImageContainer">
-                                        <img src="./assets/uploadedImages/Belal Omar.jpg" alt="Belal Omar" class="memberImage" />
+                                        <img src="./assets/uploadedImages/SCCI Board/Belal Omar.jpg" loading="lazy" alt="Belal Omar" class="memberImage" />
                                     </div>
                                     <div class="memberName">
                                         <h3>Belal Omar</h3>
@@ -318,7 +365,8 @@
                             </div>
                                </div>
                            </div>
-                       </div>   
+                       </div>
+                       </a>   
                        <a href="crewDetails.php?committee_id=8" class="btn btn-primary ">Know Us !</a>
                     </div>
                     <!-- 4. PR -->
@@ -330,7 +378,7 @@
                                <div class="flipSide flipBack" data-title="PR">
                                  <div class="backCard">
                                     <div class="memberImageContainer">
-                                        <img src="./assets/uploadedImages/Yasmine Gawish.jpg" alt="Yasmine Gawish" class="memberImage" />
+                                        <img src="./assets/uploadedImages/SCCI Board/Yasmine Gawish.jpg" loading="lazy" alt="Yasmine Gawish" class="memberImage" />
                                     </div>
                                     <div class="memberName">
                                         <h3>Yasmine Gawish</h3>
@@ -338,7 +386,8 @@
                             </div>
                                </div>
                            </div>
-                       </div>   
+                       </div>
+                       </a>   
                        <a href="crewDetails.php?committee_id=11" class="btn btn-primary ">Know Us !</a>
                     </div>
                 </div>

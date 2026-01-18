@@ -13,7 +13,7 @@ if(isset($_GET['committee_id'])) {
 
     // Fetch head details
     $head_id = $committee['head_id'];
-    $select_head = "SELECT user_name, image 
+    $select_head = "SELECT user_id, user_name, image 
                     FROM users 
                     WHERE user_id = '$head_id'";
     $run_head = mysqli_query($connect, $select_head);
@@ -66,7 +66,7 @@ if(isset($_GET['committee_id'])) {
         </div>
 
         <div class="headLayout">
-            <a href="profile.php?user_id=<?php echo $head_id; ?>" class="memberCardLink">
+            <a href="ViewProfile.php?user_id=<?= $head['user_id'] ?>" class="memberCardLink">
                 <div class="flipCard headCard smCard" data-aos="flip">
                     <div class="flipInner">
                         <div class="flipSide flipFront">
@@ -75,7 +75,7 @@ if(isset($_GET['committee_id'])) {
                         <div class="flipSide flipBack" data-title="HEAD">
                             <div class="backCard">
                                     <div class="memberImageContainer">
-                                        <img src="./assets/uploadedImages/<?php echo $head['image']; ?>" class="memberImage" alt="<?php echo $head['user_name']; ?>">
+                                        <img src="./assets/uploadedImages/SCCI Board/<?php echo $head['image']; ?>" class="memberImage" alt="<?php echo $head['user_name']; ?>">
                                     </div>
                                     <div class="memberName">
                                         <h3><?php echo $head['user_name']; ?></h3>
