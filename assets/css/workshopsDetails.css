@@ -50,241 +50,241 @@
 /* FlipBack - Dark Navy Background with Gold Border */
 .flipBack,
 .backCard {
-  background: linear-gradient(180deg, #1a1a2e 0%, #0f1929 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
-  border-radius: var(--radius-xl);
-  transform: rotateY(180deg);
-  border: 4px solid var(--color-parchment);
-  box-shadow:
-    0 20px 60px rgba(0, 0, 0, 0.4),
-    0 0 80px rgba(224, 192, 143, 0.2),
-    inset 0 0 60px rgba(224, 192, 143, 0.05);
+    background: linear-gradient(180deg, #1a1a2e 0%, #0f1929 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-xl);
+    transform: rotateY(180deg);
+    border: 4px solid var(--color-parchment);
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.4),
+        0 0 80px rgba(224, 192, 143, 0.2),
+        inset 0 0 60px rgba(224, 192, 143, 0.05);
 }
 
 /* Card Header - Red Banner with Title */
 .flipBack::before,
 .backCard::before {
-  content: attr(data-title);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 85px;
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Irish Grover', cursive;
-  font-size: var(--fs-xl);
-  font-weight: 900;
-  color: var(--color-parchment);
-  text-shadow:
-    0 0 30px rgba(224, 192, 143, 1),
-    0 3px 8px rgba(0, 0, 0, 0.8);
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
-  box-shadow: 0 8px 30px rgba(197, 37, 37, 0.6);
-  z-index: 1;
+    content: attr(data-title);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 85px;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Irish Grover', cursive;
+    font-size: var(--fs-xl);
+    font-weight: 900;
+    color: var(--color-parchment);
+    text-shadow:
+        0 0 30px rgba(224, 192, 143, 1),
+        0 3px 8px rgba(0, 0, 0, 0.8);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
+    box-shadow: 0 8px 30px rgba(197, 37, 37, 0.6);
+    z-index: 1;
 }
 
 /* Decorative Stars in Corners */
 .flipBack::after,
 .backCard::after {
-  content: '✦';
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  font-size: 2rem;
-  color: var(--color-parchment);
-  text-shadow: 0 0 25px var(--color-parchment);
-  animation: star 3s ease-in-out infinite;
-  z-index: 10;
+    content: '✦';
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-size: 2rem;
+    color: var(--color-parchment);
+    text-shadow: 0 0 25px var(--color-parchment);
+    animation: star 3s ease-in-out infinite;
+    z-index: 10;
 }
 
 /* Top Left Star */
 .flipBack .backCard::before,
 .memberInfo::before {
-  content: '✦';
-  position: absolute;
-  top: 100px;
-  left: 20px;
-  font-size: 2rem;
-  color: var(--color-parchment);
-  text-shadow: 0 0 25px var(--color-parchment);
-  animation: star 3s ease-in-out infinite;
-  animation-delay: 1.5s;
-  z-index: 10;
+    content: '✦';
+    position: absolute;
+    top: 100px;
+    left: 20px;
+    font-size: 2rem;
+    color: var(--color-parchment);
+    text-shadow: 0 0 25px var(--color-parchment);
+    animation: star 3s ease-in-out infinite;
+    animation-delay: 1.5s;
+    z-index: 10;
 }
 
 @keyframes star {
 
-  0%,
-  100% {
-    opacity: 0.3;
-    transform: scale(1) rotate(0deg);
-  }
+    0%,
+    100% {
+        opacity: 0.3;
+        transform: scale(1) rotate(0deg);
+    }
 
-  50% {
-    opacity: 0.8;
-    transform: scale(1.2) rotate(180deg);
-  }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.2) rotate(180deg);
+    }
 }
 
 /* BackCard Container */
 .flipBack .backCard,
 .memberInfo {
-  background: transparent;
-  border-radius: 0;
-  position: relative;
-  overflow: visible;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 110px var(--space-6) var(--space-6);
-  height: 100%;
-  width: 100%;
-  flex-direction: column;
-  gap: 1rem;
-  text-align: center;
+    background: transparent;
+    border-radius: 0;
+    position: relative;
+    overflow: visible;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 110px var(--space-6) var(--space-6);
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
 }
 
 /* Photo Frame - Gradient Border */
 .flipBack .memberImageContainer,
 .memberImageContainer {
-  position: relative;
-  overflow: hidden;
-  width: 85%;
-  max-width: 240px;
-  aspect-ratio: 2/3;
-  border-radius: 25px;
-  padding: 6px;
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
-  box-shadow:
-    0 15px 50px rgba(0, 0, 0, 0.5),
-    0 0 80px rgba(224, 192, 143, 0.3),
-    inset 0 0 40px rgba(224, 192, 143, 0.15);
-  flex-shrink: 0;
-  margin-bottom: 0.5rem;
+    position: relative;
+    overflow: hidden;
+    width: 85%;
+    max-width: 240px;
+    aspect-ratio: 2/3;
+    border-radius: 25px;
+    padding: 6px;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+    box-shadow:
+        0 15px 50px rgba(0, 0, 0, 0.5),
+        0 0 80px rgba(224, 192, 143, 0.3),
+        inset 0 0 40px rgba(224, 192, 143, 0.15);
+    flex-shrink: 0;
+    margin-bottom: 0.5rem;
 }
 
 /* Outer Gold Border for Photo Frame */
 .flipBack .memberImageContainer::before,
 .memberImageContainer::before {
-  content: '';
-  position: absolute;
-  top: -12px;
-  left: -12px;
-  right: -12px;
-  bottom: -12px;
-  border: 3px solid var(--color-parchment);
-  border-radius: 30px;
-  opacity: 0.6;
-  box-shadow: 0 0 30px rgba(224, 192, 143, 0.4);
+    content: '';
+    position: absolute;
+    top: -12px;
+    left: -12px;
+    right: -12px;
+    bottom: -12px;
+    border: 3px solid var(--color-parchment);
+    border-radius: 30px;
+    opacity: 0.6;
+    box-shadow: 0 0 30px rgba(224, 192, 143, 0.4);
 }
 
 /* Inner Photo Container */
 .flipBack .memberImageContainer::after,
 .memberImageContainer::after {
-  content: '';
-  position: absolute;
-  inset: 6px;
-  background: linear-gradient(135deg, var(--color-secondary), var(--color-secondary-lighter));
-  border-radius: 20px;
-  z-index: -1;
+    content: '';
+    position: absolute;
+    inset: 6px;
+    background: linear-gradient(135deg, var(--color-secondary), var(--color-secondary-lighter));
+    border-radius: 20px;
+    z-index: -1;
 }
 
 /* Member Image */
 .flipBack .memberImage,
 .memberImage {
-  width: 100%;
-  height: 100%;
-  margin-top: 10px;
-  border-radius: 20px;
-  object-fit: cover;
-  display: block;
-  position: relative;
-  z-index: 1;
+    width: 100%;
+    height: 100%;
+    margin-top: 10px;
+    border-radius: 20px;
+    object-fit: cover;
+    display: block;
+    position: relative;
+    z-index: 1;
 }
 
 /* Member Name with Decorative Line */
 .flipBack .memberName,
 .memberName {
-  text-align: center;
-  padding: 0;
-  background: transparent;
-  border: none;
-  min-width: unset;
-  box-shadow: none;
-  position: relative;
-  width: 100%;
+    text-align: center;
+    padding: 0;
+    background: transparent;
+    border: none;
+    min-width: unset;
+    box-shadow: none;
+    position: relative;
+    width: 100%;
 }
 
 .flipBack .memberName h3,
 .flipBack .memberName h5,
 .memberName h3 {
-  font-family: 'Irish Grover', cursive;
-  font-size: var(--fs-lg);
-  color: var(--color-parchment);
-  text-shadow:
-    2px 2px 4px rgba(0, 0, 0, 0.5),
-    0 0 10px rgba(224, 192, 143, 0.5);
-  margin: 0;
-  letter-spacing: 2px;
-  font-weight: 700;
+    font-family: 'Irish Grover', cursive;
+    font-size: var(--fs-lg);
+    color: var(--color-parchment);
+    text-shadow:
+        2px 2px 4px rgba(0, 0, 0, 0.5),
+        0 0 10px rgba(224, 192, 143, 0.5);
+    margin: 0;
+    letter-spacing: 2px;
+    font-weight: 700;
 }
 
 /* Decorative Line Under Name */
 .flipBack .memberName::before,
 .flipBack .memberName::after {
-  content: '';
-  position: absolute;
-  bottom: -15px;
-  width: 35%;
-  height: 2px;
-  background: var(--color-parchment);
-  box-shadow: 0 0 10px var(--color-parchment);
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    width: 35%;
+    height: 2px;
+    background: var(--color-parchment);
+    box-shadow: 0 0 10px var(--color-parchment);
 }
 
 .flipBack .memberName::before {
-  left: 10%;
+    left: 10%;
 }
 
 .flipBack .memberName::after {
-  right: 10%;
+    right: 10%;
 }
 
 /* Center Star Decoration */
 .flipBack .memberName::after,
 .memberName::after {
-  content: '✦';
-  position: absolute;
-  bottom: -25px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: auto;
-  height: auto;
-  background: none;
-  box-shadow: none;
-  font-size: 20px;
-  color: var(--color-parchment);
-  text-shadow: 0 0 15px var(--color-parchment);
+    content: '✦';
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+    height: auto;
+    background: none;
+    box-shadow: none;
+    font-size: 20px;
+    color: var(--color-parchment);
+    text-shadow: 0 0 15px var(--color-parchment);
 }
 
 /* Bottom Right Star Group */
 .flipBack .backCard::after {
-  content: '✦ ✦';
-  position: absolute;
-  bottom: 15px;
-  right: 20px;
-  font-size: 18px;
-  color: var(--color-parchment);
-  opacity: 0.7;
-  letter-spacing: 8px;
+    content: '✦ ✦';
+    position: absolute;
+    bottom: 15px;
+    right: 20px;
+    font-size: 18px;
+    color: var(--color-parchment);
+    opacity: 0.7;
+    letter-spacing: 8px;
 }
 
 .workshopDetailsGrid {
@@ -370,6 +370,9 @@
     position: relative;
     overflow: hidden;
     transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .journeyCard:hover {
@@ -379,33 +382,103 @@
     transform: translateY(-2px);
 }
 
-.journeyCard::before {
-    content: '✦';
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 2rem;
-    color: rgba(171, 32, 32, 0.12);
-    animation: twinkle 3s ease-in-out infinite;
+@keyframes floatJourneyIcon1 {
+
+    0%,
+    100% {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 0.08;
+    }
+
+    50% {
+        transform: translate(-18px, -25px) rotate(20deg);
+        opacity: 0.16;
+    }
 }
 
-.journeyCard::after {
-    content: '✦';
-    position: absolute;
-    bottom: 15px;
-    left: 20px;
-    font-size: 1.8rem;
-    color: rgba(171, 32, 32, 0.12);
-    animation: twinkle 3s ease-in-out infinite;
-    animation-delay: 1.5s;
+@keyframes floatJourneyIcon2 {
+
+    0%,
+    100% {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 0.08;
+    }
+
+    50% {
+        transform: translate(20px, 22px) rotate(-18deg);
+        opacity: 0.16;
+    }
+}
+
+@keyframes floatJourneyIcon3 {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.1;
+    }
+
+    50% {
+        transform: translate(-12px, 18px) scale(1.12);
+        opacity: 0.18;
+    }
+}
+
+@keyframes floatJourneyIcon4 {
+
+    0%,
+    100% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+        opacity: 0.09;
+    }
+
+    50% {
+        transform: translate(15px, -20px) rotate(25deg) scale(1.15);
+        opacity: 0.17;
+    }
 }
 
 .cardContentWrapper {
     max-height: 380px;
     overflow-y: auto;
-    padding-right: var(--space-3);
+    overflow-x: hidden;
+    padding: var(--space-4);
     scrollbar-width: thin;
     scrollbar-color: rgba(171, 32, 32, 0.4) rgba(171, 32, 32, 0.08);
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Flying Icons Inside Card Content - Icon 1 */
+.cardContentWrapper::before {
+    content: '⚙️';
+    position: absolute;
+    font-size: 4rem;
+    opacity: 0.4;
+    z-index: 1;
+    top: 5%;
+    left: 3%;
+    animation: floatJourneyIcon1 7s ease-in-out infinite;
+    filter: none;
+    pointer-events: none;
+}
+
+/* Flying Icons Inside Card Content - Icon 2 */
+.cardContentWrapper::after {
+    content: '💡';
+    position: absolute;
+    font-size: 3.5rem;
+    opacity: 0.4;
+    z-index: 1;
+    bottom: 5%;
+    right: 3%;
+    animation: floatJourneyIcon2 8s ease-in-out infinite;
+    filter: none;
+    pointer-events: none;
 }
 
 .cardContentWrapper::-webkit-scrollbar {
@@ -424,6 +497,10 @@
 .contentBlock {
     display: none;
     animation: fadeIn 0.5s ease;
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    width: 100%;
 }
 
 .contentBlock.active {
@@ -438,6 +515,16 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
+    position: relative;
+    z-index: 4;
+}
+
+.contentBlock p {
+    position: relative;
+    z-index: 4;
+    text-align: center;
+    line-height: 1.8;
+    color: var(--color-gray-dark);
 }
 
 

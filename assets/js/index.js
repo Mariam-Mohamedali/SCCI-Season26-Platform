@@ -97,3 +97,96 @@ AOS.init({
     return window.innerWidth < maxWidth;
   }
 });
+
+// =============================================== GLOBAL FLYING ICONS ===============================================
+// Global Flying Icons - Appears on all pages
+document.addEventListener('DOMContentLoaded', function () {
+  createGlobalFlyingIcons();
+});
+
+// Function to create dynamic flying icons across the page background
+function createGlobalFlyingIcons() {
+  // Target the body or main content area
+  const targetElement = document.querySelector('body');
+  if (!targetElement) return;
+
+  // Create a container for the icons
+  const iconsContainer = document.createElement('div');
+  iconsContainer.className = 'global-flying-icons-container';
+  iconsContainer.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 0;
+        overflow: hidden;
+    `;
+  document.body.appendChild(iconsContainer);
+
+  // Workshop and tech-related icons
+  const icons = [
+    '💻', '🎯', '🚀', '✨', '📱', '🔧',
+    '⚡', '🎨', '📊', '🔬', '💡', '🎓',
+    '🌟', '⭐', '🔥', '💫'
+  ];
+  const iconCount = 16; // 16 icons spread across the entire page
+
+  for (let i = 0; i < iconCount; i++) {
+    const icon = document.createElement('div');
+    icon.className = 'global-flying-icon';
+    icon.textContent = icons[i % icons.length];
+
+    // Random positioning across the ENTIRE viewport
+    const randomTop = Math.random() * 90 + 5; // 5% to 95%
+    const randomLeft = Math.random() * 90 + 5; // 5% to 95%
+    const randomDelay = Math.random() * 8; // 0s to 8s
+    const randomDuration = 6 + Math.random() * 6; // 6s to 12s
+
+    // Vary icon sizes for depth effect
+    const iconSize = 2 + Math.random() * 2; // 2rem to 4rem
+    const iconOpacity = 0.15 + Math.random() * 0.15; // 0.15 to 0.30 (subtle)
+
+    icon.style.cssText = `
+            position: absolute;
+            top: ${randomTop}%;
+            left: ${randomLeft}%;
+            font-size: ${iconSize}rem;
+            opacity: ${iconOpacity};
+            z-index: 0;
+            pointer-events: none;
+            animation: globalFloatIcon${i} ${randomDuration}s ease-in-out infinite;
+            animation-delay: ${randomDelay}s;
+            filter: blur(0.5px);
+        `;
+
+    iconsContainer.appendChild(icon);
+
+    // Create unique animation for each icon
+    const styleSheet = document.styleSheets[0];
+    const moveX = -40 + Math.random() * 80; // -40px to 40px
+    const moveY = -40 + Math.random() * 80; // -40px to 40px
+    const rotation = Math.random() * 50 - 25; // -25deg to 25deg
+
+    const keyframes = `
+            @keyframes globalFloatIcon${i} {
+                0%, 100% {
+                    transform: translate(0, 0) rotate(0deg) scale(1);
+                    opacity: ${iconOpacity};
+                }
+                50% {
+                    transform: translate(${moveX}px, ${moveY}px) rotate(${rotation}deg) scale(${0.85 + Math.random() * 0.4});
+                    opacity: ${Math.min(iconOpacity + 0.1, 0.4)};
+                }
+            }
+        `;
+
+    try {
+      styleSheet.insertRule(keyframes, styleSheet.cssRules.length);
+    } catch (e) {
+      // Fallback if insertRule fails
+      console.log('Could not insert animation rule');
+    }
+  }
+}

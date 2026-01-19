@@ -88,10 +88,13 @@ if ($result) {
             </div >
             </a>
 
-            <div class="paperScroll js-auto-flip" data-aos="fade-left">
-                <div class="paperContent">
-                    <h3 class="paperTitle">Job Description</h3>
-                    <p class=" textPrimary">
+
+            <div class="jobDescriptionCard" data-aos="fade-left">
+                <div class="jobCardHeader">
+                    <h3 class="jobCardTitle">Job Description</h3>
+                </div>
+                <div class="jobCardContent">
+                    <p class="textPrimary">
                         Developing Members In Negotiation, Persuasive And Communication Skills.
                         Helping Members To Discover Their Own Skills And What Can They Do.
                         Responsible For The Budget And The Cash Inflow And Outflow.

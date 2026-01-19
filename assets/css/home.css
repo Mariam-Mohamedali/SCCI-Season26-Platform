@@ -115,7 +115,8 @@
 }
 
 .card2Items {
-  width: 340px; /* bigger cards */
+  width: 340px;
+  /* bigger cards */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -148,7 +149,7 @@
 
 }
 
-.cardContent{
+.cardContent {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -356,12 +357,10 @@
 .divider {
   width: 80%;
   height: 2px;
-  background: linear-gradient(
-    to right,
-    transparent,
-    #8b4f2a,
-    transparent
-  );
+  background: linear-gradient(to right,
+      transparent,
+      #8b4f2a,
+      transparent);
   margin: 20px auto;
 }
 
@@ -496,6 +495,7 @@ body.red-theme .decorative-element {
   justify-content: space-around;
   align-items: center;
 }
+
 .sponsorCardItems {
   display: flex;
   flex-wrap: wrap;
@@ -504,12 +504,14 @@ body.red-theme .decorative-element {
   align-items: center;
   gap: 2rem;
 }
+
 .sponsorCardContent {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 3rem; /* space between logo & title */
+  gap: 3rem;
+  /* space between logo & title */
   width: 100%;
 }
 
@@ -521,6 +523,7 @@ body.red-theme .decorative-element {
 .sponsorTitle {
   margin: 0;
 }
+
 /* contact us */
 
 .contactUsContainer {
@@ -560,15 +563,19 @@ body.red-theme .decorative-element {
 .cardContactUs {
   display: flex;
   flex-direction: column;
-  background: linear-gradient(
-    135deg,
-    rgba(247, 234, 191, 0.85) 0%,
-    /* lighter parchment tone */ rgba(244, 234, 222, 0.8) 30%,
-    /* soft cream */ rgba(234, 211, 189, 0.9) 60%,
-    /* warmer tan */ rgba(244, 228, 177, 0.85) 100% /* golden parchment */
-  );
+  background: linear-gradient(135deg,
+      rgba(247, 234, 191, 0.85) 0%,
+      /* lighter parchment tone */
+      rgba(244, 234, 222, 0.8) 30%,
+      /* soft cream */
+      rgba(234, 211, 189, 0.9) 60%,
+      /* warmer tan */
+      rgba(244, 228, 177, 0.85) 100%
+      /* golden parchment */
+    );
   backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px); /* Safari support */
+  -webkit-backdrop-filter: blur(5px);
+  /* Safari support */
 
   border-radius: 8px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
@@ -577,7 +584,7 @@ body.red-theme .decorative-element {
   border: 1px solid var(--cardabout-border);
   position: relative;
   padding: 1rem;
-  
+
   justify-content: center;
   align-items: center;
 }
@@ -677,15 +684,26 @@ body.red-theme .decorative-element {
 /*Contact Us Form*/
 
 .form-content {
-  width: 29vw;
-  height: 39vh;
-  background: linear-gradient(
-    135deg,
-    rgba(247, 234, 191, 0.85) 0%,
-    /* lighter parchment tone */ rgba(244, 234, 222, 0.8) 30%,
-    /* soft cream */ rgba(234, 211, 189, 0.9) 60%,
-    /* warmer tan */ rgba(244, 228, 177, 0.85) 100% /* golden parchment */) !important;
+  width: 50%;
+  min-width: 400px;
+  max-width: 600px;
+  height: auto;
+  min-height: 500px;
+  padding: var(--space-8) var(--space-6);
+  background: linear-gradient(135deg,
+      rgba(247, 234, 191, 0.95) 0%,
+      rgba(244, 234, 222, 0.9) 30%,
+      rgba(234, 211, 189, 0.95) 60%,
+      rgba(244, 228, 177, 0.95) 100%) !important;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  border: 2px solid var(--color-primary);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
 }
+
 .contactText {
   position: absolute;
   top: 50%;
@@ -698,34 +716,67 @@ body.red-theme .decorative-element {
 
 .homeBird {
   position: absolute;
-  top: -17%;
+  top: -60px;
   right: -20px;
   width: 130px;
   transform: rotate(30deg);
+  z-index: 10;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  width: 100%;
+}
+
+.input-group label {
+  font-size: var(--fs-md);
+  font-weight: var(--fw-bold);
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .input-group input,
 .input-group textarea,
 select {
   width: 100%;
-  padding: var(--space-3);
+  padding: var(--space-2) var(--space-3);
   border-radius: var(--radius-md);
-  border: 1px solid var(--border-dark);
+  border: 2px solid var(--color-gray);
   background: linear-gradient(to bottom, #5a5a5a, #6d6d6d);
   color: var(--color-white);
   font-size: var(--fs-sm);
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.4);
   outline: none;
-  resize: both;
+  transition: all 0.3s ease;
 }
 
+.input-group input::placeholder,
 .input-group textarea::placeholder {
-  color: var(--text-light);
+  color: rgba(255, 255, 255, 0.6);
   font-style: italic;
 }
 
+.input-group input:focus,
 .input-group textarea:focus {
-  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.4), 0 0 6px rgba(197, 37, 37, 0.4);
+  border-color: var(--color-primary);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.4), 0 0 10px rgba(197, 37, 37, 0.5);
+}
+
+.input-group textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.submit-btn {
+  width: 100%;
+  margin-top: var(--space-3);
+  padding: var(--space-3) !important;
+  font-size: var(--fs-md) !important;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
 /* validation form */
@@ -733,13 +784,15 @@ select {
 .input-group input.invalid,
 .input-group textarea.invalid {
   border-color: #8b1e1e;
-  box-shadow: 0 0 6px rgba(139, 30, 30, 0.4);
+  box-shadow: 0 0 10px rgba(139, 30, 30, 0.6);
 }
 
 .error {
-  font-size: 13px;
+  font-size: var(--fs-sm);
   color: #8b1e1e;
-  min-height: 14px;
+  font-weight: var(--fw-bold);
+  min-height: 18px;
+  margin-top: var(--space-1);
 }
 
 
@@ -951,13 +1004,59 @@ select {
 
   .contactUsSection {
     width: 100%;
-    order: 1; /* card first */
+    order: 1;
+  }
+
+  .cardContactUs {
+    max-width: 500px;
+    height: auto;
+    min-height: 300px;
   }
 
   .form-content {
     width: 100%;
-    height: 100%;
     max-width: 500px;
-    order: 2; /* form under the card */
+    order: 2;
+    padding: var(--space-5) var(--space-4);
+  }
+
+  .homeBird {
+    width: 100px;
+    top: -40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-content {
+    padding: var(--space-4) var(--space-3);
+    min-height: 400px;
+  }
+
+  .homeBird {
+    width: 80px;
+    top: -30px;
+  }
+
+  .input-group {
+    gap: var(--space-1);
+  }
+
+  .input-group label {
+    font-size: var(--fs-xs);
+  }
+
+  .input-group input,
+  .input-group textarea {
+    padding: var(--space-2);
+    font-size: var(--fs-xs);
+  }
+
+  .input-group textarea {
+    min-height: 80px;
+  }
+
+  .submit-btn {
+    padding: var(--space-2) !important;
+    font-size: var(--fs-xs) !important;
   }
 }

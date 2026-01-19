@@ -1147,15 +1147,6 @@ footer h3::after {
   transition: ease-in-out 0.2s;
 }
 
-/* .footerSocial {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  margin-top: 20px;
-  font-size: 25px;
-  transition: ease-in-out 0.3s;
-  cursor: pointer;
-} */
 
 .contactForm a:hover {
   text-decoration: underline;
@@ -1174,10 +1165,15 @@ footer h3::after {
 }
 
 .copy {
-  background-color: var(--color-primary-dark);
-  padding: 0.7rem 1.8rem;
-  width: 100%;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-bold);
+  color: var(--color-gray-lighter);
+
+
 }
 
 .footer-line {

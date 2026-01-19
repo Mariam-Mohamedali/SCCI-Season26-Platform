@@ -35,32 +35,89 @@ body {
   margin: 0 auto;
 }
 
-/* ===== Paper Scroll Styling ===== */
-.paperScroll {
+/* ===== Job Description Card Styling ===== */
+.jobDescriptionCard {
   position: relative;
   width: 100%;
   max-width: 700px;
-  min-height: 500px;
-  background-image: url("../img/paperHome.png");
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  background-position: center;
+  background: linear-gradient(180deg, #1a1a2e 0%, #0f1929 100%);
+  border-radius: var(--radius-xl);
+  border: 4px solid var(--color-parchment);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.4),
+    0 0 80px rgba(224, 192, 143, 0.2),
+    inset 0 0 60px rgba(224, 192, 143, 0.05);
+  overflow: hidden;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 16% 14%;
+  flex-direction: column;
+  padding: 0;
 }
 
-.paperContent {
-  width: 75%;
-  text-align: center;
+/* Card Header - Red Banner */
+.jobCardHeader {
+  width: 100%;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
+  padding: var(--space-5) var(--space-6);
+  clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
+  box-shadow: 0 8px 30px rgba(197, 37, 37, 0.6);
+  position: relative;
+  z-index: 2;
 }
 
-.paperTitle {
+.jobCardTitle {
+  font-family: 'Irish Grover', cursive;
   font-size: var(--fs-2xl);
-  color: var(--color-secondary);
-  margin-bottom: var(--space-4);
-  font-weight: var(--fw-bold);
+  font-weight: 900;
+  color: var(--color-parchment);
+  text-shadow:
+    0 0 30px rgba(224, 192, 143, 1),
+    0 3px 8px rgba(0, 0, 0, 0.8);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 0;
+}
+
+/* Card Content */
+.jobCardContent {
+  padding: var(--space-8) var(--space-6) var(--space-6);
+  position: relative;
+  z-index: 1;
+}
+
+.jobCardContent p {
+  font-size: var(--fs-md);
+  line-height: 1.8;
+  color: var(--color-parchment);
+  text-align: center;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Decorative Stars */
+.jobDescriptionCard::before {
+  content: '✦';
+  position: absolute;
+  top: 120px;
+  left: 20px;
+  font-size: 2rem;
+  color: var(--color-parchment);
+  text-shadow: 0 0 25px var(--color-parchment);
+  animation: star 3s ease-in-out infinite;
+  z-index: 1;
+}
+
+.jobDescriptionCard::after {
+  content: '✦';
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  font-size: 2rem;
+  color: var(--color-parchment);
+  text-shadow: 0 0 25px var(--color-parchment);
+  animation: star 3s ease-in-out infinite;
+  animation-delay: 1.5s;
+  z-index: 1;
 }
 
 @media (max-width: 992px) {
@@ -76,37 +133,19 @@ body {
     margin: 0 auto;
   }
 
-  .paperScroll {
+  .jobDescriptionCard {
     width: 94%;
     max-width: 600px;
     margin: 0 auto;
-    padding: 20% 18%;
-    min-height: auto;
-    background-size: 100% 100%;
   }
 
-  .paperContent {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  .jobCardTitle {
+    font-size: var(--fs-xl);
   }
 
-  .paperTitle {
-    font-size: 1.4rem;
-    margin-bottom: var(--space-2);
-    margin-top: 0;
-    line-height: 1.2;
-  }
-
-  .paperScroll p.textPrimary {
-    font-size: 0.85rem;
-    line-height: 1.5;
-    font-weight: 700;
-    text-align: center;
-    margin: 0;
-    width: 100%;
+  .jobCardContent p {
+    font-size: var(--fs-sm);
+    line-height: 1.6;
   }
 
   .cardsGrid {
@@ -729,9 +768,26 @@ body {
     max-width: 280px;
   }
 
-  .paperScroll {
+  .jobDescriptionCard {
     max-width: 100%;
-    padding: 22% 16%;
+  }
+
+  .jobCardHeader {
+    padding: var(--space-4) var(--space-5);
+  }
+
+  .jobCardTitle {
+    font-size: var(--fs-lg);
+    letter-spacing: 2px;
+  }
+
+  .jobCardContent {
+    padding: var(--space-6) var(--space-4) var(--space-5);
+  }
+
+  .jobCardContent p {
+    font-size: var(--fs-sm);
+    line-height: 1.6;
   }
 }
 
@@ -748,16 +804,17 @@ body {
     max-width: 280px;
   }
 
-  .paperScroll {
+  .jobDescriptionCard {
     max-width: 100%;
-    padding: 25% 14%;
   }
 
-  .paperTitle {
-    font-size: 1.2rem;
+  .jobCardTitle {
+    font-size: var(--fs-md);
+    letter-spacing: 1px;
   }
 
-  .paperScroll p.textPrimary {
-    font-size: 0.8rem;
+  .jobCardContent p {
+    font-size: var(--fs-xs);
+    line-height: 1.5;
   }
 }
