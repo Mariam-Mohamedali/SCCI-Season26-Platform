@@ -86,7 +86,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_POST['logout'])) {
     }
 }
 
-
+// Determine image path based on role
+$imagePath = $user['image'] ?? 'default.png';
+if (isset($user['role']) && $user['role'] == 4) {
+  $imagePath = 'SCCI Board/' . $imagePath;
+}
 
 
 ?>
