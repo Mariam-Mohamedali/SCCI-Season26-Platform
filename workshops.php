@@ -1,6 +1,3 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,14 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SCCI - Workshops</title>
-    <!-- Fonts -->  
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Irish+Grover&display=swap"
         rel="stylesheet">
 
     <!-- site icon -->
-     <link rel="icon" href="assets/icons/logoSCCI.png" type="image/png">
+    <link rel="icon" href="assets/icons/logoSCCI.png" type="image/png">
 
 
     <!-- Font Awesome (Standard CDN) -->
@@ -31,12 +28,12 @@
 </head>
 
 <body>
-<?php
-include('./includes/nav.php');
+    <?php
+    include('./includes/nav.php');
 
-$select = "SELECT * FROM `workshops` ";
-$result = mysqli_query($connect, $select);
-?>
+    $select = "SELECT * FROM `workshops` ";
+    $result = mysqli_query($connect, $select);
+    ?>
     <!-- Navigation -->
 
     <!-- Hero Section -->
@@ -54,33 +51,62 @@ $result = mysqli_query($connect, $select);
     </section>
     <main>
         <!-- Workshops Grid -->
-<section class="workshopsSection">
-    <div class="container">
-        <div class="workshopCardsGrid">
-            <?php foreach ($result as $workshops) { ?>
-                <div class="cardsContainer" data-aos="flip">
-                    <div class="flipCard card1">
-                        <div class="frontCard">
-                    
-                                 <img src="assets/img/crew/backCardCrew.png" alt="<?php echo $workshops['workshop_name']; ?>" loading="lazy">
-                        </div>
-                        <div class="backCard">
-                            <img src="assets/img/workshops/<?php echo $workshops['workshop_image']; ?>" 
-                                 alt="<?php echo $workshops['workshop_name']; ?>" 
-                                 loading="lazy">
-                            <div class="cardContent">
-                                <a href="workshopsDetails.php?category_id=<?php echo $workshops['workshop_id']; ?>" 
-                                   class="btn btn-primary btn-sm">
-                                    Explore More
-                                </a>
+        <section class="workshopsSection">
+            <div class="container">
+                <div class="workshopCardsGrid">
+                    <?php
+                    $count = 0;
+                    foreach ($result as $workshop) {
+                        if ($count >= 4) break; // show only 4 workshops
+                    ?>
+                        <div class="cardsContainer" data-aos="flip">
+                            <div class="flipCard">
+                                <!-- Front -->
+                                <div class="frontCard">
+                                    <img src="assets/img/crew/backCardCrew.png"
+                                        alt="<?php echo $workshop['workshop_name']; ?>" loading="lazy">
+                                </div>
+
+                                <!-- Back -->
+                                <div class="backCard">
+                                    <div class="card2">
+                                        <div class="corner-ornament top-left"></div>
+                                        <div class="corner-ornament top-right"></div>
+                                        <div class="corner-ornament bottom-left"></div>
+                                        <div class="corner-ornament bottom-right"></div>
+
+                                        <div class="card-content">
+
+                                            <div class="card-image">
+                                                <img
+                                                    src="./assets/img/workshop-icons/<?php echo $workshop['workshop_icon']; ?>"
+                                                    alt="<?php echo htmlspecialchars($workshop['workshop_name']); ?>">
+                                            </div>
+
+                                            <h4 class="card-title"><?php echo $workshop['workshop_name']; ?></h4>
+
+                                            <div class="divider"></div>
+
+                                            <p class="card-text">
+                                                <?php echo $workshop['workshop_description']; ?>
+                                            </p>
+                                            <div class="divider"></div>
+                                            <a href="workshopsDetails.php?category_id=<?php echo $workshop['workshop_id']; ?>"
+                                                class="btn btn-primary btn-sm exploreBtn">
+                                                Explore More
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    <?php
+                        $count++;
+                    } ?>
                 </div>
-            <?php } ?>
-        </div>
-    </div>
-</section>
+            </div>
+        </section>
 
         <!-- Scroll To Top -->
         <div class="scrollTopBtn" id="scrollTopBtn">
@@ -91,7 +117,7 @@ $result = mysqli_query($connect, $select);
 
     </main>
 
- <?php include 'includes/footer.php'; ?>
+    <?php include 'includes/footer.php'; ?>
 
     <!-- Scripts -->
     <script src="assets/js/all.min.js" defer></script>
