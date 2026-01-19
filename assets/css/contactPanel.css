@@ -1,0 +1,148 @@
+@import url("root.css");
+
+/* ================= Table ================= */
+.contactTableScroll {
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-light);
+    margin-top: var(--space-5);
+    overflow-x: auto;
+    width: 95%;
+    margin: 7rem auto;
+}
+
+.contactTable {
+    width: 100%;
+    min-width: 700px;
+    /* max-width: 600px; */
+    margin-inline: auto;
+    border-collapse: collapse;
+    background-color: var(--card-bg);
+
+}
+
+/* ================= Header ================= */
+.TableHead {
+    background: var(--gradient-nav-red);
+}
+
+.tableHeader {
+    text-align: center;
+    padding: var(--space-6);
+    font-size: var(--fs-lg);
+    font-weight: var(--fw-bold);
+    color: var(--color-white);
+    letter-spacing: 0.5px;
+    border: none;
+}
+
+.tableHeader:last-child {
+    border-right: none;
+}
+
+
+/* ================= Zebra Rows ================= */
+.tableBody .tableRow:nth-child(odd) {
+    background-color: var(--color-white-neutral);
+    color: var(--color-black);
+}
+
+.tableBody .tableRow:nth-child(even) {
+    background-color: var(--color-primary-lighter);
+    color: var(--color-white);
+}
+
+/* ================= Data cells ================= */
+.tableData {
+    padding: var(--space-7);
+    font-size: var(--fs-md);
+    border-right: 3px solid var(--color-gray-lighter);
+    line-height: var(--lh-loose);
+}
+
+.tableData .cell-content {
+    max-height: 150px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    font-size: 19px;
+    color: inherit;
+}
+
+.tableData:last-child {
+    border-right: none;
+}
+
+.tableBody .tableRow:last-child .tableData {
+    border-bottom: none;
+}
+
+
+/* ================= Responsive ================= */
+/* ===== Tablet ===== */
+@media (max-width: 992px) {
+
+    .search-wrapper {
+        justify-content: center;
+        margin-top: 9rem;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+    .contactTable {
+        display: block;
+        width: 100%;
+    }
+
+    .tableHeader,
+    .tableData {
+        white-space: normal;
+        padding: var(--space-3);
+        font-size: var(--fs-sm);
+        word-break: normal;
+        overflow-wrap: break-word;
+    }
+
+    .cell-content {
+        overflow-y: visible;
+        word-break: normal;
+        overflow-wrap: break-word;
+        min-width: auto;
+    }
+}
+
+
+/* ===== Mobile ===== */
+@media (max-width: 769px) {
+
+    .search-wrapper {
+        justify-content: center;
+        margin-top: 9rem;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+    .contactTable {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .tableHeader,
+    .tableData {
+        white-space: normal;
+        padding: var(--space-2);
+        font-size: var(--fs-xs);
+        word-break: normal;
+        overflow-wrap: break-word;
+    }
+
+    .cell-content {
+        overflow-y: visible;
+        word-break: normal;
+        overflow-wrap: break-word;
+        min-width: 200px;
+    }
+}
