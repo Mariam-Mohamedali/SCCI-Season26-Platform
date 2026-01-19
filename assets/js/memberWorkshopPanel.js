@@ -42,6 +42,106 @@ if (savedPanel) {
 
 // ==============================================================
 
+// Open popup
+document.querySelectorAll(".evaluateFeedback").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const popupId = btn.dataset.popup;
+    const popup = document.getElementById(popupId);
+
+    popup.classList.add("active");
+    document.body.classList.add("no-scroll");
+  });
+});
+
+// Close popup (X button or Cancel)
+document.addEventListener("click", (e) => {
+  if (
+    e.target.closest(".closeFeedback") ||
+    e.target.closest(".modalCancelBtn")
+  ) {
+    const popup = e.target.closest(".reviewFeedbackPopup");
+    popup.classList.remove("active");
+    document.body.classList.remove("no-scroll");
+  }
+});
+
+// Close when clicking overlay
+document.querySelectorAll(".reviewFeedbackPopup").forEach((popup) => {
+  popup.addEventListener("click", (e) => {
+    if (e.target === popup) {
+      popup.classList.remove("active");
+      document.body.classList.remove("no-scroll");
+    }
+  });
+});
+
+// Escape key
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    document
+      .querySelectorAll(".reviewFeedbackPopup.active")
+      .forEach((popup) => {
+        popup.classList.remove("active");
+      });
+    document.body.classList.remove("no-scroll");
+  }
+});
+
+// ==============================================================
+
+// Sessions
+(function () {
+  const ACTIVE_COLOR = "#1f184e";
+  const DEFAULT_FILL = "var(--color-white-gradient)";
+
+  const sessionButtons = document.querySelectorAll(".sessionBtn");
+
+  function deactivateAllSessions() {
+    sessionButtons.forEach((btn) => {
+      btn.classList.remove("sessionActive");
+
+      // reset panel body
+      const body = btn.querySelector(".panelBody");
+      if (body) {
+        body.classList.remove("sessionBlue");
+        body.classList.add("sessionWhite");
+      }
+
+      // reset svg edges
+      btn.querySelectorAll("svg path").forEach((path) => {
+        path.setAttribute("fill", DEFAULT_FILL);
+        path.setAttribute("stroke", DEFAULT_FILL);
+      });
+    });
+  }
+
+  function activateSession(button) {
+    button.classList.add("sessionActive");
+
+    // activate panel body
+    const body = button.querySelector(".panelBody");
+    if (body) {
+      body.classList.remove("sessionWhite");
+      body.classList.add("sessionBlue");
+    }
+
+    // activate svg edges
+    button.querySelectorAll("svg path").forEach((path) => {
+      path.setAttribute("fill", ACTIVE_COLOR);
+      path.setAttribute("stroke", ACTIVE_COLOR);
+    });
+  }
+
+  sessionButtons.forEach((btn) => {
+    btn.addEventListener("click", function () {
+      deactivateAllSessions();
+      activateSession(this);
+    });
+  });
+})();
+
+// ==============================================================
+
 // Atendance local storage
 
 // SAVE when changed
@@ -63,195 +163,170 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // ==============================================================
 
-// Add Task Section
+// Add Feedback form popup
+document.addEventListener("click", (e) => {
+  const star = e.target.closest(".feedbackStars");
+  if (!star) return;
 
-let taskNameMessage = document.getElementById("taskNameMessage");
-let fileMessage = document.getElementById("fileMessage");
-let descriptionMessage = document.getElementById("descriptionMessage");
-let deadlineMessage = document.getElementById("dueDateMessage");
+  const rating = Number(star.dataset.rating);
 
-taskNameMessage.textContent = "";
-fileMessage.textContent = "";
-descriptionMessage.textContent = "";
-deadlineMessage.textContent = "";
+  const starsWrapper = star.closest(".feedbackStarsInput");
+  const stars = starsWrapper.querySelectorAll(".feedbackStars");
 
-// ==============================================================
+  // update hidden input
+  document.getElementById("ratingValue").value = rating;
 
-// file upload
-const taskFileInput = document.getElementById("taskFile");
-const fileState = document.getElementById("fileUploadState");
-const fileUploadedName = document.getElementById("fileUploadedName");
+  // update star icons
+  stars.forEach((s) => {
+    const value = Number(s.dataset.rating);
 
-taskFileInput.addEventListener("change", function () {
-  if (this.files.length > 0) {
-    const fileName = this.files[0].name;
-    fileMessage.textContent = "";
-    fileState.textContent = "File Uploaded Successfully!";
-    fileState.style.color = "green";
-    fileUploadedName.textContent = fileName;
-    fileUploadedName.style.display = "block";
-  } else {
-    fileState.textContent = "Drag and drop or click to browse";
-    fileState.style.color = "";
-    fileUploadedName.textContent = "";
-    fileUploadedName.style.display = "none";
-  }
-});
-
-// ==============================================================
-
-// validate form
-
-const submitForm = document.getElementById("validForm");
-
-submitForm.addEventListener("submit", (event) => {
-  event.preventDefault();
-  let taskNameInput = document.getElementById("taskName").value.trim();
-  let descriptionInput = document
-    .getElementById("descriptionInput")
-    .value.trim();
-  let deadlineInput = document.getElementById("dueDate").value;
-  let taskFileInput = document.getElementById("taskFile").files[0];
-  console.log(taskFileInput, taskNameInput);
-
-  taskNameMessage.textContent = "";
-  fileMessage.textContent = "";
-  descriptionMessage.textContent = "";
-  deadlineMessage.textContent = "";
-
-  var isValid = true;
-
-  if (taskNameInput === "") {
-    taskNameMessage.textContent = "Task Name is required.";
-    taskNameMessage.style.color = "red";
-    taskNameMessage.style.fontSize = "12px";
-    isValid = false;
-  }
-  if (!taskFileInput) {
-    fileMessage.textContent = "Please upload a file.";
-    fileMessage.style.color = "red";
-    fileMessage.style.fontSize = "12px";
-    isValid = false;
-  }
-  if (deadlineInput === "") {
-    deadlineMessage.textContent = "Deadline is required.";
-    deadlineMessage.style.color = "red";
-    deadlineMessage.style.fontSize = "12px";
-    isValid = false;
-  }
-  if (descriptionInput === "") {
-    descriptionMessage.textContent = "Description is required.";
-    descriptionMessage.style.color = "red";
-    descriptionMessage.style.fontSize = "12px";
-    isValid = false;
-  }
-
-  if (isValid) {
-    // alert("Form submitted successfully!");
-    submitForm.submit();
-  }
-});
-
-// ==============================================================
-
-// Add Materials Section
-const technicalBtn = document.querySelectorAll(".materialTypeButton")[0];
-const softSkillsBtn = document.querySelectorAll(".materialTypeButton")[1];
-const materialList = document.querySelector(".materialItemsList");
-const uploadBtn = document.querySelector(".uploadContainer .btn");
-const uploadText = document.querySelector(".uploadText");
-
-function switchTab(type) {
-  // Function to handle tab switching
-  // 1.Change Button Colors
-  if (type === "technical") {
-    technicalBtn.classList.add("active");
-    softSkillsBtn.classList.remove("active");
-  } else {
-    softSkillsBtn.classList.add("active");
-    technicalBtn.classList.remove("active");
-  }
-
-  // 2. Filter the List Items
-  const items = document.querySelectorAll(".materialItemJs");
-  let hasVisibleItems = false;
-
-  items.forEach((item) => {
-    // Check if the item text contains "Soft" (case insensitive)
-    const text = item.innerText.toLowerCase();
-    const isSoftSkill = text.includes("soft") || text.includes("communication");
-
-    if (type === "soft") {
-      if (isSoftSkill) {
-        item.style.display = "flex";
-        hasVisibleItems = true;
-      } else {
-        item.style.display = "none";
-      }
+    if (value <= rating) {
+      s.classList.remove("fa-regular");
+      s.classList.add("fa-solid");
     } else {
-      // Technical Tab
-      if (!isSoftSkill) {
-        item.style.display = "flex";
-        hasVisibleItems = true;
-      } else {
-        item.style.display = "none";
-      }
+      s.classList.remove("fa-solid");
+      s.classList.add("fa-regular");
     }
   });
-}
-
-// --- Event Listeners ---
-
-// Tab Clicks
-technicalBtn.addEventListener("click", () => {
-  switchTab("technical");
 });
 
-softSkillsBtn.addEventListener("click", () => {
-  switchTab("soft");
-});
-
-// Upload Button Click
-uploadBtn.addEventListener("click", () => {
-  fileInput.click();
-});
-
-// File Selected
-fileInput.addEventListener("change", () => {
-  if (fileInput.files.length > 0) {
-    uploadText.innerHTML =
-      "File Selected:<br><strong>" + fileInput.files[0].name + "</strong>";
-  }
-});
-
-// Initialize Default Tab
-switchTab("technical");
-
-// ==============================================================
-
-// add feedback 
-
+// ==========================
 
 const submitFeedback = document.getElementById("feedbackForm");
 submitFeedback.addEventListener("submit", (event) => {
-  event.preventDefault();
+  event.preventDefault(event);
+
   let addFeedback = document.getElementById("addFeedback").value.trim();
   let addFeedbackMessage = document.getElementById("addFeedbackMessage");
-  addFeedbackMessage.textContent = ""
+
+  addFeedbackMessage.textContent = "";
   var isValidFeedback = true;
-  if(addFeedback ==""){
+  if (addFeedback == "") {
     addFeedbackMessage.textContent = "feedback is required";
     addFeedbackMessage.style.color = "red";
     addFeedbackMessage.style.fontSize = "12px";
     isValidFeedback = false;
   }
-  if (!isValidFeedback){
+  if (!isValidFeedback) {
     event.preventDefault();
   }
   if (isValidFeedback) {
     // alert("Form submitted successfully!");
     submitFeedback.submit();
   }
-
 });
 
+// ==============================================================
+
+// ================= File Upload Handling =================
+document.querySelectorAll(".fileUpload").forEach((container) => {
+  const fileInput = container.querySelector(".taskFileInput");
+  const fileState = container.querySelector(".uploadText");
+  const fileUploadedName = container.querySelector(".fileUploadedName");
+  const fileMessage = container.querySelector(".fileMessage");
+  const uploadBtn = container.querySelector("#uploadBtn");
+
+  // Click the hidden input when upload button is clicked
+  if (uploadBtn && fileInput) {
+    uploadBtn.addEventListener("click", () => {
+      fileInput.click();
+    });
+  }
+
+  // File change event
+  if (fileInput) {
+    fileInput.addEventListener("change", function () {
+      const file = this.files[0];
+      if (file) {
+        fileUploadedName.textContent = file.name;
+        fileUploadedName.style.display = "block";
+
+        fileState.textContent = "File Uploaded Successfully!";
+        fileState.style.color = "green";
+
+        if (fileMessage) fileMessage.textContent = "";
+      } else {
+        fileUploadedName.textContent = "";
+        fileUploadedName.style.display = "none";
+
+        fileState.textContent = "Drag and drop or click to browse";
+        fileState.style.color = "";
+      }
+    });
+  }
+});
+
+// ================= Form Validation =================
+document.querySelectorAll("form#validForm").forEach((form) => {
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    let isValid = true;
+
+    // Task Name / Material Name
+    const taskNameInput = form.querySelector("input[name='taskName'], input[type='text']").value.trim();
+    const taskNameMessage = form.querySelector("#taskNameMessage");
+
+    // Description (only exists in task form)
+    const descriptionInput = form.querySelector("textarea[name='description']")?.value.trim() || "";
+    const descriptionMessage = form.querySelector("#descriptionMessage");
+
+    // Deadline (only exists in task form)
+    const deadlineInput = form.querySelector("input[name='dueDate']")?.value || "";
+    const deadlineMessage = form.querySelector("#dueDateMessage");
+
+    // File
+    const taskFileInput = form.querySelector(".taskFileInput")?.files[0];
+    const fileMessage = form.querySelector(".fileMessage");
+
+    // Reset previous messages
+    if(taskNameMessage) taskNameMessage.textContent = "";
+    if(descriptionMessage) descriptionMessage.textContent = "";
+    if(deadlineMessage) deadlineMessage.textContent = "";
+    if(fileMessage) fileMessage.textContent = "";
+
+    // Validate Task/Material Name
+    if (taskNameInput === "") {
+      taskNameMessage.textContent = "This field is required.";
+      taskNameMessage.style.color = "red";
+      taskNameMessage.style.fontSize = "12px";
+      isValid = false;
+    }
+
+    // Validate File
+    if (!taskFileInput) {
+      fileMessage.textContent = "Please upload a file.";
+      fileMessage.style.color = "red";
+      fileMessage.style.fontSize = "12px";
+      isValid = false;
+    }
+
+    // Validate Deadline (only for task form)
+    if (deadlineMessage && deadlineInput === "") {
+      deadlineMessage.textContent = "Deadline is required.";
+      deadlineMessage.style.color = "red";
+      deadlineMessage.style.fontSize = "12px";
+      isValid = false;
+    }
+
+    // Validate Description (only for task form)
+    if (descriptionMessage && descriptionInput === "") {
+      descriptionMessage.textContent = "Description is required.";
+      descriptionMessage.style.color = "red";
+      descriptionMessage.style.fontSize = "12px";
+      isValid = false;
+    }
+
+    if (isValid) {
+      form.submit();
+    }
+  });
+});
+
+
+// ==============================================================
+
+console.log(
+  "Stars found:",
+  document.querySelectorAll(".feedbackStarsInput i").length,
+);
