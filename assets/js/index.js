@@ -88,8 +88,8 @@ if (sideBtn && sideBg) {
 AOS.init({
   duration: 1000,
   easing: 'ease-in-sine',
-  delay: 100,
-  offset: 100,
+  delay: 0,
+  offset: 0, // Changed from 100 to 0 so elements already visible on screen animate immediately
   once: true,
   mirror: true,
   disable: function () {

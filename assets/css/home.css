@@ -166,6 +166,10 @@
     min-height: auto;
     padding: 30px 20px;
   }
+  
+  .card2I:hover img {
+    transform: scale(1.1);
+  }
 
   #crewCard {
     margin-top: 60px;

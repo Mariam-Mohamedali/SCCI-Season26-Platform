@@ -1,5 +1,5 @@
 <?php
-include('./includes/nav.php');
+include './includes/config.php';
 
 // Define names to fetch
 $target_names = [
@@ -37,16 +37,29 @@ if ($result) {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SCCI - Crew</title>
-  <link rel="icon" href="./assets/icons/logoSCCI.png" type="image/png">
+    <link rel="icon" href="./assets/icons/logoSCCI.png" type="image/png">
 
+    <!-- Preload critical CSS files -->
+    <link rel="preload" href="./assets/css/root.css" as="style">
+    <link rel="preload" href="./assets/css/crew.css" as="style">
+    
+    <!-- Inline critical CSS to prevent FOUC -->
+    <style>
+        /* Prevent FOUC by hiding content until CSS loads */
+        header {
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        header.loaded {
+            opacity: 1;
+        }
+    </style>
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="./assets/css/all.min.css" />
     
     <!-- CSS Files -->
     <link rel="stylesheet" href="./assets/css/root.css" />
-    <link rel="stylesheet" href="./assets/css/navbar.css" />
-    <link rel="stylesheet" href="./assets/css/footer.css" />
     <link rel="stylesheet" href="./assets/css/crew.css" />
     
     <!-- AOS Animation -->
@@ -58,9 +71,18 @@ if ($result) {
     <link href="https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap" rel="stylesheet">
 </head>
 
-<body >
-
-
+<body>
+    <?php include './includes/nav.php'; ?>
+    
+    <script>
+        // Add loaded class to header after page loads to prevent FOUC
+        document.addEventListener('DOMContentLoaded', function() {
+            const header = document.querySelector('header');
+            if (header) {
+                header.classList.add('loaded');
+            }
+        });
+    </script>
 
 
     <section class="sectionBlock container">

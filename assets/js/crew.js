@@ -32,13 +32,13 @@ function createFlyingIcons() {
     const icon = document.createElement('div');
     icon.className = 'floating-icon';
     icon.textContent = icons[i % icons.length];
-    
+
     // Random positioning
     const randomTop = Math.random() * 80 + 10; // 10% to 90%
     const randomLeft = Math.random() * 100; // 0% to 100%
     const randomDelay = Math.random() * 5; // 0s to 5s
     const randomDuration = 6 + Math.random() * 4; // 6s to 10s
-    
+
     icon.style.cssText = `
       position: absolute;
       top: ${randomTop}%;
@@ -51,9 +51,9 @@ function createFlyingIcons() {
       animation-delay: ${randomDelay}s;
       filter: blur(1px);
     `;
-    
+
     paperScroll.appendChild(icon);
-    
+
     // Create unique animation for each icon
     const styleSheet = document.styleSheets[0];
     const keyframes = `
@@ -79,6 +79,12 @@ function openModal(element) {
   const modal = document.getElementById("crewModal");
   const modalContent = modal.querySelector(".modalContent");
   const overlay = document.querySelector(".pageOverlay");
+
+  // Scroll to top smoothly
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
 
   // Clear previous content
   modalContent.innerHTML = "";
@@ -110,6 +116,42 @@ function openModal(element) {
     });
   });
 
+  // Create scroll indicators on both sides
+  let scrollIndicatorLeft = document.getElementById("scrollIndicatorLeft");
+  let scrollIndicatorRight = document.getElementById("scrollIndicatorRight");
+
+  if (!scrollIndicatorLeft) {
+    scrollIndicatorLeft = document.createElement("div");
+    scrollIndicatorLeft.id = "scrollIndicatorLeft";
+    scrollIndicatorLeft.className = "scroll-indicator scroll-indicator-left";
+    scrollIndicatorLeft.innerHTML = `
+      <div class="scroll-arrow">
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="scroll-text">Scroll</div>
+    `;
+    document.body.appendChild(scrollIndicatorLeft);
+  }
+
+  if (!scrollIndicatorRight) {
+    scrollIndicatorRight = document.createElement("div");
+    scrollIndicatorRight.id = "scrollIndicatorRight";
+    scrollIndicatorRight.className = "scroll-indicator scroll-indicator-right";
+    scrollIndicatorRight.innerHTML = `
+      <div class="scroll-arrow">
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="scroll-text">Scroll</div>
+    `;
+    document.body.appendChild(scrollIndicatorRight);
+  }
+
+  // Show scroll indicators after a short delay
+  setTimeout(() => {
+    scrollIndicatorLeft.classList.add("active");
+    scrollIndicatorRight.classList.add("active");
+  }, 500);
+
   // Activate
   overlay.classList.add("active");
   modal.classList.add("active");
@@ -118,10 +160,20 @@ function openModal(element) {
 function closeModal() {
   const modal = document.getElementById("crewModal");
   const overlay = document.querySelector(".pageOverlay");
+  const scrollIndicatorLeft = document.getElementById("scrollIndicatorLeft");
+  const scrollIndicatorRight = document.getElementById("scrollIndicatorRight");
 
   if (modal && overlay) {
     modal.classList.remove("active");
     overlay.classList.remove("active");
+
+    // Hide scroll indicators
+    if (scrollIndicatorLeft) {
+      scrollIndicatorLeft.classList.remove("active");
+    }
+    if (scrollIndicatorRight) {
+      scrollIndicatorRight.classList.remove("active");
+    }
 
     // Cleanup content after animation
     setTimeout(() => {

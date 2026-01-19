@@ -41,141 +41,69 @@ body {
   margin: 0 auto;
 }
 
-/* ===== Paper Scroll Component ===== */
+/* ===== Paper Scroll Component (Paper-like card design) ===== */
 .paperScroll {
   position: relative;
   width: 100%;
   max-width: 700px;
   min-width: 280px;
-  min-height: 450px;
-  background-image: url('../img/paperHome.png');
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  background-position: center;
-  padding: 16% 14%;
+  background: linear-gradient(135deg, #f4e4c1 0%, #e8d5b5 100%);
+  border: 2px solid #c8a882;
+  border-radius: 8px;
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  overflow: visible;
+  overflow: hidden;
+  padding: 0;
 }
 
-/* Flying Icons Behind Paper Scroll */
+/* Paper texture effect */
 .paperScroll::before {
-  content: '⚙️';
+  content: '';
   position: absolute;
-  font-size: 3rem;
-  opacity: 0.15;
-  z-index: -1;
-  top: 15%;
-  left: -5%;
-  animation: floatIcon1 6s ease-in-out infinite;
-  filter: blur(1px);
+  inset: 4px;
+  border: 1px solid rgba(139, 101, 62, 0.2);
+  border-radius: 6px;
+  pointer-events: none;
+  z-index: 0;
 }
 
-.paperScroll::after {
-  content: '💡';
-  position: absolute;
-  font-size: 2.5rem;
-  opacity: 0.15;
-  z-index: -1;
-  bottom: 20%;
-  right: -3%;
-  animation: floatIcon2 7s ease-in-out infinite;
-  filter: blur(1px);
+/* Paper Scroll Header - Red Banner */
+.paperScrollHeader {
+  width: 100%;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
+  padding: var(--space-5) var(--space-6);
+  clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
+  box-shadow: 0 8px 30px rgba(197, 37, 37, 0.6);
+  position: relative;
+  z-index: 2;
 }
 
-@keyframes floatIcon1 {
-
-  0%,
-  100% {
-    transform: translate(0, 0) rotate(0deg);
-    opacity: 0.1;
-  }
-
-  50% {
-    transform: translate(-15px, -20px) rotate(15deg);
-    opacity: 0.2;
-  }
-}
-
-@keyframes floatIcon2 {
-
-  0%,
-  100% {
-    transform: translate(0, 0) rotate(0deg);
-    opacity: 0.1;
-  }
-
-  50% {
-    transform: translate(15px, 20px) rotate(-15deg);
-    opacity: 0.2;
-  }
-}
-
-@keyframes floatIcon3 {
-
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1);
-    opacity: 0.12;
-  }
-
-  50% {
-    transform: translate(-10px, 15px) scale(1.1);
-    opacity: 0.18;
-  }
-}
-
-@keyframes floatIcon4 {
-
-  0%,
-  100% {
-    transform: translate(0, 0) rotate(0deg) scale(1);
-    opacity: 0.1;
-  }
-
-  50% {
-    transform: translate(12px, -18px) rotate(20deg) scale(1.15);
-    opacity: 0.2;
-  }
+.paperScrollTitle {
+  font-family: 'Irish Grover', cursive;
+  font-size: var(--fs-2xl);
+  font-weight: 900;
+  color: var(--color-parchment);
+  text-shadow:
+    0 0 30px rgba(224, 192, 143, 1),
+    0 3px 8px rgba(0, 0, 0, 0.8);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 0;
 }
 
 .paperContent {
   width: 100%;
   text-align: center;
-  max-height: 100%;
+  padding: var(--space-8) var(--space-6) var(--space-6);
+  position: relative;
+  z-index: 1;
   overflow-y: auto;
   overflow-x: auto;
   scrollbar-width: none;
-  position: relative;
-  z-index: 2;
-}
-
-/* Additional Flying Icons Inside Paper Content */
-.paperContent::before {
-  content: '🎨';
-  position: absolute;
-  font-size: 2.8rem;
-  opacity: 0.12;
-  z-index: -1;
-  top: 10%;
-  right: 5%;
-  animation: floatIcon3 8s ease-in-out infinite;
-  filter: blur(1px);
-}
-
-.paperContent::after {
-  content: '📊';
-  position: absolute;
-  font-size: 2.3rem;
-  opacity: 0.12;
-  z-index: -1;
-  bottom: 15%;
-  left: 8%;
-  animation: floatIcon4 9s ease-in-out infinite;
-  filter: blur(1px);
 }
 
 .paperTitle {
@@ -192,7 +120,11 @@ body {
   z-index: 3;
   text-align: center;
   line-height: 1.8;
-  color: var(--color-gray-dark);
+  color: var(--color-secondary-dark);
+  font-weight: 500;
+  margin: 0;
+  font-size: var(--fs-md);
+  white-space: pre-line;
 }
 
 /* ===== Members Grid Layout ===== */
@@ -570,9 +502,20 @@ a.memberCardLink:hover {
   .paperScroll {
     width: 94%;
     max-width: 600px;
-    padding: 20% 18%;
     min-height: auto;
-    background-size: 100% 100%;
+  }
+
+  .paperScrollHeader {
+    padding: var(--space-4) var(--space-5);
+  }
+
+  .paperScrollTitle {
+    font-size: var(--fs-xl);
+    letter-spacing: 2px;
+  }
+
+  .paperContent {
+    padding: var(--space-6) var(--space-4) var(--space-5);
   }
 
   .paperTitle {

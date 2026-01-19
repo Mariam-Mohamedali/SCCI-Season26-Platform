@@ -87,9 +87,11 @@ if(isset($_GET['committee_id'])) {
                 </div>
             </a>
 
-            <div class="paperScroll " data-aos="fade-left" >
+            <div class="paperScroll" data-aos="fade-left">
+                <div class="paperScrollHeader">
+                    <h3 class="paperScrollTitle">Job Description</h3>
+                </div>
                 <div class="paperContent">
-                    <h2 class="paperTitle">Job Description</h2>
                     <p class="paperText">
                <?php echo $committee['committee_description']; ?>
                     </p>

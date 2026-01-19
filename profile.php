@@ -164,19 +164,17 @@ if (isset($user['role']) && $user['role'] == 4) {
 
             <!-- Popup -->
             <div class="settingsMenu">
-              <img src="assets/img/paperWorkshop.png" class="settingsPaperImg" loading="lazy" alt="Settings Paper">
-
-              <div class="settingsLinks">
+              <div class="settingsCard">
                 <a href="#" class="settingsLink" id="openEditProfile">
                   <i class="fa-solid fa-pen-to-square"></i>
-                  Edit
+                  <span>Edit</span>
                 </a>
-<form method="POST">
-                <a href="" class="settingsLink">
-                  <i class="fa-solid fa-right-from-bracket"></i>
-                 <button type="submit" name="logout">logout</button>
-                </a>
-</form>
+                <form method="POST" style="margin: 0; padding: 0;">
+                  <button type="submit" name="logout" class="settingsLink logoutBtn">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Logout</span>
+                  </button>
+                </form>
               </div>
             </div>
           </div>

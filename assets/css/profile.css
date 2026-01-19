@@ -133,18 +133,16 @@
   position: absolute;
   left: 140%;
   top: 20%;
-  width: 155px;
-  height: 220px;
 
   opacity: 0;
   visibility: hidden;
 
-  transform: translateY(-50%) translateY(20px) scaleY(0);
+  transform: translateY(-50%) translateY(20px) scale(0.9);
   transform-origin: top left;
 
   z-index: 50;
   pointer-events: none;
-  /* مهم */
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* opening */
@@ -152,78 +150,90 @@
   visibility: visible;
   opacity: 1;
   pointer-events: auto;
-  animation: rollUp 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  transform: translateY(-50%) translateY(0) scale(1);
 }
 
 /* closing */
 .settingsMenu.closing {
   visibility: visible;
   pointer-events: none;
-  animation: rollUpReverse 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 0;
+  transform: translateY(-50%) translateY(20px) scale(0.9);
 }
-
-/* animations */
-@keyframes rollUp {
-  from {
-    opacity: 0;
-    transform: translateY(-50%) translateY(20px) scaleY(0);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(-50%) translateY(0) scaleY(1);
-  }
-}
-
-@keyframes rollUpReverse {
-  from {
-    opacity: 1;
-    transform: translateY(-50%) translateY(0) scaleY(1);
-  }
-
-  to {
-    opacity: 0;
-    transform: translateY(-50%) translateY(20px) scaleY(0);
-  }
-}
-
 
 /* ---------------------------------------------------------------------------
-   Settings Paper
+   Settings Card (Paper-like design)
 --------------------------------------------------------------------------- */
-.settingsPaperImg {
-  width: 200px;
-  position: absolute;
-  top: 40px;
-  left: -40px;
-  transform: rotate(90deg);
-  transform-origin: center;
-}
-
-.settingsLinks {
-  position: absolute;
-  top: 50%;
-  left: -40px;
-  transform: translateY(-50%);
-  width: 120px;
+.settingsCard {
+  background: linear-gradient(135deg, #f4e4c1 0%, #e8d5b5 100%);
+  border: 2px solid #c8a882;
+  border-radius: 8px;
+  padding: 16px 12px;
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  position: relative;
+  min-width: 140px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
+  gap: 12px;
+}
+
+/* Paper texture effect */
+.settingsCard::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 1px solid rgba(139, 101, 62, 0.2);
+  border-radius: 6px;
+  pointer-events: none;
 }
 
 .settingsLink {
   font-size: var(--fs-base);
   font-weight: var(--fw-bold);
-  color: var(--color-black);
+  color: var(--color-secondary-dark);
   cursor: pointer;
-  transition: color 0.2s ease;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(139, 101, 62, 0.2);
+  width: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+.settingsLink i {
+  font-size: 1.2em;
+  transition: transform 0.3s ease;
+  color: var(--color-primary);
+}
+
+.settingsLink span {
+  font-family: inherit;
+  text-transform: capitalize;
+  flex: 1;
 }
 
 .settingsLink:hover {
-  color: var(--color-primary);
+  background: rgba(197, 37, 37, 0.15);
+  border-color: var(--color-primary);
+  transform: translateX(3px);
+  box-shadow: 0 3px 8px rgba(197, 37, 37, 0.2);
+}
+
+.settingsLink:hover i {
+  transform: scale(1.15) rotate(5deg);
+}
+
+/* Logout button specific styling */
+.logoutBtn {
+  font-family: inherit;
 }
 
 /* ---------------------------------------------------------------------------
@@ -429,17 +439,15 @@
   .settingsMenu {
     left: 50%;
     top: 120%;
-    transform-origin: top center;
+    transform: translateX(-50%) translateY(20px) scale(0.9);
   }
 
-  .settingsPaperImg {
-    width: 180px;
-    left: -90px;
-    top: 20px;
+  .settingsMenu.opening {
+    transform: translateX(-50%) translateY(0) scale(1);
   }
 
-  .settingsLinks {
-    left: -90px;
+  .settingsMenu.closing {
+    transform: translateX(-50%) translateY(20px) scale(0.9);
   }
 
   .infoPapersContainer {

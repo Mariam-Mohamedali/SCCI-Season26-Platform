@@ -1,5 +1,5 @@
 <?php
-include('./includes/nav.php');
+
 
 if (isset($_POST['contact'])) {
 
@@ -27,6 +27,23 @@ if (isset($_POST['contact'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Preload critical CSS files -->
+    <link rel="preload" href="./assets/css/root.css" as="style">
+    <link rel="preload" href="./assets/css/home.css" as="style">
+    
+    <!-- Inline critical CSS to prevent FOUC -->
+    <style>
+        /* Prevent FOUC by hiding content until CSS loads */
+        header {
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        header.loaded {
+            opacity: 1;
+        }
+    </style>
+    
     <!-- google font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -45,6 +62,7 @@ if (isset($_POST['contact'])) {
     <link rel="stylesheet" href="./assets/css/home.css">
     <!-- AOS library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Load AOS library before other scripts -->
 
 
     <title>SCCI - Home</title>
@@ -69,26 +87,36 @@ if (isset($_POST['contact'])) {
     ?>
 
     <?php include './includes/nav.php'; ?>
+    
+    <script>
+        // Add loaded class to header after page loads to prevent FOUC
+        document.addEventListener('DOMContentLoaded', function() {
+            const header = document.querySelector('header');
+            if (header) {
+                header.classList.add('loaded');
+            }
+        });
+    </script>
     <!-- Main Hero section -->
-    <section class="heroSection">
+    <section  class="heroSection">
         <div class="heroContainer">
-            <h1>SEEK THE PEAK</h1>
-            <hr>
-            <p class="heroText" style="text-transform: none;">
+            <h1 data-aos="fade-up" data-aos-duration="1000">SEEK THE PEAK</h1>
+            <hr data-aos="fade-up" data-aos-duration="1000">
+            <p class="heroText" data-aos="zoom-in" data-aos-duration="2000">
                 SCCI is an abbreviation for Student's Conference for Communication and Information,
                 which helps you in bringing the gap between the technical life and the practical
                 life in the market place. You can know more about our organization right here.
             </p>
-            <a href="./about.php" class="btn btn-primary">EXPLORE MORE</a>
+            <a  href="./about.php" class="btn btn-primary">EXPLORE MORE</a>
         </div>
     </section>
 
     <!-- Main About section -->
-    <section class="aboutSection">
+    <section data-aos="fade-up" data-aos-duration="2000" class="aboutSection">
         <div class="aboutContainer">
-            <h1>ABOUT US</h1>
+            <h1 data-aos="fade-up" data-aos-duration="1000">ABOUT US</h1>
             <hr>
-            <p style="text-transform: none;">
+            <p data-aos="fade-up" data-aos-duration="2000" style="text-transform: none;">
                 SCCI is a typical simulation of the outside real life. A one eventful
                 experience that will stay in your heart & you'll watch it in your
                 personality developmentand that is what SCCI is all about, unleashing your
@@ -307,12 +335,10 @@ if (isset($_POST['contact'])) {
     </section>
 
     <?php include './includes/footer.php'; ?>
-
+    <script src="https://unpkg.com/aos@next/dist/aos.js" defer></script>
     <script src="./assets/js/all.min.js" defer></script>
     <script src="./assets/js/home.validation.js" defer></script>
     <script src="./assets/js/home.js" defer></script>
-    <!-- AOS -->
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 </body>
 
 </html>

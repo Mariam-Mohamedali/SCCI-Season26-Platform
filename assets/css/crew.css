@@ -35,22 +35,32 @@ body {
   margin: 0 auto;
 }
 
-/* ===== Job Description Card Styling ===== */
+/* ===== Job Description Card Styling (Paper-like design) ===== */
 .jobDescriptionCard {
   position: relative;
   width: 100%;
   max-width: 700px;
-  background: linear-gradient(180deg, #1a1a2e 0%, #0f1929 100%);
+  background: linear-gradient(135deg, #f4e4c1 0%, #e8d5b5 100%);
   border-radius: var(--radius-xl);
-  border: 4px solid var(--color-parchment);
+  border: 2px solid #c8a882;
   box-shadow:
-    0 20px 60px rgba(0, 0, 0, 0.4),
-    0 0 80px rgba(224, 192, 143, 0.2),
-    inset 0 0 60px rgba(224, 192, 143, 0.05);
+    0 4px 12px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
   overflow: hidden;
   display: flex;
   flex-direction: column;
   padding: 0;
+}
+
+/* Paper texture effect */
+.jobDescriptionCard::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 1px solid rgba(139, 101, 62, 0.2);
+  border-radius: calc(var(--radius-xl) - 4px);
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* Card Header - Red Banner */
@@ -88,36 +98,11 @@ body {
 .jobCardContent p {
   font-size: var(--fs-md);
   line-height: 1.8;
-  color: var(--color-parchment);
+  color: var(--color-secondary-dark);
   text-align: center;
   margin: 0;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-/* Decorative Stars */
-.jobDescriptionCard::before {
-  content: '✦';
-  position: absolute;
-  top: 120px;
-  left: 20px;
-  font-size: 2rem;
-  color: var(--color-parchment);
-  text-shadow: 0 0 25px var(--color-parchment);
-  animation: star 3s ease-in-out infinite;
-  z-index: 1;
-}
-
-.jobDescriptionCard::after {
-  content: '✦';
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  font-size: 2rem;
-  color: var(--color-parchment);
-  text-shadow: 0 0 25px var(--color-parchment);
-  animation: star 3s ease-in-out infinite;
-  animation-delay: 1.5s;
-  z-index: 1;
+  font-weight: 500;
+  white-space: pre-line;
 }
 
 @media (max-width: 992px) {
@@ -547,12 +532,12 @@ body {
 .crew-modal,
 .crewModal {
   position: fixed;
-  top: 50%;
+  top: 80px;
   left: 50%;
-  transform: translate(-50%, -50%) scale(0.9);
+  transform: translate(-50%, 0) scale(0.9);
   width: 100%;
   max-width: 100%;
-  max-height: 100vh;
+  max-height: calc(100vh - 100px);
   overflow: hidden;
   overflow-y: auto;
   padding: var(--space-6) var(--space-8);
@@ -570,7 +555,7 @@ body {
 .crewModal.active {
   opacity: 1;
   pointer-events: auto;
-  transform: translate(-50%, -50%) scale(1);
+  transform: translate(-50%, 0) scale(1);
 }
 
 /* ===== Modal Close Button ===== */
@@ -816,5 +801,101 @@ body {
   .jobCardContent p {
     font-size: var(--fs-xs);
     line-height: 1.5;
+  }
+}
+
+/* ===== Scroll Indicator Arrow ===== */
+.scroll-indicator {
+  position: fixed;
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1001;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.scroll-indicator.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.scroll-arrow {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 4px 15px rgba(197, 37, 37, 0.4),
+    0 0 20px rgba(197, 37, 37, 0.2);
+  animation: bounceArrow 2s ease-in-out infinite;
+}
+
+.scroll-arrow i {
+  font-size: 1.5rem;
+  color: var(--color-parchment);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.scroll-text {
+  font-family: 'Irish Grover', cursive;
+  font-size: 0.9rem;
+  color: var(--color-primary);
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes bounceArrow {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(10px);
+  }
+}
+
+/* Responsive for scroll indicator */
+@media (max-width: 768px) {
+  .scroll-indicator {
+    right: 15px;
+  }
+
+  .scroll-arrow {
+    width: 40px;
+    height: 40px;
+  }
+
+  .scroll-arrow i {
+    font-size: 1.2rem;
+  }
+
+  .scroll-text {
+    font-size: 0.75rem;
+  }
+}
+
+/* Left scroll indicator */
+.scroll-indicator-left {
+  left: 30px;
+  right: auto;
+}
+
+@media (max-width: 768px) {
+  .scroll-indicator-left {
+    left: 15px;
   }
 }

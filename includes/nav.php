@@ -28,7 +28,7 @@ if(isset($_SESSION['user_id'])){
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap" rel="stylesheet">
 </head>
-<header>
+<header data-aos="fade-down" data-aos-duration="800" data-aos-once="true">
     <a href="/SCCI-Season26-Platform/home.php" class="logo">
         <img src="/SCCI-Season26-Platform/assets/icons/logoSCCI.png" alt="SCCI logo" loading="lazy" />
         <h1 id="logo">SCCI</h1>
