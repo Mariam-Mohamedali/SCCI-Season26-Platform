@@ -331,14 +331,40 @@ function renderStars($rating)
 
             <!-- Panel Section: View Task (Evaluate) -->
             <div id="evaluate" class="panelSection panelSectionActive">
-                <div class="workshopNav">
-                    <?php foreach ($sessions as $s): ?>
-                        <?php $sid = (int) $s['session_id']; ?>
-                        <a class="weekTab <?= ($selectedSessionId === $sid) ? 'active' : '' ?>"
-                            href="?workshop_id=<?= (int) $workshopId ?>&tab=evaluate&session_id=<?= $sid ?>">
-                            <?= htmlspecialchars($s['session_name']) ?>
-                        </a>
-                    <?php endforeach; ?>
+                <!-- Sessions Selector with SVG Buttons -->
+                <div class="sessionsSelectorFrame">
+                    <div class="sessionsSelector">
+                        <?php foreach ($sessions as $s): ?>
+                            <?php $sid = (int) $s['session_id']; ?>
+                            <?php $isActive = ($selectedSessionId === $sid); ?>
+                            
+                            <a href="?tab=evaluate&session_id=<?= $sid ?>" class="sessionBtn <?= $isActive ? 'sessionActive' : '' ?>">
+                                <!-- svg shape -->
+                                <div class="panelSvg panelSession">
+                                    <!-- left edge -->
+                                    <svg shape-rendering="geometricPrecision" class="panelEdge sessionEdge" preserveAspectRatio="none" viewBox="0 0 50 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <path d="M50 0 C40 0 30 20 10 50 C30 80 40 100 50 100 Z" 
+                                              fill="<?= $isActive ? '#1f184e' : 'var(--color-white-gradient)' ?>" 
+                                              stroke="<?= $isActive ? '#1f184e' : 'var(--color-white-gradient)' ?>" 
+                                              stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
+                                    </svg>
+
+                                    <!-- center -->
+                                    <div class="panelBody <?= $isActive ? 'sessionBlue' : 'sessionWhite' ?>"></div>
+                                    
+                                    <!-- right edge -->
+                                    <svg shape-rendering="geometricPrecision" class="panelEdge sessionEdge" preserveAspectRatio="none" viewBox="0 0 50 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <path d="M0 0 C10 0 20 20 40 50 C20 80 10 100 0 100 Z" 
+                                              fill="<?= $isActive ? '#1f184e' : 'var(--color-white-gradient)' ?>" 
+                                              stroke="<?= $isActive ? '#1f184e' : 'var(--color-white-gradient)' ?>" 
+                                              stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
+                                    </svg>
+                                </div>
+
+                                <p><?= htmlspecialchars($s['session_name']) ?></p>
+                            </a>
+                        <?php endforeach; ?>
+                    </div>
                 </div>
 
                 <!-- Workshop Card -->

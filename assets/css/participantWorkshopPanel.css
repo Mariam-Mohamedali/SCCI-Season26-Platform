@@ -326,6 +326,113 @@
 }
 
 /* ===============================================================================
+   SESSION BUTTONS (SVG Style from memberWorkshopPanel)
+   =============================================================================== */
+:root {
+    --color-primary-darker: #430d0d;
+    --color-white-gradient: #d4d2d2;
+}
+
+.sessionsSelector {
+    position: relative;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 13px;
+    padding: 0.3rem;
+    width: 100%;
+    margin: auto;
+    overflow-x: auto;
+    margin-bottom: var(--space-8);
+}
+
+.sessionsSelectorFrame {
+    position: relative;
+}
+
+.sessionsSelectorFrame::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50px;
+    height: 100%;
+    background: linear-gradient(to right,
+            var(--color-white-neutral),
+            rgb(255 255 255 / 20%),
+            transparent);
+    pointer-events: none;
+    z-index: 10;
+}
+
+.sessionsSelectorFrame::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50px;
+    height: 100%;
+    background: linear-gradient(to right,
+            transparent,
+            rgb(255 255 255 / 20%),
+            var(--color-white-neutral));
+    pointer-events: none;
+    z-index: 10;
+}
+
+.sessionsSelector::-webkit-scrollbar {
+    display: none;
+}
+
+.sessionBtn {
+    cursor: pointer;
+    min-width: 110px;
+    width: 9rem;
+    height: 4.3rem;
+    display: flex;
+    transition: ease-in-out 0.3s;
+    position: relative;
+    bottom: 0px;
+    text-decoration: none;
+}
+
+.sessionBtn:hover {
+    bottom: 3px;
+}
+
+.sessionBtn p {
+    margin: auto;
+    color: var(--color-black);
+    z-index: 2;
+    text-transform: capitalize;
+}
+
+.panelSession {
+    filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.5));
+}
+
+.sessionEdge {
+    width: 13px;
+}
+
+.sessionWhite {
+    border: var(--color-white-gradient) 2px solid;
+    background: linear-gradient(90deg,
+            var(--color-white-gradient),
+            var(--color-white),
+            var(--color-white-gradient));
+}
+
+.sessionBlue {
+    background: linear-gradient(90deg, #1f184e, #5556c4, #1f184e);
+    border: #1f184e solid 2px;
+}
+
+.sessionActive p {
+    color: var(--color-white);
+}
+
+/* ===============================================================================
    WORKSHOP CARD
    =============================================================================== */
 .workshopCard {
