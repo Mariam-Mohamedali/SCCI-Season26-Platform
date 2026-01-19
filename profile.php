@@ -29,7 +29,10 @@ mysqli_stmt_bind_param($stmt, "i", $user_id);
 mysqli_stmt_execute($stmt);
 $run_user = mysqli_stmt_get_result($stmt);
 $user = mysqli_fetch_assoc($run_user);
-
+$imagePath = $user['image'] ?? 'default.png';
+if (isset($user['role']) && $user['role'] == 4) {
+  $imagePath = 'SCCI Board/' . $imagePath;
+}
 // Check if user exists
 if (!$user) {
     session_destroy();

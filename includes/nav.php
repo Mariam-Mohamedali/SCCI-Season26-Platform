@@ -3,9 +3,11 @@ include(__DIR__ . '/config.php');
 
 // Fetch user's profile image if logged in
 $user_image = 'default.png'; // Default fallback
+$role = 0;
 if(isset($_SESSION['user_id'])){
     $user_id = $_SESSION['user_id'];
-    $select_user_image = "SELECT image FROM users WHERE user_id = ?";
+    $role = $_SESSION['role'] ?? 0;
+    $select_user_image = "SELECT image, role FROM users WHERE user_id = ?";
     $stmt = mysqli_prepare($connect, $select_user_image);
     if($stmt) {
         mysqli_stmt_bind_param($stmt, "i", $user_id);
@@ -13,6 +15,7 @@ if(isset($_SESSION['user_id'])){
         $result = mysqli_stmt_get_result($stmt);
         if($row = mysqli_fetch_assoc($result)) {
             $user_image = $row['image'] ?? 'default.png';
+            $role = $row['role']; // Fetch role from DB to ensure it's available
         }
         mysqli_stmt_close($stmt);
     }
@@ -32,6 +35,23 @@ if(isset($_SESSION['user_id'])){
     </a>
     <nav class="navLinks navRespnsive">
         <a href="/SCCI-Season26-Platform/home.php" id="homeNavLine">home</a>
+        <?php
+        if($role == 2) {
+            echo '<a href="/SCCI-Season26-Platform/memberWorkshopPanel.php" id="homeNavLine">member panel</a>';
+        }
+        ?>
+        <?php
+        if($role == 1) {
+            echo '<a href="/SCCI-Season26-Platform/participantWorkshopPanel.php" id="homeNavLine">participant panel</a>';
+        }
+        ?>
+        <?php
+        if($role == 4) {
+            echo '<a href="/SCCI-Season26-Platform/contactPanel.php" id="homeNavLine">contact panel</a>';
+        }
+        ?>
+        
+
         <a href="/SCCI-Season26-Platform/about.php" id="aboutNavLine">about us</a>
         <a href="/SCCI-Season26-Platform/gallary.php" id="galleryNavLine">gallery</a>
         <a href="/SCCI-Season26-Platform/workshops.php" id="workshopsNavLine">workshops</a>

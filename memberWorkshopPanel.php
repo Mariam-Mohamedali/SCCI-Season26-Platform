@@ -1,3 +1,10 @@
+<?php
+
+
+include('./includes/nav.php');
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 

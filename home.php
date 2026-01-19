@@ -1,5 +1,24 @@
+<?php
+    include('./includes/nav.php');
+
+if (isset($_POST['contact'])) {
+  $name = mysqli_real_escape_string($connect, $_POST['name']);
+  $email = mysqli_real_escape_string($connect, $_POST['email']);
+  $message = mysqli_real_escape_string($connect, $_POST['message']);
+
+$contact="INSERT INTO contact_us (name, email, text) VALUES ('{$name}', '{$email}', '{$message}')";
+$run_contact=mysqli_query($connect,$contact);
+if ($run_contact) {
+    echo "<script>alert('Message Sent Successfully')</script>";
+}
+
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,28 +50,28 @@
     <!-- Main Hero section -->
     <section class="heroSection">
         <div class="heroContainer">
-            <h1>seek the peak</h1>
+            <h1>SEEK THE PEAK</h1>
             <hr>
-            <p class="heroText">
+            <p class="heroText" style="text-transform: none;">
                 SCCI is an abbreviation for Student's Conference for Communication and Information,
                 which helps you in bringing the gap between the technical life and the practical
                 life in the market place. You can know more about our organization right here.
             </p>
-            <a href="./about.php" class="btn btn-primary">explore more</a>
+            <a href="./about.php" class="btn btn-primary">EXPLORE MORE</a>
         </div>
     </section>
 
-   <!-- Main About section -->
+    <!-- Main About section -->
     <section class="aboutSection">
         <div class="aboutContainer">
-            <h1>about us</h1>
+            <h1>ABOUT US</h1>
             <hr>
-            <p>
+            <p style="text-transform: none;">
                 SCCI is a typical simulation of the outside real life. A one eventful
                 experience that will stay in your heart & you'll watch it in your
                 personality developmentand that is what SCCI is all about, unleashing your
             </p>
-            <a href="./about.php" class=" btn btn-primary">explore more</a>
+            <a href="./about.php" class=" btn btn-primary">EXPLORE MORE</a>
         </div>
         <img class="aboutBG" loading="lazy" src="./assets/img/paperHome.png" alt="paperHome">
         <img class="aboutBGresponsive" loading="lazy" src="./assets/img/paperHomeResponsive.png" alt="paperHomeResponsive">
@@ -61,57 +80,52 @@
 
 
     <!-- Main Cards -->
-    <section class="workshopsSection">
-        <div class="container">
-            <div class="workshopCardsGrid">
-                <div class="cardsContainer aos-animate" data-aos="flip">
-                    <div class="flipCard">
-                        <div class="frontCard">
-                            <img src="assets/img/crew/backCardCrew.png" alt="Workshops" loading="lazy">
-                        </div>
-                        <div class="backCard">
-                            <!-- <img src="assets/img/workshops/workshopCard.png" alt="Workshops" loading="lazy"> -->
-                            <div class="cardContent">
-                                <p class="cardText">OUR WORKSHOPS</p>
-                                <img src="assets/img/home/workShopsLogo.jpg" alt="Workshops">
-                            </div>
-                        </div>
-                    </div>
-                    <a href="workshops.php" class="btn btn-primary btn-sm">
-                        Explore More
-                    </a>
-                </div>
+    <section class="card2Container">
 
-                <div class="cardsContainer aos-animate" data-aos="flip">
-                    <div class="flipCard">
-                        <div class="frontCard">
-                            <img src="assets/img/crew/backCardCrew.png" alt="Crew" loading="lazy">
-                        </div>
-                        <div class="backCard">
-                            <!-- <img src="assets/img/workshops/workshopCard.png" alt="Crew" loading="lazy"> -->
-                            <div class="cardContent">
-                                <p class="cardText">OUR <br> CREW</p>
-                                <img src="assets/img/home/crewLogo.png" loading="lazy" alt="Crew">
-                            </div>
-                        </div>
-                    </div>
-                    <a href="crew.php" class="btn btn-primary btn-sm">
-                        Explore More
-                    </a>
-                </div>
+        <div class="card2Items" id="workshopCard" data-aos="fade-up">
+            <div class="card2">
+                <div class="corner-ornament top-left"></div>
+                <div class="corner-ornament top-right"></div>
+                <div class="corner-ornament bottom-left"></div>
+                <div class="corner-ornament bottom-right"></div>
 
+                <div class="cardContent">
+                    <div class="card2I">
+                        <img src="./assets/img/home/workShopsLogo.jpg" alt="Workshops Logo" loading="lazy">
+                    </div>
+                    <h4 class="card-title">OUR WORKSHOPS</h4>
+
+                    <button class="btn btn-primary card2Button">EXPLORE MORE</button>
+                </div>
             </div>
         </div>
 
+        <div class="card2Items" id="crewCard" data-aos="fade-up" data-aos-delay="150">
+            <div class="card2">
+                <div class="corner-ornament top-left"></div>
+                <div class="corner-ornament top-right"></div>
+                <div class="corner-ornament bottom-left"></div>
+                <div class="corner-ornament bottom-right"></div>
+
+                <div class="cardContent">
+                    <div class="card2I">
+                        <img src="./assets/img/home/crewLogo.png" id="crewLogoImage" alt="Crew Logo" loading="lazy">
+                    </div>
+                    <h4 class="card-title">OUR CREW</h4>
+
+                    <button class="btn btn-primary card2Button">EXPLORE MORE</button>
+                </div>
+            </div>
+        </div>
     </section>
 
 
     <!-- Main Stats -->
-    <section class="stats">
+    <section class="stats" data-aos="zoom-in" data-aos-delay="100">
 
         <!-- title -->
         <div class="homeTitles">
-            <h1>scci statistics</h1>
+            <h1>SCCI STATISTICS</h1>
             <hr>
         </div>
 
@@ -119,26 +133,26 @@
             <!-- stats container -->
             <div class="stat">
                 <i class="fas fa-calendar-alt statIcon"></i>
-                <h4 class="statNumber">21</h4>
+                <h4 class="statNumber" data-target="21">0</h4>
                 <h4 class="statUnit">years</h4>
             </div>
 
             <div class="stat">
                 <i class="fas fa-users statIcon"></i>
-                <h4 class="statNumber">300</h4>
-                <h4 class="statUnit">participants</h4>
+                <h4 class="statNumber" data-target="300">0</h4>
+                <h4 class="statUnit">PARTICIPANTS</h4>
             </div>
 
             <div class="stat">
                 <i class="fas fa-user-shield statIcon"></i>
-                <h4 class="statNumber">200</h4>
-                <h4 class="statUnit">members</h4>
+                <h4 class="statNumber" data-target="200">0</h4>
+                <h4 class="statUnit">MEMBERS</h4>
             </div>
 
             <div class="stat">
                 <i class="fas fa-clock statIcon"></i>
-                <h4 class="statNumber">16</h4>
-                <h4 class="statUnit">sessions</h4>
+                <h4 class="statNumber" data-target="16">0</h4>
+                <h4 class="statUnit">SESSIONS</h4>
             </div>
         </div>
 
@@ -149,7 +163,7 @@
 
         <!-- title -->
         <div class="homeTitles">
-            <h1>our sponsors</h1>
+            <h1>OUR SPONSORS</h1>
             <hr>
         </div>
 
@@ -157,45 +171,64 @@
         <div class="sponsorContainer">
 
             <!-- sponsor card -->
-            <div class="sponsor">
-                <img loading="lazy" src="./assets/img/sponsorBackground1.1.png" alt="">
+            <div class="sponsorCardItems" data-aos="fade-up">
+                <div class="sponsorsCard card2">
+                    <div class="corner-ornament top-left"></div>
+                    <div class="corner-ornament top-right"></div>
+                    <div class="corner-ornament bottom-left"></div>
+                    <div class="corner-ornament bottom-right"></div>
 
-                <div class="sponsorInfo">
-                    <!-- sponsor logo -->
-                    <img src="./assets/./icons/logoSCCI.png" alt="" class="sponsorLogo">
-
-                    <!-- sponsor name -->
-                    <p>sponsor name</p>
+                    <div class="sponsorCardContent">
+                        <img src="./assets/icons/logoSCCI.png" class="sponsorLogo" alt="Sponsor Logo" loading="lazy">
+                        <h4 class="sponsorTitle">SPONSOR</h4>
+                    </div>
                 </div>
             </div>
 
             <!-- sponsor card -->
-            <div class="sponsor">
-                <img loading="lazy" src="./assets/img/sponsorBackground1.1.png" alt="">
+            <div class="sponsorCardItems" data-aos="fade-up" data-aos-delay="100">
+                <div class="sponsorsCard card2">
+                    <div class="corner-ornament top-left"></div>
+                    <div class="corner-ornament top-right"></div>
+                    <div class="corner-ornament bottom-left"></div>
+                    <div class="corner-ornament bottom-right"></div>
 
-                <div class="sponsorInfo">
-                    <!-- sponsor logo -->
-                    <img src="./assets/./icons/logoSCCI.png" alt="" class="sponsorLogo">
-
-                    <!-- sponsor name -->
-                    <p>sponsor name</p>
+                    <div class="sponsorCardContent">
+                        <img src="./assets/icons/logoSCCI.png" class="sponsorLogo" alt="Sponsor Logo" loading="lazy">
+                        <h4 class="sponsorTitle">SPONSOR</h4>
+                    </div>
                 </div>
             </div>
 
             <!-- sponsor card -->
-            <div class="sponsor">
-                <img loading="lazy" src="./assets/img/sponsorBackground1.1.png" alt="">
+            <div class="sponsorCardItems" data-aos="fade-up" data-aos-delay="200">
+                <div class="sponsorsCard card2">
+                    <div class="corner-ornament top-left"></div>
+                    <div class="corner-ornament top-right"></div>
+                    <div class="corner-ornament bottom-left"></div>
+                    <div class="corner-ornament bottom-right"></div>
 
-                <div class="sponsorInfo">
-                    <!-- sponsor logo -->
-                    <img src="./assets/./icons/logoSCCI.png" alt="" class="sponsorLogo">
-
-                    <!-- sponsor name -->
-                    <p>sponsor name</p>
+                    <div class="sponsorCardContent">
+                        <img src="./assets/icons/logoSCCI.png" class="sponsorLogo" alt="Sponsor Logo" loading="lazy">
+                        <h4 class="sponsorTitle">SPONSOR</h4>
+                    </div>
                 </div>
             </div>
+            
+            <!-- sponsor card -->
+            <div class="sponsorCardItems" data-aos="fade-up" data-aos-delay="300">
+                <div class="sponsorsCard card2">
+                    <div class="corner-ornament top-left"></div>
+                    <div class="corner-ornament top-right"></div>
+                    <div class="corner-ornament bottom-left"></div>
+                    <div class="corner-ornament bottom-right"></div>
 
-        </div>
+                    <div class="sponsorCardContent">
+                        <img src="./assets/icons/logoSCCI.png" class="sponsorLogo" alt="Sponsor Logo" loading="lazy">
+                        <h4 class="sponsorTitle">SPONSOR</h4>
+                    </div>
+                </div>
+            </div>
 
     </section>
 
@@ -204,24 +237,25 @@
     <section class="homeContactUs">
         <!-- title -->
         <div class="homeTitles">
-            <h1>contact us</h1>
+            <h1>CONTACT US</h1>
             <hr>
         </div>
         <div class="contactUsContainer">
 
-            <div class="homeContactPaper">
-
-                <div class="contactText">
-                    Keep In Touch
-                    If you want to contact us for any queries,
-                    or for any sponsorship deals, don't hesitate to contact us right here.
+            <div class="contactUsSection" data-aos="fade-right">
+                <div class="cardContactUs">
+                    <div class="corner top left"></div>
+                    <div class="corner top right"></div>
+                    <div class="corner bottom left"></div>
+                    <div class="corner bottom right"></div>
+                    <hr>
+                    <p>Keep In Touch If you want to contact us for any queries, or for any sponsorship deals, don't hesitate to contact us right here.</p>
+                    <hr>
                 </div>
-
-                <img class="contactPaper" loading="lazy" src="./assets/img/paperContact.png" alt="">
-                <img class="contactPaperResponsive" loading="lazy" src="./assets/img/paperHomeResponsive.png" alt="">
             </div>
 
-            <form class="form-content card" id="form" action="" method="POST" enctype="multipart/form-data">
+
+            <form class="form-content card" data-aos="fade-left" id="form"  method="POST" enctype="multipart/form-data">
                 <img class="homeBird" loading="lazy" src="./assets/img/bird.png" alt="">
                 <!-- inputs -->
                 <div class="input-group">
@@ -244,7 +278,7 @@
 
 
                 <!-- submit-button -->
-                <button type="submit" name="submit" class="btn btn-primary submit-btn">Register</button>
+                <button type="submit" name="contact" class="btn btn-primary submit-btn">Submit</button>
             </form>
 
         </div>
@@ -254,8 +288,10 @@
 
     <script src="./assets/js/all.min.js" defer></script>
     <script src="./assets/js/home.validation.js" defer></script>
-     <!-- AOS -->
+    <script src="./assets/js/home.js" defer></script>
+    <!-- AOS -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 </body>
 
 </html>
+

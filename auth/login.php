@@ -20,6 +20,7 @@ if(isset($_POST['login1'])){
        if($status== 1){
      $user_id=$fetch['user_id'];
             $_SESSION['user_id']=$user_id;
+            $_SESSION['role']=$fetch['role'];
 
      if (isset($_POST['remember']) && $_POST['remember'] == '1') {
                 setcookie("remember_email", $email, time() + 3600 * 24 * 30, "/"); // 30 days
