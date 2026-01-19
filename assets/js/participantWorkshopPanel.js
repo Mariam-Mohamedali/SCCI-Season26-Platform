@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function () {
   /* ================== FILE UPLOAD HANDLING ================== */
   /* Manages file selection, drag & drop, and validation */
   const uploadContainer = document.querySelector('.uploadContainer');
-  const fileInput = document.getElementById('taskFile');
+  const fileInput = document.getElementById('submit_link'); // Updated ID
   const fileMessage = document.getElementById('fileMessage');
   const fileState = document.getElementById('fileUploadState');
   const fileUploadedName = document.getElementById('fileUploadedName');
@@ -110,66 +110,92 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* Event: Regular file input selection */
   /* Updates UI when a user selects a file via the browse dialog */
-  fileInput.addEventListener('change', function () {
-    if (this.files.length > 0) {
-      fileState.textContent = "File Uploaded Successfully!";
-      fileState.style.color = "green";
-      fileUploadedName.textContent = this.files[0].name;
-      fileUploadedName.style.display = "block";
-      fileMessage.textContent = "";
-    } else {
-      fileState.textContent = "Drag and drop or click to browse";
-      fileState.style.color = "";
-      fileUploadedName.style.display = "none";
-    }
-  });
+  if (fileInput) {
+    fileInput.addEventListener('change', function () {
+      if (this.files.length > 0) {
+        fileState.textContent = "File Uploaded Successfully!";
+        fileState.style.color = "green";
+        fileUploadedName.textContent = this.files[0].name;
+        fileUploadedName.style.display = "block";
+        fileMessage.textContent = "";
+      } else {
+        fileState.textContent = "Drag and drop or click to browse";
+        fileState.style.color = "";
+        fileUploadedName.style.display = "none";
+      }
+    });
+  }
 
   /* Event: Prevent default drag behaviors */
   /* Stops browser from opening files dropped outside the zone */
   ['dragover', 'drop'].forEach(eventName => {
-    uploadContainer.addEventListener(eventName, e => {
-      e.preventDefault();
-      e.stopPropagation();
-    });
+    if (uploadContainer) {
+      uploadContainer.addEventListener(eventName, e => {
+        e.preventDefault();
+        e.stopPropagation();
+      });
+    }
   });
 
   /* Event: Drag Over */
   /* Adds visual cue when file is dragged over the drop zone */
-  uploadContainer.addEventListener('dragover', () => {
-    uploadContainer.classList.add('drag-over');
-  });
+  if (uploadContainer) {
+    uploadContainer.addEventListener('dragover', () => {
+      uploadContainer.classList.add('drag-over');
+    });
 
-  /* Event: File Drop */
-  /* Handles the file drop, updates input, and triggers change event */
-  uploadContainer.addEventListener('drop', (e) => {
-    uploadContainer.classList.remove('drag-over');
+    /* Event: File Drop */
+    /* Handles the file drop, updates input, and triggers change event */
+    uploadContainer.addEventListener('drop', (e) => {
+      uploadContainer.classList.remove('drag-over');
 
-    const files = e.dataTransfer.files;
+      const files = e.dataTransfer.files;
 
-    if (files.length > 0) {
-      const dataTransfer = new DataTransfer();
-      dataTransfer.items.add(files[0]);
-      fileInput.files = dataTransfer.files;
+      if (files.length > 0) {
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(files[0]);
+        fileInput.files = dataTransfer.files;
 
-      fileInput.dispatchEvent(
-        new Event('change', { bubbles: true })
-      );
-    }
-  });
+        fileInput.dispatchEvent(
+          new Event('change', { bubbles: true })
+        );
+      }
+    });
+  }
 
-  /* ================== FORM SUBMIT VALIDATION ================== */
+  /* ================== FORM SUBMIT VALIDATION & AJAX ================== */
   /* Ensures a file is selected before allowing form submission */
-  submitForm.addEventListener('submit', (e) => {
-    e.preventDefault();
+  if (submitForm) {
+    submitForm.addEventListener('submit', (e) => {
+      e.preventDefault();
 
-    if (!fileInput.files.length) {
-      fileMessage.textContent = "Please upload a file.";
-      fileMessage.style.color = "red";
-      return;
-    }
+      if (!fileInput || !fileInput.files.length) {
+        fileMessage.textContent = "Please upload a file.";
+        fileMessage.style.color = "red";
+        return;
+      }
 
-    submitForm.submit();
-  });
+      const formData = new FormData(submitForm);
+
+      fetch(window.location.href, {
+        method: 'POST',
+        body: formData
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === 'success') {
+            alert(data.message);
+            window.location.reload();
+          } else {
+            alert(data.message || 'Error uploading file.');
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('An error occurred during upload.');
+        });
+    });
+  }
 
   /* ================== MATERIAL CATEGORY SWITCHING ================== */
   /* Handles switching between Technical and Soft-skills materials */
@@ -208,13 +234,35 @@ document.addEventListener('DOMContentLoaded', function () {
 function openFeedbackModal(sessionName, rating, feedbackText, instructor) {
   const modal = document.getElementById('feedbackModal');
 
-  // Update modal content (for now static, backend will populate this)
-  // These parameters can be used when backend integration is ready
+  // 1. Set Session Name
+  const sessionEl = document.getElementById('feedbackSessionName');
+  if (sessionEl) sessionEl.textContent = sessionName;
+
+  // 2. Set Feedback Text
+  const textEl = document.getElementById('feedbackText');
+  if (textEl) textEl.innerHTML = `<p>${feedbackText}</p>`;
+
+  // 3. Render Stars
+  const starsContainer = document.querySelector('#feedbackModal .feedbackStars');
+  if (starsContainer) {
+    starsContainer.innerHTML = ''; // clear existing
+    const r = parseInt(rating) || 0;
+    for (let i = 1; i <= 5; i++) {
+      const star = document.createElement('i');
+      if (i <= r) {
+        star.className = 'fas fa-star';
+      } else {
+        star.className = 'far fa-star';
+      }
+      starsContainer.appendChild(star);
+    }
+  }
+
+  // 4. Set Instructor Name
+  const instructorEl = document.getElementById('feedbackInstructorName');
+  if (instructorEl) instructorEl.textContent = instructor;
 
   modal.classList.add('show');
-  // Allow background scrolling while modal is open
-
-  // Scroll to top of page when modal opens
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -244,7 +292,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
   feedbackBtns.forEach(btn => {
     btn.addEventListener('click', function () {
-      openFeedbackModal();
+      const session = this.getAttribute('data-session') || 'Session';
+      const rating = this.getAttribute('data-rating') || 0;
+      const feedback = this.getAttribute('data-feedback') || 'No feedback available.';
+      const instructor = this.getAttribute('data-instructor') || 'Instructor';
+
+      openFeedbackModal(session, rating, feedback, instructor);
     });
   });
 });

@@ -1,3 +1,239 @@
+<?php
+include('./includes/nav.php');
+
+/* =====================
+   Auth & Role Check
+===================== */
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit;
+}
+
+$userId = (int) $_SESSION['user_id'];
+
+// participant = 1
+$role = (int) ($_SESSION['role'] ?? -1);
+if ($role !== 1) {
+    http_response_code(403);
+    die("Access denied");
+}
+
+$userName = $_SESSION['user_name'] ?? 'User';
+
+/* =====================
+   Get workshop_id for this participant
+===================== */
+$stW = $connect->prepare("SELECT workshop_id FROM users WHERE user_id = ? AND status = 1");
+$stW->bind_param("i", $userId);
+$stW->execute();
+$uRow = $stW->get_result()->fetch_assoc();
+
+if (!$uRow || empty($uRow['workshop_id'])) {
+    die("You are not assigned to a workshop");
+}
+
+$workshopId = (int) $uRow['workshop_id'];
+
+
+
+// 1) Get all sessions
+$sessions = [];
+$sq = $connect->query("SELECT session_id, session_name FROM sessions ORDER BY session_id ASC");
+if ($sq) {
+    $sessions = $sq->fetch_all(MYSQLI_ASSOC);
+}
+
+// 2) Selected session (from URL) OR default first session
+$selectedSessionId = isset($_GET['session_id']) ? (int) $_GET['session_id'] : 0;
+if ($selectedSessionId <= 0 && count($sessions) > 0) {
+    $selectedSessionId = (int) $sessions[0]['session_id'];
+}
+
+// 3) Current tab
+$currentTab = isset($_GET['tab']) ? $_GET['tab'] : 'evaluate';
+
+// 4) Helper: current session name
+$currentSessionName = "Session";
+foreach ($sessions as $s) {
+    if ((int) $s['session_id'] === $selectedSessionId) {
+        $currentSessionName = $s['session_name'];
+        break;
+    }
+}
+
+// 5) Get workshop_session_id for this workshop + selected session
+$workshopSessionId = 0;
+
+if (!empty($workshopId) && $selectedSessionId > 0) {
+    $ws = $connect->prepare("
+        SELECT workshop_session_id
+        FROM workshop_session
+        WHERE workshop_id = ? AND session_id = ?
+        LIMIT 1
+    ");
+    $ws->bind_param("ii", $workshopId, $selectedSessionId);
+    $ws->execute();
+    $wsRes = $ws->get_result();
+    if ($wsRes && $wsRes->num_rows > 0) {
+        $wsRow = $wsRes->fetch_assoc();
+        $workshopSessionId = (int) $wsRow['workshop_session_id'];
+    }
+    $ws->close();
+}
+
+// 6) Get tasks ONLY by workshop_session_id (no fallback)
+$tasks = [];
+
+if ($workshopSessionId > 0) {
+    $stTasks = $connect->prepare("
+        SELECT task_id, workshop_session_id, taskName, taskDeadline, taskBio, task_file
+        FROM tasks
+        WHERE workshop_session_id = ?
+        ORDER BY task_id DESC
+    ");
+    $stTasks->bind_param("i", $workshopSessionId);
+    $stTasks->execute();
+    $resTasks = $stTasks->get_result();
+    if ($resTasks) {
+        $tasks = $resTasks->fetch_all(MYSQLI_ASSOC);
+    }
+    $stTasks->close();
+}
+
+/* =====================
+   Handle Submit Upload 
+===================== */
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'submit_task') {
+
+    // Validate file
+    $maxSize = 10 * 1024 * 1024; // 10MB
+    $allowedExt = ['pdf', 'doc', 'docx', 'zip', 'rar', 'png', 'jpg', 'jpeg'];
+
+    if ($_FILES['submit_link']['size'] > $maxSize) {
+        $response['message'] = 'File too large (max 10MB).';
+        echo json_encode($response);
+        exit;
+    }
+
+    $fileName = $_FILES['submit_link']['name'];
+    $tmpName = $_FILES['submit_link']['tmp_name'];
+
+    $ext = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+    if (!in_array($ext, $allowedExt, true)) {
+        $response['message'] = 'File type not allowed.';
+        echo json_encode($response);
+        exit;
+    }
+
+    // Upload folder
+    $uploadDir = __DIR__ . "/assets/taskSubmissions/";
+    if (!is_dir($uploadDir))
+        mkdir($uploadDir, 0777, true);
+
+    $safeBase = preg_replace("/[^a-zA-Z0-9_-]/", "_", pathinfo($fileName, PATHINFO_FILENAME));
+    $newName = "u{$userId}_t{$taskId}_" . time() . "_" . $safeBase . "." . $ext;
+
+    $destination = $uploadDir . $newName;
+    if (!move_uploaded_file($tmpName, $destination)) {
+        $response['message'] = 'Failed to save file.';
+        echo json_encode($response);
+        exit;
+    }
+
+    $dbPath = "assets/taskSubmissions/" . $newName;
+
+    // Insert/Update submission
+    $sql = "
+    INSERT INTO task_submissions (task_id, user_id, submit_link, status)
+    VALUES (?, ?, ?, 'submitted')
+    ON DUPLICATE KEY UPDATE
+      submit_link = VALUES(submit_link),
+      status = 'submitted'
+  ";
+    $stmt = $connect->prepare($sql);
+    $stmt->bind_param("iis", $taskId, $userId, $dbPath);
+    $stmt->execute();
+
+    $response['status'] = 'success';
+    $response['message'] = 'Submitted successfully.';
+    echo json_encode($response);
+    exit;
+}
+
+/* =====================
+   Review rows (all tasks for this workshop across sessions ✅)
+===================== */
+$reviewRows = [];
+$q = "
+  SELECT 
+    s.session_id,
+    s.session_name,
+    t.task_id,
+    t.taskName,
+    ts.status,
+    ts.submit_link,
+    tf.rating AS feedback_rating,
+    tf.feedback_text,
+    u.user_name
+  FROM tasks t
+  JOIN workshop_session ws ON ws.workshop_session_id = t.workshop_session_id
+  JOIN sessions s ON s.session_id = ws.session_id
+  LEFT JOIN task_submissions ts 
+    ON ts.task_id = t.task_id AND ts.user_id = $userId
+  LEFT JOIN task_feedback tf 
+    ON tf.submission_id = ts.submission_id
+  LEFT JOIN users u ON u.user_id = ts.user_id
+  WHERE ws.workshop_id = $workshopId
+  ORDER BY s.session_id ASC, t.task_id ASC
+";
+$rr = mysqli_query($connect, $q);
+if ($rr)
+    $reviewRows = mysqli_fetch_all($rr, MYSQLI_ASSOC);
+
+/* =====================
+   Materials (per session) - left as session-based ✅
+===================== */
+$technicalMaterials = [];
+$softMaterials = [];
+
+if ($selectedSessionId > 0) {
+    $qTech = "
+    SELECT material_title, file_path
+    FROM session_materials
+    WHERE  workshop_session_id = $selectedSessionId
+      AND material_type = 'technical'
+  ";
+    $rTech = mysqli_query($connect, $qTech);
+    if ($rTech)
+        $technicalMaterials = mysqli_fetch_all($rTech, MYSQLI_ASSOC);
+
+    $qSoft = "
+    SELECT material_title, file_path
+    FROM session_materials
+    WHERE workshop_session_id = $selectedSessionId
+      AND material_type = 'soft'
+  ";
+    $rSoft = mysqli_query($connect, $qSoft);
+    if ($rSoft)
+        $softMaterials = mysqli_fetch_all($rSoft, MYSQLI_ASSOC);
+}
+
+function renderStars($rating)
+{
+    $rating = (int) $rating;
+    if ($rating < 1 || $rating > 5)
+        return "—";
+    $out = "";
+    for ($i = 1; $i <= 5; $i++) {
+        $out .= ($i <= $rating) ? "⭐" : "☆";
+    }
+    return $out;
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -95,11 +331,15 @@
 
             <!-- Panel Section: View Task (Evaluate) -->
             <div id="evaluate" class="panelSection panelSectionActive">
-                <!-- Week Navigation Tabs -->
-                <a class="weekTab <?= ($selectedSessionId === $sid) ? 'active' : '' ?>"
-                    href="?workshop_id=<?= (int) $workshopId ?>&tab=evaluate&session_id=<?= $sid ?>">
-                    <?= htmlspecialchars($s['session_name']) ?>
-                </a>
+                <div class="workshopNav">
+                    <?php foreach ($sessions as $s): ?>
+                        <?php $sid = (int) $s['session_id']; ?>
+                        <a class="weekTab <?= ($selectedSessionId === $sid) ? 'active' : '' ?>"
+                            href="?workshop_id=<?= (int) $workshopId ?>&tab=evaluate&session_id=<?= $sid ?>">
+                            <?= htmlspecialchars($s['session_name']) ?>
+                        </a>
+                    <?php endforeach; ?>
+                </div>
 
                 <!-- Workshop Card -->
                 <?php if (count($tasks) > 0): ?>
@@ -170,9 +410,14 @@
                     <div class="uploadHeader">
                         <h3 class="uploadSectionTitle">Submit Task</h3>
                     </div>
+
+                    <input type="hidden" name="action" value="submit_task">
+                    <input type="hidden" name="task_id"
+                        value="<?= isset($tasks[0]) ? (int) $tasks[0]['task_id'] : 0 ?>">
+
                     <!-- Upload Container -->
                     <div class="uploadContainer" id="taskUploadContainer">
-                        <label class="formLabel" for="taskFile">
+                        <label class="formLabel" for="submit_link">
                             <div class="uploadIcon">
                                 <i class="fas fa-arrow-down"></i>
                             </div>
@@ -184,7 +429,7 @@
 
                         <p id="fileUploadedName"></p>
                         <!-- Hidden File Input -->
-                        <input type="file" name="taskFile" id="taskFile">
+                        <input type="file" name="submit_link" id="submit_link">
 
                         <p id="fileMessage"></p>
                     </div>
@@ -219,101 +464,46 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- Session 1 - Submitted -->
-                                    <tr>
-                                        <td class="sessionName">Session 1</td>
-                                        <td class="taskLink">
-                                            <a href="#" class="taskLinkBtn">
-                                                <i class="fas fa-link"></i>
-                                                Task-link
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <span class="statusBadge statusSubmitted">
-                                                <i class="fas fa-check"></i>
-                                                submitted
-                                            </span>
-                                        </td>
-                                        <td class="rating">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                        </td>
-                                        <td>
-                                            <button class="feedbackBtn">view feedback</button>
-                                        </td>
-                                    </tr>
-
-                                    <!-- Session 2 - Submitted -->
-                                    <tr>
-                                        <td class="sessionName">Session 2</td>
-                                        <td class="taskLink">
-                                            <a href="#" class="taskLinkBtn">
-                                                <i class="fas fa-link"></i>
-                                                Task-link
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <span class="statusBadge statusSubmitted">
-                                                <i class="fas fa-check"></i>
-                                                submitted
-                                            </span>
-                                        </td>
-                                        <td class="rating">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                        </td>
-                                        <td>
-                                            <button class="feedbackBtn">view feedback</button>
-                                        </td>
-                                    </tr>
-
-                                    <!-- Session 3 - Not Submitted -->
-                                    <tr>
-                                        <td class="sessionName">Session 3</td>
-                                        <td class="taskLink">—</td>
-                                        <td>
-                                            <span class="statusBadge statusNotSubmitted">
-                                                <i class="fas fa-times"></i>
-                                                Not submitted
-                                            </span>
-                                        </td>
-                                        <td class="rating">—</td>
-                                        <td>—</td>
-                                    </tr>
-
-                                    <!-- Session 4 - Pending (Highlighted Row) -->
-                                    <tr class="highlightedRow">
-                                        <td class="sessionName" style="color: var(--color-success);">Session 4</td>
-                                        <td class="taskLink">
-                                            <a href="#" class="taskLinkBtn">
-                                                <i class="fas fa-link"></i>
-                                                Task-link
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <span class="statusBadge statusPending">
-                                                <i class="fas fa-hourglass-half"></i>
-                                                Pending
-                                            </span>
-                                        </td>
-                                        <td class="rating">—</td>
-                                        <td>—</td>
-                                    </tr>
-
-                                    <!-- Session 5 - Empty -->
-                                    <tr>
-                                        <td class="sessionName">Session 5</td>
-                                        <td class="taskLink">—</td>
-                                        <td>—</td>
-                                        <td class="rating">—</td>
-                                        <td>—</td>
-                                    </tr>
+                                    <?php if (count($reviewRows) == 0): ?>
+                                        <tr>
+                                            <td colspan="6">No data</td>
+                                        </tr>
+                                    <?php else: ?>
+                                        <?php foreach ($reviewRows as $r): ?>
+                                            <tr>
+                                                <td class="sessionName"><?= htmlspecialchars($r['session_name']) ?></td>
+                                                <td class="taskLink">
+                                                    <a href="#" class="taskLinkBtn">
+                                                        <i class="fas fa-link"></i>
+                                                        <?php if (!empty($r['submit_link'])): ?>
+                                                            <a href="<?= htmlspecialchars($r['submit_link']) ?>"
+                                                                target="_blank">View file</a>
+                                                        <?php else: ?>
+                                                            —
+                                                        <?php endif; ?>
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <span class="statusBadge statusSubmitted">
+                                                        <i class="fas fa-check"></i>
+                                                        <?= htmlspecialchars($r['status'] ?? 'pending') ?>
+                                                    </span>
+                                                </td>
+                                                <td class="rating">
+                                                    <?= renderStars($r['feedback_rating'] ?? 0) ?>
+                                                </td>
+                                                <td>
+                                                    <button class="feedbackBtn"
+                                                        data-session="<?= htmlspecialchars($r['session_name']) ?>"
+                                                        data-rating="<?= htmlspecialchars($r['feedback_rating'] ?? 0) ?>"
+                                                        data-feedback="<?= htmlspecialchars($r['feedback_text'] ?? 'No feedback yet.') ?>"
+                                                        data-instructor="<?= htmlspecialchars($r['user_name'] ?? '—') ?>">
+                                                        view feedback
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -353,31 +543,7 @@
                                             Download
                                         </a>
                                     </div>
-                                    <div class="materialItem">
-                                        <i class="fas fa-file-alt materialIcon"></i>
-                                        <span class="materialName">Session_2: HTML Elements & Structure</span>
-                                        <a href="#" class="materialDownloadBtn">
-                                            <i class="fas fa-download"></i>
-                                            Download
-                                        </a>
-                                    </div>
-                                    <div class="materialItem">
-                                        <i class="fas fa-file-alt materialIcon"></i>
-                                        <span class="materialName">Session_3: CSS Fundamentals</span>
-                                        <a href="#" class="materialDownloadBtn">
-                                            <i class="fas fa-download"></i>
-                                            Download
-                                        </a>
-                                    </div>
-                                    <div class="materialItem">
-                                        <i class="fas fa-file-alt materialIcon"></i>
-                                        <span class="materialName">Session_4: Responsive Design</span>
-                                        <a href="#" class="materialDownloadBtn">
-                                            <i class="fas fa-download"></i>
-                                            Download
-                                        </a>
-                                    </div>
-                                </div>
+                              
 
                                 <!-- Soft-skills Materials -->
                                 <div id="softskills" class="materialsList">
@@ -511,12 +677,13 @@
                 <!-- Session Info -->
                 <div class="feedbackSessionInfo">
                     <span class="feedbackSessionLabel">Session:</span>
-                    <span id="feedbackSessionName" class="feedbackSessionValue">Session 1</span>
+                    <span id="feedbackSessionName" class="feedbackSessionValue">Session</span>
                 </div>
 
                 <!-- Rating -->
                 <div class="feedbackRating">
-                    <span class="feedbackLabel">Rating:</span>
+                    <span
+                        class="feedbackLabel">Rating:<?= !empty($r['feedback_rating']) ? renderStars($r['feedback_rating']) : "—" ?></span>
                     <div class="feedbackStars">
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
@@ -530,22 +697,14 @@
                 <div class="feedbackContent">
                     <p class="feedbackLabel"><i class="fas fa-comment-alt"></i> Feedback Message:</p>
                     <div id="feedbackText" class="feedbackTextArea">
-                        <p>Great work on your HTML structure! Your code is clean and well-organized. However, I noticed
-                            a few areas for improvement:</p>
-                        <ul>
-                            <li>Use semantic HTML elements more consistently (e.g., &lt;header&gt;, &lt;nav&gt;,
-                                &lt;main&gt;)</li>
-                            <li>Add more descriptive class names for better maintainability</li>
-                            <li>Consider adding comments to complex sections</li>
-                        </ul>
-                        <p>Keep up the excellent effort! Your progress is impressive. 🌟</p>
+                        <p><?= !empty($r['feedback_text']) ? htmlspecialchars($r['feedback_text']) : "—" ?>
                     </div>
                 </div>
 
                 <!-- Instructor Info -->
                 <div class="feedbackInstructor">
                     <i class="fas fa-user-tie"></i>
-                    <span>Reviewed by: <strong>Instructor Ahmed</strong></span>
+                    <span>Reviewed by: <strong id="feedbackInstructorName">instructor</strong></span>
                 </div>
             </div>
             <div class="modalFooter">

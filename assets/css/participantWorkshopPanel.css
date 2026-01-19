@@ -768,7 +768,7 @@
     box-shadow: var(--shadow-light);
 }
 
-#taskFile {
+#submit_link {
     display: none;
 }
 
