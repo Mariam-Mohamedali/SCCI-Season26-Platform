@@ -4,23 +4,24 @@ include(__DIR__ . '/config.php');
 // Fetch user's profile image if logged in
 $user_image = 'default.png'; // Default fallback
 $role = 0;
-if(isset($_SESSION['user_id'])){
+$committeeId = 0;
+if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
     $role = $_SESSION['role'] ?? 0;
-    $committeeId = 0;
+    $committeeId = $_SESSION['committee_id'] ?? 0;
     $select_user_image = "SELECT image, role, committee_id FROM users WHERE user_id = ?";
     $stmt = mysqli_prepare($connect, $select_user_image);
-    if($stmt) {
+    if ($stmt) {
         mysqli_stmt_bind_param($stmt, "i", $user_id);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
-        if($row = mysqli_fetch_assoc($result)) {
+        if ($row = mysqli_fetch_assoc($result)) {
             $user_image = $row['image'] ?? 'default.png';
             $role = $row['role']; // Fetch role from DB to ensure it's available
             $committeeId = $row['committee_id'] ?? 0; // Fetch committee_id from DB
-            
+
             // Add SCCI Board prefix for role 4 users
-            if($role == 4) {
+            if ($role == 4) {
                 $user_image = 'SCCI Board/' . $user_image;
             }
         }
@@ -28,6 +29,7 @@ if(isset($_SESSION['user_id'])){
     }
 }
 ?>
+
 <head>
     <link rel="icon" href="assets/icons/logoSCCI.png" type="image/png">
     <!-- Irish Grover font -->
@@ -46,36 +48,36 @@ if(isset($_SESSION['user_id'])){
         <a href="/SCCI-Season26-Platform/gallary.php" id="galleryNavLine">gallery</a>
         <a href="/SCCI-Season26-Platform/workshops.php" id="workshopsNavLine">workshops</a>
         <a href="/SCCI-Season26-Platform/crew.php" id="crewNavLine">crew</a>
-        
+
         <?php
-        if($role == 2) {
+        if ($role == 2) {
             echo '<a href="/SCCI-Season26-Platform/memberWorkshopPanel.php" id="homeNavLine">member panel</a>';
         }
         ?>
         <?php
-        if($role == 1) {
+        if ($role == 1) {
             echo '<a href="/SCCI-Season26-Platform/participantWorkshopPanel.php" id="homeNavLine">participant panel</a>';
         }
         ?>
         <?php
-        if($role == 4) {
+        if ($role == 4) {
             echo '<a href="/SCCI-Season26-Platform/contactPanel.php" id="homeNavLine">contact panel</a>';
             echo '<a href="/SCCI-Season26-Platform/headPanel.php" id="homeNavLine">head panel</a>';
         }
         ?>
         <?php
-        if($committeeId == 6) {
+        if ($committeeId == 6) {
             echo '<a href="/SCCI-Season26-Platform/itPanel.php" id="homeNavLine">IT panel</a>';
         }
         ?>
     </nav>
     <nav class="navAccount navRespnsive">
         <?php
-        if(isset($_SESSION['user_id'])){
+        if (isset($_SESSION['user_id'])) {
             echo '<a href="/SCCI-Season26-Platform/profile.php" id="profileNav">
             <img loading="lazy" src="/SCCI-Season26-Platform/assets/uploadedImages/' . htmlspecialchars($user_image) . '" alt="profile img">
         </a>';
-        }else{
+        } else {
             echo '<a href="/SCCI-Season26-Platform/auth/login.php" id="loginNav">Log In</a>';
         }
         ?>
@@ -96,22 +98,24 @@ if(isset($_SESSION['user_id'])){
         <a href="/SCCI-Season26-Platform/workshops.php"><i class="fa-solid fa-graduation-cap"></i> workshops</a>
         <a href="/SCCI-Season26-Platform/crew.php"><i class="fa-solid fa-users"></i> crew</a>
         <?php
-        if($committeeId == 6) {
+        if ($committeeId == 6) {
             echo '<a href="/SCCI-Season26-Platform/itPanel.php"><i class="fa-solid fa-screwdriver-wrench"></i> IT panel</a>';
         }
         ?>
         <?php
-        if(isset($_SESSION['user_id'])){
+        if (isset($_SESSION['user_id'])) {
             echo '<a href="/SCCI-Season26-Platform/profile.php"><i class="fa-solid fa-user"></i> Profile</a>';
-        }else{
+        } else {
             echo '<a href="/SCCI-Season26-Platform/auth/login.php"><i class="fa-solid fa-user"></i> LogIn</a>';
         }
         ?>
         <hr>
-        <?php if(isset($_SESSION['user_id'])): ?>
-        <a href="/SCCI-Season26-Platform/profile.php" id="profileNav">
-            <img loading="lazy" src="/SCCI-Season26-Platform/assets/uploadedImages/<?php echo htmlspecialchars($user_image); ?>" alt="profile img">
-        </a>
+        <?php if (isset($_SESSION['user_id'])): ?>
+            <a href="/SCCI-Season26-Platform/profile.php" id="profileNav">
+                <img loading="lazy"
+                    src="/SCCI-Season26-Platform/assets/uploadedImages/<?php echo htmlspecialchars($user_image); ?>"
+                    alt="profile img">
+            </a>
         <?php endif; ?>
     </div>
 </aside>
