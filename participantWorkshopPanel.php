@@ -8,8 +8,8 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-$userId = (int)$_SESSION['user_id'];
-$role   = (int)($_SESSION['role'] ?? -1);
+$userId = (int) $_SESSION['user_id'];
+$role = (int) ($_SESSION['role'] ?? -1);
 
 if ($role !== 1) {
     http_response_code(403);
@@ -35,7 +35,7 @@ if (!$uRow || empty($uRow['workshop_id'])) {
     die("You are not assigned to a workshop");
 }
 
-$workshopId = (int)$uRow['workshop_id'];
+$workshopId = (int) $uRow['workshop_id'];
 
 /* =====================
    Sessions
@@ -50,8 +50,8 @@ if ($res) {
     $sessions = $res->fetch_all(MYSQLI_ASSOC);
 }
 
-$selectedSessionId = isset($_GET['session_id']) 
-    ? (int)$_GET['session_id'] 
+$selectedSessionId = isset($_GET['session_id'])
+    ? (int) $_GET['session_id']
     : ($sessions[0]['session_id'] ?? 0);
 
 $currentTab = $_GET['tab'] ?? 'evaluate';
@@ -78,7 +78,7 @@ $ws = $connect->prepare("
 $ws->bind_param("ii", $workshopId, $selectedSessionId);
 $ws->execute();
 $wsRow = $ws->get_result()->fetch_assoc();
-$workshopSessionId = (int)($wsRow['workshop_session_id'] ?? 0);
+$workshopSessionId = (int) ($wsRow['workshop_session_id'] ?? 0);
 $ws->close();
 
 /* =====================
@@ -107,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'submi
     header('Content-Type: application/json');
     $response = ['status' => 'error', 'message' => ''];
 
-    $taskId = (int)($_POST['task_id'] ?? 0);
+    $taskId = (int) ($_POST['task_id'] ?? 0);
     if ($taskId <= 0) {
         $response['message'] = 'Invalid task.';
         echo json_encode($response);
@@ -126,9 +126,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'submi
         exit;
     }
 
-    $allowedExt = ['pdf','doc','docx','zip','rar','png','jpg','jpeg'];
+    $allowedExt = ['pdf', 'doc', 'docx', 'zip', 'rar', 'png', 'jpg', 'jpeg'];
     $fileName = $_FILES['submit_link']['name'];
-    $tmpName  = $_FILES['submit_link']['tmp_name'];
+    $tmpName = $_FILES['submit_link']['tmp_name'];
     $ext = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
 
     if (!in_array($ext, $allowedExt, true)) {
@@ -143,7 +143,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'submi
     }
 
     $safeName = preg_replace("/[^a-zA-Z0-9_-]/", "_", pathinfo($fileName, PATHINFO_FILENAME));
-    $newName  = "u{$userId}_t{$taskId}_" . time() . "_{$safeName}.{$ext}";
+    $newName = "u{$userId}_t{$taskId}_" . time() . "_{$safeName}.{$ext}";
     $fullPath = $uploadDir . $newName;
 
     if (!move_uploaded_file($tmpName, $fullPath)) {
@@ -185,7 +185,8 @@ $q = $connect->prepare("
         ts.status,
         ts.submit_link,
         tf.rating AS feedback_rating,
-        tf.feedback_text
+        tf.feedback_text,
+        u.user_name AS reviewer_name
     FROM tasks t
     JOIN workshop_session ws ON ws.workshop_session_id = t.workshop_session_id
     JOIN sessions s ON s.session_id = ws.session_id
@@ -193,6 +194,7 @@ $q = $connect->prepare("
         ON ts.task_id = t.task_id AND ts.user_id = ?
     LEFT JOIN task_feedback tf 
         ON tf.submission_id = ts.submission_id
+    LEFT JOIN users u ON u.user_id = tf.given_by
     WHERE ws.workshop_id = ?
     ORDER BY s.session_id, t.task_id
 
@@ -239,9 +241,11 @@ if ($workshopSessionId > 0) {
 /* =====================
    Helpers
 ===================== */
-function renderStars($rating) {
-    $rating = (int)$rating;
-    if ($rating < 1 || $rating > 5) return "—";
+function renderStars($rating)
+{
+    $rating = (int) $rating;
+    if ($rating < 1 || $rating > 5)
+        return "—";
     return str_repeat("⭐", $rating) . str_repeat("☆", 5 - $rating);
 }
 
@@ -271,12 +275,15 @@ function renderStars($rating) {
     <!-- css other link -->
     <link rel="stylesheet" href="./assets/css/all.min.css">
     <link rel="stylesheet" href="./assets/css/root.css">
+    <link rel="stylesheet" href="./assets/css/message-toast.css">
 
     <!-- css page link -->
     <link rel="stylesheet" href="./assets/css/participantWorkshopPanel.css">
 
     <!-- Page Title -->
     <title>SCCI - Workshop Panel</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -547,7 +554,7 @@ function renderStars($rating) {
                                                         data-session="<?= htmlspecialchars($r['session_name']) ?>"
                                                         data-rating="<?= htmlspecialchars($r['feedback_rating'] ?? 0) ?>"
                                                         data-feedback="<?= htmlspecialchars($r['feedback_text'] ?? 'No feedback yet.') ?>"
-                                                        data-instructor="<?= htmlspecialchars($r['user_name'] ?? '—') ?>">
+                                                        data-instructor="<?= htmlspecialchars($r['reviewer_name'] ?? '—') ?>">
                                                         view feedback
                                                     </button>
                                                 </td>
@@ -770,6 +777,7 @@ function renderStars($rating) {
         });
     </script>
     <script src="./assets/js/all.min.js" defer></script>
+    <script src="./assets/js/messages.js" defer></script>
     <script src="./assets/js/participantWorkshopPanel.js" defer></script>
 </body>
 

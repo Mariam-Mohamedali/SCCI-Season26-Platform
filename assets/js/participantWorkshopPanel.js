@@ -12,31 +12,34 @@ function activatePage(pageId) {
   pages.forEach((page) => {
     page.classList.toggle("panelSectionActive", page.id === pageId);
   });
+
+  // save to localStorage
+  localStorage.setItem("activePanel", pageId);
+
+  // sync URL without reload
+  const url = new URL(window.location.href);
+  url.searchParams.set("tab", pageId);
+  history.replaceState({}, "", url.toString());
 }
 
 // prevent link default
 links.forEach((link) => {
   link.addEventListener("click", (e) => {
     e.preventDefault();
-
     const targetId = link.dataset.page;
-
-    // save to localStorage
-    localStorage.setItem("activePanel", targetId);
-
-    // activate immediately
     activatePage(targetId);
   });
 });
 
-// restore on page load
+// restore on page load - Priority: URL ?tab= -> localStorage -> first tab
+const urlTab = new URLSearchParams(window.location.search).get("tab");
 const savedPanel = localStorage.getItem("activePanel");
+const firstPage = links[0]?.dataset.page;
+const candidate = urlTab || savedPanel || firstPage;
 
-if (savedPanel) {
-  activatePage(savedPanel);
-} else {
-  // fallback: first link
-  const firstPage = links[0].dataset.page;
+if (candidate && document.getElementById(candidate)) {
+  activatePage(candidate);
+} else if (firstPage) {
   activatePage(firstPage);
 }
 
