@@ -599,7 +599,6 @@ main {
 
 .polaroidGallery {
     width: 100%;
-    padding: 100px 0 200px;
     /* extra space at the bottom instead of negative margin */
     background: transparent;
     display: flex;
@@ -654,6 +653,7 @@ footer {
     margin: 0;
     filter: blur(4px);
     overflow: hidden;
+    bottom: -250px;
     /* <<< add this */
 }
 
@@ -1109,4 +1109,748 @@ footer {
 #closeModalBtn {
     background: var(--color-primary-dark);
     color: white;
+}
+
+/* ===============================================
+   RESPONSIVE BREAKPOINTS - iPad & Mobile
+=============================================== */
+
+/* iPad Pro 12.9" (1024px - 1366px) */
+@media (min-width: 1024px) and (max-width: 1366px) {
+    .paperContainer {
+        width: 85%;
+        gap: 35px;
+    }
+
+    .paper {
+        width: 130px;
+        height: 95px;
+    }
+
+    .paper p {
+        font-size: 14px;
+        padding: 12px 20px;
+    }
+
+    .bookContainer {
+        width: 75vw;
+    }
+
+    .pageText {
+        font-size: 12px;
+    }
+
+    .eventsTitle {
+        font-size: 52px;
+    }
+
+    .sliderCard {
+        height: 380px;
+    }
+
+    .sliderCard.active {
+        width: 350px;
+    }
+
+    .sliderCard.level1 {
+        width: 150px;
+    }
+
+    .polaroidItem {
+        width: 220px;
+        height: 280px;
+    }
+
+    footer {
+        bottom: 35rem;
+    }
+}
+
+/* iPad Pro 11" & iPad Air (820px - 1023px) */
+@media (min-width: 820px) and (max-width: 1023px) {
+    .paperContainer {
+        width: 88%;
+        gap: 25px;
+        padding-top: 40px;
+    }
+
+    .paperRow {
+        gap: 18px;
+    }
+
+    .paper {
+        width: 120px;
+        height: 85px;
+    }
+
+    .paper p {
+        font-size: 13px;
+        padding: 10px 18px;
+    }
+
+    .topRow {
+        margin-top: 8%;
+    }
+
+    .bookContainer {
+        width: 80vw;
+    }
+
+    .bookSection {
+        margin-top: 80px;
+        padding-bottom: 40px;
+    }
+
+    .pageText {
+        font-size: 11px;
+        top: 89%;
+    }
+
+    .eventsSection {
+        margin-top: 70px;
+        padding-bottom: 80px;
+    }
+
+    .eventsTitle {
+        font-size: 44px;
+    }
+
+    .eventsHeader {
+        width: 85%;
+        margin-bottom: 35px;
+        gap: 18px;
+    }
+
+    .cardsWrapper {
+        gap: 15px;
+        padding: 40px 0;
+    }
+
+    .sliderCard {
+        height: 360px;
+    }
+
+    .sliderCard.active {
+        width: 320px;
+    }
+
+    .sliderCard.level1 {
+        width: 140px;
+    }
+
+    .sliderCard.level2 {
+        width: 60px;
+    }
+
+    .sliderBtn.prev {
+        left: 38%;
+        bottom: -55px;
+    }
+
+    .sliderBtn.next {
+        right: 38%;
+        bottom: -55px;
+    }
+
+    .polaroidGallery {
+        padding: 80px 0 180px;
+    }
+
+    .polaroidContainer {
+        gap: 35px;
+        padding: 20px 15px;
+    }
+
+    .polaroidItem {
+        width: 200px;
+        height: 260px;
+        filter: blur(3px);
+    }
+
+    .polaroidItem:hover {
+        transform: translateY(-150px) rotate(var(--rotation)) scale(1.05);
+    }
+
+    footer {
+        bottom: 32rem;
+    }
+}
+
+/* Standard iPad (768px - 819px) */
+@media (min-width: 768px) and (max-width: 819px) {
+    .paperContainer {
+        width: 90%;
+        gap: 20px;
+        padding-top: 35px;
+    }
+
+    .paperRow {
+        gap: 15px;
+    }
+
+    .paper {
+        width: 110px;
+        height: 80px;
+    }
+
+    .paper p {
+        font-size: 12px;
+        padding: 8px 15px;
+    }
+
+    .topRow {
+        margin-top: 10%;
+    }
+
+    .bookContainer {
+        width: 85vw;
+    }
+
+    .bookSection {
+        margin-top: 70px;
+        padding-bottom: 35px;
+    }
+
+    .pageText {
+        font-size: 10px;
+        top: 88%;
+    }
+
+    .eventsSection {
+        margin-top: 60px;
+        padding-bottom: 70px;
+    }
+
+    .eventsTitle {
+        font-size: 38px;
+    }
+
+    .eventsHeader {
+        width: 88%;
+        margin-bottom: 30px;
+        gap: 15px;
+    }
+
+    .cardsWrapper {
+        gap: 12px;
+        padding: 35px 0;
+    }
+
+    .sliderCard {
+        height: 340px;
+    }
+
+    .sliderCard.active {
+        width: 280px;
+    }
+
+    .sliderCard.level1 {
+        width: 120px;
+    }
+
+    .sliderCard.level2 {
+        width: 55px;
+    }
+
+    .sliderBtn.prev {
+        left: 36%;
+        bottom: -50px;
+    }
+
+    .sliderBtn.next {
+        right: 36%;
+        bottom: -50px;
+    }
+
+    .polaroidGallery {
+        padding: 70px 0 160px;
+    }
+
+    .polaroidContainer {
+        gap: 30px;
+        padding: 15px 10px;
+    }
+
+    .polaroidItem {
+        width: 180px;
+        height: 240px;
+        filter: blur(3px);
+    }
+
+    .polaroidItem:hover {
+        transform: translateY(-130px) rotate(var(--rotation)) scale(1.05);
+    }
+
+    footer {
+        bottom: 28rem;
+    }
+}
+
+/* Mobile Landscape & Small Tablets (641px - 767px) */
+@media (max-width: 767px) and (min-width: 641px) {
+    .paperContainer {
+        gap: 18px;
+        padding-top: 30px;
+        width: 92%;
+    }
+
+    .paperRow {
+        gap: 12px;
+    }
+
+    .paper {
+        width: 100px;
+        height: 72px;
+    }
+
+    .paper p {
+        font-size: 11px;
+        padding: 6px 12px;
+    }
+
+    .topRow {
+        margin-top: 12%;
+    }
+
+    .bookContainer {
+        width: 90vw;
+    }
+
+    .bookSection {
+        margin-top: 60px;
+        padding-bottom: 30px;
+    }
+
+    .pageText {
+        font-size: 9px;
+        top: 88%;
+        width: 35%;
+    }
+
+    .eventsSection {
+        margin-top: 50px;
+        padding-bottom: 60px;
+    }
+
+    .eventsTitle {
+        font-size: 32px;
+    }
+
+    .eventsHeader {
+        width: 90%;
+        margin-bottom: 25px;
+        gap: 12px;
+    }
+
+    .cardsWrapper {
+        gap: 10px;
+        padding: 30px 0;
+    }
+
+    .sliderCard {
+        height: 320px;
+    }
+
+    .sliderCard.slot0,
+    .sliderCard.slot4 {
+        display: none;
+    }
+
+    .sliderCard.slot1,
+    .sliderCard.slot3 {
+        width: 18vw;
+        filter: brightness(0.6);
+        transform: scale(0.9);
+    }
+
+    .sliderCard.slot2 {
+        width: 55vw;
+        filter: brightness(1);
+        transform: scale(1);
+    }
+
+    .sliderBtn.prev {
+        left: 35%;
+        bottom: -45px;
+    }
+
+    .sliderBtn.next {
+        right: 35%;
+        bottom: -45px;
+    }
+
+    .polaroidGallery {
+        padding: 60px 0 120px;
+    }
+
+    .polaroidContainer {
+        flex-wrap: wrap;
+        gap: 20px;
+        padding: 30px 15px 80px;
+    }
+
+    .polaroidItem {
+        width: 42%;
+        max-width: 170px;
+        height: auto;
+        aspect-ratio: 3/4;
+        margin: 8px 0;
+        filter: none;
+    }
+
+    footer {
+        bottom: 0;
+        margin-top: 0;
+    }
+}
+
+/* Mobile Tablets & Large Phones (481px - 640px) */
+@media (max-width: 640px) {
+    .paperContainer {
+        width: 95%;
+        gap: 12px;
+        padding-top: 25px;
+    }
+
+    .paperRow {
+        gap: 10px;
+    }
+
+    .paper {
+        width: 90px;
+        height: 65px;
+    }
+
+    .paper p {
+        font-size: 10px;
+        padding: 5px 10px;
+    }
+
+    .topRow {
+        margin-top: 18%;
+    }
+
+    .bookSection {
+        margin-top: 50px;
+        padding-bottom: 25px;
+    }
+
+    .bookContainer {
+        width: 92vw;
+    }
+
+    .pageText {
+        font-size: 8px;
+        top: 87%;
+    }
+
+    .eventsTitle {
+        font-size: 28px;
+    }
+
+    .eventsHeader {
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .sliderCard {
+        height: 38vh;
+    }
+
+    .sliderCard.slot0,
+    .sliderCard.slot4 {
+        display: none;
+    }
+
+    .sliderCard.slot1,
+    .sliderCard.slot3 {
+        width: 15vw;
+        filter: brightness(0.5);
+        transform: scale(0.9);
+    }
+
+    .sliderCard.slot2 {
+        width: 62vw;
+    }
+
+    .sliderBtn.prev {
+        left: 32%;
+        bottom: -42px;
+        border-right: 22px solid #8B0000;
+        border-top: 13px solid transparent;
+        border-bottom: 13px solid transparent;
+    }
+
+    .sliderBtn.next {
+        right: 32%;
+        bottom: -42px;
+        border-left: 22px solid #8B0000;
+        border-top: 13px solid transparent;
+        border-bottom: 13px solid transparent;
+    }
+
+    .polaroidGallery {
+        padding: 50px 0 100px;
+    }
+
+    .polaroidContainer {
+        gap: 18px;
+        padding: 25px 10px 70px;
+    }
+
+    .polaroidItem {
+        width: 44%;
+        max-width: 160px;
+    }
+
+    .modalTitle {
+        font-size: 2.8rem;
+    }
+}
+
+/* Standard Mobile (Below 480px) */
+@media (max-width: 480px) {
+    .paperContainer {
+        width: 98%;
+        gap: 10px;
+        padding-top: 20px;
+    }
+
+    .paperRow {
+        gap: 8px;
+    }
+
+    .paper {
+        width: 75px;
+        height: 55px;
+    }
+
+    .paper p {
+        font-size: 9px;
+        padding: 4px 8px;
+    }
+
+    .topRow {
+        margin-top: 22%;
+    }
+
+    .bookSection {
+        margin-top: 40px;
+        padding-bottom: 20px;
+    }
+
+    .bookContainer {
+        width: 95vw;
+    }
+
+    .pageText {
+        font-size: 7px;
+        top: 88%;
+    }
+
+    .eventsSection {
+        margin-top: 40px;
+        padding-bottom: 50px;
+    }
+
+    .eventsTitle {
+        font-size: 24px;
+    }
+
+    .eventsHeader {
+        width: 92%;
+        gap: 8px;
+        margin-bottom: 18px;
+    }
+
+    .eventsTitle::before,
+    .eventsTitle::after {
+        width: 10px;
+        height: 10px;
+    }
+
+    .cardsWrapper {
+        padding: 25px 0;
+    }
+
+    .sliderCard {
+        height: 36vh;
+    }
+
+    .sliderCard.slot0,
+    .sliderCard.slot4 {
+        display: none;
+    }
+
+    .sliderCard.slot1,
+    .sliderCard.slot3 {
+        width: 16vw;
+    }
+
+    .sliderCard.slot2 {
+        width: 68vw;
+    }
+
+    .sliderBtn.prev {
+        left: 28%;
+        bottom: -38px;
+        border-right: 20px solid #8B0000;
+        border-top: 12px solid transparent;
+        border-bottom: 12px solid transparent;
+    }
+
+    .sliderBtn.next {
+        right: 28%;
+        bottom: -38px;
+        border-left: 20px solid #8B0000;
+        border-top: 12px solid transparent;
+        border-bottom: 12px solid transparent;
+    }
+
+    .polaroidGallery {
+        padding: 40px 0 80px;
+    }
+
+    .polaroidContainer {
+        gap: 15px;
+        padding: 20px 8px 60px;
+    }
+
+    .polaroidItem {
+        width: 46%;
+        max-width: 145px;
+    }
+
+    .modalContent {
+        padding: 35px 25px;
+        width: 88%;
+    }
+
+    .modalTitle {
+        font-size: 2.2rem;
+        letter-spacing: 2px;
+    }
+
+    .modalText {
+        font-size: 13px;
+    }
+
+    .lightboxClose {
+        width: 45px;
+        height: 45px;
+        font-size: 1.6rem;
+        top: 15px;
+        right: 15px;
+    }
+
+    .lightboxImage {
+        max-width: 90vw;
+        max-height: 80vh;
+    }
+}
+
+/* Extra Small Devices (Below 375px) */
+@media (max-width: 374px) {
+    .paper {
+        width: 68px;
+        height: 50px;
+    }
+
+    .paper p {
+        font-size: 8px;
+        padding: 3px 6px;
+    }
+
+    .topRow {
+        margin-top: 25%;
+    }
+
+    .eventsTitle {
+        font-size: 20px;
+    }
+
+    .sliderCard {
+        height: 32vh;
+    }
+
+    .sliderCard.slot2 {
+        width: 72vw;
+    }
+
+    .sliderBtn.prev {
+        left: 25%;
+        bottom: -35px;
+    }
+
+    .sliderBtn.next {
+        right: 25%;
+        bottom: -35px;
+    }
+
+    .polaroidItem {
+        width: 48%;
+        max-width: 130px;
+    }
+
+    .modalTitle {
+        font-size: 1.8rem;
+    }
+}
+
+/* ===============================================
+   FOOTER FIX - Remove Gap Under Footer
+=============================================== */
+
+/* Desktop - Footer overlaps polaroid gallery */
+@media (min-width: 769px) {
+    footer {
+        position: relative;
+        bottom: 0;
+        margin-top: -40rem; /* Negative margin pulls footer up over gallery */
+        margin-bottom: 0;
+        z-index: 100;
+        width: 100%;
+    }
+
+    .polaroidGallery {
+        padding-bottom: 45rem; /* Add padding to make room for footer overlap */
+        margin-bottom: 0;
+    }
+    
+    body {
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+    
+    main {
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+}
+
+/* Tablet and Mobile - Footer flows normally */
+@media (max-width: 768px) {
+    footer {
+        position: relative;
+        bottom: 0;
+        margin-top: 0;
+        margin-bottom: 0;
+        z-index: 100;
+        width: 100%;
+    }
+
+    .polaroidGallery {
+        padding-bottom: 100px;
+        margin-bottom: 0;
+    }
+    
+    body {
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+    
+    main {
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
 }
