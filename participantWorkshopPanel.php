@@ -352,7 +352,10 @@ function renderStars($rating) {
             <div id="evaluate" class="panelSection panelSectionActive">
                 <!-- Sessions Selector with SVG Buttons -->
                 <div class="sessionsSelectorFrame">
-                    <div class="sessionsSelector">
+                    <button class="scrollBtn leftBtn" onclick="scrollSessions('left')">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="sessionsSelector" id="sessionsContainer">
                         <?php foreach ($sessions as $s): ?>
                             <?php $sid = (int) $s['session_id']; ?>
                             <?php $isActive = ($selectedSessionId === $sid); ?>
@@ -389,6 +392,9 @@ function renderStars($rating) {
                             </a>
                         <?php endforeach; ?>
                     </div>
+                    <button class="scrollBtn rightBtn" onclick="scrollSessions('right')">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
                 </div>
 
                 <!-- Workshop Card -->

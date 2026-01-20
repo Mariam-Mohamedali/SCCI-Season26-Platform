@@ -301,3 +301,17 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 });
+
+/* ================== SESSIONS SCROLLING ================== */
+function scrollSessions(direction) {
+  const container = document.getElementById('sessionsContainer');
+  if (!container) return;
+
+  const scrollAmount = 300; // Scroll by roughly 2-3 items
+
+  if (direction === 'left') {
+    container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+  } else {
+    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+  }
+}

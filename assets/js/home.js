@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
           const counter = entry.target;
           const target = Number(counter.dataset.target);
-          const duration = 1500; // ms
+          const duration = 4500; // ms
           const startTime = performance.now();
 
           function animateCounter(currentTime) {

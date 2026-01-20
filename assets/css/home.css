@@ -166,7 +166,7 @@
     min-height: auto;
     padding: 30px 20px;
   }
-  
+
   .card2I:hover img {
     transform: scale(1.1);
   }
@@ -428,6 +428,10 @@ body.red-theme .decorative-element {
   margin-bottom: 1rem;
 }
 
+.statIcon+h4+h4 {
+  color: var(--color-primary-dark);
+}
+
 .statIconWrapper {
   position: relative;
   display: inline-block;
@@ -478,16 +482,38 @@ body.red-theme .decorative-element {
   margin: 2.2rem 0 0.5rem;
 }
 
-/* sponsors */
-.sponsorContainer {
+/* sponsors slider */
+.sponsors {
+  overflow: hidden;
+  padding: 0 0 5rem 0;
+}
+
+.sponsorSliderWrapper {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding: 2rem 0;
+}
+
+.sponsorSliderTrack {
   display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
   gap: 3rem;
-  padding: 0 4rem;
-  margin-bottom: 5rem;
+  animation: slideSponsors 20s linear infinite;
+  width: max-content;
+}
+
+.sponsorSliderTrack:hover {
+  animation-play-state: paused;
+}
+
+@keyframes slideSponsors {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 .sponsorsCard {
@@ -498,15 +524,21 @@ body.red-theme .decorative-element {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.sponsorsCard:hover {
+  transform: scale(1.05);
 }
 
 .sponsorCardItems {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  gap: 2rem;
+  flex-shrink: 0;
 }
 
 .sponsorCardContent {
@@ -528,71 +560,66 @@ body.red-theme .decorative-element {
   margin: 0;
 }
 
-/* contact us */
+/* ===============================
+   CONTACT US SECTION
+================================ */
+.homeContactUs {
+  padding: 3rem 0 5rem;
+}
 
 .contactUsContainer {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 2rem;
+  align-items: stretch;
+  gap: 3rem;
   padding: 0 4rem;
   max-width: 1400px;
   margin: 0 auto;
   width: 100%;
-  height: auto;
 }
 
-/* form */
-
-/*Contact Us Div*/
 /* ===============================
-   SECTION WRAPPER
+   INFO CARD SECTION
 ================================ */
 .contactUsSection {
-  width: 40%;
+  flex: 1;
+  min-width: 350px;
+  max-width: 500px;
   display: flex;
-  justify-content: center;
-  padding: 60px 0;
-}
-
-.aboutComponents {
-  width: 50%;
-}
-
-/* ===============================
-   CARD CONTAINER
-================================ */
-.cardContactUs {
-  display: flex;
-  flex-direction: column;
-  background: linear-gradient(135deg,
-      rgba(247, 234, 191, 0.85) 0%,
-      /* lighter parchment tone */
-      rgba(244, 234, 222, 0.8) 30%,
-      /* soft cream */
-      rgba(234, 211, 189, 0.9) 60%,
-      /* warmer tan */
-      rgba(244, 228, 177, 0.85) 100%
-      /* golden parchment */
-    );
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  /* Safari support */
-
-  border-radius: 8px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  width: 80rem;
-  height: 35rem;
-  border: 1px solid var(--cardabout-border);
-  position: relative;
-  padding: 1rem;
-
   justify-content: center;
   align-items: center;
 }
 
+.cardContactUs {
+  width: 100%;
+  height: 100%;
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg,
+      rgba(247, 234, 191, 0.95) 0%,
+      rgba(244, 234, 222, 0.92) 30%,
+      rgba(234, 211, 189, 0.95) 60%,
+      rgba(244, 228, 177, 0.95) 100%);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  border: 2px solid rgba(139, 79, 42, 0.3);
+  position: relative;
+  padding: 3rem 2.5rem;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cardContactUs:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Corner ornaments */
 .cardContactUs .corner {
   width: 0.5rem;
   height: 0.5rem;
@@ -672,50 +699,128 @@ body.red-theme .decorative-element {
   border-bottom: 1px solid var(--cardabout-border);
 }
 
-.cardContactUs h1 {
-  color: var(--color-primary);
-  text-shadow: none;
+/* Contact info content */
+.contactInfoContent {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
 }
 
-.cardContactUs p {
+.contactInfoIcon {
+  font-size: 4.5rem;
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.contactInfoTitle {
+  font-size: 2.2rem;
+  color: var(--color-primary);
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 0;
+}
+
+.contactDivider {
+  width: 80%;
+  height: 2px;
+  background: linear-gradient(to right,
+      transparent,
+      var(--color-primary),
+      transparent);
+  border: none;
+  margin: 0.5rem 0;
+}
+
+.contactInfoText {
   color: var(--color-black);
   text-align: center;
   text-transform: none !important;
-  padding-right: 5%;
-  padding-left: 5%;
+  line-height: 1.9;
+  font-size: 1.15rem;
+  padding: 0 0.5rem;
+  margin: 0.5rem 0;
 }
 
-/*Contact Us Form*/
+.contactDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  padding: 0 1.5rem;
+  margin-top: 0.5rem;
+}
 
+.contactDetailItem {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1rem 1.5rem;
+  background: rgba(139, 79, 42, 0.1);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.contactDetailItem:hover {
+  background: rgba(139, 79, 42, 0.2);
+  transform: translateX(5px);
+}
+
+.contactDetailItem i {
+  font-size: 1.5rem;
+  color: var(--color-primary);
+  min-width: 30px;
+}
+
+.contactDetailItem span {
+  color: var(--color-black);
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+/* ===============================
+   CONTACT FORM
+================================ */
 .form-content {
-  width: 50%;
+  flex: 1;
   min-width: 400px;
   max-width: 600px;
   height: auto;
   min-height: 500px;
-  padding: var(--space-8) var(--space-6);
+  padding: 2.5rem 2.5rem;
   background: linear-gradient(135deg,
       rgba(247, 234, 191, 0.95) 0%,
-      rgba(244, 234, 222, 0.9) 30%,
+      rgba(244, 234, 222, 0.92) 30%,
       rgba(234, 211, 189, 0.95) 60%,
       rgba(244, 228, 177, 0.95) 100%) !important;
-  border-radius: var(--radius-lg);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
   border: 2px solid var(--color-primary);
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
+  gap: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.contactText {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  color: var(--btn-primary-hover);
-  font-size: 23px;
+.form-content:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
 }
 
 .homeBird {
@@ -725,78 +830,103 @@ body.red-theme .decorative-element {
   width: 130px;
   transform: rotate(30deg);
   z-index: 10;
+  transition: transform 0.3s ease;
+}
+
+.form-content:hover .homeBird {
+  transform: rotate(30deg) scale(1.1);
 }
 
 .input-group {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  gap: 0.6rem;
   width: 100%;
 }
 
 .input-group label {
-  font-size: var(--fs-md);
+  font-size: 1.5rem;
   font-weight: var(--fw-bold);
   color: var(--color-primary);
   text-transform: uppercase;
   letter-spacing: 1px;
+  font-family: "system-ui", system-ui;
 }
 
 .input-group input,
-.input-group textarea,
-select {
+.input-group textarea {
   width: 100%;
-  padding: var(--space-2) var(--space-3);
-  border-radius: var(--radius-md);
-  border: 2px solid var(--color-gray);
+  padding: 0.85rem 1.1rem;
+  border-radius: 8px;
+  border: 2px solid rgba(90, 90, 90, 0.3);
   background: linear-gradient(to bottom, #5a5a5a, #6d6d6d);
   color: var(--color-white);
-  font-size: var(--fs-sm);
-  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.4);
+  font-size: 0.98rem;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
   outline: none;
   transition: all 0.3s ease;
+  font-family: "system-ui", system-ui;
 }
 
 .input-group input::placeholder,
 .input-group textarea::placeholder {
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.5);
   font-style: italic;
 }
 
 .input-group input:focus,
 .input-group textarea:focus {
   border-color: var(--color-primary);
-  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.4), 0 0 10px rgba(197, 37, 37, 0.5);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3),
+    0 0 0 3px rgba(197, 37, 37, 0.2),
+    0 0 15px rgba(197, 37, 37, 0.3);
+  transform: translateY(-2px);
 }
 
 .input-group textarea {
-  min-height: 100px;
+  min-height: 110px;
   resize: vertical;
+  font-family: "system-ui", system-ui;
 }
 
 .submit-btn {
   width: 100%;
-  margin-top: var(--space-3);
-  padding: var(--space-3) !important;
-  font-size: var(--fs-md) !important;
+  margin-top: 1rem;
+  padding: 1rem !important;
+  font-size: 1.1rem !important;
   text-transform: uppercase;
   letter-spacing: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  transition: all 0.3s ease;
 }
 
-/* validation form */
+.submit-btn i {
+  font-size: 1rem;
+  transition: transform 0.3s ease;
+}
 
+.submit-btn:hover i {
+  transform: translateX(5px);
+}
+
+/* Validation styles */
 .input-group input.invalid,
 .input-group textarea.invalid {
   border-color: #8b1e1e;
-  box-shadow: 0 0 10px rgba(139, 30, 30, 0.6);
+  box-shadow: 0 0 0 3px rgba(139, 30, 30, 0.2),
+    0 0 15px rgba(139, 30, 30, 0.4);
 }
 
 .error {
-  font-size: var(--fs-sm);
+  font-size: 0.85rem;
   color: #8b1e1e;
   font-weight: var(--fw-bold);
   min-height: 18px;
-  margin-top: var(--space-1);
+  margin-top: 0.25rem;
+  display: block;
 }
 
 
@@ -850,11 +980,23 @@ select {
   }
 
   .aboutContainer {
-    width: 70%;
+    width: 75%;
     max-width: 530px;
     min-width: 200px;
     text-align: center;
     z-index: 1;
+    padding: 2rem 1.5rem;
+  }
+
+  .aboutContainer p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+  }
+
+  .aboutContainer h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
   }
 
 
@@ -908,7 +1050,18 @@ select {
   }
 
   .aboutContainer {
-    width: 80%;
+    width: 82%;
+    padding: 1.5rem 1rem;
+  }
+
+  .aboutContainer p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 2rem;
+  }
+
+  .aboutContainer h1 {
+    font-size: 1.8rem;
   }
 
 
@@ -925,15 +1078,22 @@ select {
     height: 100px;
   }
 
-
-
-  .sponsorContainer {
-    justify-content: center;
-    gap: 1rem;
+  /* Responsive sponsor slider */
+  .sponsorsCard {
+    width: 300px;
+    height: 150px !important;
   }
 
-  .sponsor {
-    width: 250px;
+  .sponsorLogo {
+    width: 80px;
+  }
+
+  .sponsorCardContent {
+    gap: 2rem;
+  }
+
+  .sponsorSliderTrack {
+    animation: slideSponsors 15s linear infinite;
   }
 }
 
@@ -960,8 +1120,25 @@ select {
 
 
   .aboutContainer {
-    width: 85%;
+    width: 88%;
     min-width: 150px;
+    padding: 1.2rem 0.8rem;
+  }
+
+  .aboutContainer p {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin-bottom: 1.8rem;
+  }
+
+  .aboutContainer h1 {
+    font-size: 1.6rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .aboutContainer .btn {
+    padding: 0.7rem 1.5rem !important;
+    font-size: 0.9rem !important;
   }
 
   .flipCard {
@@ -984,6 +1161,26 @@ select {
     width: 75%;
   }
 
+  .aboutContainer {
+    width: 90%;
+    padding: 1rem 0.5rem;
+  }
+
+  .aboutContainer p {
+    font-size: 0.8rem;
+    line-height: 1.4;
+    margin-bottom: 1.5rem;
+  }
+
+  .aboutContainer h1 {
+    font-size: 1.4rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .aboutContainer .btn {
+    padding: 0.65rem 1.3rem !important;
+    font-size: 0.85rem !important;
+  }
 
 
   .flipCard {
@@ -995,8 +1192,21 @@ select {
     width: 70%;
   }
 
-  .sponsor {
-    width: 220px;
+  .sponsorsCard {
+    width: 250px;
+    height: 140px !important;
+  }
+
+  .sponsorLogo {
+    width: 70px;
+  }
+
+  .sponsorCardContent {
+    gap: 1.5rem;
+  }
+
+  .sponsorTitle {
+    font-size: 1rem;
   }
 }
 
@@ -1004,24 +1214,38 @@ select {
   .contactUsContainer {
     flex-direction: column;
     align-items: center;
+    gap: 2.5rem;
+    padding: 0 2rem;
   }
 
   .contactUsSection {
     width: 100%;
-    order: 1;
+    max-width: 100%;
+    min-width: unset;
   }
 
   .cardContactUs {
-    max-width: 500px;
-    height: auto;
-    min-height: 300px;
+    min-height: auto;
+    padding: 2.5rem 2rem;
+  }
+
+  .contactInfoIcon {
+    font-size: 3.5rem;
+  }
+
+  .contactInfoTitle {
+    font-size: 1.75rem;
+  }
+
+  .contactInfoText {
+    font-size: 1rem;
   }
 
   .form-content {
     width: 100%;
-    max-width: 500px;
-    order: 2;
-    padding: var(--space-5) var(--space-4);
+    max-width: 100%;
+    min-width: unset;
+    padding: 2.5rem 2rem;
   }
 
   .homeBird {
@@ -1031,36 +1255,61 @@ select {
 }
 
 @media (max-width: 480px) {
+  .contactUsContainer {
+    padding: 0 1rem;
+    gap: 2rem;
+  }
+
+  .cardContactUs {
+    padding: 2rem 1.5rem;
+  }
+
+  .contactInfoIcon {
+    font-size: 3rem;
+  }
+
+  .contactInfoTitle {
+    font-size: 1.5rem;
+  }
+
+  .contactInfoText {
+    font-size: 0.95rem;
+    padding: 0 0.5rem;
+  }
+
+  .contactDetailItem {
+    padding: 0.7rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .contactDetailItem i {
+    font-size: 1.1rem;
+  }
+
   .form-content {
-    padding: var(--space-4) var(--space-3);
+    padding: 2rem 1.5rem;
     min-height: 400px;
   }
 
-  .homeBird {
-    width: 80px;
-    top: -30px;
-  }
-
-  .input-group {
-    gap: var(--space-1);
-  }
-
   .input-group label {
-    font-size: var(--fs-xs);
+    font-family: "system-ui", system-ui;
+    font-size: 1.05rem;
   }
 
   .input-group input,
   .input-group textarea {
-    padding: var(--space-2);
-    font-size: var(--fs-xs);
-  }
-
-  .input-group textarea {
-    min-height: 80px;
+    padding: 0.8rem 1rem;
+    font-size: 0.95rem;
   }
 
   .submit-btn {
-    padding: var(--space-2) !important;
-    font-size: var(--fs-xs) !important;
+    padding: 0.9rem !important;
+    font-size: 1rem !important;
+  }
+
+  .homeBird {
+    width: 80px;
+    top: -35px;
+    right: -10px;
   }
 }

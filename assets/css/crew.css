@@ -734,7 +734,7 @@ body {
   .subCrewGrid,
   .crew-modal .sub-crew-grid,
   .crewModal .subCrewGrid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
     gap: var(--space-4);
   }
 
