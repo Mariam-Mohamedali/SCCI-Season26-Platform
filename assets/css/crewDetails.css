@@ -440,6 +440,8 @@ body {
   color: #f4e4b1;
   margin: 0;
   letter-spacing: 0.5px;
+  text-transform: capitalize;
+  transition: all 0.8s ease-in-out;
 }
 
 a.memberCardLink {
