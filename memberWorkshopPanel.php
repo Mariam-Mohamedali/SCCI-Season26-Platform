@@ -1,38 +1,4 @@
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Irish+Grover&display=swap"
-    rel="stylesheet">
-
-  <!-- SCCI Icon -->
-  <link rel="icon" href="assets/icons/logoSCCI.png" type="image/x-icon">
-
-  <!-- Font Awesome (Standard CDN) -->
-  <link rel="stylesheet" href="assets/css/all.min.css" />
-
-  <!-- Styles -->
-  <link rel="stylesheet" href="assets/css/root.css?v=<?php echo time(); ?>">
-  <link rel="stylesheet" href="assets/css/navbar.css?v=<?php echo time(); ?>">
-  <link rel="stylesheet" href="assets/css/footer.css">
-  <link rel="stylesheet" href="assets/css/message-toast.css">
-  <link rel="stylesheet" href="assets/css/memberWorkshopPanel.css?v=<?php echo time(); ?>">
-  <!-- Custom Page Styles -->
-
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-  <title>SCCI-Panel</title>
-</head>
-
-<body>
-  <?php
+ <?php
 
   include('./includes/nav.php');
   /* =====================
@@ -118,6 +84,24 @@
     $selectedSessionId = count($sessions) ? (int) $sessions[0]['session_id'] : 0;
   }
 
+function redirectPanel($sessionId, $tab, $type = 'msg', $text = '')
+{
+    $sessionId = (int)$sessionId;
+
+    // tabs الموجودة عندك بالـ IDs
+    $allowedTabs = ['evaluate', 'review', 'addTask', 'addMaterial'];
+    if (!in_array($tab, $allowedTabs, true)) {
+        $tab = 'evaluate';
+    }
+
+    $qs = "session_id={$sessionId}&tab={$tab}";
+    if ($text !== '') {
+        $qs .= "&{$type}=" . urlencode($text);
+    }
+
+    header("Location: memberWorkshopPanel.php?{$qs}");
+    exit;
+}
 
   function generateSessionsHTML()
   {
@@ -130,9 +114,10 @@
       $isActive = ($sid === (int) $selectedSessionId) ? ' sessionActive' : '';
       $fill = $isActive ? '#1f184e' : 'var(--color-white-gradient)';
       $bodyClass = $isActive ? 'sessionBlue' : 'sessionWhite';
+      
+     $href = '?session_id=' . $sid . '&tab=' . urlencode($currentTab);
 
-      // لينك يغير session_id ويجعل التب الافتراضي evaluate
-      $href = '?session_id=' . $sid . '&tab=evaluate';
+
 
       $html .= '
         <a class="sessionBtn' . $isActive . '" href="' . $href . '">
@@ -233,7 +218,7 @@
     $stmtAtt->bind_param("iiisi", $workshopId, $selectedSessionId, $participantId, $status, $crewId);
     $stmtAtt->execute();
 
-    header("Location: memberWorkshopPanel.php?session_id=$selectedSessionId&tab=$currentTab&msg=Attendance saved");
+   redirectPanel($selectedSessionId, $currentTab, 'msg', 'Attendance saved');
     exit;
   }
 
@@ -324,7 +309,8 @@
     $st->bind_param("isii", $submissionId, $feedbackText, $rating, $crewId);
     $st->execute();
 
-    header("Location: memberWorkshopPanel.php?session_id=$selectedSessionId&tab=review&msg=Feedback saved");
+    redirectPanel($selectedSessionId, 'review', 'msg', 'Feedback saved');
+
     exit;
   }
 
@@ -383,6 +369,7 @@
   /* =====================
      Handle Add Task POST
   ===================== */
+
   if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'add_task') {
 
     $taskName = trim($_POST['taskName'] ?? '');
@@ -390,12 +377,12 @@
     $taskBio = trim($_POST['taskBio'] ?? '');
 
     if ($taskName === '' || $taskDeadline === '' || $taskBio === '') {
-      header("Location: memberWorkshopPanel.php?session_id=$selectedSessionId&tab=add_task&err=Please fill all fields");
+      header("Location: memberWorkshopPanel.php?session_id=$selectedSessionId&tab=$currentTab&err=Please fill all fields");
       exit;
     }
 
     if ($workshopSessionId <= 0) {
-      header("Location: memberWorkshopPanel.php?session_id=$selectedSessionId&tab=add_task&err=Workshop session not found");
+      header("Location: memberWorkshopPanel.php?session_id=$selectedSessionId&tab=addTask&err=Workshop session not found");
       exit;
     }
 
@@ -405,7 +392,7 @@
     if (!empty($_FILES['task_file']['name'])) {
 
       if ($_FILES['task_file']['error'] !== UPLOAD_ERR_OK) {
-        header("Location: memberWorkshopPanel.php?session_id=$selectedSessionId&tab=add_task&err=File upload error");
+        header("Location: memberWorkshopPanel.php?session_id=$selectedSessionId&tab=addTask&err=File upload error");
         exit;
       }
 
@@ -413,7 +400,7 @@
       $ext = strtolower(pathinfo($_FILES['task_file']['name'], PATHINFO_EXTENSION));
 
       if (!in_array($ext, $allowed, true)) {
-        header("Location: memberWorkshopPanel.php?session_id=$selectedSessionId&tab=add_task&err=Invalid file type");
+        header("Location: memberWorkshopPanel.php?session_id=$selectedSessionId&tab=addTask&err=Invalid file type");
         exit;
       }
 
@@ -426,7 +413,7 @@
       $dest = $uploadDir . "/" . $newName;
 
       if (!move_uploaded_file($_FILES['task_file']['tmp_name'], $dest)) {
-        header("Location: memberWorkshopPanel.php?session_id=$selectedSessionId&tab=add_task&err=Failed to upload file");
+        redirectPanel($selectedSessionId, 'addTask', 'err', 'Failed to upload file');
         exit;
       }
 
@@ -445,7 +432,8 @@
     $st->bind_param("iissss", $selectedSessionId, $workshopSessionId, $taskName, $taskDeadline, $taskBio, $taskFilePath);
     $st->execute();
 
-    header("Location: memberWorkshopPanel.php?session_id=$selectedSessionId&tab=add_task&msg=Task added successfully");
+    redirectPanel($selectedSessionId, $currentTab, 'msg', 'Task added successfully');
+
     exit;
   }
 
@@ -455,7 +443,7 @@
   if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'add_material') {
 
     if ($workshopSessionId <= 0) {
-      header("Location: memberWorkshopPanel.php?session_id=$selectedSessionId&tab=add_material&err=Workshop session not found");
+      header("Location: memberWorkshopPanel.php?session_id=$selectedSessionId&tab=addMaterial&err=Workshop session not found");
       exit;
     }
 
@@ -463,12 +451,12 @@
     $materialType = $_POST['material_type'] ?? '';
 
     if ($materialTitle === '' || !in_array($materialType, ['technical', 'soft'], true)) {
-      header("Location: memberWorkshopPanel.php?session_id=$selectedSessionId&tab=add_material&err=Please enter title and choose a valid type");
+      header("Location: memberWorkshopPanel.php?session_id=$selectedSessionId&tab=$currentTab&err=Please enter title and choose a valid type");
       exit;
     }
 
     if (!isset($_FILES['material_file']) || $_FILES['material_file']['error'] !== UPLOAD_ERR_OK) {
-      header("Location: memberWorkshopPanel.php?session_id=$selectedSessionId&tab=add_material&err=File upload error");
+      header("Location: memberWorkshopPanel.php?session_id=$selectedSessionId&tab=$currentTab&err=File upload error");
       exit;
     }
 
@@ -476,7 +464,7 @@
     $ext = strtolower(pathinfo($_FILES['material_file']['name'], PATHINFO_EXTENSION));
 
     if (!in_array($ext, $allowed, true)) {
-      header("Location: memberWorkshopPanel.php?session_id=$selectedSessionId&tab=add_material&err=Invalid file type");
+      header("Location: memberWorkshopPanel.php?session_id=$selectedSessionId&tab=$currentTab&err=Invalid file type");
       exit;
     }
 
@@ -488,7 +476,7 @@
     $dest = $uploadDir . "/" . $newName;
 
     if (!move_uploaded_file($_FILES['material_file']['tmp_name'], $dest)) {
-      header("Location: memberWorkshopPanel.php?session_id=$selectedSessionId&tab=add_material&err=Failed to upload file");
+     redirectPanel($selectedSessionId, 'addMaterial', 'err', 'File upload error');
       exit;
     }
 
@@ -501,7 +489,8 @@
     $st->bind_param("isssi", $workshopSessionId, $materialType, $materialTitle, $dbPath, $crewId);
     $st->execute();
 
-    header("Location: memberWorkshopPanel.php?session_id=$selectedSessionId&tab=add_material&msg=Material added");
+    redirectPanel($selectedSessionId, $currentTab, 'msg', 'Material added');
+
     exit;
   }
 
@@ -530,7 +519,7 @@
     $del->bind_param("ii", $materialId, $workshopSessionId);
     $del->execute();
 
-    header("Location: memberWorkshopPanel.php?session_id=$selectedSessionId&tab=add_material&msg=Material deleted");
+    redirectPanel($selectedSessionId, 'addMaterial', 'msg', 'Material deleted');
     exit;
   }
 
@@ -549,7 +538,7 @@
     $del->bind_param("ii", $taskId, $workshopSessionId);
     $del->execute();
 
-    header("Location: memberWorkshopPanel.php?session_id=$selectedSessionId&tab=add_task&msg=Task deleted");
+    redirectPanel($selectedSessionId, 'addTask', 'msg', 'Task deleted');
     exit;
   }
 
@@ -599,6 +588,40 @@
   }
   ?>
 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Irish+Grover&display=swap"
+    rel="stylesheet">
+
+  <!-- SCCI Icon -->
+  <link rel="icon" href="assets/icons/logoSCCI.png" type="image/x-icon">
+
+  <!-- Font Awesome (Standard CDN) -->
+  <link rel="stylesheet" href="assets/css/all.min.css" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="assets/css/root.css?v=<?php echo time(); ?>">
+  <link rel="stylesheet" href="assets/css/navbar.css?v=<?php echo time(); ?>">
+  <link rel="stylesheet" href="assets/css/footer.css">
+  <link rel="stylesheet" href="assets/css/message-toast.css">
+  <link rel="stylesheet" href="assets/css/memberWorkshopPanel.css?v=<?php echo time(); ?>">
+  <!-- Custom Page Styles -->
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <title>SCCI-Panel</title>
+</head>
+
+<body>
+ 
   <!-- REVIEW Popup ----------------------------------------------------------------------------- -->
   <!-- REVIEW Popups (one per participant, unique id) -->
   <?php if (!empty($participants)): ?>
@@ -915,7 +938,9 @@
       </div>
 
       <div class="panelWhiteBox">
-        <form class="validForm" action="" method="post" enctype="multipart/form-data">
+      <form class="validForm"
+      action="memberWorkshopPanel.php?session_id=<?= (int)$selectedSessionId ?>&tab=addTask"
+      method="post" enctype="multipart/form-data">
           <input type="hidden" name="action" value="add_task">
           <input type="hidden" name="tab" value="<?php echo htmlspecialchars($currentTab); ?>">
           <input type="hidden" name="session_id" value="<?php echo $selectedSessionId; ?>">
@@ -1022,7 +1047,9 @@
 
       <!-- Add Material Form -->
       <div class="panelWhiteBox">
-        <form class="validForm" action="" method="post" enctype="multipart/form-data">
+       <form class="validForm"
+      action="memberWorkshopPanel.php?session_id=<?= (int)$selectedSessionId ?>&tab=addMaterial"
+      method="post" enctype="multipart/form-data">
           <input type="hidden" name="action" value="add_material">
           <input type="hidden" name="tab" value="<?php echo htmlspecialchars($currentTab); ?>">
           <input type="hidden" name="session_id" value="<?php echo $selectedSessionId; ?>">
