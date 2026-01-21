@@ -532,8 +532,8 @@ main {
     border-bottom: 15px solid transparent;
     border-right: 25px solid #8B0000;
     position: absolute;
-    left: 40%;
-    bottom: -60px;
+    left: 10% !important;
+    bottom: 47% !important;
     z-index: 50;
 }
 
@@ -574,8 +574,8 @@ main {
     border-bottom: 15px solid transparent;
     border-left: 25px solid #8B0000;
     position: absolute;
-    right: 40%;
-    bottom: -60px;
+    right: 10%;
+    bottom: 220px;
     z-index: 50;
 }
 
@@ -956,26 +956,29 @@ footer {
 }
 
 
-/* ================= Lightbox Modal ================= */
+/* ================= Lightbox Modal - UPDATED ================= */
 .lightboxOverlay {
     position: fixed !important;
     top: 0 !important;
     left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
     width: 100vw !important;
-    height: 100vh !important;
-    background: rgba(0, 0, 0, 0.95);
+    height: 455vh !important;
+    background: rgba(99, 98, 98, 0.233);
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 9999 !important;
+    z-index: 99999 !important;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
     cursor: zoom-out;
-    margin: 0;
-    padding: 0;
-    overflow: auto;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
 }
 
 .lightboxOverlay.active {
@@ -984,8 +987,8 @@ footer {
 }
 
 .lightboxImage {
-    max-width: 85vw;
-    max-height: 85vh;
+    max-width: 95vw;
+    max-height: 95vh;
     width: auto;
     height: auto;
     object-fit: contain;
@@ -994,19 +997,20 @@ footer {
     filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.5));
     transform: scale(0.9);
     transition: transform 0.3s ease;
-    cursor: zoom-out;
-    position: relative;
-    z-index: 10000;
-    margin: auto;
+    cursor: default;
+    position: fixed !important;
+    top: 60% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) scale(0.9);
+    z-index: 100000;
 }
 
 .lightboxOverlay.active .lightboxImage {
-    transform: scale(1);
+    transform: translate(-50%, -50%) scale(1);
 }
 
 .lightboxClose {
-    display: none !important;
-    position: absolute;
+    position: fixed !important;
     top: 20px;
     right: 20px;
     color: var(--color-white);
@@ -1014,7 +1018,7 @@ footer {
     font-size: 2rem;
     font-weight: normal;
     cursor: pointer;
-    z-index: 10001 !important;
+    z-index: 100001 !important;
     transition: all 0.3s ease;
     line-height: 1;
     background: var(--color-primary);
@@ -1022,7 +1026,7 @@ footer {
     border-radius: 50%;
     width: 60px;
     height: 60px;
-    display: flex;
+    display: flex !important;
     align-items: center;
     justify-content: center;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
@@ -1035,6 +1039,31 @@ footer {
     border-color: var(--color-primary);
 }
 
+/* Responsive lightbox adjustments */
+@media (max-width: 768px) {
+    .lightboxImage {
+        max-width: 98vw;
+        max-height: 98vh;
+    }
+    
+    .lightboxClose {
+        width: 50px;
+        height: 50px;
+        font-size: 1.8rem;
+        top: 15px;
+        right: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .lightboxClose {
+        width: 45px;
+        height: 45px;
+        font-size: 1.6rem;
+        top: 10px;
+        right: 10px;
+    }
+}
 /* ================= Coming Soon Modal ================= */
 .modalOverlay {
     position: fixed;
