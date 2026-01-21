@@ -1,6 +1,5 @@
-
-<!-- ana radwan -->
 <?php
+// ana radwan
 require_once './includes/config.php';
 /* =====================
    Auth & Role Check
@@ -274,7 +273,7 @@ function renderStars($rating)
     <!-- site icon -->
     <link rel="icon" type="image/png" href="./assets/icons/logoSCCI.png" />
 
-    
+
     <!-- css other link -->
     <link rel="stylesheet" href="./assets/css/all.min.css">
     <link rel="stylesheet" href="./assets/css/root.css">
@@ -471,37 +470,45 @@ function renderStars($rating)
 
                 <!-- Submit Task Form Section -->
                 <form class="fileUpload" id="validForm" action="" method="post" enctype="multipart/form-data">
-                    <!-- Upload Header -->
-                    <div class="uploadHeader">
-                        <h3 class="uploadSectionTitle">Submit Task</h3>
+                    <div class="uploadCard">
+                        <!-- Upload Header -->
+                        <div class="uploadHeader">
+                            <h3 class="uploadSectionTitle">Submit Task</h3>
+                        </div>
+
+                        <input type="hidden" name="action" value="submit_task">
+                        <input type="hidden" name="task_id"
+                            value="<?= isset($tasks[0]) ? (int) $tasks[0]['task_id'] : 0 ?>">
+
+                        <!-- Upload Container -->
+                        <div class="uploadContainer" id="taskUploadContainer">
+                            <label class="formLabel" for="submit_link" id="formLabel">
+                                <div class="uploadIcon">
+                                    <i class="fas fa-arrow-down"></i>
+                                </div>
+                                <h4 class="uploadTitle">Upload File</h4>
+                                <p class="uploadText" id="fileUploadState">
+                                    Drag and drop or click to browse
+                                </p>
+                            </label>
+
+                            <p id="fileUploadedName"></p>
+                            <!-- Hidden File Input -->
+                            <input type="file" name="submit_link" id="submit_link">
+
+                            <p id="fileMessage"></p>
+                        </div>
                     </div>
 
-                    <input type="hidden" name="action" value="submit_task">
-                    <input type="hidden" name="task_id"
-                        value="<?= isset($tasks[0]) ? (int) $tasks[0]['task_id'] : 0 ?>">
+                    <!-- Action Buttons (Centered & Responsive) -->
+                    <div id="actionButtons"
+                        style="display:none; justify-content:center; flex-wrap:wrap; gap:var(--space-4); padding: var(--space-5);">
+                        <button type="button" class="btn btn-primary" id="removeFileBtn" style="min-width:200px;">
+                            <i class="fas fa-trash-alt"></i>
+                            Remove
+                        </button>
 
-                    <!-- Upload Container -->
-                    <div class="uploadContainer" id="taskUploadContainer">
-                        <label class="formLabel" for="submit_link">
-                            <div class="uploadIcon">
-                                <i class="fas fa-arrow-down"></i>
-                            </div>
-                            <h4 class="uploadTitle">Upload File</h4>
-                            <p class="uploadText" id="fileUploadState">
-                                Drag and drop or click to browse
-                            </p>
-                        </label>
-
-                        <p id="fileUploadedName"></p>
-                        <!-- Hidden File Input -->
-                        <input type="file" name="submit_link" id="submit_link">
-
-                        <p id="fileMessage"></p>
-                    </div>
-
-                    <!-- Submit Button -->
-                    <div style="text-align: center; padding: var(--space-5) var(--space-8) var(--space-7);">
-                        <button type="submit" class="btn btn-primary" style="min-width: 200px;">
+                        <button type="submit" class="btn btn-secondary" id="submitTaskBtn" style="min-width:200px;">
                             <i class="fas fa-upload"></i>
                             Submit Task
                         </button>
