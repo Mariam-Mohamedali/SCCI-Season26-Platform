@@ -1,322 +1,236 @@
-// Mini navbar change pages
-// <!-- ana radwan -->
-const links = document.querySelectorAll(".miniNav a");
-const pages = document.querySelectorAll(".panelSection");
+// participantWorkshopPanel.js
+document.addEventListener("DOMContentLoaded", () => {
+  /* =========================
+     Mini Nav (tabs)
+  ========================= */
+  const links = document.querySelectorAll(".miniNav a[data-page]");
+  const pages = document.querySelectorAll(".panelSection");
 
-function activatePage(pageId) {
-  // activate nav link
+  function activatePage(pageId) {
+    links.forEach((link) => {
+      link.classList.toggle("activePanelLine", link.dataset.page === pageId);
+    });
+
+    pages.forEach((page) => {
+      page.classList.toggle("panelSectionActive", page.id === pageId);
+    });
+
+    // save + sync url (no reload)
+    localStorage.setItem("activePanel", pageId);
+    const url = new URL(window.location.href);
+    url.searchParams.set("tab", pageId);
+    history.replaceState({}, "", url.toString());
+  }
+
   links.forEach((link) => {
-    link.classList.toggle("activePanelLine", link.dataset.page === pageId);
-  });
-
-  // activate panel
-  
-  pages.forEach((page) => {
-    page.classList.toggle("panelSectionActive", page.id === pageId);
-  });
-
-  // save to localStorage
-  localStorage.setItem("activePanel", pageId);
-
-  // sync URL without reload
-  const url = new URL(window.location.href);
-  url.searchParams.set("tab", pageId);
-  history.replaceState({}, "", url.toString());
-}
-
-// prevent link default
-links.forEach((link) => {
-  link.addEventListener("click", (e) => {
-    e.preventDefault();
-    const targetId = link.dataset.page;
-    activatePage(targetId);
-  });
-});
-
-// restore on page load - Priority: URL ?tab= -> localStorage -> first tab
-const urlTab = new URLSearchParams(window.location.search).get("tab");
-const savedPanel = localStorage.getItem("activePanel");
-const firstPage = links[0]?.dataset.page;
-const candidate = urlTab || savedPanel || firstPage;
-
-if (candidate && document.getElementById(candidate)) {
-  activatePage(candidate);
-} else if (firstPage) {
-  activatePage(firstPage);
-}
-
-// ==============================================================
-document.addEventListener('DOMContentLoaded', function () {
-
-  /* ================== WEEK TABS SELECTION ================== */
-  /* Handles switching between different workshop weeks */
-  const weekTabs = document.querySelectorAll('.weekTab');
-
-  weekTabs.forEach(tab => {
-    tab.addEventListener('click', function () {
-      // Remove active class from all tabs
-      weekTabs.forEach(t => t.classList.remove('active'));
-      // Add active class to clicked tab
-      this.classList.add('active');
-
-      const sessionNumber = this.getAttribute('data-week');
-      updateTaskContent(sessionNumber);
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      activatePage(link.dataset.page);
     });
   });
 
-  // Function to update task content based on selected session
-  function updateTaskContent(sessionNum) {
-    // Select elements to update
-    const taskNameEl = document.querySelector('.cardBody .taskRow:nth-child(1) .taskValue');
-    const deadlineEl = document.querySelector('.cardBody .taskRow:nth-child(2) .taskValue');
-    const sessionEl = document.querySelector('.cardBody .taskRow:nth-child(3) .taskValue');
-    const bioEl = document.querySelector('.taskBioContent');
+  // restore tab
+  const urlTab = new URLSearchParams(window.location.search).get("tab");
+  const saved = localStorage.getItem("activePanel");
+  const first = links[0]?.dataset.page;
+  const candidate = urlTab || saved || first;
 
-    // Sample data for demonstration (In real app, fetch from backend)
-    const sessionData = {
-      '1': { name: 'Build your first website', deadline: '12/12/2025', bio: 'Create a simple personal portfolio website using HTML and CSS.' },
-      '2': { name: 'JavaScript Basics', deadline: '19/12/2025', bio: 'Implement variables, loops, and functions to solve basic algorithms.' },
-      '3': { name: 'DOM Manipulation', deadline: '26/12/2025', bio: 'Create an interactive to-do list application using JavaScript DOM API.' },
-      '4': { name: 'Responsive Design', deadline: '02/01/2026', bio: 'Make your portfolio website fully responsive for mobile and tablet devices.' },
-      '5': { name: 'Bootstrap Framework', deadline: '09/01/2026', bio: 'Rebuild your landing page within 2 hours using Bootstrap components.' },
-      '6': { name: 'API Integration', deadline: '16/01/2026', bio: 'Fetch data from a public API and display it dynamically on your page.' },
-      '7': { name: 'Final Project', deadline: '23/01/2026', bio: 'Plan and start developing your final course project with all learned skills.' }
-    };
+  if (candidate && document.getElementById(candidate)) {
+    activatePage(candidate);
+  }
 
-    const data = sessionData[sessionNum];
+  /* =========================
+     Sessions scroll buttons
+     (remove inline onclick usage)
+  ========================= */
+  const sessionsContainer = document.getElementById("sessionsContainer");
+  const leftBtn = document.querySelector(".scrollBtn.leftBtn");
+  const rightBtn = document.querySelector(".scrollBtn.rightBtn");
 
-    if (data) {
-      // Animate content change
-      const cardBody = document.querySelector('.cardBody');
-      cardBody.style.opacity = '0';
+  function scrollSessions(direction) {
+    if (!sessionsContainer) return;
+    const scrollAmount = 300;
+    sessionsContainer.scrollBy({
+      left: direction === "left" ? -scrollAmount : scrollAmount,
+      behavior: "smooth",
+    });
+  }
 
-      setTimeout(() => {
-        if (taskNameEl) taskNameEl.textContent = data.name;
-        if (deadlineEl) deadlineEl.textContent = data.deadline;
-        if (sessionEl) sessionEl.textContent = sessionNum;
-        if (bioEl) bioEl.textContent = data.bio;
+  if (leftBtn) leftBtn.addEventListener("click", (e) => { e.preventDefault(); scrollSessions("left"); });
+  if (rightBtn) rightBtn.addEventListener("click", (e) => { e.preventDefault(); scrollSessions("right"); });
 
-        cardBody.style.opacity = '1';
-      }, 300);
+  /* =========================
+     Submit Task (AJAX upload)
+  ========================= */
+  const submitForm = document.getElementById("validForm");
+  const uploadContainer = document.getElementById("taskUploadContainer");
+  const fileInput = document.getElementById("submit_link");
+
+  const fileMessage = document.getElementById("fileMessage");
+  const fileState = document.getElementById("fileUploadState");
+  const fileUploadedName = document.getElementById("fileUploadedName");
+
+  function setFileMsg(text, color = "red") {
+    if (!fileMessage) return;
+    fileMessage.textContent = text;
+    fileMessage.style.color = color;
+  }
+
+  function updateFileUI(file) {
+    if (fileState) {
+      fileState.textContent = file ? "File Uploaded Successfully!" : "Drag and drop or click to browse";
+      fileState.style.color = file ? "green" : "";
     }
+    if (fileUploadedName) {
+      fileUploadedName.textContent = file ? file.name : "";
+      fileUploadedName.style.display = file ? "block" : "none";
+    }
+    if (fileMessage) fileMessage.textContent = "";
   }
 
-  /* ================== FILE UPLOAD HANDLING ================== */
-  /* Manages file selection, drag & drop, and validation */
-  const uploadContainer = document.querySelector('.uploadContainer');
-  const fileInput = document.getElementById('submit_link'); // Updated ID
-  const fileMessage = document.getElementById('fileMessage');
-  const fileState = document.getElementById('fileUploadState');
-  const fileUploadedName = document.getElementById('fileUploadedName');
-  const submitForm = document.getElementById('validForm');
-
-  fileMessage.textContent = "";
-
-
-  /* Event: Regular file input selection */
-  /* Updates UI when a user selects a file via the browse dialog */
   if (fileInput) {
-    fileInput.addEventListener('change', function () {
-      if (this.files.length > 0) {
-        fileState.textContent = "File Uploaded Successfully!";
-        fileState.style.color = "green";
-        fileUploadedName.textContent = this.files[0].name;
-        fileUploadedName.style.display = "block";
-        fileMessage.textContent = "";
-      } else {
-        fileState.textContent = "Drag and drop or click to browse";
-        fileState.style.color = "";
-        fileUploadedName.style.display = "none";
-      }
+    fileInput.addEventListener("change", () => {
+      const file = fileInput.files?.[0];
+      updateFileUI(file || null);
     });
   }
 
-  /* Event: Prevent default drag behaviors */
-  /* Stops browser from opening files dropped outside the zone */
-  ['dragover', 'drop'].forEach(eventName => {
-    if (uploadContainer) {
-      uploadContainer.addEventListener(eventName, e => {
+  // drag/drop
+  if (uploadContainer && fileInput) {
+    ["dragover", "drop"].forEach((ev) => {
+      uploadContainer.addEventListener(ev, (e) => {
         e.preventDefault();
         e.stopPropagation();
       });
-    }
-  });
-
-  /* Event: Drag Over */
-  /* Adds visual cue when file is dragged over the drop zone */
-  if (uploadContainer) {
-    uploadContainer.addEventListener('dragover', () => {
-      uploadContainer.classList.add('drag-over');
     });
 
-    /* Event: File Drop */
-    /* Handles the file drop, updates input, and triggers change event */
-    uploadContainer.addEventListener('drop', (e) => {
-      uploadContainer.classList.remove('drag-over');
+    uploadContainer.addEventListener("dragover", () => uploadContainer.classList.add("drag-over"));
+    uploadContainer.addEventListener("dragleave", () => uploadContainer.classList.remove("drag-over"));
 
-      const files = e.dataTransfer.files;
+    uploadContainer.addEventListener("drop", (e) => {
+      uploadContainer.classList.remove("drag-over");
+      const files = e.dataTransfer?.files;
+      if (!files || !files.length) return;
 
-      if (files.length > 0) {
-        const dataTransfer = new DataTransfer();
-        dataTransfer.items.add(files[0]);
-        fileInput.files = dataTransfer.files;
+      const dt = new DataTransfer();
+      dt.items.add(files[0]);
+      fileInput.files = dt.files;
 
-        fileInput.dispatchEvent(
-          new Event('change', { bubbles: true })
-        );
-      }
+      updateFileUI(files[0]);
     });
   }
 
-  /* ================== FORM SUBMIT VALIDATION & AJAX ================== */
-  /* Ensures a file is selected before allowing form submission */
+  // submit via fetch
   if (submitForm) {
-    submitForm.addEventListener('submit', (e) => {
+    submitForm.addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      if (!fileInput || !fileInput.files.length) {
-        fileMessage.textContent = "Please upload a file.";
-        fileMessage.style.color = "red";
+      const file = fileInput?.files?.[0];
+      if (!file) {
+        setFileMsg("Please upload a file.");
         return;
       }
 
-      const formData = new FormData(submitForm);
+      setFileMsg("sumbitted", "green");
 
-      fetch(window.location.href, {
-        method: 'POST',
-        body: formData
-      })
-        .then(response => response.json())
-        .then(data => {
-          if (data.status === 'success') {
-            alert(data.message);
-            window.location.reload();
-          } else {
-            alert(data.message || 'Error uploading file.');
-          }
-        })
-        .catch(error => {
-          console.error('Error:', error);
-          alert('An error occurred during upload.');
-        });
+      try {
+        const formData = new FormData(submitForm);
+        const res = await fetch(window.location.href, { method: "POST", body: formData });
+
+        // لو السيرفر رجّع HTML بالغلط هتقع هنا
+        const data = await res.json();
+
+        if (data.status === "success") {
+          Swal.fire({ icon: "success", title: "Done", text: data.message });
+          setTimeout(() => window.location.reload(), 700);
+        } else {
+          Swal.fire({ icon: "error", title: "Error", text: data.message || "Upload failed" });
+        }
+      } catch (err) {
+        console.error(err);
+        Swal.fire({ icon: "error", title: "Error", text: "Upload failed (response is not JSON or server error)" });
+      }
     });
   }
 
-  /* ================== MATERIAL CATEGORY SWITCHING ================== */
-  /* Handles switching between Technical and Soft-skills materials */
-  const categoryBtns = document.querySelectorAll('.materialCategoryBtn');
-  const materialsLists = document.querySelectorAll('.materialsList');
+  /* =========================
+     Materials tabs
+  ========================= */
+  const categoryBtns = document.querySelectorAll(".materialCategoryBtn");
+  const materialsLists = document.querySelectorAll(".materialsList");
 
-  categoryBtns.forEach(btn => {
-    btn.addEventListener('click', function () {
-      // Remove active class from all buttons
-      categoryBtns.forEach(b => b.classList.remove('active'));
+  categoryBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      categoryBtns.forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
 
-      // Add active class to clicked button
-      this.classList.add('active');
+      const target = btn.dataset.category; // technical / softskills
+      materialsLists.forEach((list) => list.classList.remove("activeMaterialsList"));
 
-      // Get target category
-      const targetCategory = this.getAttribute('data-category');
-
-      // Hide all materials lists
-      materialsLists.forEach(list => {
-        list.classList.remove('activeMaterialsList');
-      });
-
-      // Show target list
-      const targetList = document.getElementById(targetCategory);
-      if (targetList) {
-        targetList.classList.add('activeMaterialsList');
-      }
+      const targetList = document.getElementById(target);
+      if (targetList) targetList.classList.add("activeMaterialsList");
     });
   });
 
-});
+  /* =========================
+     Feedback Modal (review page)
+  ========================= */
+  const modal = document.getElementById("feedbackModal");
 
-/* ================== FEEDBACK MODAL CONTROL ================== */
-/* Functions to open and close the feedback modal popup */
+  function openFeedbackModal(sessionName, rating, feedbackText, instructor) {
+    if (!modal) return;
 
-function openFeedbackModal(sessionName, rating, feedbackText, instructor) {
-  const modal = document.getElementById('feedbackModal');
+    const sessionEl = document.getElementById("feedbackSessionName");
+    const textEl = document.getElementById("feedbackText");
+    const starsEl = document.getElementById("feedbackRatingStars");
+    const instructorEl = document.getElementById("feedbackInstructorName");
 
-  // 1. Set Session Name
-  const sessionEl = document.getElementById('feedbackSessionName');
-  if (sessionEl) sessionEl.textContent = sessionName;
+    if (sessionEl) sessionEl.textContent = sessionName || "Session";
+    if (textEl) textEl.innerHTML = `<p>${feedbackText || "No feedback yet."}</p>`;
+    if (instructorEl) instructorEl.textContent = instructor || "—";
 
-  // 2. Set Feedback Text
-  const textEl = document.getElementById('feedbackText');
-  if (textEl) textEl.innerHTML = `<p>${feedbackText}</p>`;
-
-  // 3. Render Stars
-  const starsContainer = document.querySelector('#feedbackModal .feedbackStars');
-  if (starsContainer) {
-    starsContainer.innerHTML = ''; // clear existing
-    const r = parseInt(rating) || 0;
-    for (let i = 1; i <= 5; i++) {
-      const star = document.createElement('i');
-      if (i <= r) {
-        star.className = 'fas fa-star';
-      } else {
-        star.className = 'far fa-star';
+    if (starsEl) {
+      starsEl.innerHTML = "";
+      const r = Number(rating) || 0;
+      for (let i = 1; i <= 5; i++) {
+        const star = document.createElement("i");
+        star.className = i <= r ? "fas fa-star" : "far fa-star";
+        starsEl.appendChild(star);
       }
-      starsContainer.appendChild(star);
     }
+
+    modal.classList.add("show");
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  // 4. Set Instructor Name
-  const instructorEl = document.getElementById('feedbackInstructorName');
-  if (instructorEl) instructorEl.textContent = instructor;
-
-  modal.classList.add('show');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function closeFeedbackModal() {
-  const modal = document.getElementById('feedbackModal');
-  modal.classList.remove('show');
-}
-
-// Close modal when clicking outside
-document.addEventListener('click', function (event) {
-  const modal = document.getElementById('feedbackModal');
-  if (event.target === modal) {
-    closeFeedbackModal();
+  function closeFeedbackModal() {
+    if (!modal) return;
+    modal.classList.remove("show");
   }
-});
 
-// Close modal with Escape key
-document.addEventListener('keydown', function (event) {
-  if (event.key === 'Escape') {
-    closeFeedbackModal();
-  }
-});
+  // expose close to onclick button in HTML
+  window.closeFeedbackModal = closeFeedbackModal;
 
-// Attach click handlers to feedback buttons
-document.addEventListener('DOMContentLoaded', function () {
-  const feedbackBtns = document.querySelectorAll('.feedbackBtn');
-
-  feedbackBtns.forEach(btn => {
-    btn.addEventListener('click', function () {
-      const session = this.getAttribute('data-session') || 'Session';
-      const rating = this.getAttribute('data-rating') || 0;
-      const feedback = this.getAttribute('data-feedback') || 'No feedback available.';
-      const instructor = this.getAttribute('data-instructor') || 'Instructor';
-
-      openFeedbackModal(session, rating, feedback, instructor);
+  document.querySelectorAll(".feedbackBtn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      openFeedbackModal(
+        btn.dataset.session,
+        btn.dataset.rating,
+        btn.dataset.feedback,
+        btn.dataset.instructor
+      );
     });
   });
+
+  // click outside close
+  document.addEventListener("click", (e) => {
+    if (modal && e.target === modal) closeFeedbackModal();
+  });
+
+  // esc close
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeFeedbackModal();
+  });
+
+  console.log("participantWorkshopPanel.js loaded ✅");
 });
-
-/* ================== SESSIONS SCROLLING ================== */
-function scrollSessions(direction) {
-  const container = document.getElementById('sessionsContainer');
-  if (!container) return;
-
-  const scrollAmount = 300; // Scroll by roughly 2-3 items
-
-  if (direction === 'left') {
-    container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-  } else {
-    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-  }
-}
