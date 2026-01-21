@@ -101,6 +101,28 @@ if ($workshopSessionId > 0) {
 }
 
 /* =====================
+   Get submitted tasks for current user (to check if already submitted)
+===================== */
+$submittedTaskIds = [];
+if ($workshopSessionId > 0) {
+    $stSub = $connect->prepare("
+        SELECT DISTINCT t.task_id
+        FROM task_submissions ts
+        JOIN tasks t ON t.task_id = ts.task_id
+        WHERE t.workshop_session_id = ?
+          AND ts.user_id = ?
+          AND ts.status = 'submitted'
+    ");
+    $stSub->bind_param("ii", $workshopSessionId, $userId);
+    $stSub->execute();
+    $subRows = $stSub->get_result()->fetch_all(MYSQLI_ASSOC);
+    $submittedTaskIds = array_map(function ($row) {
+        return (int) $row['task_id'];
+    }, $subRows);
+    $stSub->close();
+}
+
+/* =====================
    Handle Task Submission (AJAX)
 ===================== */
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'submit_task') {
@@ -114,6 +136,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'submi
         echo json_encode($response);
         exit;
     }
+
+    // Check if task already submitted
+    $chkSub = $connect->prepare("
+        SELECT submission_id FROM task_submissions
+        WHERE task_id = ? AND user_id = ? AND status = 'submitted'
+    ");
+    $chkSub->bind_param("ii", $taskId, $userId);
+    $chkSub->execute();
+    if ($chkSub->get_result()->num_rows > 0) {
+        $response['status'] = 'already_submitted';
+        $response['message'] = 'You have already submitted this task. Do you want to resubmit?';
+        echo json_encode($response);
+        exit;
+    }
+    $chkSub->close();
 
     if (!isset($_FILES['submit_link']) || $_FILES['submit_link']['error'] !== 0) {
         $response['message'] = 'Please select a file.';
@@ -209,40 +246,34 @@ if ($res) {
 $q->close();
 
 /* =====================
-   Materials (ALL for workshop)
+   Materials (for selected session only)
 ===================== */
 $technicalMaterials = [];
 $softMaterials = [];
 
-$qTech = $connect->prepare("
-    SELECT material_title, file_path
-    FROM session_materials
-    WHERE workshop_session_id IN (
-        SELECT workshop_session_id
-        FROM workshop_session
-        WHERE workshop_id = ?
-    )
-      AND material_type = 'technical'
-");
-$qTech->bind_param("i", $workshopId);
-$qTech->execute();
-$technicalMaterials = $qTech->get_result()->fetch_all(MYSQLI_ASSOC);
-$qTech->close();
+if ($workshopSessionId > 0) {
+    $qTech = $connect->prepare("
+        SELECT material_title, file_path
+        FROM session_materials
+        WHERE workshop_session_id = ?
+          AND material_type = 'technical'
+    ");
+    $qTech->bind_param("i", $workshopSessionId);
+    $qTech->execute();
+    $technicalMaterials = $qTech->get_result()->fetch_all(MYSQLI_ASSOC);
+    $qTech->close();
 
-$qSoft = $connect->prepare("
-    SELECT material_title, file_path
-    FROM session_materials
-    WHERE workshop_session_id IN (
-        SELECT workshop_session_id
-        FROM workshop_session
-        WHERE workshop_id = ?
-    )
-      AND material_type = 'soft'
-");
-$qSoft->bind_param("i", $workshopId);
-$qSoft->execute();
-$softMaterials = $qSoft->get_result()->fetch_all(MYSQLI_ASSOC);
-$qSoft->close();
+    $qSoft = $connect->prepare("
+        SELECT material_title, file_path
+        FROM session_materials
+        WHERE workshop_session_id = ?
+          AND material_type = 'soft'
+    ");
+    $qSoft->bind_param("i", $workshopSessionId);
+    $qSoft->execute();
+    $softMaterials = $qSoft->get_result()->fetch_all(MYSQLI_ASSOC);
+    $qSoft->close();
+}
 
 /* =====================
    Helpers
