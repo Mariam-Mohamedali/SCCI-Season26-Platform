@@ -209,35 +209,40 @@ if ($res) {
 $q->close();
 
 /* =====================
-   Materials (PER workshop_session)
+   Materials (ALL for workshop)
 ===================== */
 $technicalMaterials = [];
 $softMaterials = [];
 
-if ($workshopSessionId > 0) {
+$qTech = $connect->prepare("
+    SELECT material_title, file_path
+    FROM session_materials
+    WHERE workshop_session_id IN (
+        SELECT workshop_session_id
+        FROM workshop_session
+        WHERE workshop_id = ?
+    )
+      AND material_type = 'technical'
+");
+$qTech->bind_param("i", $workshopId);
+$qTech->execute();
+$technicalMaterials = $qTech->get_result()->fetch_all(MYSQLI_ASSOC);
+$qTech->close();
 
-    $qTech = $connect->prepare("
-        SELECT material_title, file_path
-        FROM session_materials
-        WHERE workshop_session_id = ?
-          AND material_type = 'technical'
-    ");
-    $qTech->bind_param("i", $workshopSessionId);
-    $qTech->execute();
-    $technicalMaterials = $qTech->get_result()->fetch_all(MYSQLI_ASSOC);
-    $qTech->close();
-
-    $qSoft = $connect->prepare("
-        SELECT material_title, file_path
-        FROM session_materials
-        WHERE workshop_session_id = ?
-          AND material_type = 'soft'
-    ");
-    $qSoft->bind_param("i", $workshopSessionId);
-    $qSoft->execute();
-    $softMaterials = $qSoft->get_result()->fetch_all(MYSQLI_ASSOC);
-    $qSoft->close();
-}
+$qSoft = $connect->prepare("
+    SELECT material_title, file_path
+    FROM session_materials
+    WHERE workshop_session_id IN (
+        SELECT workshop_session_id
+        FROM workshop_session
+        WHERE workshop_id = ?
+    )
+      AND material_type = 'soft'
+");
+$qSoft->bind_param("i", $workshopId);
+$qSoft->execute();
+$softMaterials = $qSoft->get_result()->fetch_all(MYSQLI_ASSOC);
+$qSoft->close();
 
 /* =====================
    Helpers
@@ -612,7 +617,7 @@ function renderStars($rating)
                                             style="text-align: center; padding: 20px; color: #666;">
                                             <i class="fas fa-folder-open"
                                                 style="font-size: 2em; margin-bottom: 10px; color: #ccc;"></i>
-                                            <p>No technical materials available for this session.</p>
+                                            <p>No technical materials available for this workshop.</p>
                                         </div>
                                     <?php else: ?>
                                         <?php foreach ($technicalMaterials as $tm): ?>
@@ -637,7 +642,7 @@ function renderStars($rating)
                                             style="text-align: center; padding: 20px; color: #666;">
                                             <i class="fas fa-folder-open"
                                                 style="font-size: 2em; margin-bottom: 10px; color: #ccc;"></i>
-                                            <p>No soft-skills materials available for this session.</p>
+                                            <p>No soft-skills materials available for this workshop.</p>
                                         </div>
                                     <?php else: ?>
                                         <?php foreach ($softMaterials as $sm): ?>
