@@ -88,9 +88,11 @@ h1 {
   will-change: transform;
 }
 .heroBackground img {
+  position: relative;
+  bottom: -10%;
   display: block;
   object-fit: cover;
-  object-position: 77% 50%;
+  object-position: 77% 20%;
   height: auto;
   width: 100%;
 } /* Gradient Fade at Bottom of Hero */
