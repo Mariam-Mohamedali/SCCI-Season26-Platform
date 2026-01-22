@@ -1291,7 +1291,7 @@ function redirectPanel($sessionId, $tab, $type = 'msg', $text = '')
 
               <!-- Play Button -->
               <div class="playButtonContainer">
-                  <a href="https://awadcoding.github.io/SCCI-Quiz/" class="playGameBtn">
+                  <a href="https://awadcoding.github.io/SCCI-Quiz/admin.html" class="playGameBtn">
                       <span class="btnGlow"></span>
                       <i class="fas fa-play"></i>
                       <span class="btnText">START GAME NOW</span>
