@@ -10,5 +10,5 @@ window.addEventListener("load", function() {
         setTimeout(function() {
             window.location.href = "home.php";
         }, 800); // match the fade duration
-    }, 10000); // initial wait
+    }, 5000); // initial wait
 });

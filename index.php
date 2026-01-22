@@ -30,8 +30,12 @@
                     <img src="./assets/img/scciOwl.png" class="landingLogo" alt="SCCI Logo">
                 </figure>
 
-                <h1>SEEK THE PEAK</h1>
-                <p>THE JOURNY THAT SHAPES YOUR FUTURE</p>
+                <h1 class="word-split">
+                    <span>SEEK</span> <span>THE</span> <span>PEAK</span>
+                </h1>
+                <p class="word-split-p">
+                    <span>THE</span> <span>JOURNEY</span> <span>THAT</span> <span>SHAPES</span> <span>YOUR</span> <span>FUTURE</span>
+                </p>
             </header>
         </section>
     </main>

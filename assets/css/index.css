@@ -5,7 +5,7 @@ html {
     padding: 0;
     height: 100%;
     font-family: "Irish Grover", cursive;
-    background: white !important;
+    background: #000;
     overflow: hidden;
 }
 
@@ -28,163 +28,316 @@ main {
     position: relative;
     width: 100%;
     height: 100vh;
-     /* GIF background */
-    background-image: url("../img/train.gif");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
     overflow: hidden;
-
-    
 }
 
 .overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0); /* adjust darkness */
+    background: rgba(0, 0, 0, 0.4);
+    /* slightly darker for glow contrast */
     z-index: 1;
-}
-
-/* Logo */
-.landingContent figure {
-    margin: 0 0 2rem 0;
-    animation: logoIntro 1.2s ease-out forwards;
-}
-
-.landingLogo {
-    width: 30rem;
-    height: auto;
-}
-
-/* Main Heading */
-.landingContent h1 {
-    font-family: "Stencil", sans-serif;
-    font-size: 4rem;
-    color: #ffffff;
-    margin-bottom: 1rem;
-    letter-spacing: 0.3rem;
-    text-transform: uppercase;
-
-    animation: titleIntro 1.4s ease-out forwards;
-    animation-delay: 0.3s;
-
-    opacity: 0; /* important */
-}
-
-@keyframes titleIntro {
-    from {
-        opacity: 0;
-        transform: scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-/* Subtitle */
-.landingContent p {
-    font-size: 1.8rem;
-    color: #ffffff;
-    margin-bottom: 2rem;
-
-    animation: fadeUpIntro 1.2s ease-out forwards;
-    animation-delay: 0.6s;
-
-    opacity: 0;
-}
-
-@keyframes fadeUpIntro {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
 }
 
 .landingContent {
     position: relative;
     z-index: 2;
+    padding: 2rem;
+    width: 100%;
+    max-width: 1200px;
+}
+
+/* Logo */
+.landingContent figure {
+    margin: 0 0 2rem 0;
+    animation: logoFloat 3s ease-in-out infinite alternate;
+}
+
+.landingLogo {
+    width: 25rem;
+    height: auto;
+    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.3));
+    /* Gold glow */
+}
+
+/* ============================ TEXT ANIMATIONS ============================ */
+
+/* H1 Styles */
+.word-split {
+    font-family: "Stencil", sans-serif;
+    font-size: 5rem;
+    color: #ffffff;
+    margin-bottom: 2rem;
+    letter-spacing: 0.3rem;
+    text-transform: uppercase;
+    display: block;
+    line-height: 1.2;
+}
+
+/* P Styles */
+.word-split-p {
+    font-size: 2rem;
+    color: #ffd700;
+    /* Gold color for subtitle */
+    font-family: "Cinzel", serif;
+    letter-spacing: 0.1rem;
+    font-weight: bold;
+    display: block;
+    margin-top: 1rem;
+}
+
+/* Common Span Style for Words */
+.word-split span,
+.word-split-p span {
+    display: inline-block;
+    opacity: 0;
+    /* Start hidden */
+    transform: scale(2);
+    filter: blur(20px);
+    position: relative;
+    white-space: nowrap;
+    margin: 0 0.2em;
+    /* Space between words */
+}
+
+/* 
+   Animation: Word Glow In + Fly Sparks
+*/
+.word-split span {
+    animation: wordExplode 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) forwards;
+}
+
+.word-split-p span {
+    animation: wordExplode 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) forwards;
+    color: #ffffff;
+    text-shadow: 0 0 10px #FFD700;
+}
+
+/* Staggered Delays for H1 */
+.word-split span:nth-child(1) {
+    animation-delay: 0.5s;
+}
+
+.word-split span:nth-child(2) {
+    animation-delay: 1.0s;
+}
+
+.word-split span:nth-child(3) {
+    animation-delay: 1.5s;
+}
+
+/* Staggered Delays for P (starts after H1) */
+.word-split-p span:nth-child(1) {
+    animation-delay: 2.2s;
+}
+
+.word-split-p span:nth-child(2) {
+    animation-delay: 2.5s;
+}
+
+.word-split-p span:nth-child(3) {
+    animation-delay: 2.8s;
+}
+
+.word-split-p span:nth-child(4) {
+    animation-delay: 3.1s;
+}
+
+.word-split-p span:nth-child(5) {
+    animation-delay: 3.4s;
+}
+
+.word-split-p span:nth-child(6) {
+    animation-delay: 3.7s;
 }
 
 
-/* ============================ ANIMATIONS ============================ */
-@keyframes logoIntro {
+/* Keyframes for text appearance (Bright Light start) */
+@keyframes wordExplode {
     0% {
         opacity: 0;
-        transform: translateY(-40px) scale(0.9);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-@keyframes bounceLogo {
-    0% {
-        transform: translateY(0);
+        transform: scale(3);
+        filter: blur(30px);
+        text-shadow: 0 0 100px #fff, 0 0 200px #FFD700;
     }
 
     50% {
-        transform: translateY(-1.5rem);
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0);
+        text-shadow: 0 0 50px #fff, 0 0 80px #FFD700;
     }
 
     100% {
-        transform: translateY(0);
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0);
+        /* Subtle glow remains */
+        text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
     }
 }
 
-@keyframes fadeInUp {
+/* Spark/Particle Effect using pseudo-elements */
+.word-split span::before,
+.word-split span::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #fff, 0 0 20px #FFD700;
+    opacity: 0;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Sparks flying animation */
+.word-split span::before {
+    animation: sparkFly1 0.6s ease-out forwards;
+}
+
+.word-split span::after {
+    animation: sparkFly2 0.6s ease-out forwards;
+}
+
+/* Stagger sparks same as text */
+.word-split span:nth-child(1)::before,
+.word-split span:nth-child(1)::after {
+    animation-delay: 0.5s;
+}
+
+.word-split span:nth-child(2)::before,
+.word-split span:nth-child(2)::after {
+    animation-delay: 1.0s;
+}
+
+.word-split span:nth-child(3)::before,
+.word-split span:nth-child(3)::after {
+    animation-delay: 1.5s;
+}
+
+/* (We can add more for P tags if needed, but H1 is the main focus) */
+
+
+@keyframes sparkFly1 {
     0% {
+        width: 10px;
+        height: 10px;
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    100% {
+        width: 2px;
+        height: 2px;
         opacity: 0;
-        transform: translateY(2rem);
+        transform: translate(-200%, -200%) scale(0);
+        /* Fly top-left */
+    }
+}
+
+@keyframes sparkFly2 {
+    0% {
+        width: 10px;
+        height: 10px;
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
     }
 
     100% {
-        opacity: 1;
+        width: 2px;
+        height: 2px;
+        opacity: 0;
+        transform: translate(200%, -50%) scale(0);
+        /* Fly right */
+    }
+}
+
+
+/* Logo Animation */
+@keyframes logoFloat {
+    0% {
         transform: translateY(0);
-    }
-}
-
-@keyframes pulseButton {
-    0% {
-        transform: scale(1);
-        box-shadow: 0 5px 20px rgba(136, 136, 136, 0.6), 0 0 50px rgba(85, 85, 85, 0.7);
-    }
-
-    50% {
-        transform: scale(1.05);
-        box-shadow: 0 8px 30px rgba(136, 136, 136, 0.8), 0 0 60px rgba(85, 85, 85, 0.9);
+        filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.3));
     }
 
     100% {
-        transform: scale(1);
-        box-shadow: 0 5px 20px rgba(136, 136, 136, 0.6), 0 0 50px rgba(85, 85, 85, 0.7);
+        transform: translateY(-20px);
+        filter: drop-shadow(0 0 40px rgba(255, 215, 0, 0.6));
     }
 }
 
-@keyframes floatStars {
-    0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 0.7;
+
+/* ============================ RESPONSIVE DESIGN ============================ */
+/* Tablet */
+@media (max-width: 992px) {
+    .landingLogo {
+        width: 20rem;
     }
 
-    50% {
-        transform: translateY(-1.25rem) rotate(15deg);
-        opacity: 1;
+    .word-split {
+        font-size: 3.5rem;
     }
 
-    100% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 0.7;
+    .word-split-p {
+        font-size: 1.5rem;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .landingContent {
+        padding: 1rem;
+    }
+
+    .landingLogo {
+        width: 15rem;
+    }
+
+    .word-split {
+        font-size: 2.8rem;
+        margin-bottom: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        /* Stack words on mobile if needed, or keep inline */
+        display: block;
+    }
+
+    .word-split span {
+        display: inline-block;
+        /* Ensure they stay correct */
+    }
+
+    .word-split-p {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        padding: 0 10px;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+    .landingLogo {
+        width: 12rem;
+        margin-bottom: 1rem;
+    }
+
+    .word-split {
+        font-size: 2.2rem;
+        letter-spacing: 0.1rem;
+    }
+
+    .word-split-p {
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
     }
 }
