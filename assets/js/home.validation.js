@@ -4,12 +4,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const emailInput = document.getElementById("email");
   const messageInput = document.getElementById("message");
 
+  const successMessage = document.getElementById("successMessage");
+
   if (!form) return;
 
+  // ======================
+  // FORM VALIDATION
+  // ======================
   form.addEventListener("submit", (e) => {
     let isValid = true;
 
-    
     // NAME
     if (nameInput.value.trim().length < 3) {
       showError(nameInput, "Name must be at least 3 characters");
@@ -35,6 +39,22 @@ document.addEventListener("DOMContentLoaded", () => {
     input.addEventListener("input", () => clearError(input));
   });
 
+  // ======================
+  // SUCCESS MESSAGE
+  // ======================
+  const urlParams = new URLSearchParams(window.location.search);
+
+  if (urlParams.has("success")) {
+    successMessage.style.display = "block";
+
+    const url = new URL(window.location);
+    url.searchParams.delete("success");
+    window.history.replaceState({}, document.title, url);
+  }
+
+  // ======================
+  // FUNCTIONS
+  // ======================
   function showError(input, message) {
     const error = input.parentElement.querySelector(".error");
     error.textContent = message;
