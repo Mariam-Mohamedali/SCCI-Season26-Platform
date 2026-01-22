@@ -184,7 +184,7 @@
                                 <?= htmlspecialchars($row['committe_name'] ?? 'N/A') ?>
                             </td>
                             <td class="tableData email-text"><?= htmlspecialchars($row['email']) ?></td>
-                            <td class="tableData"><?= htmlspecialchars($row['phone']) ?></td>
+                            <td class="tableData">0<?= htmlspecialchars($row['phone']) ?></td>
                             <td class="tableData"><?= ($row['status'] == 0) ? 'User Blocked' : 'Active'; ?></td>
                             <td class="tableData">
                                 <?php if ($row['status'] == 1): ?>
@@ -230,7 +230,7 @@
                                 <?= htmlspecialchars($row['committe_name'] ?? 'N/A') ?>
                             </td>
                             <td class="tableData email-text"><?= htmlspecialchars($row['email']) ?></td>
-                            <td class="tableData"><?= htmlspecialchars($row['phone']) ?></td>
+                            <td class="tableData">0<?= htmlspecialchars($row['phone']) ?></td>
                             <td class="tableData"><?= ($row['status'] == 0) ? 'User Blocked' : 'Active'; ?></td>
                             <td class="tableData">
                                 <?php if ($row['status'] == 1): ?>

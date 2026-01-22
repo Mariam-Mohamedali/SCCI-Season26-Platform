@@ -109,7 +109,7 @@ if (isset($user['role']) && $user['role'] == 4) {
               <!-- Email -->
               <div class="socialItem">
                 <i class="fa-solid fa-envelope"></i>
-                <a href="mailto:<?php echo htmlspecialchars($user['email']); ?>">
+                <a href="mailto:<?php echo htmlspecialchars($user['email']); ?>" class="email-text">
                   <?php echo htmlspecialchars($user['email']); ?>
                 </a>
               </div>
@@ -134,8 +134,8 @@ if (isset($user['role']) && $user['role'] == 4) {
               </div>
               <div class="socialItem">
                 <i class="fa-solid fa-phone"></i>
-                <a href="tel:<?php echo htmlspecialchars($user['phone']); ?>">
-                  <?php echo htmlspecialchars($user['phone']); ?>
+                <a href="tel:0<?php echo htmlspecialchars($user['phone']); ?>">
+                  0<?php echo htmlspecialchars($user['phone']); ?>
                 </a>
               </div>
             </div>

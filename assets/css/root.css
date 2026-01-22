@@ -307,6 +307,9 @@ p {
 /* Prevent capitalization for emails */
 input[type="email"],
 .email-text,
+.email-text *,
+a.email-text,
+a.email-text *,
 .text-normal {
   text-transform: none !important;
 }
