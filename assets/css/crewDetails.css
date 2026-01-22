@@ -1,6 +1,6 @@
 /* ===== Layout Utilities ===== */
 body {
-  
+
   padding-top: calc(8vh + 3rem);
 }
 
@@ -527,9 +527,10 @@ a.memberCardLink:hover {
   }
 
   .paperText {
-    font-size: 0.85rem;
-    padding: 0;
+    font-size: 1.05rem;
+    padding: 0 var(--space-2);
     text-align: left;
+    line-height: 1.9;
   }
 
   .membersGrid {
@@ -561,61 +562,68 @@ a.memberCardLink:hover {
 @media (max-width: 480px) {
   .membersGrid {
     grid-template-columns: 1fr;
+    gap: var(--space-6);
+    padding: 0 var(--space-2);
     place-items: center;
   }
 
   .headLayout {
     align-items: center;
+    padding: 0 var(--space-2);
   }
 
   .headCard,
   .memberCard {
-    width: 95%;
-    max-width: 360px;
+    width: 100%;
+    max-width: 340px;
   }
 
-  /* تحديد ارتفاع ثابت للكارد */
+
   .flipCard {
-    height: 550px;
-    aspect-ratio: unset;
+    height: auto;
+    min-height: 500px;
+    aspect-ratio: 2/3;
   }
 
   .flipSide {
-    height: 550px;
+    height: 100%;
   }
 
   /* ضبط البانر الأحمر */
   .flipBack::before {
-    height: 80px;
-    font-size: var(--fs-lg);
-    letter-spacing: 2px;
+    height: 70px;
+    font-size: var(--fs-md);
+    letter-spacing: 1px;
   }
-
 
   .flipBack .backCard {
-    padding: 100px var(--space-4) var(--space-5);
-    gap: 1.2rem;
+    padding: 85px var(--space-3) var(--space-4);
+    gap: 0.8rem;
   }
-
 
   .flipBack .memberImageContainer {
     width: 100%;
-    max-width: 280px;
+    max-width: 200px;
   }
 
   /* تكبير النص */
   .flipBack .memberName h3,
   .flipBack .memberName h5 {
-    font-size: var(--fs-lg);
+    font-size: var(--fs-base);
   }
 
   /* ضبط الـ memberTitle إذا كان موجود */
   .memberTitle {
-    padding: var(--space-2) var(--space-4);
+    padding: var(--space-1) var(--space-3);
   }
 
   .memberTitle p {
-    font-size: var(--fs-base);
+    font-size: var(--fs-sm);
+  }
+
+  .paperScroll {
+    width: 100%;
+    max-width: 340px;
   }
 }
 
