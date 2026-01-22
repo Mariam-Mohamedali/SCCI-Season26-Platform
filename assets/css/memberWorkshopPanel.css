@@ -1,5 +1,3 @@
-/* <!-- ana radwan --> */
-
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css");
 
 :root {
@@ -7,12 +5,11 @@
   --color-white-gradient: #d4d2d2;
 }
 
-
 /* Main Page Container */
 .materialPage {
   width: 97%;
   margin: 0 auto;
-  padding-top: 5rem;
+  padding-top: 10rem;
   font-family: "Irish Grover", cursive;
 }
 
@@ -97,7 +94,7 @@
 /* Container */
 
 .evaluateContainer {
-  margin: 20px auto;
+  margin: 50px auto;
 }
 
 .materialPage h4 {
@@ -151,7 +148,7 @@
   width: 5.3rem;
   height: 5.3rem;
   background: none;
-  background-color: #1f184ede;
+  background-color: rgba(31, 24, 78, 0.95);
   backdrop-filter: blur(10px);
   border-radius: 50%;
   border: none;
@@ -165,15 +162,15 @@
 }
 
 .sessionScrollBtn:hover {
-  background-color: #1f184ebe;
+  background-color: rgba(45, 34, 116, 0.95);
 }
 
 .scrollLeft {
-  left: 6px;
+  left: 10px;
 }
 
 .scrollRight {
-  right: 6px;
+  right: 10px;
 }
 
 .sessionBtn {
@@ -232,10 +229,6 @@
 
 .sessionActive p {
   color: var(--color-white);
-}
-
-.sessionScrollBtn {
-  pointer-events: auto;
 }
 /* 
 -----------------------------
@@ -300,6 +293,7 @@ Table
 }
 
 .evaluateContainer thead {
+  /* blue gradient */
   background: linear-gradient(90deg, #1f184e, #5556c4, #1f184e);
   color: var(--color-white);
 }
@@ -397,6 +391,24 @@ Table
 }
 
 /* task link */
+.tdDwonloadTask {
+  width: max-content;
+  color: #5556c4;
+  padding: var(--space-2);
+  border-radius: 15px;
+  transition: ease-in-out 0.3s;
+}
+
+.tdDwonloadTask::before {
+  content: "\f019";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+}
+
+.tdDwonloadTask:hover {
+  background-color: #5557c431;
+}
+
 .evaluateContainer .taskLink {
   color: var(--color-secondary);
   text-decoration: underline;
@@ -654,12 +666,12 @@ body.no-scroll {
   margin: auto;
   border-radius: 10px;
   color: white;
-  border: 3px solid #a1a126;
-  background: linear-gradient(90deg, #a1a126, #d7d714, #a1a126);
+  border: 3px solid #c7c717;
+  background: linear-gradient(90deg, #c7c717, #dbdb43, #c7c717);
 }
 
 .reviewBending .reviewAttendBox {
-  color: #a1a126;
+  color: #c7c717;
   font-weight: bold;
 }
 
@@ -769,9 +781,13 @@ body.no-scroll {
   max-width: 100%;
 }
 
-.fileUploadedName {
+.fileUploadInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background-color: var(--color-white);
-  width: 60%;
+  width: 95%;
+  max-width: 500px;
   color: var(--color-gray-dark);
   border-radius: 10px;
   margin: 8px;
@@ -790,7 +806,28 @@ body.no-scroll {
   min-width: 20px;
 }
 
-#submitBtn {
+.removeUpload {
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  background-color: #c5252530;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 3.3rem;
+  height: 3.3rem;
+  transition: ease-in-out 0.3s;
+}
+
+.removeUpload:hover {
+  background-color: #c5252540;
+}
+
+.fileMessage {
+  color: var(--color-primary);
+  text-align: center;
+}
+
+.submitBtn {
   display: flex;
   margin: auto;
 }
@@ -802,22 +839,6 @@ body.no-scroll {
   gap: 10px;
   font-family: "Inter", sans-serif;
   /* Cleaner font for file names usually */
-}
-#materialTypeButton {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  padding: 12px 20px;
-  border-radius: 12px;
-  font-family: inherit;
-  font-weight: bold;
-  font-size: var(--fs-sm);
-  cursor: pointer;
-  border: 2px solid var(--color-secondary);
-  color: var(--color-secondary);
-  transition:
-    background-color var(--transition-fast),
-    color var(--transition-fast);
 }
 
 #materialList {
@@ -866,7 +887,7 @@ body.no-scroll {
 .selectInput {
   flex: 1;
   border: 2px solid var(--color-secondary);
-  border-radius: 20px;
+  border-radius: 11px;
   padding: 0.6rem 1.2rem;
   font-family: inherit;
   font-size: var(--fs-sm);
@@ -874,6 +895,7 @@ body.no-scroll {
   background: transparent;
   outline: none;
   transition: box-shadow var(--transition-fast);
+  background: linear-gradient(to bottom, #d7d7d7, #a5a5a5);
 }
 
 .textInput:focus,
@@ -899,6 +921,15 @@ body.no-scroll {
   margin: var(--space-5) 0 var(--space-8);
 }
 
+.dragMessage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  pointer-events: none;
+}
+
 .uploadContainer {
   margin-top: 0.5rem;
   background-color: var(--color-gray-lighter) !important;
@@ -910,6 +941,21 @@ body.no-scroll {
   align-items: center;
   justify-content: center;
   min-height: 300px;
+  transition: ease-in-out 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.dragOver::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  background-color: rgba(171, 171, 171, 0.6);
+  backdrop-filter: blur(5px);
+  z-index: 1;
 }
 
 .uploadIcon {
@@ -920,7 +966,6 @@ body.no-scroll {
     var(--color-secondary),
     var(--color-secondary-dark)
   );
-  /* background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark)); */
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -929,7 +974,6 @@ body.no-scroll {
   font-size: 2.5rem;
   margin-bottom: var(--space-2);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
 }
 
 /* Using FontAwesome unicode for download symbol if not provided in HTML */
@@ -959,7 +1003,6 @@ body.no-scroll {
 .uploadContainer .btn {
   position: relative;
   margin-top: var(--space-4);
-  /* background: linear-gradient(135deg, var(--color-secondary), var(--color-secondary-dark)); */
   color: var(--color-white);
   padding: 10px 35px;
   border-radius: 20px;
@@ -1019,6 +1062,21 @@ body.no-scroll {
    MATERIALS LIST SECTION
 =================================== */
 
+/* If there's no material */
+.notFIleAdded {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  color: var(--color-gray-dark);
+}
+
+.notFIleAdded p {
+  margin-bottom: 0;
+}
+
 .materialItemsList {
   width: 100%;
 }
@@ -1047,58 +1105,89 @@ body.no-scroll {
 .materialTypeButton {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
+  gap: var(--space-3);
   padding: 12px 20px;
   border-radius: 12px;
   font-family: inherit;
   font-weight: bold;
   font-size: var(--fs-sm);
   cursor: pointer;
-  border: 2px solid var(--color-secondary);
+  border: 2px solid var(--color-secondary-dark);
   color: var(--color-secondary);
-  transition:
-    background-color var(--transition-fast),
-    color var(--transition-fast);
+  transition: ease-in-out 0.3s;
+}
+
+.materialTypeButton.active {
+  border: 2px solid var(--color-secondary);
+  background-color: rgb(0, 0, 105, 0.2);
 }
 
 .materialTypeButton:hover {
-  background-color: var(--color-gray-medium);
+  background-color: rgb(0, 0, 105, 0.4);
 }
 
 /* First button specific adjustments removed in favor of .active class logic */
 /* But we keep the icon logic */
 
 /* Icons for buttons */
-.materialTypeButton::before {
+.materialTypeButton.active::before {
   font-family: "Font Awesome 6 Free";
   font-weight: 900;
   content: "\f04b";
   font-size: 0.8em;
 }
 
-.materialTypeButton:nth-child(2) {
-  /* Soft skills */
-  background-color: var(--color-white);
-}
-
-.materialTypeButton:nth-child(2)::before {
-  content: "\f04b";
-  color: var(--color-secondary);
-}
-
-.materialTypeButton:hover {
-  background-color: rgb(203 203 203);
-}
-
 /* List Items */
-/* .materialItemsList {
-  background-color: var(--color-gray-light);
-  padding: 1.4rem;
-  flex: 1;
+/* List buttons */
+.downloadFileBtn {
+  width: max-content;
+  color: #5556c4;
+  padding: var(--space-2);
+  border-radius: 15px;
+  transition: ease-in-out 0.3s;
+}
+
+.downloadFileBtn:hover {
+  background-color: #5557c431;
+}
+
+.deleteMaterialButton {
+  color: var(--color-primary);
+  width: max-content;
+  padding: var(--space-2);
+  border-radius: 15px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: ease-in-out 0.3s;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.deleteMaterialButton::before {
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  content: "\f2ed";
+  /* fa-trash-alt */
+}
+
+.deleteMaterialButton:hover {
+  background-color: #c5252531;
+}
+
+.materialItemsList {
+  background-color: var(--color-gray-light);
+  padding: 2.4rem 1.4rem 1.4rem 2.4rem;
+  overflow: hidden;
   border-radius: 12px;
-} */
+}
+
+.materialCategorySection h5 {
+  color: var(--color-secondary);
+  text-align: left;
+  font-size: 16px;
+}
 
 .materialItem {
   padding: 12px 20px;
@@ -1127,19 +1216,23 @@ body.no-scroll {
 
 .materialInfo {
   display: flex;
-  gap: 10%;
+  gap: var(--space-2);
   flex-wrap: wrap;
   align-items: center;
 }
 
 .materialFileName {
-  color: var(--color-black);
+  color: var(--color-secondary-dark);
   font-size: var(--fs-sm);
   display: flex;
   align-items: center;
   gap: 10px;
   font-family: "Inter", sans-serif;
   /* Cleaner font for file names usually */
+}
+
+.taskDescription {
+  padding-left: 3.1rem;
 }
 
 /* File Icon */
@@ -1159,20 +1252,6 @@ body.no-scroll {
   gap: var(--space-4);
 }
 
-.editMaterialButton,
-.deleteMaterialButton {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  font-size: var(--fs-xs);
-  font-family: "Inter", sans-serif;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  transition: opacity 0.2s;
-}
-
 .editMaterialButton {
   color: var(--color-black);
 }
@@ -1182,23 +1261,6 @@ body.no-scroll {
   font-weight: 900;
   content: "\f044";
   /* fa-edit */
-}
-
-.deleteMaterialButton {
-  color: var(--color-primary);
-}
-
-.deleteMaterialButton::before {
-  font-family: "Font Awesome 6 Free";
-  font-weight: 900;
-  content: "\f2ed";
-  /* fa-trash-alt */
-}
-
-.editMaterialButton:hover,
-.deleteMaterialButton:hover {
-  opacity: 0.7;
-  transform: scale(1.1);
 }
 
 /* Ensure Icons appear correctly */
@@ -1344,7 +1406,7 @@ body.no-scroll {
     /* margin: 0 auto var(--space-4); */
   }
 
-  #submitBtn {
+  .submitBtn {
     height: 40px !important;
   }
 
@@ -1364,7 +1426,7 @@ body.no-scroll {
 @media (max-width: 620px) {
   .sessionsSelector {
     gap: 7px;
-    padding: 0.7rem 0;
+    padding: 0.7rem 1.8rem;
   }
 
   .sessionBtn {
@@ -1375,6 +1437,19 @@ body.no-scroll {
 
   .sessionBtn p {
     font-size: 13px;
+  }
+
+  .sessionScrollBtn {
+    width: 3.9rem;
+    height: 3.9rem;
+  }
+
+  .scrollLeft {
+    left: -2px;
+  }
+
+  .scrollRight {
+    right: -2px;
   }
 
   .sideInputs,
@@ -1392,6 +1467,17 @@ body.no-scroll {
     transform: scale(0.96);
     transition: transform 0.3s ease;
   }
+
+  .materialItem {
+    flex-direction: column;
+    gap: var(--space-2);
+    align-items: flex-start;
+  }
+
+  .materialActions {
+    width: 100%;
+    justify-content: flex-end;
+  }
 }
 
 @media (max-width: 500px) {
@@ -1401,22 +1487,6 @@ body.no-scroll {
 
   .panelWhiteBox {
     padding: var(--space-3);
-  }
-
-  .materialItem {
-    flex-direction: column;
-    gap: var(--space-3);
-    align-items: flex-start;
-  }
-
-  #materialItem {
-    flex-direction: column;
-    gap: var(--space-3);
-    align-items: flex-start;
-  }
-  .materialActions {
-    width: 100%;
-    justify-content: flex-end;
   }
 
   .materialType {
@@ -1442,41 +1512,36 @@ body.no-scroll {
 /* Activity Card Special Styling */
 .activityCard {
   position: relative;
-  overflow: visible !important;
+  overflow: hidden !important;
   border-radius: 15px;
 }
 
 .activityHeader {
   background: linear-gradient(
     135deg,
-    #ff6b6b 0%,
-    #ff4757 50%,
-    #c44569 100%
-  ) !important;
+    var(--color-secondary) 0%,
+    var(--color-secondary-dark) 100%
+  );
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3) !important;
+  border-bottom: 2px solid var(--color-secondary);
   position: sticky;
-  height: fit-content;
-  box-shadow: 0 5px 20px rgba(255, 71, 87, 0.4) !important;
-  border-radius: 15px 15px 0 0;
-  padding: 2rem;
+  padding: var(--space-5);
+  /* border-radius: 15px; */
 }
 
-.activityHeader h2 {
-  animation: headerPulse 2s ease-in-out infinite;
+.activityHeader h4 {
+  color: var(--color-parchment) !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  margin-bottom: 0;
+  font-size: 22px;
 }
 
-@keyframes headerPulse {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.02);
-  }
+.activityHeader h4 i {
+  color: var(--color-secondary) !important;
 }
 
 .activityBody {
-  background: linear-gradient(145deg, #fff5f5, #ffe8e8) !important;
+  background: var(--color-white-neutral) !important;
   padding: var(--space-7) !important;
 }
 
@@ -1486,12 +1551,13 @@ body.no-scroll {
   padding: var(--space-6);
   background: linear-gradient(
     135deg,
-    rgba(255, 107, 107, 0.1),
-    rgba(196, 69, 105, 0.1)
+    rgba(218, 165, 32, 0.05),
+    rgba(139, 0, 0, 0.05)
   );
   border-radius: var(--radius-2xl);
-  border: 3px dashed var(--color-primary);
+  border: 3px dashed var(--color-secondary);
   position: relative;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.05);
 }
 
 /* Animated Game Avatar */
@@ -1525,43 +1591,25 @@ body.no-scroll {
 .avatarCircle {
   width: 120px;
   height: 120px;
-  background: linear-gradient(135deg, #ff6b6b, #ff4757);
+  background: linear-gradient(
+    135deg,
+    var(--color-secondary) 0%,
+    var(--color-secondary-dark) 100%
+  );
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow:
-    0 10px 30px rgba(255, 71, 87, 0.5),
-    inset 0 -5px 10px rgba(0, 0, 0, 0.2),
-    inset 0 5px 10px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  border: 3px solid var(--color-parchment);
   position: relative;
   z-index: 2;
-  border: 4px solid var(--color-white);
-  animation: avatarPulse 2s ease-in-out infinite;
-}
-
-@keyframes avatarPulse {
-  0%,
-  100% {
-    box-shadow:
-      0 10px 30px rgba(255, 71, 87, 0.5),
-      inset 0 -5px 10px rgba(0, 0, 0, 0.2),
-      inset 0 5px 10px rgba(255, 255, 255, 0.3);
-  }
-
-  50% {
-    box-shadow:
-      0 15px 40px rgba(255, 71, 87, 0.7),
-      inset 0 -5px 10px rgba(0, 0, 0, 0.2),
-      inset 0 5px 10px rgba(255, 255, 255, 0.3);
-  }
 }
 
 .avatarIcon {
-  font-size: 4rem;
-  color: var(--color-white);
-  animation: iconBop 1.5s ease-in-out infinite;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  font-size: 3.5rem;
+  color: var(--color-primary-dark);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
 @keyframes iconBop {
@@ -1582,11 +1630,7 @@ body.no-scroll {
   transform: translate(-50%, -50%);
   width: 140px;
   height: 140px;
-  background: radial-gradient(
-    circle,
-    rgba(255, 107, 107, 0.4),
-    transparent 70%
-  );
+  background: radial-gradient(circle, rgba(218, 165, 32, 0.4), transparent 70%);
   border-radius: 50%;
   z-index: 1;
   animation: glowPulse 2s ease-in-out infinite;
@@ -1618,17 +1662,17 @@ body.no-scroll {
 }
 
 .bannerIcon:nth-child(1) {
-  color: #ffd700;
+  color: var(--color-secondary);
   animation-delay: 0s;
 }
 
 .bannerIcon:nth-child(2) {
-  color: #ff6b6b;
+  color: var(--color-primary);
   animation-delay: 0.3s;
 }
 
 .bannerIcon:nth-child(3) {
-  color: #ff4757;
+  color: var(--color-secondary-dark);
   animation-delay: 0.6s;
 }
 
@@ -1746,11 +1790,12 @@ body.no-scroll {
   align-items: center;
   gap: var(--space-4);
   padding: var(--space-5);
-  background: linear-gradient(135deg, #fff9c4, #ffeb3b);
+  background: rgba(255, 255, 255, 0.6);
   border-radius: var(--radius-xl);
   margin-bottom: var(--space-6);
-  box-shadow: 0 4px 12px rgba(255, 235, 59, 0.4);
-  border-left: 5px solid #ff6b6b;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  background-color: #80808059;
+  border-left: 5px solid var(--color-secondary);
 }
 
 .motivationalBox i {
@@ -1759,6 +1804,7 @@ body.no-scroll {
 }
 
 .motivationalBox p {
+  text-transform: capitalize;
   margin: 0;
   font-size: var(--fs-lg);
   color: var(--color-gray-darker);
@@ -1766,7 +1812,7 @@ body.no-scroll {
 }
 
 .motivationalBox strong {
-  color: var(--color-primary);
+  color: var(--color-primary-dark);
 }
 
 /* Play Button Container */
@@ -1780,8 +1826,12 @@ body.no-scroll {
   align-items: center;
   gap: var(--space-3);
   padding: var(--space-5) var(--space-10);
-  background: linear-gradient(135deg, #ff6b6b, #ff4757);
-  color: var(--color-white);
+  background: linear-gradient(
+    135deg,
+    var(--color-secondary),
+    var(--color-secondary-dark)
+  );
+  color: var(--color-primary-dark);
   font-size: var(--fs-xl);
   font-weight: var(--fw-black);
   text-transform: uppercase;
@@ -1790,14 +1840,16 @@ body.no-scroll {
   text-decoration: none;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 8px 20px rgba(255, 71, 87, 0.5);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   transition: all var(--transition-fast);
+  border: 2px solid var(--color-parchment);
   animation: btnPulse 2s ease-in-out infinite;
 }
 
 .playGameBtn:hover {
   transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 12px 30px rgba(255, 71, 87, 0.6);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+  color: var(--color-primary-dark);
   animation: none;
 }
 
@@ -1808,11 +1860,15 @@ body.no-scroll {
 @keyframes btnPulse {
   0%,
   100% {
-    box-shadow: 0 8px 20px rgba(255, 71, 87, 0.5);
+    box-shadow: 0 0 0 0 rgba(218, 165, 32, 0.4);
   }
 
-  50% {
-    box-shadow: 0 8px 30px rgba(255, 71, 87, 0.8);
+  70% {
+    box-shadow: 0 0 0 15px rgba(218, 165, 32, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(218, 165, 32, 0);
   }
 }
 
