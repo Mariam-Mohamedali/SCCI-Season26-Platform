@@ -79,7 +79,17 @@ function createFlyingIcons() {
 function openModal(element) {
   const modal = document.getElementById("crewModal");
   const modalContent = modal.querySelector(".modalContent");
-  const overlay = document.querySelector(".pageOverlay");
+  let overlay = document.querySelector(".pageOverlay");
+  
+  // Create overlay if it doesn't exist
+  if (!overlay) {
+    overlay = document.createElement("div");
+    overlay.className = "pageOverlay";
+    document.body.appendChild(overlay);
+    
+    // Add click event to close modal when clicking overlay
+    overlay.addEventListener("click", closeModal);
+  }
 
   // Scroll to top smoothly
   window.scrollTo({
@@ -91,10 +101,16 @@ function openModal(element) {
   modalContent.innerHTML = "";
 
   // Clone Content from the clicked Board Item
-  // 1. Title
-  const title = element.querySelector(".roleTitle").cloneNode(true);
+  // 1. Title (optional - check if exists)
+  const titleElement = element.querySelector(".roleTitle");
+  if (titleElement) {
+    const title = titleElement.cloneNode(true);
+    modalContent.appendChild(title);
+  }
+  
   // 2. Main Card
   const mainCard = element.querySelector(".flipCard").cloneNode(true);
+  
   // 3. Sub Grid (Make it visible in clone by removing display:none logic hidden in class)
   const subGrid = element.querySelector(".subCrewGrid").cloneNode(true);
   subGrid.style.display = "grid"; // Force display in modal
@@ -102,7 +118,6 @@ function openModal(element) {
   subGrid.style.opacity = "1";
 
   // Append to Modal
-  modalContent.appendChild(title);
   modalContent.appendChild(mainCard);
   modalContent.appendChild(subGrid);
 

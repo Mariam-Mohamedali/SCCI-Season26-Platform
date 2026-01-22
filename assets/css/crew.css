@@ -809,8 +809,8 @@ body {
 .scroll-indicator {
   position: fixed;
   right: 30px;
-  top: 20%;
-  transform: translateY(-20%);
+  top: 12%;
+  transform: translateY(-12%);
   z-index: 1001;
   display: flex;
   flex-direction: row;
