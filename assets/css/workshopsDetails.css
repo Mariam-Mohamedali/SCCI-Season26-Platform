@@ -488,38 +488,19 @@
     position: relative;
     z-index: 1;
     width: 100%;
-    display: flex;
+    box-sizing: border-box;
+    /* display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center; */
 }
 
-/* Flying Icons Inside Card Content - Icon 1 */
-.cardContentWrapper::before {
-    content: '⚙️';
-    position: absolute;
-    font-size: 4rem;
-    opacity: 0.4;
-    z-index: 1;
-    top: 5%;
-    left: 3%;
-    animation: floatJourneyIcon1 7s ease-in-out infinite;
-    filter: none;
-    pointer-events: none;
-}
-
-/* Flying Icons Inside Card Content - Icon 2 */
+.cardContentWrapper::before,
 .cardContentWrapper::after {
-    content: '💡';
-    position: absolute;
-    font-size: 3.5rem;
-    opacity: 0.4;
-    z-index: 1;
-    bottom: 5%;
-    right: 3%;
-    animation: floatJourneyIcon2 8s ease-in-out infinite;
-    filter: none;
     pointer-events: none;
+    position: absolute;
+    overflow: hidden;
 }
+
 
 .cardContentWrapper::-webkit-scrollbar {
     width: 6px;
