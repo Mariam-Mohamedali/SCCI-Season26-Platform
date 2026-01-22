@@ -26,7 +26,13 @@ body {
     position: relative;
 
     /* Glassmorphism Effect */
-    background: rgba(45, 20, 15, 0.7);
+    background-image:
+        linear-gradient(to bottom,
+            rgba(255, 248, 235, 0.85),
+            rgba(235, 210, 165, 0.9)),
+        radial-gradient(circle at center,
+            transparent 32%,
+            rgba(0, 0, 0, 0.08) 100%);
     /* Dark reddish-brown tint */
     backdrop-filter: blur(12px) saturate(120%);
     -webkit-backdrop-filter: blur(12px) saturate(120%);
@@ -122,7 +128,7 @@ body {
 .input-group label {
     font-family: "Stencil", system-ui;
     font-size: var(--fs-sm);
-    color: var(--color-parchment);
+    color: var(--color-primary-dark);
     /* Lighter color for visibility on dark glass */
     margin-bottom: var(--space-1);
     display: block;
@@ -138,7 +144,7 @@ body {
     padding: var(--space-3) var(--space-4);
     border-radius: var(--radius-lg);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(0, 0, 0, 0.3);
+    background: linear-gradient(to bottom, #5a5a5a, #6d6d6d);
     /* Transparent dark bg */
     color: var(--color-white);
     font-size: var(--fs-sm);
