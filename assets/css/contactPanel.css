@@ -1,5 +1,18 @@
 @import url("root.css");
 
+main {
+    padding-top: 15rem;
+    min-height: 100vh;
+    width: 95%;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: var(--space-6);
+    color: var(--color-primary);
+}
+
 /* ================= Table ================= */
 .contactTableScroll {
     border-radius: var(--radius-lg);
@@ -57,6 +70,7 @@
     font-size: var(--fs-md);
     border-right: 3px solid var(--color-gray-lighter);
     line-height: var(--lh-loose);
+    font-family: var(--font-system);
 }
 
 .tableData .cell-content {
@@ -80,11 +94,6 @@
 /* ===== Tablet ===== */
 @media (max-width: 992px) {
 
-    .contactTable {
-        display: block;
-        width: 100%;
-    }
-
     .tableHeader,
     .tableData {
         white-space: normal;
@@ -105,12 +114,6 @@
 
 /* ===== Mobile ===== */
 @media (max-width: 769px) {
-    
-    .contactTable {
-        display: block;
-        width: 100%;
-        overflow-x: auto;
-    }
 
     .tableHeader,
     .tableData {
@@ -126,5 +129,58 @@
         word-break: normal;
         overflow-wrap: break-word;
         min-width: 200px;
+    }
+}
+
+/* ================= Pagination ================= */
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    margin: 1rem auto 3rem auto;
+}
+
+.nav-arrow {
+    background: none;
+    border: none;
+    color: black;
+    font-size: 1.8rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.nav-arrow:hover:not(:disabled) {
+    transform: scale(1.2);
+    color: var(--color-primary);
+}
+
+.nav-arrow:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.page-info {
+    color: var(--color-white);
+    font-size: 1.5rem;
+    font-family: "Stencil", sans-serif;
+    letter-spacing: 2px;
+}
+
+
+/* Pagination Responsive */
+@media (max-width: 768px) {
+    .pagination-controls {
+        gap: 1rem;
+        margin: 1rem auto 2rem auto;
+    }
+
+    .nav-arrow {
+        font-size: 1.4rem;
+    }
+
+    .page-info {
+        font-size: 0.9rem;
     }
 }

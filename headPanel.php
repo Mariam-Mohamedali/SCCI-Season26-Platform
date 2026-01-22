@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Head Panel</title>
+    <title>SCCI - Head Panel</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="icon" href="assets/icons/logoSCCI.png" type="image/x-icon">
 
@@ -17,8 +17,8 @@
 
     <!-- css -->
     <link rel="stylesheet" href="./assets/css/headPanel.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="./assets/css/all.min.css">
-
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
@@ -71,11 +71,26 @@
         exit();
     }
 
-    // Fetch participants
-    $participants = mysqli_query($connect, "SELECT * FROM users WHERE role='1' AND `status` = 1 ORDER BY user_id DESC");
+    // Fetch distinct committees for filter
+    $committees = mysqli_query($connect, "SELECT * FROM committees");
 
-    // Fetch members
-    $members = mysqli_query($connect, "SELECT * FROM users WHERE role IN ('2', '3') AND `status` = 1 ORDER BY user_id DESC");
+    // Fetch participants with committee name
+    $participants = mysqli_query($connect, "
+        SELECT u.*, c.committe_name 
+        FROM users u 
+        LEFT JOIN committees c ON u.committee_id = c.committee_id 
+        WHERE u.role='1' AND u.status = 1 
+        ORDER BY u.user_id DESC
+    ");
+
+    // Fetch members with committee name
+    $members = mysqli_query($connect, "
+        SELECT u.*, c.committe_name 
+        FROM users u 
+        LEFT JOIN committees c ON u.committee_id = c.committee_id 
+        WHERE u.role IN ('2', '3') AND u.status = 1 
+        ORDER BY u.user_id DESC
+    ");
 
     ?>
 
@@ -121,12 +136,31 @@
             <a data-page="members" class="member">members</a>
         </div>
 
+        <!-- Search Bar -->
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search by name, email, or phone...">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        </div>
+
+        <!-- Committee Filter -->
+        <div class="filter-container">
+            <select id="committeeFilter">
+                <option value="">All Committees</option>
+                <?php while ($comm = mysqli_fetch_assoc($committees)) { ?>
+                    <option value="<?= htmlspecialchars($comm['committe_name']) ?>">
+                        <?= htmlspecialchars($comm['committe_name']) ?>
+                    </option>
+                <?php } ?>
+            </select>
+        </div>
+
         <!-- Participants Table -->
         <div class="headTableScroll" id="participantsSchedule">
             <table class="headTable">
                 <thead class="tableHead">
                     <tr class="tableRow">
                         <th class="tableHeader">Full Name</th>
+                        <th class="tableHeader">Committee</th>
                         <th class="tableHeader">Email</th>
                         <th class="tableHeader">Phone</th>
                         <th class="tableHeader">Status</th>
@@ -137,7 +171,10 @@
                     <?php while ($row = mysqli_fetch_assoc($participants)) { ?>
                         <tr class="tableRow">
                             <td class="tableData"><?= htmlspecialchars($row['user_name']) ?></td>
-                            <td class="tableData"><?= htmlspecialchars($row['email']) ?></td>
+                            <td class="tableData" data-committee="<?= htmlspecialchars($row['committe_name'] ?? '') ?>">
+                                <?= htmlspecialchars($row['committe_name'] ?? 'N/A') ?>
+                            </td>
+                            <td class="tableData email-text"><?= htmlspecialchars($row['email']) ?></td>
                             <td class="tableData"><?= htmlspecialchars($row['phone']) ?></td>
                             <td class="tableData"><?= ($row['status'] == 0) ? 'User Blocked' : 'Active'; ?></td>
                             <td class="tableData">
@@ -146,7 +183,7 @@
                                         onsubmit="return confirm('Are you sure you want to block this user?');">
                                         <input type="hidden" name="block_user_id" value="<?= $row['user_id'] ?>">
                                         <input type="hidden" name="section" value="participants">
-                                        <button type="submit" class="btn block">Block</button>
+                                        <button type="submit" class="btn btn-primary block">Block</button>
                                     </form>
                                 <?php else: ?>
                                     <span class="blocked-text">Blocked</span>
@@ -157,6 +194,11 @@
                 </tbody>
             </table>
         </div>
+        <div class="pagination-controls" id="participantsPagination">
+            <button class="nav-arrow prev-btn" disabled><i class="fa-solid fa-caret-left"></i></button>
+            <span class="page-info">Page 1</span>
+            <button class="nav-arrow next-btn"><i class="fa-solid fa-caret-right"></i></button>
+        </div>
 
         <!-- Members Table -->
         <div class="headTableScroll" id="membersSchedule" style="display: none;">
@@ -164,6 +206,7 @@
                 <thead class="tableHead">
                     <tr class="tableRow">
                         <th class="tableHeader">Full Name</th>
+                        <th class="tableHeader">Committee</th>
                         <th class="tableHeader">Email</th>
                         <th class="tableHeader">Phone</th>
                         <th class="tableHeader">Status</th>
@@ -174,7 +217,10 @@
                     <?php while ($row = mysqli_fetch_assoc($members)) { ?>
                         <tr class="tableRow">
                             <td class="tableData"><?= htmlspecialchars($row['user_name']) ?></td>
-                            <td class="tableData"><?= htmlspecialchars($row['email']) ?></td>
+                            <td class="tableData" data-committee="<?= htmlspecialchars($row['committe_name'] ?? '') ?>">
+                                <?= htmlspecialchars($row['committe_name'] ?? 'N/A') ?>
+                            </td>
+                            <td class="tableData email-text"><?= htmlspecialchars($row['email']) ?></td>
                             <td class="tableData"><?= htmlspecialchars($row['phone']) ?></td>
                             <td class="tableData"><?= ($row['status'] == 0) ? 'User Blocked' : 'Active'; ?></td>
                             <td class="tableData">
@@ -183,7 +229,7 @@
                                         onsubmit="return confirm('Are you sure you want to block this user?');">
                                         <input type="hidden" name="delete" value="<?= $row['user_id'] ?>">
                                         <input type="hidden" name="section" value="members">
-                                        <button type="submit" class="btn block">Block</button>
+                                        <button type="submit" class="btn btn-primary block">Block</button>
                                     </form>
                                 <?php else: ?>
                                     <span class="blocked-text">Blocked</span>
@@ -194,9 +240,14 @@
                 </tbody>
             </table>
         </div>
+        <div class="pagination-controls" id="membersPagination" style="display: none;">
+            <button class="nav-arrow prev-btn" disabled><i class="fa-solid fa-caret-left"></i></button>
+            <span class="page-info">Page 1</span>
+            <button class="nav-arrow next-btn"><i class="fa-solid fa-caret-right"></i></button>
+        </div>
     </main>
-
-    <script src="./assets/js/headPanel.js"></script>
+    <script src="./assets/js/all.min.js"></script>
+    <script src="./assets/js/headPanel.js?v=<?= time() ?>"></script>
 </body>
 
 </html>

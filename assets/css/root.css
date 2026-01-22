@@ -7,7 +7,7 @@
   ===================================*/
   --color-primary-dark: #AB2020;
   --color-primary: #C52525;
-  
+
   --color-primary-light: #D12828;
   --color-primary-lighter: #e85d6d;
   --color-primary-hover: #851919;
@@ -133,6 +133,8 @@
   --lh-tight: 1.2;
   --lh-normal: 1.5;
   --lh-loose: 1.8;
+
+  --font-system: "system-ui", system-ui;
 
   /* ================================
      🔘 BORDER RADIUS
@@ -300,6 +302,13 @@ p {
   font-size: var(--fs-base);
   line-height: var(--lh-normal);
   margin-bottom: var(--space-3);
+}
+
+/* Prevent capitalization for emails */
+input[type="email"],
+.email-text,
+.text-normal {
+  text-transform: none !important;
 }
 
 
@@ -785,7 +794,8 @@ header.navbar-hidden {
   transition: ease-in-out 0.3s;
 }
 
-.navLinks a:hover::after {
+.navLinks a:hover::after,
+.navLinks a.active::after {
   left: 0%;
   width: 100%;
 }
@@ -797,12 +807,12 @@ header.navbar-hidden {
 }
 
 .nav-separator {
-    width: 2px;
-    height: 30px;
-    background: linear-gradient(to bottom, transparent, var(--color-primary-dark), transparent);
-    display: inline-block;
-    border-radius: 2px;
-    opacity: 0.7;
+  width: 2px;
+  height: 30px;
+  background: linear-gradient(to bottom, transparent, var(--color-primary-dark), transparent);
+  display: inline-block;
+  border-radius: 2px;
+  opacity: 0.7;
 }
 
 
@@ -999,7 +1009,8 @@ header.navbar-hidden {
   left: 100%;
 }
 
-.sideNavLinks a:hover {
+.sideNavLinks a:hover,
+.sideNavLinks a.active {
   background: linear-gradient(135deg,
       rgba(212, 175, 55, 0.3) 0%,
       rgba(212, 175, 55, 0.15) 100%);
@@ -1024,7 +1035,8 @@ header.navbar-hidden {
   transition: all 0.3s ease;
 }
 
-.sideNavLinks a:hover i {
+.sideNavLinks a:hover i,
+.sideNavLinks a.active i {
   transform: scale(1.2) rotate(5deg);
   color: #f4e4b1;
   text-shadow: 0 4px 12px rgba(212, 175, 55, 0.8);

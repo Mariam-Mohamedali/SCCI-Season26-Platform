@@ -61,7 +61,8 @@
 .miniNav a {
   text-decoration: none;
   font-size: 19.3px;
-  color: var(--color-parchment); /* #e0c08f; */
+  color: var(--color-parchment);
+  /* #e0c08f; */
   position: relative;
   transition: ease-in-out 0.3s;
   text-transform: capitalize;
@@ -119,6 +120,7 @@
 .sessionsBox {
   padding: var(--space-6) var(--space-4);
 }
+
 /* session section */
 
 .sessionsSelector {
@@ -217,12 +219,10 @@
 
 .sessionWhite {
   border: var(--color-white-gradient) 2px solid;
-  background: linear-gradient(
-    90deg,
-    var(--color-white-gradient),
-    var(--color-white),
-    var(--color-white-gradient)
-  );
+  background: linear-gradient(90deg,
+      var(--color-white-gradient),
+      var(--color-white),
+      var(--color-white-gradient));
 }
 
 .sessionBlue {
@@ -237,6 +237,7 @@
 .sessionScrollBtn {
   pointer-events: auto;
 }
+
 /* 
 -----------------------------
 Table
@@ -245,7 +246,8 @@ Table
 .tableScrollFrame {
   position: relative;
   width: 100%;
-  overflow: hidden; /* critical */
+  overflow: hidden;
+  /* critical */
   border-radius: 12px;
 }
 
@@ -310,6 +312,7 @@ Table
 
 .evaluateContainer tbody td {
   padding: 1rem;
+  font-family: var(--font-system);
 }
 
 .evaluateContainer tbody td:not(:last-child) {
@@ -350,18 +353,16 @@ Table
   align-items: center;
   color: var(--color-secondary);
   border: grey 2px solid;
-  background: linear-gradient(
-    90deg,
-    var(--color-white-gradient),
-    var(--color-white),
-    var(--color-white-gradient)
-  );
+  background: linear-gradient(90deg,
+      var(--color-white-gradient),
+      var(--color-white),
+      var(--color-white-gradient));
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 /* attended */
-.radioOption input:checked + .evaluateCheckTask {
+.radioOption input:checked+.evaluateCheckTask {
   color: white;
   border: 1px solid #017001;
   background: linear-gradient(90deg, #017001, #39b839, #017001);
@@ -370,16 +371,14 @@ Table
 .evaluateCheckTask:hover {
   color: #017001;
   border: 1px solid rgba(1, 112, 1, 0.4);
-  background: linear-gradient(
-    90deg,
-    rgba(1, 112, 1, 0.4),
-    rgba(57, 184, 57, 0.4),
-    rgba(1, 112, 1, 0.4)
-  );
+  background: linear-gradient(90deg,
+      rgba(1, 112, 1, 0.4),
+      rgba(57, 184, 57, 0.4),
+      rgba(1, 112, 1, 0.4));
 }
 
 /* not attended */
-.radioOption input:checked + .evaluateXtask {
+.radioOption input:checked+.evaluateXtask {
   color: white;
   border: 1px solid #9b1313;
   background: linear-gradient(90deg, #9b1313, #d64141, #9b1313);
@@ -388,12 +387,10 @@ Table
 .evaluateXtask:hover {
   color: #9b1313;
   border: 1px solid rgba(155, 19, 19, 0.4);
-  background: linear-gradient(
-    90deg,
-    rgba(155, 19, 19, 0.4),
-    rgba(214, 65, 65, 0.4),
-    rgba(155, 19, 19, 0.4)
-  );
+  background: linear-gradient(90deg,
+      rgba(155, 19, 19, 0.4),
+      rgba(214, 65, 65, 0.4),
+      rgba(155, 19, 19, 0.4));
 }
 
 /* task link */
@@ -803,6 +800,7 @@ body.no-scroll {
   font-family: "Inter", sans-serif;
   /* Cleaner font for file names usually */
 }
+
 #materialTypeButton {
   display: flex;
   align-items: center;
@@ -828,6 +826,7 @@ body.no-scroll {
   max-width: 1000px;
   margin: 10% auto;
 }
+
 #materialItem {
   background-color: #d1d1d1;
   padding: 12px 20px;
@@ -915,11 +914,9 @@ body.no-scroll {
 .uploadIcon {
   width: 70px;
   height: 70px;
-  background: linear-gradient(
-    135deg,
-    var(--color-secondary),
-    var(--color-secondary-dark)
-  );
+  background: linear-gradient(135deg,
+      var(--color-secondary),
+      var(--color-secondary-dark));
   /* background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark)); */
   border-radius: 50%;
   display: flex;
@@ -1329,15 +1326,18 @@ body.no-scroll {
     justify-content: center;
     white-space: nowrap;
   }
+
   #materialTypeButton {
     flex: 1;
     justify-content: center;
     white-space: nowrap;
   }
+
   .uploadContainer {
     padding: var(--space-5);
     min-height: 200px;
   }
+
   #uploadText {
     font-size: var(--fs-sm);
     text-transform: capitalize;
@@ -1414,6 +1414,7 @@ body.no-scroll {
     gap: var(--space-3);
     align-items: flex-start;
   }
+
   .materialActions {
     width: 100%;
     justify-content: flex-end;
@@ -1447,12 +1448,10 @@ body.no-scroll {
 }
 
 .activityHeader {
-  background: linear-gradient(
-    135deg,
-    #ff6b6b 0%,
-    #ff4757 50%,
-    #c44569 100%
-  ) !important;
+  background: linear-gradient(135deg,
+      #ff6b6b 0%,
+      #ff4757 50%,
+      #c44569 100%) !important;
   position: sticky;
   height: fit-content;
   box-shadow: 0 5px 20px rgba(255, 71, 87, 0.4) !important;
@@ -1465,6 +1464,7 @@ body.no-scroll {
 }
 
 @keyframes headerPulse {
+
   0%,
   100% {
     transform: scale(1);
@@ -1484,11 +1484,9 @@ body.no-scroll {
   text-align: center;
   margin-bottom: var(--space-6);
   padding: var(--space-6);
-  background: linear-gradient(
-    135deg,
-    rgba(255, 107, 107, 0.1),
-    rgba(196, 69, 105, 0.1)
-  );
+  background: linear-gradient(135deg,
+      rgba(255, 107, 107, 0.1),
+      rgba(196, 69, 105, 0.1));
   border-radius: var(--radius-2xl);
   border: 3px dashed var(--color-primary);
   position: relative;
@@ -1504,6 +1502,7 @@ body.no-scroll {
 }
 
 @keyframes avatarFloat {
+
   0%,
   100% {
     transform: translateY(0) rotate(0deg);
@@ -1541,6 +1540,7 @@ body.no-scroll {
 }
 
 @keyframes avatarPulse {
+
   0%,
   100% {
     box-shadow:
@@ -1565,6 +1565,7 @@ body.no-scroll {
 }
 
 @keyframes iconBop {
+
   0%,
   100% {
     transform: scale(1);
@@ -1582,17 +1583,16 @@ body.no-scroll {
   transform: translate(-50%, -50%);
   width: 140px;
   height: 140px;
-  background: radial-gradient(
-    circle,
-    rgba(255, 107, 107, 0.4),
-    transparent 70%
-  );
+  background: radial-gradient(circle,
+      rgba(255, 107, 107, 0.4),
+      transparent 70%);
   border-radius: 50%;
   z-index: 1;
   animation: glowPulse 2s ease-in-out infinite;
 }
 
 @keyframes glowPulse {
+
   0%,
   100% {
     transform: translate(-50%, -50%) scale(1);
@@ -1633,6 +1633,7 @@ body.no-scroll {
 }
 
 @keyframes iconBounce {
+
   0%,
   100% {
     transform: translateY(0) rotate(0deg);
@@ -1703,11 +1704,9 @@ body.no-scroll {
   width: 60px;
   height: 60px;
   min-width: 60px;
-  background: linear-gradient(
-    135deg,
-    var(--color-primary),
-    var(--color-primary-dark)
-  );
+  background: linear-gradient(135deg,
+      var(--color-primary),
+      var(--color-primary-dark));
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -1806,6 +1805,7 @@ body.no-scroll {
 }
 
 @keyframes btnPulse {
+
   0%,
   100% {
     box-shadow: 0 8px 20px rgba(255, 71, 87, 0.5);
@@ -1822,12 +1822,10 @@ body.no-scroll {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: linear-gradient(
-    45deg,
-    transparent,
-    rgba(255, 255, 255, 0.3),
-    transparent
-  );
+  background: linear-gradient(45deg,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      transparent);
   transform: rotate(45deg);
   animation: btnGlowMove 3s linear infinite;
 }
@@ -1866,11 +1864,9 @@ body.no-scroll {
   justify-content: center;
   gap: var(--space-8);
   padding: var(--space-5);
-  background: linear-gradient(
-    145deg,
-    rgba(0, 0, 91, 0.05),
-    rgba(0, 0, 91, 0.1)
-  );
+  background: linear-gradient(145deg,
+      rgba(0, 0, 91, 0.05),
+      rgba(0, 0, 91, 0.1));
   border-radius: var(--radius-xl);
 }
 
@@ -1994,5 +1990,58 @@ body.no-scroll {
 
   .motivationalBox p {
     font-size: var(--fs-base);
+  }
+}
+
+/* ================= Pagination ================= */
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin: 1rem auto 3rem auto;
+}
+
+.nav-arrow {
+  background: none;
+  border: none;
+  color: black;
+  font-size: 1.8rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.nav-arrow:hover:not(:disabled) {
+  transform: scale(1.2);
+  color: var(--color-primary);
+}
+
+.nav-arrow:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.page-info {
+  color: var(--color-white);
+  font-size: 1.5rem;
+  font-family: "Stencil", sans-serif;
+  letter-spacing: 2px;
+}
+
+
+/* Pagination Responsive */
+@media (max-width: 768px) {
+  .pagination-controls {
+    gap: 1rem;
+    margin: 1rem auto 2rem auto;
+  }
+
+  .nav-arrow {
+    font-size: 1.4rem;
+  }
+
+  .page-info {
+    font-size: 0.9rem;
   }
 }

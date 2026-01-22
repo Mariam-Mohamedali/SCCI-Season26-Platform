@@ -192,7 +192,7 @@ if (isset($user['role']) && $user['role'] == 4) {
                 <!-- Email -->
                 <div class="socialItem">
                   <i class="fa-solid fa-envelope"></i>
-                  <a href="mailto:<?php echo htmlspecialchars($user['email']); ?>">
+                  <a href="mailto:<?php echo htmlspecialchars($user['email']); ?>" class="email-text">
                     <?php echo htmlspecialchars($user['email']); ?>
                   </a>
                 </div>

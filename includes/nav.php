@@ -49,7 +49,7 @@ if (isset($_SESSION['user_id'])) {
         <a href="/SCCI-Season26-Platform/gallary.php" id="galleryNavLine">gallery</a>
         <a href="/SCCI-Season26-Platform/workshops.php" id="workshopsNavLine">workshops</a>
         <a href="/SCCI-Season26-Platform/crew.php" id="crewNavLine">crew</a>
-
+        
         <?php
         if ($role == 2 || $role == 1 || $role == 4 || $committeeId == 6) {
            echo '<div class="nav-separator"></div>';
@@ -104,11 +104,7 @@ if (isset($_SESSION['user_id'])) {
         <a href="/SCCI-Season26-Platform/gallary.php"><i class="fa-solid fa-images"></i> gallery</a>
         <a href="/SCCI-Season26-Platform/workshops.php"><i class="fa-solid fa-graduation-cap"></i> workshops</a>
         <a href="/SCCI-Season26-Platform/crew.php"><i class="fa-solid fa-users"></i> crew</a>
-        <?php
-        if ($committeeId == 6) {
-            echo '<a href="/SCCI-Season26-Platform/itPanel.php"><i class="fa-solid fa-screwdriver-wrench"></i> IT panel</a>';
-        }
-        ?>
+
         <?php
         if (!isset($_SESSION['user_id'])) {
             echo '<a href="/SCCI-Season26-Platform/auth/login.php"><i class="fa-solid fa-user"></i> LogIn</a>';
@@ -116,6 +112,28 @@ if (isset($_SESSION['user_id'])) {
         ?>
         <hr>
         <?php if (isset($_SESSION['user_id'])): ?>
+            <?php
+            if ($role == 2) {
+                echo '<a href="/SCCI-Season26-Platform/memberWorkshopPanel.php"><i class="fa-solid fa-user-group"></i> member panel</a>';
+            }
+            ?>
+            <?php
+            if ($role == 1) {
+                echo '<a href="/SCCI-Season26-Platform/participantWorkshopPanel.php"><i class="fa-solid fa-user-graduate"></i> participant panel</a>';
+            }
+            ?>
+            <?php
+            if ($role == 4) {
+                echo '<a href="/SCCI-Season26-Platform/contactPanel.php"><i class="fa-solid fa-address-book"></i> contact panel</a>';
+                echo '<a href="/SCCI-Season26-Platform/headPanel.php"><i class="fa-solid fa-user-tie"></i> head panel</a>';
+            }
+            ?>
+            <?php
+            if ($committeeId == 6) {
+                echo '<a href="/SCCI-Season26-Platform/itPanel.php"><i class="fa-solid fa-screwdriver-wrench"></i> IT panel</a>';
+            }
+            ?>
+
             <a href="/SCCI-Season26-Platform/profile.php" id="profileNav">
                 <img loading="lazy"
                     src="/SCCI-Season26-Platform/assets/img/profilePhoto.png"
@@ -125,3 +143,26 @@ if (isset($_SESSION['user_id'])) {
     </div>
 </aside>
 <script src="/SCCI-Season26-Platform/assets/js/index.js?v=<?php echo time(); ?>"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get current path
+        const currentPath = window.location.pathname;
+
+        // Select all links in the main navigation and side navigation
+        const navLinks = document.querySelectorAll('.navLinks a, .sideNavLinks a');
+
+        navLinks.forEach(link => {
+            // Get the href attribute of the link
+            const linkHref = link.getAttribute('href');
+
+            // Check if the current path matches the link's href
+            // We use includes() to handle potential relative paths or query parameters if needed
+            // But strict equality or endsWith is safer for navigation highlighting.
+            // Adjust logic: if href ends with current path or matches exactly.
+            
+            if (currentPath.endsWith(linkHref) || (linkHref !== '/' && currentPath.includes(linkHref))) {
+                 link.classList.add('active');
+            }
+        });
+    });
+</script>

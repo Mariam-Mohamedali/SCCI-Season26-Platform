@@ -19,7 +19,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 450px;
+    width: 90%;
+    max-width: 450px;
     z-index: 1;
 }
 
@@ -53,7 +54,7 @@
 
 .miniNav a::after {
     content: "";
-    
+
     height: 4px;
     width: 0%;
     background-color: var(--color-parchment);
@@ -70,6 +71,83 @@
     width: 100%;
 }
 
+/* ================= Search ================= */
+.search-container {
+    position: relative;
+    width: 90%;
+    max-width: 450px;
+    margin: 2rem auto;
+    display: flex;
+    align-items: center;
+}
+
+#searchInput {
+    width: 100%;
+    padding: var(--space-3) var(--space-5);
+    padding-left: 4.5rem;
+    /* space for icon */
+    font-size: var(--fs-sm);
+    border: 2px solid var(--border-light);
+    border-radius: 50px;
+    outline: none;
+    transition: all var(--transition-normal);
+    background-color: var(--color-white);
+    box-shadow: var(--shadow-light);
+    font-family: var(--font-system);
+}
+
+#searchInput:focus {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-medium);
+}
+
+.search-icon {
+    position: absolute;
+    left: 1.5rem;
+    color: var(--color-gray-medium);
+    font-size: var(--fs-base);
+    pointer-events: none;
+    transition: color var(--transition-normal);
+}
+
+#searchInput:focus+.search-icon {
+    color: var(--color-primary);
+}
+
+/* ================= Filter ================= */
+.filter-container {
+    width: 90%;
+    max-width: 450px;
+    margin: 0rem auto 2rem auto;
+    /* 0 top because search has 2rem margin */
+}
+
+#committeeFilter {
+    width: 100%;
+    padding: var(--space-3) var(--space-5);
+    font-size: var(--fs-sm);
+    border: 2px solid var(--border-light);
+    border-radius: 50px;
+    outline: none;
+    transition: all var(--transition-normal);
+    background-color: var(--color-white);
+    box-shadow: var(--shadow-light);
+    font-family: var(--font-system);
+    cursor: pointer;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1.5rem center;
+    background-size: 1.5rem;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+#committeeFilter:focus {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-medium);
+}
+
 /* ================= Table ================= */
 .headTableScroll {
     border-radius: var(--radius-lg);
@@ -81,6 +159,7 @@
 }
 
 .headTable {
+
     width: 100%;
     min-width: 700px;
     /* max-width: 600px; */
@@ -117,7 +196,7 @@
 }
 
 .tableBody .tableRow:nth-child(even) {
-    background-color: var(--color-primary-lighter);
+    background-color: var(--color-gray-medium);
     color: var(--color-white);
 }
 
@@ -135,6 +214,7 @@
     overflow-x: hidden;
     font-size: 19px;
     color: inherit;
+    font-family: var(--font-system);
 }
 
 .tableData:last-child {
@@ -149,7 +229,7 @@
 /* ================= Responsive ================= */
 /* ===== Tablet ===== */
 @media (max-width: 992px) {
-    .contactTable {
+    .headTable {
         display: block;
         width: 100%;
     }
@@ -168,7 +248,7 @@
 /* ===== Mobile ===== */
 @media (max-width: 769px) {
 
-    .contactTable {
+    .headTable {
         display: block;
         width: 100%;
         overflow-x: auto;
@@ -181,5 +261,57 @@
         font-size: var(--fs-xs);
         word-break: normal;
         overflow-wrap: break-word;
+    }
+}
+
+/* ================= Pagination ================= */
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    margin: 1rem auto 3rem auto;
+}
+
+.nav-arrow {
+    background: none;
+    border: none;
+    color: black;
+    font-size: 1.8rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.nav-arrow:hover:not(:disabled) {
+    transform: scale(1.2);
+    color: var(--color-primary);
+}
+
+.nav-arrow:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.page-info {
+    color: var(--color-primary);
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+}
+
+
+/* Pagination Responsive */
+@media (max-width: 768px) {
+    .pagination-controls {
+        gap: 1rem;
+        margin: 1rem auto 2rem auto;
+    }
+
+    .nav-arrow {
+        font-size: 1.4rem;
+    }
+
+    .page-info {
+        font-size: 0.9rem;
     }
 }

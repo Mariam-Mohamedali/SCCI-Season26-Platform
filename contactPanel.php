@@ -35,7 +35,7 @@ $result = mysqli_query(
 <body>
     <main>
         <h1>Contact Panel</h1>
-        <div class="contactTableScroll">
+        <div class="contactTableScroll" id="contactTableScroll">
             <table class="contactTable">
                 <thead class="TableHead">
                     <tr class="tableRow">
@@ -48,7 +48,7 @@ $result = mysqli_query(
                     <?php while ($row = mysqli_fetch_assoc($result)) { ?>
                         <tr class="tableRow">
                             <td class="tableData"><?= $row['name'] ?></td>
-                            <td class="tableData"><?= $row['email'] ?></td>
+                            <td class="tableData email-text"><?= $row['email'] ?></td>
                             <td class="tableData">
                                 <P class="cell-content">
                                     <?= $row['text'] ?>
@@ -59,7 +59,13 @@ $result = mysqli_query(
                 </tbody>
             </table>
         </div>
+        <div class="pagination-controls" id="contactPagination">
+            <button class="nav-arrow prev-btn" disabled><i class="fa-solid fa-caret-left"></i></button>
+            <span class="page-info">Page 1</span>
+            <button class="nav-arrow next-btn"><i class="fa-solid fa-caret-right"></i></button>
+        </div>
     </main>
+    <script src="./assets/js/all.min.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
         AOS.init({
@@ -71,6 +77,12 @@ $result = mysqli_query(
             anchorPlacement: 'top-bottom'
         });
     </script>
+    <script src="assets/js/pagination.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            setupPagination('contactTableScroll', 'contactPagination'); 
+        });
+    </script> 
 </body>
 
 </html>

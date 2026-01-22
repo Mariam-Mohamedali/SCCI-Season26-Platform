@@ -56,7 +56,7 @@
     ?>
     <main>
         <h1>Contact Panel</h1>
-        <div class="userTableScroll">
+        <div class="userTableScroll" id="userTableScroll">
             <table class="userTable">
                 <thead class="tableHead">
                     <tr class="tableRow">
@@ -94,7 +94,18 @@
                 </tbody>
             </table>
         </div>
+        <div class="pagination-controls" id="itPagination">
+            <button class="nav-arrow prev-btn" disabled><i class="fa-solid fa-caret-left"></i></button>
+            <span class="page-info">Page 1</span>
+            <button class="nav-arrow next-btn"><i class="fa-solid fa-caret-right"></i></button>
+        </div>
     </main>
+    <script src="assets/js/pagination.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            setupPagination('userTableScroll', 'itPagination'); 
+        });
+    </script>
 </body>
 
 </html>

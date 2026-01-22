@@ -1,10 +1,7 @@
 <?php
 
- include './includes/nav.php'; 
 
-
- 
-// Handle contact form submission BEFORE any HTML output
+ // Handle contact form submission BEFORE any HTML output
 if (isset($_POST['contact'])) {
     // Escape user input
     $name = mysqli_real_escape_string($connect, $_POST['name']);
@@ -62,7 +59,7 @@ if (isset($_POST['contact'])) {
 
     <!-- css other link -->
     <link rel="stylesheet" href="./assets/css/all.min.css">
-    <link rel="stylesheet" href="./assets/css/root.css">
+    <link rel="stylesheet" href="./assets/css/root.css?v=<?php echo time(); ?>">
 
     <!-- css page link -->
     <link rel="stylesheet" href="./assets/css/home.css">
@@ -75,6 +72,7 @@ if (isset($_POST['contact'])) {
 </head>
 
 <body>
+    <?php include './includes/nav.php'; ?>
     <?php
     if (isset($_GET['success'])) {
         echo "

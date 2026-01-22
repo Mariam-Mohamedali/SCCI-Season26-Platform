@@ -718,7 +718,7 @@ function redirectPanel($sessionId, $tab, $type = 'msg', $text = '')
       <div class="panelWhiteBox">
         <!-- Table -->
         <div class="tableScrollFrame">
-          <div class="tableScroll">
+          <div class="tableScroll" id="workshopTableScroll">
             <table cellpadding="0" cellspacing="0" summary="participants dashboard">
               <colgroup>
                 <col span="1" style="width: 25%" />
@@ -809,6 +809,11 @@ function redirectPanel($sessionId, $tab, $type = 'msg', $text = '')
                 <?php endif; ?>
               </tbody>
             </table>
+          </div>
+          <div class="pagination-controls" id="workshopPagination">
+              <button class="nav-arrow prev-btn" disabled><i class="fa-solid fa-caret-left"></i></button>
+              <span class="page-info">Page 1</span>
+              <button class="nav-arrow next-btn"><i class="fa-solid fa-caret-right"></i></button>
           </div>
         </div>
       </div>
@@ -1212,6 +1217,12 @@ function redirectPanel($sessionId, $tab, $type = 'msg', $text = '')
   <script src="assets/js/all.min.js" defer></script>
   <script src="assets/js/messages.js" defer></script>
   <script src="assets/js/memberWorkshopPanel.js" defer></script>
+  <script src="assets/js/pagination.js"></script>
+  <script>
+      document.addEventListener('DOMContentLoaded', () => {
+          setupPagination('workshopTableScroll', 'workshopPagination'); 
+      });
+  </script>
 
 </body>
 
