@@ -648,6 +648,7 @@ function redirectPanel($sessionId, $tab, $type = 'msg', $text = '')
 
           <div class="FeedbackBox">
             <h6><?= htmlspecialchars($giverName) ?></h6>
+            <!-- put the rating here -->
             <p><?= !empty($text) ? htmlspecialchars($text) : 'No feedback' ?></p>
           </div>
         </div>
@@ -658,6 +659,7 @@ function redirectPanel($sessionId, $tab, $type = 'msg', $text = '')
 
 
   <main class="materialPage">
+    
     <div class="miniNav">
       <div class="panelSvg">
         <!-- left edge -->
@@ -701,18 +703,31 @@ function redirectPanel($sessionId, $tab, $type = 'msg', $text = '')
       <a data-page="review" class="">review</a>
       <a data-page="addTask" class="">add task</a>
       <a data-page="addMaterial" class="">add materials</a>
+      <a data-page="quiz" class="">quiz</a>
     </div>
 
     <!-- EVALUATE --------------------------------------------------------------------------- -->
     <section id="evaluate" class="panelSection panelSectionActive evaluateContainer">
 
-      <div class="panelWhiteBox sessionsBox">
-        <!-- Sessions -->
-        <div class="sessionsSelectorFrame">
-          <div class="sessionsSelector">
-            <?php echo generateSessionsHTML(); ?>
-          </div>
+      <!-- Sessions -->
+      <div class="sessionsSelectorFrame">
+        <!-- scroll button -->
+        <button class="sessionScrollBtn scrollLeft">
+            <div class="sessionBtnLeft">
+                <i class="fa-solid fa-angle-left"></i>
+            </div>
+        </button>
+
+        <div class="sessionsSelector">
+          <?php echo generateSessionsHTML(); ?>
         </div>
+
+        <!-- scroll button -->
+        <button class="sessionScrollBtn scrollRight">
+            <div class="sessionBtnLeft">
+                <i class="fa-solid fa-angle-right"></i>
+            </div>
+        </button>
       </div>
 
       <div class="panelWhiteBox">
@@ -780,7 +795,7 @@ function redirectPanel($sessionId, $tab, $type = 'msg', $text = '')
                       </td>
                       <td>
                         <?php if (!empty($submitMap[$participant['user_id']])): ?>
-                          <a href="<?= htmlspecialchars($submitMap[$participant['user_id']]) ?>" target="_blank">Task-link</a>
+                          <a href="<?= htmlspecialchars($submitMap[$participant['user_id']]) ?>" target="_blank" class="tdDwonloadTask"> Download Task</a>
                         <?php else: ?>
                           —
                         <?php endif; ?>
@@ -819,13 +834,26 @@ function redirectPanel($sessionId, $tab, $type = 'msg', $text = '')
     <!-- REVIEW ----------------------------------------------------------------------------- -->
     <section id="review" class="panelSection evaluateContainer">
 
-      <div class="panelWhiteBox sessionsBox">
-        <!-- Sessions -->
-        <div class="sessionsSelectorFrame">
-          <div class="sessionsSelector">
-            <?php echo generateSessionsHTML(); ?>
-          </div>
+        
+      <!-- Sessions -->
+      <div class="sessionsSelectorFrame">
+        <!-- scroll button -->
+        <button class="sessionScrollBtn scrollLeft">
+            <div class="sessionBtnLeft">
+                <i class="fa-solid fa-angle-left"></i>
+            </div>
+        </button>
+
+        <div class="sessionsSelector">
+          <?php echo generateSessionsHTML(); ?>
         </div>
+
+        <!-- scroll button -->
+        <button class="sessionScrollBtn scrollRight">
+            <div class="sessionBtnLeft">
+                <i class="fa-solid fa-angle-right"></i>
+            </div>
+        </button>
       </div>
 
       <div class="panelWhiteBox">
@@ -845,12 +873,8 @@ function redirectPanel($sessionId, $tab, $type = 'msg', $text = '')
                 <tr>
                   <th scope="col"><i class="fa-solid fa-user"></i> Name</th>
                   <th scope="col"><i class="fa-solid fa-user"></i> attendance</th>
-                  <th scope="col">
-                    <i class="fa-solid fa-splotch"></i> task rating
-                  </th>
-                  <th scope="col">
-                    <i class="fa-solid fa-splotch"></i> feedback
-                  </th>
+                  <th scope="col"><i class="fa-solid fa-bars-progress"></i> task status</th>
+                  <th scope="col"><i class="fa-solid fa-splotch"></i> feedback</th>
                 </tr>
               </thead>
 
@@ -858,7 +882,7 @@ function redirectPanel($sessionId, $tab, $type = 'msg', $text = '')
               <tbody>
                 <?php if (count($participants) === 0): ?>
                   <tr>
-                    <td colspan="5">No participants in this workshop.</td>
+                    <td class="tableParticipantName" colspan="5">No participants in this workshop.</td>
                   </tr>
                 <?php else: ?>
                   <?php foreach ($participants as $p): ?>
@@ -873,6 +897,7 @@ function redirectPanel($sessionId, $tab, $type = 'msg', $text = '')
                     <tr>
                       <td class="tableParticipantName"><?php echo htmlspecialchars($p['user_name']); ?></td>
 
+                      <!-- attendance -->
                       <td>
                         <?php if ($st === 'present'): ?>
                           <div class="reviewAttended">
@@ -891,6 +916,7 @@ function redirectPanel($sessionId, $tab, $type = 'msg', $text = '')
                         <?php endif; ?>
                       </td>
 
+                      <!-- task status -->
                       <td>
                         <?php if ($rating): ?>
                           <?php for ($i = 1; $i <= 5; $i++): ?>
@@ -899,6 +925,23 @@ function redirectPanel($sessionId, $tab, $type = 'msg', $text = '')
                         <?php else: ?>
                           —
                         <?php endif; ?>
+                        <!-- task bending -->
+                        <div class="reviewBending">
+                            <div class="reviewAttendBox">
+                                <div class="reviewAttendedLeft"></div>
+                                <div class="reviewAttendedSymbol">-</div>
+                            </div>
+                            <div>bending</div>
+                        </div>
+
+                        <!-- task approved -->
+                        <div class="reviewAttended">
+                            <div class="reviewAttendBox">
+                                <div class="reviewAttendedLeft"></div>
+                                <i class="fa-solid fa-check reviewAttendedSymbol"></i>
+                            </div>
+                            <div>Approved</div>
+                        </div>
                       </td>
 
                       <td>
@@ -925,22 +968,33 @@ function redirectPanel($sessionId, $tab, $type = 'msg', $text = '')
 
     <!-- Add Task Section ------------------------------------- -->
     <section id="addTask" class="taskContainer panelSection evaluateContainer">
-      <div class="panelWhiteBox sessionsBox">
-        <!-- Sessions -->
-        <div class="panelWhiteBox sessionsBox">
-          <!-- Sessions -->
-          <div class="sessionsSelectorFrame">
-            <div class="sessionsSelector">
-              <?php echo generateSessionsHTML(); ?>
+
+      <!-- Sessions -->
+      <div class="sessionsSelectorFrame">
+        <!-- scroll button -->
+        <button class="sessionScrollBtn scrollLeft">
+            <div class="sessionBtnLeft">
+                <i class="fa-solid fa-angle-left"></i>
             </div>
-          </div>
+        </button>
+
+        <div class="sessionsSelector">
+          <?php echo generateSessionsHTML(); ?>
         </div>
+
+        <!-- scroll button -->
+        <button class="sessionScrollBtn scrollRight">
+            <div class="sessionBtnLeft">
+                <i class="fa-solid fa-angle-right"></i>
+            </div>
+        </button>
       </div>
 
+      <!-- add task form -->
       <div class="panelWhiteBox">
-      <form class="validForm"
-      action="memberWorkshopPanel.php?session_id=<?= (int)$selectedSessionId ?>&tab=addTask"
-      method="post" enctype="multipart/form-data">
+        <form class="validForm"
+        action="memberWorkshopPanel.php?session_id=<?= (int)$selectedSessionId ?>&tab=addTask"
+        method="post" enctype="multipart/form-data">
           <input type="hidden" name="action" value="add_task">
           <input type="hidden" name="tab" value="<?php echo htmlspecialchars($currentTab); ?>">
           <input type="hidden" name="session_id" value="<?php echo $selectedSessionId; ?>">
@@ -980,7 +1034,7 @@ function redirectPanel($sessionId, $tab, $type = 'msg', $text = '')
           <div class="fileUpload">
             <div class="formLabel">Upload File:</div>
             <div class="uploadContainer">
-              <label class="formLabel uploadLabel" for="taskUpload">
+              <label class="formLabel uploadLabel">
                 <div class="uploadIcon"></div>
               </label>
               <p class="uploadText">Drag and drop or click to browse</p>
@@ -988,16 +1042,20 @@ function redirectPanel($sessionId, $tab, $type = 'msg', $text = '')
               <input id="taskUpload" type="file" name="task_file" class="taskFileInput" style="display:none;">
 
               <!-- Shows uploaded file name -->
-              <p class="fileUploadedName" style="display:none;"></p>
+               <div class="fileUploadInfo">
+                  <p class="fileUploadedName" style="display:none;"></p>
+                  <button type="button" class="removeUpload" style="display:none;">X</button>
+                </div>
+              
               <p class="fileMessage"></p>
-
+              <p class="dragMessage" style="display: none;"><i class="fa-solid fa-file"></i>Drag the task file here!</p>
+                          
               <label for="taskUpload" class="btn btn-secondary btn-sm uploadBtn">Upload File</label>
 
             </div>
           </div>
 
-
-          <button id="submitBtn" class="btn btn-primary btn-sm" type="submit">Add Task</button>
+          <button class="btn btn-primary btn-sm submitBtn" type="submit">Add Task</button>
         </form>
       </div>
 
@@ -1007,7 +1065,12 @@ function redirectPanel($sessionId, $tab, $type = 'msg', $text = '')
 
         <div class="articleFiles">
           <?php if (count($tasks) === 0): ?>
+
+          <div class="notFIleAdded">
+            <i class="fa-solid fa-folder-open"></i>
             <p>No tasks added yet.</p>
+          </div>
+
           <?php else: ?>
             <?php foreach ($tasks as $task): ?>
               <article class="materialItem">
@@ -1018,11 +1081,11 @@ function redirectPanel($sessionId, $tab, $type = 'msg', $text = '')
                   <p class="taskDescription">
                     <?= htmlspecialchars($task['taskBio']) ?>
                   </p>
-                  <?php if (!empty($task['task_file'])): ?>
-                    <a href="<?= htmlspecialchars($task['task_file']) ?>" target="_blank">Download Task File</a>
-                  <?php endif; ?>
                 </div>
                 <div class="materialActions">
+                  <?php if (!empty($task['task_file'])): ?>
+                    <a href="<?= htmlspecialchars($task['task_file']) ?>" target="_blank" class="downloadFileBtn"><i class="fa-solid fa-download"></i> Download</a>
+                  <?php endif; ?>
                   <button class="deleteMaterialButton" onclick="deleteTask(<?= (int) $task['task_id'] ?>)">Delete</button>
                 </div>
               </article>
@@ -1033,23 +1096,35 @@ function redirectPanel($sessionId, $tab, $type = 'msg', $text = '')
       </div>
     </section>
 
-    <!-- adding materials section ---------------------------------- -->
+    <!-- Adding Materials Section ---------------------------------- -->
     <section class="evaluateContainer panelSection" id="addMaterial">
 
-      <!-- Sessions selector -->
-      <div class="panelWhiteBox sessionsBox">
-        <div class="sessionsSelectorFrame">
-          <div class="sessionsSelector">
-            <?php echo generateSessionsHTML(); ?>
-          </div>
+      <!-- Sessions -->
+      <div class="sessionsSelectorFrame">
+        <!-- scroll button -->
+        <button class="sessionScrollBtn scrollLeft">
+            <div class="sessionBtnLeft">
+                <i class="fa-solid fa-angle-left"></i>
+            </div>
+        </button>
+
+        <div class="sessionsSelector">
+          <?php echo generateSessionsHTML(); ?>
         </div>
+
+        <!-- scroll button -->
+        <button class="sessionScrollBtn scrollRight">
+            <div class="sessionBtnLeft">
+                <i class="fa-solid fa-angle-right"></i>
+            </div>
+        </button>
       </div>
 
       <!-- Add Material Form -->
       <div class="panelWhiteBox">
        <form class="validForm"
-      action="memberWorkshopPanel.php?session_id=<?= (int)$selectedSessionId ?>&tab=addMaterial"
-      method="post" enctype="multipart/form-data">
+        action="memberWorkshopPanel.php?session_id=<?= (int)$selectedSessionId ?>&tab=addMaterial"
+        method="post" enctype="multipart/form-data">
           <input type="hidden" name="action" value="add_material">
           <input type="hidden" name="tab" value="<?php echo htmlspecialchars($currentTab); ?>">
           <input type="hidden" name="session_id" value="<?php echo $selectedSessionId; ?>">
@@ -1057,14 +1132,14 @@ function redirectPanel($sessionId, $tab, $type = 'msg', $text = '')
           <div class="sideInputs">
             <div class="inputsBox">
               <div class="formGroup">
-                <label class="formLabel" for="material_title">Material Name</label>
+                <label class="formLabel" for="material_title">Material Name:</label>
                 <input class="textInput" type="text" name="material_title" id="material_title" />
               </div>
             </div>
 
             <div class="inputsBox">
               <div class="formGroup">
-                <label class="formLabel" for="material_type">Session Type</label>
+                <label class="formLabel" for="material_type">Session Type:</label>
                 <select class="selectInput" name="material_type" id="material_type">
                   <option value="technical">Technical</option>
                   <option value="soft">Soft Skills</option>
@@ -1078,21 +1153,26 @@ function redirectPanel($sessionId, $tab, $type = 'msg', $text = '')
             <div class="formLabel">Upload File:</div>
 
             <div class="uploadContainer">
-              <label class="formLabel uploadLabel" for="material_file">
+              <label class="formLabel uploadLabel">
                 <div class="uploadIcon"></div>
                 <p class="uploadText">Drag and drop or click to browse</p>
               </label>
 
               <input type="file" name="material_file" id="material_file" class="taskFileInput" style="display:none;">
 
-              <p class="fileUploadedName" id="materialFileName" style="display:none;"></p>
+              <!-- Shows uploaded file name -->
+               <div class="fileUploadInfo">
+                  <p class="fileUploadedName" id="materialFileName" style="display:none;"></p>
+                  <button type="button" class="removeUpload" style="display:none;">X</button>
+                </div>
               <p class="fileMessage" id="materialFileMsg"></p>
-
+              <p class="dragMessage" style="display: none;"><i class="fa-solid fa-file"></i>Drag the material here!</p>
+                    
               <label class="btn btn-secondary btn-sm" for="material_file">Upload File</label>
             </div>
           </div>
 
-          <button class="btn btn-primary btn-sm" type="submit">Add Material</button>
+          <button class="btn btn-primary submitBtn btn-sm" type="submit">Add Material</button>
 
         </form>
       </div>
@@ -1103,34 +1183,40 @@ function redirectPanel($sessionId, $tab, $type = 'msg', $text = '')
 
         <div class="materialCategory">
           <aside class="materialType">
-            <button type="button" class="materialTypeButton" data-filter="technical">Technical Material</button>
+            <button type="button" class="materialTypeButton active" data-filter="technical">Technical Material</button>
             <button type="button" class="materialTypeButton" data-filter="soft">SoftSkills Material</button>
           </aside>
 
           <div class="materialItemsList" id="materialsList">
             <?php if (count($materialsTech) === 0 && count($materialsSoft) === 0): ?>
+            <div class="notFIleAdded">
+              <i class="fa-solid fa-folder-open"></i>
               <p>No materials added yet.</p>
+            </div>
             <?php else: ?>
               <?php if (count($materialsTech) > 0): ?>
                 <div class="materialCategorySection" id="techMaterials">
                   <h5>Technical Materials</h5>
                   <?php foreach ($materialsTech as $material): ?>
                     <article class="materialItem">
+
                       <div class="materialInfo">
                         <span class="materialFileName">
                           <?= htmlspecialchars($material['material_title']) ?>
                         </span>
-                        <a href="<?= htmlspecialchars($material['file_path']) ?>" target="_blank">Download</a>
                       </div>
+
                       <div class="materialActions">
+                        <a href="<?= htmlspecialchars($material['file_path']) ?>" target="_blank" class="downloadFileBtn"><i class="fa-solid fa-download"></i> Download</a>
                         <button class="deleteMaterialButton"
                           onclick="deleteMaterial(<?= (int) $material['material_id'] ?>)">Delete</button>
                       </div>
+
                     </article>
                   <?php endforeach; ?>
                 </div>
               <?php endif; ?>
-
+              
               <?php if (count($materialsSoft) > 0): ?>
                 <div class="materialCategorySection" id="softMaterials">
                   <h5>Soft Skills Materials</h5>
@@ -1140,9 +1226,9 @@ function redirectPanel($sessionId, $tab, $type = 'msg', $text = '')
                         <span class="materialFileName">
                           <?= htmlspecialchars($material['material_title']) ?>
                         </span>
-                        <a href="<?= htmlspecialchars($material['file_path']) ?>" target="_blank">Download</a>
                       </div>
                       <div class="materialActions">
+                        <a href="<?= htmlspecialchars($material['file_path']) ?>" target="_blank" class="downloadFileBtn"><i class="fa-solid fa-download"></i> Download</a>
                         <button class="deleteMaterialButton"
                           onclick="deleteMaterial(<?= (int) $material['material_id'] ?>)">Delete</button>
                       </div>
@@ -1155,6 +1241,77 @@ function redirectPanel($sessionId, $tab, $type = 'msg', $text = '')
         </div>
       </section>
 
+    </section>
+
+    <!-- Activity Time Section ---------------------------------- -->
+    <section id="quiz" class="panelSection evaluateContainer">
+      <article class="workshopCard activityCard">
+          <div class="cardHeader activityHeader">
+            <h4><i class="fas fa-gamepad"></i> ACTIVITY TIME</h4>
+          </div>
+          
+          <div class="cardBody activityBody">
+              <!-- Game Challenge Banner -->
+              <div class="gameBanner">
+                  <!-- Animated Game Avatar -->
+                  <div class="gameAvatar">
+                      <div class="avatarCircle">
+                          <i class="fas fa-robot avatarIcon"></i>
+                      </div>
+                      <div class="avatarGlow"></div>
+                  </div>
+
+                  <div class="bannerIcons">
+                      <i class="fas fa-trophy bannerIcon"></i>
+                      <i class="fas fa-star bannerIcon"></i>
+                      <i class="fas fa-fire bannerIcon"></i>
+                  </div>
+                  <h3 class="gameTitle">🎮 Weekly Challenge Game!</h3>
+                  <p class="gameSubtitle">Cast your quiz, spark curiosity!</p>
+              </div>
+
+              <!-- Game Info Cards -->
+              <!-- <div class="gameInfoGrid">
+                  <div class="gameInfoCard rewardCard">
+                      <div class="infoIcon">
+                          <i class="fas fa-gem"></i>
+                      </div>
+                      <div class="infoContent">
+                          <span class="infoLabel">Reward Points</span>
+                          <span class="infoValue">100 Points</span>
+                      </div>
+                  </div>
+              </div> -->
+
+              <!-- Motivational Message -->
+              <div class="motivationalBox">
+                  <i class="fas fa-bullseye"></i>
+                  <p>Create quizzes that challenge, inspire, and leave a lasting impact. 🚀</p>
+              </div>
+
+              <!-- Play Button -->
+              <div class="playButtonContainer">
+                  <a href="https://awadcoding.github.io/SCCI-Quiz/" class="playGameBtn">
+                      <span class="btnGlow"></span>
+                      <i class="fas fa-play"></i>
+                      <span class="btnText">START GAME NOW</span>
+                      <i class="fas fa-arrow-right"></i>
+                  </a>
+              </div>
+
+              <!-- Stats Preview -->
+              <!-- <div class="statsPreview">
+                  <div class="statItem">
+                      <i class="fas fa-users"></i>
+                      <span>300 Players</span>
+                  </div>
+                  <div class="statItem">
+                      <i class="fas fa-crown"></i>
+                      <span>Top Score: 98/100</span>
+                  </div>
+              </div> -->
+          </div>
+      </article>
     </section>
 
   </main>
