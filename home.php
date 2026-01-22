@@ -24,6 +24,8 @@ if (isset($_POST['contact'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCCI - Home</title>
+    <link rel="icon" href="./assets/icons/logoSCCI.png" type="image/png">
 
     <!-- Preload critical CSS files -->
     <link rel="preload" href="./assets/css/root.css" as="style">
@@ -63,7 +65,6 @@ if (isset($_POST['contact'])) {
     <!-- Load AOS library before other scripts -->
 
 
-    <title>SCCI - Home</title>
 </head>
 
 <body>

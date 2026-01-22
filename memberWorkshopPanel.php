@@ -1,4 +1,4 @@
- <?php
+<?php
   error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
   include "./includes/config.php";
   /* =====================
@@ -594,16 +594,13 @@
  <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+   <title>SCCI - Panel</title>
+   <link rel="icon" href="assets/icons/logoSCCI.png" type="image/x-icon">
    <!-- Fonts -->
    <link rel="preconnect" href="https://fonts.googleapis.com">
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Irish+Grover&display=swap"
      rel="stylesheet">
-
-   <!-- SCCI Icon -->
-   <link rel="icon" href="assets/icons/logoSCCI.png" type="image/x-icon">
-
    <!-- Font Awesome (Standard CDN) -->
    <link rel="stylesheet" href="assets/css/all.min.css" />
 
@@ -617,7 +614,6 @@
 
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-   <title>SCCI-Panel</title>
  </head>
 
  <body>

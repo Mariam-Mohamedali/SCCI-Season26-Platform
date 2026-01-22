@@ -46,22 +46,16 @@ if(isset($_POST['login1'])){
     }else{
         $error_msge="incorrect email";
     }
-
- 
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SCCI - Login</title>
-    
     <!-- site icon -->
     <link rel="icon" type="image/png" href="../assets/icons/logoSCCI.png" />
-
     <link rel="stylesheet" href="../assets/css/root.css">
     <link rel="stylesheet" href="../assets/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/login.css">
