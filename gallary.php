@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,15 +6,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SCCI - Gallery</title>
-  <link rel="icon" href="./assets/icons/logoSCCI.png" type="image/png">
+    <link rel="icon" href="./assets/icons/logoSCCI.png" type="image/png">
 
     <!-- font  -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/root.css">
-     <link rel="stylesheet" href="assets/css/navbar.css">
-     <link rel="stylesheet" href="assets/css/footer.css" >
+    <link rel="stylesheet" href="assets/css/navbar.css">
+    <link rel="stylesheet" href="assets/css/footer.css">
     <link rel="stylesheet" href="assets/css/gallary.css">
     <!-- AOS library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -23,69 +22,95 @@
 </head>
 
 <body>
-<?php include 'includes/nav.php'; ?>
+    <?php include 'includes/nav.php'; ?>
 
     <main>
 
         <!-- ================= Papers ================= -->
-        <section class="paperContainer" id="paperContainer" aria-label="Paper Animation" data-aos="fade-in" data-aos-duration="800">
+        <section class="paperContainer" id="paperContainer" aria-label="Paper Animation" data-aos="fade-in"
+            data-aos-duration="800">
             <div class="paperRow topRow">
-                <div class="paperWrapper" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="200"><a href="#" class="paper" data-event="opening">
+                <div class="paperWrapper" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="200"><a href="#"
+                        class="paper" data-event="opening">
                         <p>Opening</p>
                     </a></div>
-                <div class="paperWrapper" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="350"><a href="#" class="paper" data-event="ushering">
+                <div class="paperWrapper" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="350"><a href="#"
+                        class="paper" data-event="ushering">
                         <p>Ushering</p>
                     </a></div>
-                <div class="paperWrapper" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="500"><a href="#" class="paper" data-event="firstSession">
+                <div class="paperWrapper" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="500"><a href="#"
+                        class="paper" data-event="firstSession">
                         <p>First Session</p>
                     </a></div>
-                <div class="paperWrapper" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="650"><a href="#" class="paper" data-event="57357">
+                <div class="paperWrapper" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="650"><a href="#"
+                        class="paper" data-event="57357">
                         <p>57357</p>
                     </a></div>
-                <div class="paperWrapper" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="800"><a href="#" class="paper" data-event="outing">
+                <div class="paperWrapper" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="800"><a href="#"
+                        class="paper" data-event="outing">
                         <p>Outing</p>
                     </a></div>
             </div>
 
             <div class="paperRow bottomRow">
-                <div class="paperWrapper" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="950"><a href="#" class="paper" data-event="midYear">
+                <div class="paperWrapper" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="950"><a href="#"
+                        class="paper" data-event="midYear">
                         <p>Mid-Year</p>
                     </a></div>
-                <div class="paperWrapper" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="1100"><a href="#" class="paper" data-event="comptition">
+                <div class="paperWrapper" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="1100"><a href="#"
+                        class="paper" data-event="comptition">
                         <p>Competition</p>
                     </a></div>
-                <div class="paperWrapper" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="1250"><a href="#" class="paper" data-event="league">
+                <div class="paperWrapper" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="1250"><a href="#"
+                        class="paper" data-event="league">
                         <p>League</p>
                     </a></div>
-                <div class="paperWrapper" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="1400"><a href="#" class="paper" data-event="academic">
+                <div class="paperWrapper" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="1400"><a href="#"
+                        class="paper" data-event="academic">
                         <p>Academic</p>
                     </a></div>
-                <div class="paperWrapper" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="1550"><a href="#" class="paper" data-event="confrence">
+                <div class="paperWrapper" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="1550"><a href="#"
+                        class="paper" data-event="confrence">
                         <p>Conference</p>
                     </a></div>
-                <div class="paperWrapper" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="1700"><a href="#" class="paper" data-event="closing">
+                <div class="paperWrapper" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="1700"><a href="#"
+                        class="paper" data-event="closing">
                         <p>Closing</p>
                     </a></div>
             </div>
+            <!-- ================= Coming Soon Popup (Scoped) ================= -->
+            <div id="comingSoonModal" class="modalOverlay" aria-hidden="true">
+                <div class="modalContent card">
+                    <h2 class="modalTitle">Coming Soon</h2>
+                    <div class="modalBody">
+                        <p class="modalText">We Are Preparing Something Magical For You.</p>
+                    </div>
+                    <button id="closeModalBtn" class="btn btnPrimary">Go Back</button>
+                </div>
+            </div>
+
         </section>
 
         <!-- ================= Book ================= -->
         <section class="bookSection" aria-label="Magic Book Interaction" data-aos="fade-up" data-aos-duration="1000">
             <div class="bookContainer">
-                <img src="assets/img/book_bg.png" data-aos="flip-up" data-aos-duration="1500" data-aos-delay="300" alt="Magic Book" class="bookBg" loading="lazy">
+                <img src="assets/img/book_bg.png" data-aos="flip-up" data-aos-duration="1500" data-aos-delay="300"
+                    alt="Magic Book" class="bookBg" loading="lazy">
                 <figure class="imageFrame left" data-aos="fade-right" data-aos-duration="1200" data-aos-delay="800">
                     <img id="bookImageLeft" src="assets/img/opening/book1.jpg" alt="Magic Content Left" loading="lazy">
                     <!-- <div class="comingSoonText">Coming</div> -->
                     <div class="flashOverlay"></div>
                 </figure>
-                <div class="pageText textLeft" data-aos="fade-down" data-aos-duration="800" data-aos-delay="1000">click on the image</div>
+                <div class="pageText textLeft" data-aos="fade-down" data-aos-duration="800" data-aos-delay="1000">click
+                    on the image</div>
                 <figure class="imageFrame right" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="800">
                     <img id="bookImageRight" src="assets/img/opening/book2.jpg" alt="Magic Content Right"
                         loading="lazy">
                     <!-- <div class="comingSoonText">Soon</div> -->
                     <div class="flashOverlay"></div>
                 </figure>
-                <div class="pageText textRight" data-aos="fade-down" data-aos-duration="800" data-aos-delay="1000">to see the magic</div>
+                <div class="pageText textRight" data-aos="fade-down" data-aos-duration="800" data-aos-delay="1000">to
+                    see the magic</div>
             </div>
         </section>
 
@@ -128,24 +153,14 @@
         <div class="sectionDivider" id="cardsDivider"></div>
         <!-- ================= Cards Section ================= -->
         <section class="polaroidGallery" aria-label="Photo Gallery" data-aos="fade-up" data-aos-duration="1000">
-            <div class="polaroidContainer" id="cardsContainer" data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="200">
+            <div class="polaroidContainer" id="cardsContainer" data-aos="zoom-in" data-aos-duration="1000"
+                data-aos-delay="200">
 
             </div>
         </section>
 
 
-        <!-- ================= Coming Soon Popup ================= -->
-        <div id="comingSoonModal" class="modalOverlay" aria-hidden="true">
-            <div class="modalContent card">
-                <h2 class="modalTitle">Coming Soon</h2>
-                <div class="sectionDivider"></div>
-                <div class="modalBody">
-                    <p class="modalText">We are preparing something magical for you.</p>
-                </div>
-                <button id="closeModalBtn" class="btn btnPrimary" style="width: 100%; margin-top: 20px;">Go
-                    Back</button>
-            </div>
-        </div>
+
         <!-- ================= Lightbox Modal ================= -->
         <div id="lightboxModal" class="lightboxOverlay" aria-hidden="true">
             <span class="lightboxClose">&times;</span>

@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "midYear", "comptition", "league", "academic", "confrence", "closing"
     ];
 
-    
+
     const eventsData = EVENT_NAMES.reduce((acc, name) => {
         acc[name] = {
             book: {
@@ -215,6 +215,28 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
     document.addEventListener("dblclick", e => {
+        const isCard = e.target.closest(".polaroidItem");
+        const isSlider = e.target.closest(".sliderCard");
+
+        // 1. Logic for Scroll and Sync
+        if ((isCard || isSlider) && e.target.tagName === "IMG") {
+            // Scroll to the events section to show the slider
+            DOM.eventsSection.scrollIntoView({ behavior: "smooth", block: "center" });
+
+            // If it's a card, also sync the slider index
+            if (isCard) {
+                const data = eventsData[state.currentEventKey];
+                if (data?.cards) {
+                    const index = data.cards.findIndex(src => src === e.target.getAttribute('src'));
+                    if (index !== -1) {
+                        state.currentIndex = index;
+                        updateSlider();
+                    }
+                }
+            }
+        }
+
+        // 2. Existing Lightbox/Zoom logic
         if (e.target.tagName === "IMG" && e.target.src) {
             DOM.lightboxImg.src = e.target.src;
             toggleModal(DOM.lightboxModal, true);

@@ -1,5 +1,22 @@
+
+
 @import url('https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap');
 @import url(root.css);
+
+/* ================= RESET & BASE ================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    overflow-x: hidden;
+    width: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
+}
 
 main {
     width: 100%;
@@ -600,15 +617,16 @@ main {
 
 .polaroidGallery {
     width: 100%;
-    /* extra space at the bottom instead of negative margin */
+    margin-top: 90px;
+    /* Increased spacing from slider */
     background: transparent;
     display: flex;
     justify-content: center;
     position: relative;
     z-index: 2;
     pointer-events: none;
-    position: relative;
-    z-index: 1;
+    clip-path: inset(-400px 0 0 0);
+    /* Allow upward hover, clip bottom */
 }
 
 
@@ -618,7 +636,7 @@ main {
     justify-content: center;
     align-items: flex-end;
     flex-wrap: nowrap;
-    gap: 40px;
+    gap: 30px;
     width: 100%;
     max-width: 1400px;
     padding: 20px;
@@ -630,8 +648,9 @@ main {
 footer {
     position: relative;
     z-index: 100;
-    bottom: 40rem;
 }
+
+
 
 
 .polaroidItem {
@@ -654,8 +673,8 @@ footer {
     margin: 0;
     filter: blur(4px);
     overflow: hidden;
-    bottom: -250px;
-    /* <<< add this */
+    bottom: -150px;
+    /* Lifted further for user visibility */
 }
 
 
@@ -666,9 +685,10 @@ footer {
     border: 1px solid #eee;
 }
 
+
 @media (min-width: 769px) {
     .polaroidItem:hover {
-        transform: translateY(-180px) rotate(var(--rotation)) scale(1.05);
+        transform: translateY(-250px) rotate(var(--rotation)) scale(1.05);
         z-index: 200;
         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
         transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease, z-index 0s, filter 0.3s ease;
@@ -964,7 +984,7 @@ footer {
     right: 0 !important;
     bottom: 0 !important;
     width: 100vw !important;
-    height: 455vh !important;
+    height: 100vh !important;
     background: rgba(99, 98, 98, 0.233);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -1045,7 +1065,7 @@ footer {
         max-width: 98vw;
         max-height: 98vh;
     }
-    
+
     .lightboxClose {
         width: 50px;
         height: 50px;
@@ -1064,15 +1084,18 @@ footer {
         right: 10px;
     }
 }
-/* ================= Coming Soon Modal ================= */
+
+/* ================= Coming Soon Modal - Expanded Scoped & Styled ================= */
 .modalOverlay {
-    position: fixed;
-    top: 0;
+    position: absolute;
+    top: -50px;
+    /* Adjust to cover the title area as well */
     left: 0;
     width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(8px);
+    height: calc(100% + 50px);
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(35px);
+    -webkit-backdrop-filter: blur(35px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1080,6 +1103,7 @@ footer {
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
+    border-radius: 20px;
 }
 
 .modalOverlay.active {
@@ -1088,21 +1112,20 @@ footer {
 }
 
 .modalContent {
-    background: radial-gradient(circle at top center, #FFFDF5 0%, #FFE4B5 100%);
-    padding: 50px 40px;
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    background: #FFFDF5;
+    padding: 40px 30px;
+    border-radius: 25px;
+    border: none;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
     text-align: center;
     transform: scale(0.8);
     transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    max-width: 90%;
-    width: 420px;
+    max-width: 85%;
+    width: 380px;
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* overflow: visible; -- Important for stars */
 }
 
 .modalOverlay.active .modalContent {
@@ -1111,34 +1134,60 @@ footer {
 
 .modalTitle {
     font-family: 'Irish Grover', cursive;
-    color: #1a1a1a;
-    font-size: 3.5rem;
-    margin: 0;
+    color: #2D2D2D;
+    font-size: 2.8rem;
+    margin: 0 0 15px 0;
     text-transform: uppercase;
-    letter-spacing: 3px;
-    text-shadow: none;
+    letter-spacing: 2px;
 }
 
-/* Divider Adjustment for Modal */
-.modalContent .sectionDivider {
-    margin: 10px auto 20px;
-    width: 80%;
-    opacity: 0.8;
-}
-
-/* coming soon modal */
 .modalText {
     font-family: 'Irish Grover', cursive;
-    color: #8b4513;
-    font-size: 15px;
-    margin-bottom: 5px;
+    color: #8B4513;
+    font-size: 16px;
+    margin-bottom: 25px;
     text-align: center;
-    opacity: 0.9;
+    line-height: 1.4;
 }
 
 #closeModalBtn {
-    background: var(--color-primary-dark);
+    background: #D32F2F;
     color: white;
+    border: none;
+    padding: 12px 60px;
+    border-radius: 50px;
+    font-family: 'Irish Grover', cursive;
+    font-size: 14px;
+    text-transform: uppercase;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(211, 47, 47, 0.3);
+}
+
+#closeModalBtn:hover {
+    background: #B71C1C;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(211, 47, 47, 0.4);
+}
+
+/* Sparkles for the button */
+#closeModalBtn::before,
+#closeModalBtn::after {
+    content: '✦';
+    position: absolute;
+    color: #FFD700;
+    font-size: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#closeModalBtn::before {
+    left: 15px;
+}
+
+#closeModalBtn::after {
+    right: 15px;
 }
 
 /* ===============================================
@@ -1189,10 +1238,6 @@ footer {
     .polaroidItem {
         width: 220px;
         height: 280px;
-    }
-
-    footer {
-        bottom: 35rem;
     }
 }
 
@@ -1283,7 +1328,8 @@ footer {
     }
 
     .polaroidGallery {
-        padding: 80px 0 180px;
+        padding: 150px 0 180px;
+        /* Further expanded area for larger blur coverage */
     }
 
     .polaroidContainer {
@@ -1299,10 +1345,6 @@ footer {
 
     .polaroidItem:hover {
         transform: translateY(-150px) rotate(var(--rotation)) scale(1.05);
-    }
-
-    footer {
-        bottom: 32rem;
     }
 }
 
@@ -1409,10 +1451,6 @@ footer {
 
     .polaroidItem:hover {
         transform: translateY(-130px) rotate(var(--rotation)) scale(1.05);
-    }
-
-    footer {
-        bottom: 28rem;
     }
 }
 
@@ -1832,30 +1870,28 @@ footer {
 =============================================== */
 
 /* Desktop - Footer overlaps polaroid gallery */
+/* Desktop - Footer overlaps polaroid gallery */
 @media (min-width: 769px) {
     footer {
         position: relative;
-        bottom: 0;
-        margin-top: -40rem; /* Negative margin pulls footer up over gallery */
-        margin-bottom: 0;
+        margin-top: -200px;
+        /* Reduced overlap for safer coverage */
+        margin-bottom: 0 !important;
         z-index: 100;
         width: 100%;
     }
 
     .polaroidGallery {
-        padding-bottom: 45rem; /* Add padding to make room for footer overlap */
-        margin-bottom: 0;
+        padding-bottom: 200px !important;
+        /* Match margin-top exactly */
+        margin-bottom: 0 !important;
+        clip-path: inset(-400px 0 0 0);
     }
-    
-    body {
-        margin-bottom: 0;
-        padding-bottom: 0;
-    }
-    
-    main {
-        margin-bottom: 0;
-        padding-bottom: 0;
-    }
+}
+
+main {
+    margin-bottom: 0;
+    padding-bottom: 0;
 }
 
 /* Tablet and Mobile - Footer flows normally */
@@ -1873,14 +1909,39 @@ footer {
         padding-bottom: 100px;
         margin-bottom: 0;
     }
-    
+
     body {
         margin-bottom: 0;
         padding-bottom: 0;
     }
-    
+
     main {
         margin-bottom: 0;
         padding-bottom: 0;
     }
 }
+
+html,
+body {
+    height: auto !important;
+    min-height: 0 !important;
+    overflow-x: hidden;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+body>*:last-child {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+footer {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+main {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
