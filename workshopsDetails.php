@@ -1,6 +1,6 @@
 <?php
-
-include('./includes/nav.php');
+error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
+include "./includes/config.php";
 if (isset($_GET['category_id'])) {
     $workshop_id = $_GET['category_id'];
     $select_workshop = "SELECT * FROM `workshops` WHERE `workshop_id` = '$workshop_id'";
@@ -24,7 +24,7 @@ if (isset($_GET['category_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php foreach ($run_workshop as $workshops) { ?>
-    <title>SCCI - <?php echo $workshops['workshop_name']; ?></title>
+        <title>SCCI - <?php echo $workshops['workshop_name']; ?></title>
     <?php } ?>
 
     <!-- Fonts -->
@@ -33,7 +33,7 @@ if (isset($_GET['category_id'])) {
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Irish+Grover&display=swap"
         rel="stylesheet">
 
-     <!-- site icon -->
+    <!-- site icon -->
 
 
     <!-- Font Awesome (Standard CDN) -->
@@ -50,6 +50,9 @@ if (isset($_GET['category_id'])) {
 </head>
 
 <body>
+    <?php
+    include('./includes/nav.php');
+    ?>
 
     <!-- Navigation -->
 
@@ -80,33 +83,33 @@ if (isset($_GET['category_id'])) {
 
                 </div>
             <?php } ?>
-        </section>
+            </section>
 
-        <!-- Workshop Journey Section -->
-        <section class="workshopJourneySection" data-aos="fade-up" data-aos-duration="1000">
-            <div class="container">
-                <h2 class="heroTitle"><?php echo $workshops['workshop_name']; ?> <span>Spell Journey</span></h2>
-                <hr>
-                <div class="journeyContainer">
-                    <?php foreach ($run_spill as $workshops) { ?>
-                        <!-- Navigation Buttons (Left Side) -->
-                        <div class="journeyNav">
-                            <button class="journeyBtn active" data-content="opening"><?php echo $workshops['button1']; ?>
-                            </button>
-                            <button class="journeyBtn" data-content="core1"><?php echo $workshops['button2']; ?></button>
-                            <button class="journeyBtn" data-content="core2"><?php echo $workshops['button3']; ?></button>
-                            <button class="journeyBtn" data-content="core3"><?php echo $workshops['button4']; ?></button>
-                        </div>
-                    <?php } ?>
+            <!-- Workshop Journey Section -->
+            <section class="workshopJourneySection" data-aos="fade-up" data-aos-duration="1000">
+                <div class="container">
+                    <h2 class="heroTitle"><?php echo $workshops['workshop_name']; ?> <span>Spell Journey</span></h2>
+                    <hr>
+                    <div class="journeyContainer">
+                        <?php foreach ($run_spill as $workshops) { ?>
+                            <!-- Navigation Buttons (Left Side) -->
+                            <div class="journeyNav">
+                                <button class="journeyBtn active" data-content="opening"><?php echo $workshops['button1']; ?>
+                                </button>
+                                <button class="journeyBtn" data-content="core1"><?php echo $workshops['button2']; ?></button>
+                                <button class="journeyBtn" data-content="core2"><?php echo $workshops['button3']; ?></button>
+                                <button class="journeyBtn" data-content="core3"><?php echo $workshops['button4']; ?></button>
+                            </div>
+                        <?php } ?>
 
-                    <!-- Content Card Display (Right Side) -->
-                    <div class="journeyCard">
-                        <div class="cardContentWrapper">
-                            <!-- Opening Spell Content (Default) -->
-                            <div class="contentBlock active" id="opening">
-                                <?php foreach ($run_spill as $workshops) { ?>
-                                    <h3><?php echo $workshops['button1']; ?> </h3>
-                                    <p><?php echo $workshops['opening_spell']; ?></p>
+                        <!-- Content Card Display (Right Side) -->
+                        <div class="journeyCard">
+                            <div class="cardContentWrapper">
+                                <!-- Opening Spell Content (Default) -->
+                                <div class="contentBlock active" id="opening">
+                                    <?php foreach ($run_spill as $workshops) { ?>
+                                        <h3><?php echo $workshops['button1']; ?> </h3>
+                                        <p><?php echo $workshops['opening_spell']; ?></p>
                                 </div>
                                 <div class="contentBlock" id="core1">
                                     <h3><?php echo $workshops['button2']; ?> </h3>
@@ -121,62 +124,51 @@ if (isset($_GET['category_id'])) {
                                     <p><?php echo $workshops['final_quest']; ?></p>
                                 </div>
                             <?php } ?>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+            <!--  -->
+            <!-- members in this workshop -->
 
+            <section class="workshopsSection" data-aos="fade-up" data-aos-duration="1000">
 
-        <!--  -->
+                <div class="MemberCardTitle" data-aos="zoom-in" data-aos-duration="800">
+                    <h2 class="heroTitle">Members</h2>
+                    <hr>
+                </div>
 
-
-        <!-- members in this workshop -->
-
-        <section class="workshopsSection" data-aos="fade-up" data-aos-duration="1000">
-
-            <div class="MemberCardTitle" data-aos="zoom-in" data-aos-duration="800">
-                <h2 class="heroTitle">Members</h2>
-                <hr>
-            </div>
-
-            <div class="container">
-                <div class="workshopDetailsGrid">
-                    <?php foreach ($run_members as $members) { ?>
-                        <!--  member card  -->
-                        <a href="ViewProfile.php?user_id=<?= $members['user_id'] ?>" class="memberCardLink">
-                            <div class="cardsContainer" data-aos="flip">
-                                <div class="flipCard card1">
-                                    <div class="frontCard">
-                                        <img src="assets/img/crew/backCardCrew.png" alt="<?php echo $members['user_name']; ?>"
-                                            loading="lazy">
-                                    </div>
-                                    <div class="backCard" data-title="<?php echo htmlspecialchars($members['committee_member']); ?>">
-                                        <div class="memberInfo">
-                                            <div class="memberImageContainer">
-                                                <img src="assets/uploadedImages/<?php echo $members['Image']; ?>"
-                                                    alt="<?php echo $members['user_name']; ?>" loading="lazy"
-                                                    class="memberImage">
-                                            </div>
-                                            <div class="memberName">
-                                                <h3><?php echo $members['user_name']; ?></h3>
+                <div class="container">
+                    <div class="workshopDetailsGrid">
+                        <?php foreach ($run_members as $members) { ?>
+                            <!--  member card  -->
+                            <a href="ViewProfile.php?user_id=<?= $members['user_id'] ?>" class="memberCardLink">
+                                <div class="cardsContainer" data-aos="flip">
+                                    <div class="flipCard card1">
+                                        <div class="frontCard">
+                                            <img src="assets/img/crew/backCardCrew.png" alt="<?php echo $members['user_name']; ?>"
+                                                loading="lazy">
+                                        </div>
+                                        <div class="backCard" data-title="<?php echo htmlspecialchars($members['committee_member']); ?>">
+                                            <div class="memberInfo">
+                                                <div class="memberImageContainer">
+                                                    <img src="assets/uploadedImages/<?php echo $members['Image']; ?>"
+                                                        alt="<?php echo $members['user_name']; ?>" loading="lazy"
+                                                        class="memberImage">
+                                                </div>
+                                                <div class="memberName">
+                                                    <h3><?php echo $members['user_name']; ?></h3>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </a>
-                    <?php } ?>
-
-
-
-
-
-
-
+                            </a>
+                        <?php } ?>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
     </main>
 
@@ -184,15 +176,6 @@ if (isset($_GET['category_id'])) {
     <div class="scrollTopBtn" id="scrollTopBtn">
         <i class="fas fa-arrow-up"></i>
     </div>
-
-
-
-
-
-
-
-
-
     <!-- Scripts -->
     <script src="assets/js/all.min.js" defer></script>
     <script src="assets/js/workshops.js" defer></script>
@@ -211,4 +194,5 @@ if (isset($_GET['category_id'])) {
     </script>
 </body>
 <?php include 'includes/footer.php'; ?>
+
 </html>
