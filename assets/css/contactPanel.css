@@ -60,7 +60,7 @@ h1 {
 }
 
 .tableBody .tableRow:nth-child(even) {
-    background-color: var(--color-primary-lighter);
+    background-color: var(--color-gray-medium);
     color: var(--color-white);
 }
 
@@ -183,4 +183,5 @@ h1 {
     .page-info {
         font-size: 0.9rem;
     }
+
 }

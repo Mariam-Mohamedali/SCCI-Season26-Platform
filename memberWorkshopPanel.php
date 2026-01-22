@@ -1,6 +1,6 @@
- <?php
-
-  include('./includes/nav.php');
+<?php
+  error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
+  include "./includes/config.php";
   /* =====================
      Auth & Role Check
   ===================== */
@@ -84,24 +84,24 @@
     $selectedSessionId = count($sessions) ? (int) $sessions[0]['session_id'] : 0;
   }
 
-function redirectPanel($sessionId, $tab, $type = 'msg', $text = '')
-{
+  function redirectPanel($sessionId, $tab, $type = 'msg', $text = '')
+  {
     $sessionId = (int)$sessionId;
 
     // tabs الموجودة عندك بالـ IDs
     $allowedTabs = ['evaluate', 'review', 'addTask', 'addMaterial'];
     if (!in_array($tab, $allowedTabs, true)) {
-        $tab = 'evaluate';
+      $tab = 'evaluate';
     }
 
     $qs = "session_id={$sessionId}&tab={$tab}";
     if ($text !== '') {
-        $qs .= "&{$type}=" . urlencode($text);
+      $qs .= "&{$type}=" . urlencode($text);
     }
 
     header("Location: memberWorkshopPanel.php?{$qs}");
     exit;
-}
+  }
 
   function generateSessionsHTML()
   {
@@ -114,8 +114,8 @@ function redirectPanel($sessionId, $tab, $type = 'msg', $text = '')
       $isActive = ($sid === (int) $selectedSessionId) ? ' sessionActive' : '';
       $fill = $isActive ? '#1f184e' : 'var(--color-white-gradient)';
       $bodyClass = $isActive ? 'sessionBlue' : 'sessionWhite';
-      
-     $href = '?session_id=' . $sid . '&tab=' . urlencode($currentTab);
+
+      $href = '?session_id=' . $sid . '&tab=' . urlencode($currentTab);
 
 
 
@@ -218,7 +218,7 @@ function redirectPanel($sessionId, $tab, $type = 'msg', $text = '')
     $stmtAtt->bind_param("iiisi", $workshopId, $selectedSessionId, $participantId, $status, $crewId);
     $stmtAtt->execute();
 
-   redirectPanel($selectedSessionId, $currentTab, 'msg', 'Attendance saved');
+    redirectPanel($selectedSessionId, $currentTab, 'msg', 'Attendance saved');
     exit;
   }
 
@@ -227,7 +227,7 @@ function redirectPanel($sessionId, $tab, $type = 'msg', $text = '')
      - latest submitted file for selected workshop_session
   ===================== */
   $submitMap = []; // user_id => file_link
-  
+
   if ($workshopSessionId > 0) {
     $sqlSub = "
   SELECT ts.user_id, ts.submit_link
@@ -319,7 +319,7 @@ function redirectPanel($sessionId, $tab, $type = 'msg', $text = '')
      Map: user_id => [submission_id, rating, feedback_text, given_by]
   ===================== */
   $latestByUser = []; // user_id => info
-  
+
   if ($workshopSessionId > 0) {
     $sql = "
     SELECT 
@@ -476,7 +476,7 @@ function redirectPanel($sessionId, $tab, $type = 'msg', $text = '')
     $dest = $uploadDir . "/" . $newName;
 
     if (!move_uploaded_file($_FILES['material_file']['tmp_name'], $dest)) {
-     redirectPanel($selectedSessionId, 'addMaterial', 'err', 'File upload error');
+      redirectPanel($selectedSessionId, 'addMaterial', 'err', 'File upload error');
       exit;
     }
 
@@ -588,695 +588,692 @@ function redirectPanel($sessionId, $tab, $type = 'msg', $text = '')
   }
   ?>
 
-<!DOCTYPE html>
-<html lang="en">
+ <!DOCTYPE html>
+ <html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>SCCI - Panel</title>
+   <link rel="icon" href="assets/icons/logoSCCI.png" type="image/x-icon">
+   <!-- Fonts -->
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Irish+Grover&display=swap"
+     rel="stylesheet">
+   <!-- Font Awesome (Standard CDN) -->
+   <link rel="stylesheet" href="assets/css/all.min.css" />
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Irish+Grover&display=swap"
-    rel="stylesheet">
+   <!-- Styles -->
+   <link rel="stylesheet" href="assets/css/root.css?v=<?php echo time(); ?>">
+   <link rel="stylesheet" href="assets/css/navbar.css?v=<?php echo time(); ?>">
+   <link rel="stylesheet" href="assets/css/footer.css">
+   <link rel="stylesheet" href="assets/css/message-toast.css">
+   <link rel="stylesheet" href="assets/css/memberWorkshopPanel.css?v=<?php echo time(); ?>">
+   <!-- Custom Page Styles -->
 
-  <!-- SCCI Icon -->
-  <link rel="icon" href="assets/icons/logoSCCI.png" type="image/x-icon">
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-  <!-- Font Awesome (Standard CDN) -->
-  <link rel="stylesheet" href="assets/css/all.min.css" />
+ </head>
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="assets/css/root.css?v=<?php echo time(); ?>">
-  <link rel="stylesheet" href="assets/css/navbar.css?v=<?php echo time(); ?>">
-  <link rel="stylesheet" href="assets/css/footer.css">
-  <link rel="stylesheet" href="assets/css/message-toast.css">
-  <link rel="stylesheet" href="assets/css/memberWorkshopPanel.css?v=<?php echo time(); ?>">
-  <!-- Custom Page Styles -->
+ <body>
+   <?php include('./includes/nav.php'); ?>
 
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   <!-- REVIEW Popup ----------------------------------------------------------------------------- -->
+   <!-- REVIEW Popups (one per participant, unique id) -->
+   <?php if (!empty($participants)): ?>
+     <?php foreach ($participants as $p): ?>
+       <?php
+        $pid = (int) $p['user_id'];
 
-  <title>SCCI-Panel</title>
-</head>
+        $text = $latestByUser[$pid]['feedback_text'] ?? null;
+        $giverId = $latestByUser[$pid]['given_by'] ?? null;
 
-<body>
- 
-  <!-- REVIEW Popup ----------------------------------------------------------------------------- -->
-  <!-- REVIEW Popups (one per participant, unique id) -->
-  <?php if (!empty($participants)): ?>
-    <?php foreach ($participants as $p): ?>
-      <?php
-      $pid = (int) $p['user_id'];
+        $giverName = ($giverId && isset($crewNameById[(int) $giverId]))
+          ? $crewNameById[(int) $giverId]
+          : '—';
 
-      $text = $latestByUser[$pid]['feedback_text'] ?? null;
-      $giverId = $latestByUser[$pid]['given_by'] ?? null;
+        $popupId = "feedbackPopup_" . $pid; // ✅ unique
+        ?>
 
-      $giverName = ($giverId && isset($crewNameById[(int) $giverId]))
-        ? $crewNameById[(int) $giverId]
-        : '—';
+       <div id="<?= $popupId ?>" class="reviewFeedbackPopup">
+         <div class="reviewFeedbackContainer">
+           <div class="FeedbackContainerTop">
+             <h6>Feedback Review</h6>
+             <div class="closeFeedback">X</div>
+           </div>
 
-      $popupId = "feedbackPopup_" . $pid; // ✅ unique
-      ?>
+           <div class="FeedbackBox">
+             <h6><?= htmlspecialchars($giverName) ?></h6>
+             <!-- put the rating here -->
+             <p><?= !empty($text) ? htmlspecialchars($text) : 'No feedback' ?></p>
+           </div>
+         </div>
+       </div>
 
-      <div id="<?= $popupId ?>" class="reviewFeedbackPopup">
-        <div class="reviewFeedbackContainer">
-          <div class="FeedbackContainerTop">
-            <h6>Feedback Review</h6>
-            <div class="closeFeedback">X</div>
-          </div>
-
-          <div class="FeedbackBox">
-            <h6><?= htmlspecialchars($giverName) ?></h6>
-            <!-- put the rating here -->
-            <p><?= !empty($text) ? htmlspecialchars($text) : 'No feedback' ?></p>
-          </div>
-        </div>
-      </div>
-
-    <?php endforeach; ?>
-  <?php endif; ?>
+     <?php endforeach; ?>
+   <?php endif; ?>
 
 
-  <main class="materialPage">
-    
-    <div class="miniNav">
-      <div class="panelSvg">
-        <!-- left edge -->
-        <svg shape-rendering="geometricPrecision" class="panelEdge" preserveAspectRatio="none" viewBox="0 0 50 100"
-          xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M50 0
+   <main class="materialPage">
+
+     <div class="miniNav">
+       <div class="panelSvg">
+         <!-- left edge -->
+         <svg shape-rendering="geometricPrecision" class="panelEdge" preserveAspectRatio="none" viewBox="0 0 50 100"
+           xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+           <path d="M50 0
                         C40 0 30 20 10 50
                         C30 80 40 100 50 100
                         Z" fill="var(--color-primary-darker)" stroke="var(--color-primary-darker)" stroke-width="2"
-            stroke-linejoin="round" stroke-linecap="round" />
-        </svg>
+             stroke-linejoin="round" stroke-linecap="round" />
+         </svg>
 
-        <!-- center -->
-        <svg shape-rendering="geometricPrecision" class="panelBody" viewBox="0 0 300 100" preserveAspectRatio="none"
-          xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <defs>
-            <linearGradient id="fillCenter" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="var(--color-primary-darker)" />
-              <stop offset="50%" stop-color="var(--color-primary)" />
-              <stop offset="100%" stop-color="var(--color-primary-darker)" />
-            </linearGradient>
-          </defs>
+         <!-- center -->
+         <svg shape-rendering="geometricPrecision" class="panelBody" viewBox="0 0 300 100" preserveAspectRatio="none"
+           xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+           <defs>
+             <linearGradient id="fillCenter" x1="0%" y1="0%" x2="100%" y2="0%">
+               <stop offset="0%" stop-color="var(--color-primary-darker)" />
+               <stop offset="50%" stop-color="var(--color-primary)" />
+               <stop offset="100%" stop-color="var(--color-primary-darker)" />
+             </linearGradient>
+           </defs>
 
-          <rect x="0" y="0" width="300" height="100" fill="url(#fillCenter)" stroke="var(--color-primary-darker)"
-            stroke-width="2" />
-        </svg>
+           <rect x="0" y="0" width="300" height="100" fill="url(#fillCenter)" stroke="var(--color-primary-darker)"
+             stroke-width="2" />
+         </svg>
 
-        <!-- right edge -->
-        <svg shape-rendering="geometricPrecision" class="panelEdge" preserveAspectRatio="none" viewBox="0 0 50 100"
-          xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M0 0
+         <!-- right edge -->
+         <svg shape-rendering="geometricPrecision" class="panelEdge" preserveAspectRatio="none" viewBox="0 0 50 100"
+           xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+           <path d="M0 0
                         C10 0 20 20 40 50
                         C20 80 10 100 0 100
                         Z" fill="var(--color-primary-darker)" stroke="var(--color-primary-darker)" stroke-width="2"
-            stroke-linejoin="round" stroke-linecap="round" />
-        </svg>
-      </div>
+             stroke-linejoin="round" stroke-linecap="round" />
+         </svg>
+       </div>
 
-      <!-- Name the "data-page" in the mini nav the same as its section -->
-      <a data-page="evaluate" class="activePanelLine">evaluate</a>
-      <a data-page="review" class="">review</a>
-      <a data-page="addTask" class="">add task</a>
-      <a data-page="addMaterial" class="">add materials</a>
-      <a data-page="quiz" class="">quiz</a>
-    </div>
+       <!-- Name the "data-page" in the mini nav the same as its section -->
+       <a data-page="evaluate" class="activePanelLine">evaluate</a>
+       <a data-page="review" class="">review</a>
+       <a data-page="addTask" class="">add task</a>
+       <a data-page="addMaterial" class="">add materials</a>
+       <a data-page="quiz" class="">quiz</a>
+     </div>
 
-    <!-- EVALUATE --------------------------------------------------------------------------- -->
-    <section id="evaluate" class="panelSection panelSectionActive evaluateContainer">
+     <!-- EVALUATE --------------------------------------------------------------------------- -->
+     <section id="evaluate" class="panelSection panelSectionActive evaluateContainer">
 
-      <!-- Sessions -->
-      <div class="sessionsSelectorFrame">
-        <!-- scroll button -->
-        <button class="sessionScrollBtn scrollLeft">
-            <div class="sessionBtnLeft">
-                <i class="fa-solid fa-angle-left"></i>
-            </div>
-        </button>
+       <!-- Sessions -->
+       <div class="sessionsSelectorFrame">
+         <!-- scroll button -->
+         <button class="sessionScrollBtn scrollLeft">
+           <div class="sessionBtnLeft">
+             <i class="fa-solid fa-angle-left"></i>
+           </div>
+         </button>
 
-        <div class="sessionsSelector">
-          <?php echo generateSessionsHTML(); ?>
-        </div>
+         <div class="sessionsSelector">
+           <?php echo generateSessionsHTML(); ?>
+         </div>
 
-        <!-- scroll button -->
-        <button class="sessionScrollBtn scrollRight">
-            <div class="sessionBtnLeft">
-                <i class="fa-solid fa-angle-right"></i>
-            </div>
-        </button>
-      </div>
+         <!-- scroll button -->
+         <button class="sessionScrollBtn scrollRight">
+           <div class="sessionBtnLeft">
+             <i class="fa-solid fa-angle-right"></i>
+           </div>
+         </button>
+       </div>
 
-      <div class="panelWhiteBox">
-        <!-- Table -->
-        <div class="tableScrollFrame">
-          <div class="tableScroll" id="workshopTableScroll">
-            <table cellpadding="0" cellspacing="0" summary="participants dashboard">
-              <colgroup>
-                <col span="1" style="width: 25%" />
-                <col span="1" style="width: 25%" />
-                <col span="1" style="width: 25%" />
-                <col span="1" style="width: 25%" />
-              </colgroup>
+       <div class="panelWhiteBox">
+         <!-- Table -->
+         <div class="tableScrollFrame">
+           <div class="tableScroll" id="workshopTableScroll">
+             <table cellpadding="0" cellspacing="0" summary="participants dashboard">
+               <colgroup>
+                 <col span="1" style="width: 25%" />
+                 <col span="1" style="width: 25%" />
+                 <col span="1" style="width: 25%" />
+                 <col span="1" style="width: 25%" />
+               </colgroup>
 
-              <!-- Table head -->
-              <thead>
-                <tr>
-                  <th scope="col"><i class="fa-solid fa-user"></i> Name</th>
-                  <th scope="col"><i class="fa-solid fa-user"></i> attendance</th>
-                  <th scope="col">
-                    <i class="fa-regular fa-circle-check"></i> task
-                  </th>
-                  <th scope="col">
-                    <i class="fa-solid fa-splotch"></i> feedback
-                  </th>
-                </tr>
-              </thead>
+               <!-- Table head -->
+               <thead>
+                 <tr>
+                   <th scope="col"><i class="fa-solid fa-user"></i> Name</th>
+                   <th scope="col"><i class="fa-solid fa-user"></i> attendance</th>
+                   <th scope="col">
+                     <i class="fa-regular fa-circle-check"></i> task
+                   </th>
+                   <th scope="col">
+                     <i class="fa-solid fa-splotch"></i> feedback
+                   </th>
+                 </tr>
+               </thead>
 
-              <!-- Table body -->
-               
-              <tbody>
-                <?php if (count($participants) === 0): ?>
-                  <tr>
-                    <td class="tableParticipantName" colspan="5">No participants in this workshop.</td>
-                  </tr>
-                <?php else: ?>
-                  <?php foreach ($participants as $participant): ?>
+               <!-- Table body -->
 
-                    <tr>
-                      <td class="tableParticipantName"><?php echo htmlspecialchars($participant['user_name']); ?></td>
-                      <td>
-                        <form method="POST" class="attendanceForm">
-                          <input type="hidden" name="action" value="mark_attendance">
-                          <input type="hidden" name="participant_id" value="<?php echo $participant['user_id']; ?>">
-                          <input type="hidden" name="tab" value="<?php echo htmlspecialchars($currentTab); ?>">
-                          <input type="hidden" name="session_id" value="<?php echo $selectedSessionId; ?>"></label>
-                          <div class="evaluateTaskRow">
-                            <label class="radioOption">
-                              <input type="radio" name="status" value="present" <?php echo (isset($attMap[$participant['user_id']]) && $attMap[$participant['user_id']] === 'present') ? 'checked' : ''; ?> />
-                              <div class="evaluateAttendanceCircle evaluateCheckTask">
-                                <i class="fa-solid fa-check"></i>
-                              </div>
-                            </label>
+               <tbody>
+                 <?php if (count($participants) === 0): ?>
+                   <tr>
+                     <td class="tableParticipantName" colspan="5">No participants in this workshop.</td>
+                   </tr>
+                 <?php else: ?>
+                   <?php foreach ($participants as $participant): ?>
 
-                            <label class="radioOption">
-                              <input type="radio" name="status" value="absent" <?php echo (!isset($attMap[$participant['user_id']]) || $attMap[$participant['user_id']] !== 'present') ? 'checked' : ''; ?> />
-                              <div class="evaluateAttendanceCircle evaluateXtask">
-                                <i class="fa-solid fa-x"></i>
-                              </div>
-                            </label>
-                          </div>
-                          <button type="submit" class="btn btn-primary btn-sm attendanceSubmit"
-                            style="display: none;">Save</button>
-                        </form>
-                      </td>
-                      <td>
-                        <?php if (!empty($submitMap[$participant['user_id']])): ?>
-                          <a href="<?= htmlspecialchars($submitMap[$participant['user_id']]) ?>" target="_blank" class="tdDwonloadTask"> Download Task</a>
-                        <?php else: ?>
-                          —
-                        <?php endif; ?>
-                      </td>
+                     <tr>
+                       <td class="tableParticipantName"><?php echo htmlspecialchars($participant['user_name']); ?></td>
+                       <td>
+                         <form method="POST" class="attendanceForm">
+                           <input type="hidden" name="action" value="mark_attendance">
+                           <input type="hidden" name="participant_id" value="<?php echo $participant['user_id']; ?>">
+                           <input type="hidden" name="tab" value="<?php echo htmlspecialchars($currentTab); ?>">
+                           <input type="hidden" name="session_id" value="<?php echo $selectedSessionId; ?>"></label>
+                           <div class="evaluateTaskRow">
+                             <label class="radioOption">
+                               <input type="radio" name="status" value="present" <?php echo (isset($attMap[$participant['user_id']]) && $attMap[$participant['user_id']] === 'present') ? 'checked' : ''; ?> />
+                               <div class="evaluateAttendanceCircle evaluateCheckTask">
+                                 <i class="fa-solid fa-check"></i>
+                               </div>
+                             </label>
 
-                      <td>
+                             <label class="radioOption">
+                               <input type="radio" name="status" value="absent" <?php echo (!isset($attMap[$participant['user_id']]) || $attMap[$participant['user_id']] !== 'present') ? 'checked' : ''; ?> />
+                               <div class="evaluateAttendanceCircle evaluateXtask">
+                                 <i class="fa-solid fa-x"></i>
+                               </div>
+                             </label>
+                           </div>
+                           <button type="submit" class="btn btn-primary btn-sm attendanceSubmit"
+                             style="display: none;">Save</button>
+                         </form>
+                       </td>
+                       <td>
+                         <?php if (!empty($submitMap[$participant['user_id']])): ?>
+                           <a href="<?= htmlspecialchars($submitMap[$participant['user_id']]) ?>" target="_blank" class="tdDwonloadTask"> Download Task</a>
+                         <?php else: ?>
+                           —
+                         <?php endif; ?>
+                       </td>
 
-                        <?php
-                        $pid = (int) $participant['user_id'];
-                        $submissionId = $latestByUser[$pid]['submission_id'] ?? 0;
-                        ?>
+                       <td>
 
-                        <?php if ($submissionId > 0): ?>
-                          <button data-popup="feedbackModal" data-submission-id="<?= (int) $submissionId ?>"
-                            class="btn evaluateFeedback btn-primary" type="button">
-                            Add Feedback
-                          </button>
-                        <?php else: ?>
-                          <span class="text-muted">No submission</span>
-                        <?php endif; ?>
+                         <?php
+                          $pid = (int) $participant['user_id'];
+                          $submissionId = $latestByUser[$pid]['submission_id'] ?? 0;
+                          ?>
 
-
-                    </tr>
-
-                  <?php endforeach; ?>
-                <?php endif; ?>
-              </tbody>
-            </table>
-          </div>
-          <div class="pagination-controls" id="workshopPagination">
-              <button class="nav-arrow prev-btn" disabled><i class="fa-solid fa-caret-left"></i></button>
-              <span class="page-info">Page 1</span>
-              <button class="nav-arrow next-btn"><i class="fa-solid fa-caret-right"></i></button>
-          </div>
-        </div>
-      </div>
-    </section>
+                         <?php if ($submissionId > 0): ?>
+                           <button data-popup="feedbackModal" data-submission-id="<?= (int) $submissionId ?>"
+                             class="btn evaluateFeedback btn-primary" type="button">
+                             Add Feedback
+                           </button>
+                         <?php else: ?>
+                           <span class="text-muted">No submission</span>
+                         <?php endif; ?>
 
 
+                     </tr>
 
-    <!-- REVIEW ----------------------------------------------------------------------------- -->
-    <section id="review" class="panelSection evaluateContainer">
-
-        
-      <!-- Sessions -->
-      <div class="sessionsSelectorFrame">
-        <!-- scroll button -->
-        <button class="sessionScrollBtn scrollLeft">
-            <div class="sessionBtnLeft">
-                <i class="fa-solid fa-angle-left"></i>
-            </div>
-        </button>
-
-        <div class="sessionsSelector">
-          <?php echo generateSessionsHTML(); ?>
-        </div>
-
-        <!-- scroll button -->
-        <button class="sessionScrollBtn scrollRight">
-            <div class="sessionBtnLeft">
-                <i class="fa-solid fa-angle-right"></i>
-            </div>
-        </button>
-      </div>
-
-      <div class="panelWhiteBox">
-        <!-- Table -->
-        <div class="tableScrollFrame">
-          <div class="tableScroll">
-            <table cellpadding="0" cellspacing="0" summary="participants dashboard">
-              <colgroup>
-                <col span="1" style="width: 25%" />
-                <col span="1" style="width: 25%" />
-                <col span="1" style="width: 25%" />
-                <col span="1" style="width: 25%" />
-              </colgroup>
-
-              <!-- Table head -->
-              <thead>
-                <tr>
-                  <th scope="col"><i class="fa-solid fa-user"></i> Name</th>
-                  <th scope="col"><i class="fa-solid fa-user"></i> attendance</th>
-                  <th scope="col"><i class="fa-solid fa-bars-progress"></i> task status</th>
-                  <th scope="col"><i class="fa-solid fa-splotch"></i> feedback</th>
-                </tr>
-              </thead>
-
-              <!-- Table body -->
-              <tbody>
-                <?php if (count($participants) === 0): ?>
-                  <tr>
-                    <td class="tableParticipantName" colspan="5">No participants in this workshop.</td>
-                  </tr>
-                <?php else: ?>
-                  <?php foreach ($participants as $p): ?>
-                    <?php
-                    $pid = (int) $p['user_id'];
-                    $st = $attMap[$pid] ?? 'absent';
-
-                    $rating = $latestByUser[$pid]['rating'] ?? null;
-                    $text = $latestByUser[$pid]['feedback_text'] ?? null;
-                    $given = $latestByUser[$pid]['user_name'] ?? null;
-                    ?>
-                    <tr>
-                      <td class="tableParticipantName"><?php echo htmlspecialchars($p['user_name']); ?></td>
-
-                      <!-- attendance -->
-                      <td>
-                        <?php if ($st === 'present'): ?>
-                          <div class="reviewAttended">
-                            <div class="reviewAttendBox">
-                              <div class="reviewAttendedSymbol">✓</div>
-                            </div>
-                            Attended
-                          </div>
-                        <?php else: ?>
-                          <div class="reviewAbsent">
-                            <div class="reviewAttendBox">
-                              <div class="reviewAttendedSymbol">✗</div>
-                            </div>
-                            Absent
-                          </div>
-                        <?php endif; ?>
-                      </td>
-
-                      <!-- task status -->
-                      <td>
-                        <?php if ($rating): ?>
-                          <?php for ($i = 1; $i <= 5; $i++): ?>
-                            <i class="fa<?= $i <= $rating ? '-solid' : '-regular' ?> fa-star"></i>
-                          <?php endfor; ?>
-                        <?php else: ?>
-                          —
-                        <?php endif; ?>
-                        <!-- task bending -->
-                        <div class="reviewBending">
-                            <div class="reviewAttendBox">
-                                <div class="reviewAttendedLeft"></div>
-                                <div class="reviewAttendedSymbol">-</div>
-                            </div>
-                            <div>bending</div>
-                        </div>
-
-                        <!-- task approved -->
-                        <div class="reviewAttended">
-                            <div class="reviewAttendBox">
-                                <div class="reviewAttendedLeft"></div>
-                                <i class="fa-solid fa-check reviewAttendedSymbol"></i>
-                            </div>
-                            <div>Approved</div>
-                        </div>
-                      </td>
-
-                      <td>
-                        <button data-popup="feedbackPopup_<?= (int) $p['user_id'] ?>"
-                          class="btn evaluateFeedback btn-primary" type="button">
-                          view feedback
-                        </button>
-
-                      </td>
-
-                    </tr>
-
-                    <!-- table row -->
-                  <?php endforeach; ?>
-                <?php endif; ?>
-
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </section>
+                   <?php endforeach; ?>
+                 <?php endif; ?>
+               </tbody>
+             </table>
+           </div>
+           <div class="pagination-controls" id="workshopPagination">
+             <button class="nav-arrow prev-btn" disabled><i class="fa-solid fa-caret-left"></i></button>
+             <span class="page-info">Page 1</span>
+             <button class="nav-arrow next-btn"><i class="fa-solid fa-caret-right"></i></button>
+           </div>
+         </div>
+       </div>
+     </section>
 
 
-    <!-- Add Task Section ------------------------------------- -->
-    <section id="addTask" class="taskContainer panelSection evaluateContainer">
 
-      <!-- Sessions -->
-      <div class="sessionsSelectorFrame">
-        <!-- scroll button -->
-        <button class="sessionScrollBtn scrollLeft">
-            <div class="sessionBtnLeft">
-                <i class="fa-solid fa-angle-left"></i>
-            </div>
-        </button>
+     <!-- REVIEW ----------------------------------------------------------------------------- -->
+     <section id="review" class="panelSection evaluateContainer">
 
-        <div class="sessionsSelector">
-          <?php echo generateSessionsHTML(); ?>
-        </div>
 
-        <!-- scroll button -->
-        <button class="sessionScrollBtn scrollRight">
-            <div class="sessionBtnLeft">
-                <i class="fa-solid fa-angle-right"></i>
-            </div>
-        </button>
-      </div>
+       <!-- Sessions -->
+       <div class="sessionsSelectorFrame">
+         <!-- scroll button -->
+         <button class="sessionScrollBtn scrollLeft">
+           <div class="sessionBtnLeft">
+             <i class="fa-solid fa-angle-left"></i>
+           </div>
+         </button>
 
-      <!-- add task form -->
-      <div class="panelWhiteBox">
-        <form class="validForm"
-        action="memberWorkshopPanel.php?session_id=<?= (int)$selectedSessionId ?>&tab=addTask"
-        method="post" enctype="multipart/form-data">
-          <input type="hidden" name="action" value="add_task">
-          <input type="hidden" name="tab" value="<?php echo htmlspecialchars($currentTab); ?>">
-          <input type="hidden" name="session_id" value="<?php echo $selectedSessionId; ?>">
-          <div class="materialForm">
-            <div class="sideInputs">
-              <!-- add task name -->
-              <div class="inputsBox">
-                <div class="groupInputs">
-                  <label class="formLabel" for="taskName">Task Name:</label>
-                  <input class="textInput" type="text" name="taskName" id="taskName">
-                </div>
-                <p id="taskNameMessage"></p>
-              </div>
+         <div class="sessionsSelector">
+           <?php echo generateSessionsHTML(); ?>
+         </div>
 
-              <!-- add task deadline -->
-              <div class="inputsBox">
-                <div class="groupInputs">
-                  <label class="formLabel" for="taskDeadline">Deadline:</label>
-                  <input class="textInput" type="datetime-local" name="taskDeadline" id="taskDeadline">
-                </div>
-                <p id="taskDeadlineMessage"></p>
-              </div>
+         <!-- scroll button -->
+         <button class="sessionScrollBtn scrollRight">
+           <div class="sessionBtnLeft">
+             <i class="fa-solid fa-angle-right"></i>
+           </div>
+         </button>
+       </div>
 
-            </div>
-            <!-- add task Description -->
-            <div class="inputsBox">
-              <div class="groupInputs">
-                <label class="formLabel" for="taskBio" id="taskBioLabel">Task Description:</label>
-                <textarea class="textInput" name="taskBio" id="taskBioInput" rows="5"></textarea>
-              </div>
-              <p id="taskBioMessage"></p>
-            </div>
+       <div class="panelWhiteBox">
+         <!-- Table -->
+         <div class="tableScrollFrame">
+           <div class="tableScroll">
+             <table cellpadding="0" cellspacing="0" summary="participants dashboard">
+               <colgroup>
+                 <col span="1" style="width: 25%" />
+                 <col span="1" style="width: 25%" />
+                 <col span="1" style="width: 25%" />
+                 <col span="1" style="width: 25%" />
+               </colgroup>
 
-          </div>
+               <!-- Table head -->
+               <thead>
+                 <tr>
+                   <th scope="col"><i class="fa-solid fa-user"></i> Name</th>
+                   <th scope="col"><i class="fa-solid fa-user"></i> attendance</th>
+                   <th scope="col"><i class="fa-solid fa-bars-progress"></i> task status</th>
+                   <th scope="col"><i class="fa-solid fa-splotch"></i> feedback</th>
+                 </tr>
+               </thead>
 
-          <!-- upload task file -->
-          <div class="fileUpload">
-            <div class="formLabel">Upload File:</div>
-            <div class="uploadContainer">
-              <label class="formLabel uploadLabel">
-                <div class="uploadIcon"></div>
-              </label>
-              <p class="uploadText">Drag and drop or click to browse</p>
+               <!-- Table body -->
+               <tbody>
+                 <?php if (count($participants) === 0): ?>
+                   <tr>
+                     <td class="tableParticipantName" colspan="5">No participants in this workshop.</td>
+                   </tr>
+                 <?php else: ?>
+                   <?php foreach ($participants as $p): ?>
+                     <?php
+                      $pid = (int) $p['user_id'];
+                      $st = $attMap[$pid] ?? 'absent';
 
-              <input id="taskUpload" type="file" name="task_file" class="taskFileInput" style="display:none;">
+                      $rating = $latestByUser[$pid]['rating'] ?? null;
+                      $text = $latestByUser[$pid]['feedback_text'] ?? null;
+                      $given = $latestByUser[$pid]['user_name'] ?? null;
+                      ?>
+                     <tr>
+                       <td class="tableParticipantName"><?php echo htmlspecialchars($p['user_name']); ?></td>
 
-              <!-- Shows uploaded file name -->
+                       <!-- attendance -->
+                       <td>
+                         <?php if ($st === 'present'): ?>
+                           <div class="reviewAttended">
+                             <div class="reviewAttendBox">
+                               <div class="reviewAttendedSymbol">✓</div>
+                             </div>
+                             Attended
+                           </div>
+                         <?php else: ?>
+                           <div class="reviewAbsent">
+                             <div class="reviewAttendBox">
+                               <div class="reviewAttendedSymbol">✗</div>
+                             </div>
+                             Absent
+                           </div>
+                         <?php endif; ?>
+                       </td>
+
+                       <!-- task status -->
+                       <td>
+                         <?php if ($rating): ?>
+                           <?php for ($i = 1; $i <= 5; $i++): ?>
+                             <i class="fa<?= $i <= $rating ? '-solid' : '-regular' ?> fa-star"></i>
+                           <?php endfor; ?>
+                         <?php else: ?>
+                           —
+                         <?php endif; ?>
+                         <!-- task bending -->
+                         <div class="reviewBending">
+                           <div class="reviewAttendBox">
+                             <div class="reviewAttendedLeft"></div>
+                             <div class="reviewAttendedSymbol">-</div>
+                           </div>
+                           <div>bending</div>
+                         </div>
+
+                         <!-- task approved -->
+                         <div class="reviewAttended">
+                           <div class="reviewAttendBox">
+                             <div class="reviewAttendedLeft"></div>
+                             <i class="fa-solid fa-check reviewAttendedSymbol"></i>
+                           </div>
+                           <div>Approved</div>
+                         </div>
+                       </td>
+
+                       <td>
+                         <button data-popup="feedbackPopup_<?= (int) $p['user_id'] ?>"
+                           class="btn evaluateFeedback btn-primary" type="button">
+                           view feedback
+                         </button>
+
+                       </td>
+
+                     </tr>
+
+                     <!-- table row -->
+                   <?php endforeach; ?>
+                 <?php endif; ?>
+
+               </tbody>
+             </table>
+           </div>
+         </div>
+       </div>
+     </section>
+
+
+     <!-- Add Task Section ------------------------------------- -->
+     <section id="addTask" class="taskContainer panelSection evaluateContainer">
+
+       <!-- Sessions -->
+       <div class="sessionsSelectorFrame">
+         <!-- scroll button -->
+         <button class="sessionScrollBtn scrollLeft">
+           <div class="sessionBtnLeft">
+             <i class="fa-solid fa-angle-left"></i>
+           </div>
+         </button>
+
+         <div class="sessionsSelector">
+           <?php echo generateSessionsHTML(); ?>
+         </div>
+
+         <!-- scroll button -->
+         <button class="sessionScrollBtn scrollRight">
+           <div class="sessionBtnLeft">
+             <i class="fa-solid fa-angle-right"></i>
+           </div>
+         </button>
+       </div>
+
+       <!-- add task form -->
+       <div class="panelWhiteBox">
+         <form class="validForm"
+           action="memberWorkshopPanel.php?session_id=<?= (int)$selectedSessionId ?>&tab=addTask"
+           method="post" enctype="multipart/form-data">
+           <input type="hidden" name="action" value="add_task">
+           <input type="hidden" name="tab" value="<?php echo htmlspecialchars($currentTab); ?>">
+           <input type="hidden" name="session_id" value="<?php echo $selectedSessionId; ?>">
+           <div class="materialForm">
+             <div class="sideInputs">
+               <!-- add task name -->
+               <div class="inputsBox">
+                 <div class="groupInputs">
+                   <label class="formLabel" for="taskName">Task Name:</label>
+                   <input class="textInput" type="text" name="taskName" id="taskName">
+                 </div>
+                 <p id="taskNameMessage"></p>
+               </div>
+
+               <!-- add task deadline -->
+               <div class="inputsBox">
+                 <div class="groupInputs">
+                   <label class="formLabel" for="taskDeadline">Deadline:</label>
+                   <input class="textInput" type="datetime-local" name="taskDeadline" id="taskDeadline">
+                 </div>
+                 <p id="taskDeadlineMessage"></p>
+               </div>
+
+             </div>
+             <!-- add task Description -->
+             <div class="inputsBox">
+               <div class="groupInputs">
+                 <label class="formLabel" for="taskBio" id="taskBioLabel">Task Description:</label>
+                 <textarea class="textInput" name="taskBio" id="taskBioInput" rows="5"></textarea>
+               </div>
+               <p id="taskBioMessage"></p>
+             </div>
+
+           </div>
+
+           <!-- upload task file -->
+           <div class="fileUpload">
+             <div class="formLabel">Upload File:</div>
+             <div class="uploadContainer">
+               <label class="formLabel uploadLabel">
+                 <div class="uploadIcon"></div>
+               </label>
+               <p class="uploadText">Drag and drop or click to browse</p>
+
+               <input id="taskUpload" type="file" name="task_file" class="taskFileInput" style="display:none;">
+
+               <!-- Shows uploaded file name -->
                <div class="fileUploadInfo">
-                  <p class="fileUploadedName" style="display:none;"></p>
-                  <button type="button" class="removeUpload" style="display:none;">X</button>
-                </div>
-              
-              <p class="fileMessage"></p>
-              <p class="dragMessage" style="display: none;"><i class="fa-solid fa-file"></i>Drag the task file here!</p>
-                          
-              <label for="taskUpload" class="btn btn-secondary btn-sm uploadBtn">Upload File</label>
+                 <p class="fileUploadedName" style="display:none;"></p>
+                 <button type="button" class="removeUpload" style="display:none;">X</button>
+               </div>
 
-            </div>
-          </div>
+               <p class="fileMessage"></p>
+               <p class="dragMessage" style="display: none;"><i class="fa-solid fa-file"></i>Drag the task file here!</p>
 
-          <button class="btn btn-primary btn-sm submitBtn" type="submit">Add Task</button>
-        </form>
-      </div>
+               <label for="taskUpload" class="btn btn-secondary btn-sm uploadBtn">Upload File</label>
 
-      <!--task list section ----------------------------- -->
-      <div class="panelWhiteBox">
-        <h4>Tasks</h4>
+             </div>
+           </div>
 
-        <div class="articleFiles">
-          <?php if (count($tasks) === 0): ?>
+           <button class="btn btn-primary btn-sm submitBtn" type="submit">Add Task</button>
+         </form>
+       </div>
 
-          <div class="notFIleAdded">
-            <i class="fa-solid fa-folder-open"></i>
-            <p>No tasks added yet.</p>
-          </div>
+       <!--task list section ----------------------------- -->
+       <div class="panelWhiteBox">
+         <h4>Tasks</h4>
 
-          <?php else: ?>
-            <?php foreach ($tasks as $task): ?>
-              <article class="materialItem">
-                <div class="materialInfo">
-                  <span class="materialFileName">
-                    <?= htmlspecialchars($task['taskName']) ?> - Deadline: <?= htmlspecialchars($task['taskDeadline']) ?>
-                  </span>
-                  <p class="taskDescription">
-                    <?= htmlspecialchars($task['taskBio']) ?>
-                  </p>
-                </div>
-                <div class="materialActions">
-                  <?php if (!empty($task['task_file'])): ?>
-                    <a href="<?= htmlspecialchars($task['task_file']) ?>" target="_blank" class="downloadFileBtn"><i class="fa-solid fa-download"></i> Download</a>
-                  <?php endif; ?>
-                  <button class="deleteMaterialButton" onclick="deleteTask(<?= (int) $task['task_id'] ?>)">Delete</button>
-                </div>
-              </article>
-            <?php endforeach; ?>
-          <?php endif; ?>
-        </div>
+         <div class="articleFiles">
+           <?php if (count($tasks) === 0): ?>
 
-      </div>
-    </section>
+             <div class="notFIleAdded">
+               <i class="fa-solid fa-folder-open"></i>
+               <p>No tasks added yet.</p>
+             </div>
 
-    <!-- Adding Materials Section ---------------------------------- -->
-    <section class="evaluateContainer panelSection" id="addMaterial">
+           <?php else: ?>
+             <?php foreach ($tasks as $task): ?>
+               <article class="materialItem">
+                 <div class="materialInfo">
+                   <span class="materialFileName">
+                     <?= htmlspecialchars($task['taskName']) ?> - Deadline: <?= htmlspecialchars($task['taskDeadline']) ?>
+                   </span>
+                   <p class="taskDescription">
+                     <?= htmlspecialchars($task['taskBio']) ?>
+                   </p>
+                 </div>
+                 <div class="materialActions">
+                   <?php if (!empty($task['task_file'])): ?>
+                     <a href="<?= htmlspecialchars($task['task_file']) ?>" target="_blank" class="downloadFileBtn"><i class="fa-solid fa-download"></i> Download</a>
+                   <?php endif; ?>
+                   <button class="deleteMaterialButton" onclick="deleteTask(<?= (int) $task['task_id'] ?>)">Delete</button>
+                 </div>
+               </article>
+             <?php endforeach; ?>
+           <?php endif; ?>
+         </div>
 
-      <!-- Sessions -->
-      <div class="sessionsSelectorFrame">
-        <!-- scroll button -->
-        <button class="sessionScrollBtn scrollLeft">
-            <div class="sessionBtnLeft">
-                <i class="fa-solid fa-angle-left"></i>
-            </div>
-        </button>
+       </div>
+     </section>
 
-        <div class="sessionsSelector">
-          <?php echo generateSessionsHTML(); ?>
-        </div>
+     <!-- Adding Materials Section ---------------------------------- -->
+     <section class="evaluateContainer panelSection" id="addMaterial">
 
-        <!-- scroll button -->
-        <button class="sessionScrollBtn scrollRight">
-            <div class="sessionBtnLeft">
-                <i class="fa-solid fa-angle-right"></i>
-            </div>
-        </button>
-      </div>
+       <!-- Sessions -->
+       <div class="sessionsSelectorFrame">
+         <!-- scroll button -->
+         <button class="sessionScrollBtn scrollLeft">
+           <div class="sessionBtnLeft">
+             <i class="fa-solid fa-angle-left"></i>
+           </div>
+         </button>
 
-      <!-- Add Material Form -->
-      <div class="panelWhiteBox">
-       <form class="validForm"
-        action="memberWorkshopPanel.php?session_id=<?= (int)$selectedSessionId ?>&tab=addMaterial"
-        method="post" enctype="multipart/form-data">
-          <input type="hidden" name="action" value="add_material">
-          <input type="hidden" name="tab" value="<?php echo htmlspecialchars($currentTab); ?>">
-          <input type="hidden" name="session_id" value="<?php echo $selectedSessionId; ?>">
+         <div class="sessionsSelector">
+           <?php echo generateSessionsHTML(); ?>
+         </div>
 
-          <div class="sideInputs">
-            <div class="inputsBox">
-              <div class="formGroup">
-                <label class="formLabel" for="material_title">Material Name:</label>
-                <input class="textInput" type="text" name="material_title" id="material_title" />
-              </div>
-            </div>
+         <!-- scroll button -->
+         <button class="sessionScrollBtn scrollRight">
+           <div class="sessionBtnLeft">
+             <i class="fa-solid fa-angle-right"></i>
+           </div>
+         </button>
+       </div>
 
-            <div class="inputsBox">
-              <div class="formGroup">
-                <label class="formLabel" for="material_type">Session Type:</label>
-                <select class="selectInput" name="material_type" id="material_type">
-                  <option value="technical">Technical</option>
-                  <option value="soft">Soft Skills</option>
-                </select>
-              </div>
-            </div>
-          </div>
+       <!-- Add Material Form -->
+       <div class="panelWhiteBox">
+         <form class="validForm"
+           action="memberWorkshopPanel.php?session_id=<?= (int)$selectedSessionId ?>&tab=addMaterial"
+           method="post" enctype="multipart/form-data">
+           <input type="hidden" name="action" value="add_material">
+           <input type="hidden" name="tab" value="<?php echo htmlspecialchars($currentTab); ?>">
+           <input type="hidden" name="session_id" value="<?php echo $selectedSessionId; ?>">
 
-          <!-- upload material file -->
-          <div class="fileUpload">
-            <div class="formLabel">Upload File:</div>
+           <div class="sideInputs">
+             <div class="inputsBox">
+               <div class="formGroup">
+                 <label class="formLabel" for="material_title">Material Name:</label>
+                 <input class="textInput" type="text" name="material_title" id="material_title" />
+               </div>
+             </div>
 
-            <div class="uploadContainer">
-              <label class="formLabel uploadLabel">
-                <div class="uploadIcon"></div>
-                <p class="uploadText">Drag and drop or click to browse</p>
-              </label>
+             <div class="inputsBox">
+               <div class="formGroup">
+                 <label class="formLabel" for="material_type">Session Type:</label>
+                 <select class="selectInput" name="material_type" id="material_type">
+                   <option value="technical">Technical</option>
+                   <option value="soft">Soft Skills</option>
+                 </select>
+               </div>
+             </div>
+           </div>
 
-              <input type="file" name="material_file" id="material_file" class="taskFileInput" style="display:none;">
+           <!-- upload material file -->
+           <div class="fileUpload">
+             <div class="formLabel">Upload File:</div>
 
-              <!-- Shows uploaded file name -->
+             <div class="uploadContainer">
+               <label class="formLabel uploadLabel">
+                 <div class="uploadIcon"></div>
+                 <p class="uploadText">Drag and drop or click to browse</p>
+               </label>
+
+               <input type="file" name="material_file" id="material_file" class="taskFileInput" style="display:none;">
+
+               <!-- Shows uploaded file name -->
                <div class="fileUploadInfo">
-                  <p class="fileUploadedName" id="materialFileName" style="display:none;"></p>
-                  <button type="button" class="removeUpload" style="display:none;">X</button>
-                </div>
-              <p class="fileMessage" id="materialFileMsg"></p>
-              <p class="dragMessage" style="display: none;"><i class="fa-solid fa-file"></i>Drag the material here!</p>
-                    
-              <label class="btn btn-secondary btn-sm" for="material_file">Upload File</label>
-            </div>
-          </div>
+                 <p class="fileUploadedName" id="materialFileName" style="display:none;"></p>
+                 <button type="button" class="removeUpload" style="display:none;">X</button>
+               </div>
+               <p class="fileMessage" id="materialFileMsg"></p>
+               <p class="dragMessage" style="display: none;"><i class="fa-solid fa-file"></i>Drag the material here!</p>
 
-          <button class="btn btn-primary submitBtn btn-sm" type="submit">Add Material</button>
+               <label class="btn btn-secondary btn-sm" for="material_file">Upload File</label>
+             </div>
+           </div>
 
-        </form>
-      </div>
+           <button class="btn btn-primary submitBtn btn-sm" type="submit">Add Material</button>
 
-      <!-- Materials list -->
-      <section class="panelWhiteBox">
-        <h4>Materials</h4>
+         </form>
+       </div>
 
-        <div class="materialCategory">
-          <aside class="materialType">
-            <button type="button" class="materialTypeButton active" data-filter="technical">Technical Material</button>
-            <button type="button" class="materialTypeButton" data-filter="soft">SoftSkills Material</button>
-          </aside>
+       <!-- Materials list -->
+       <section class="panelWhiteBox">
+         <h4>Materials</h4>
 
-          <div class="materialItemsList" id="materialsList">
-            <?php if (count($materialsTech) === 0 && count($materialsSoft) === 0): ?>
-            <div class="notFIleAdded">
-              <i class="fa-solid fa-folder-open"></i>
-              <p>No materials added yet.</p>
-            </div>
-            <?php else: ?>
-              <?php if (count($materialsTech) > 0): ?>
-                <div class="materialCategorySection" id="techMaterials">
-                  <h5>Technical Materials</h5>
-                  <?php foreach ($materialsTech as $material): ?>
-                    <article class="materialItem">
+         <div class="materialCategory">
+           <aside class="materialType">
+             <button type="button" class="materialTypeButton active" data-filter="technical">Technical Material</button>
+             <button type="button" class="materialTypeButton" data-filter="soft">SoftSkills Material</button>
+           </aside>
 
-                      <div class="materialInfo">
-                        <span class="materialFileName">
-                          <?= htmlspecialchars($material['material_title']) ?>
-                        </span>
-                      </div>
+           <div class="materialItemsList" id="materialsList">
+             <?php if (count($materialsTech) === 0 && count($materialsSoft) === 0): ?>
+               <div class="notFIleAdded">
+                 <i class="fa-solid fa-folder-open"></i>
+                 <p>No materials added yet.</p>
+               </div>
+             <?php else: ?>
+               <?php if (count($materialsTech) > 0): ?>
+                 <div class="materialCategorySection" id="techMaterials">
+                   <h5>Technical Materials</h5>
+                   <?php foreach ($materialsTech as $material): ?>
+                     <article class="materialItem">
 
-                      <div class="materialActions">
-                        <a href="<?= htmlspecialchars($material['file_path']) ?>" target="_blank" class="downloadFileBtn"><i class="fa-solid fa-download"></i> Download</a>
-                        <button class="deleteMaterialButton"
-                          onclick="deleteMaterial(<?= (int) $material['material_id'] ?>)">Delete</button>
-                      </div>
+                       <div class="materialInfo">
+                         <span class="materialFileName">
+                           <?= htmlspecialchars($material['material_title']) ?>
+                         </span>
+                       </div>
 
-                    </article>
-                  <?php endforeach; ?>
-                </div>
-              <?php endif; ?>
-              
-              <?php if (count($materialsSoft) > 0): ?>
-                <div class="materialCategorySection" id="softMaterials">
-                  <h5>Soft Skills Materials</h5>
-                  <?php foreach ($materialsSoft as $material): ?>
-                    <article class="materialItem">
-                      <div class="materialInfo">
-                        <span class="materialFileName">
-                          <?= htmlspecialchars($material['material_title']) ?>
-                        </span>
-                      </div>
-                      <div class="materialActions">
-                        <a href="<?= htmlspecialchars($material['file_path']) ?>" target="_blank" class="downloadFileBtn"><i class="fa-solid fa-download"></i> Download</a>
-                        <button class="deleteMaterialButton"
-                          onclick="deleteMaterial(<?= (int) $material['material_id'] ?>)">Delete</button>
-                      </div>
-                    </article>
-                  <?php endforeach; ?>
-                </div>
-              <?php endif; ?>
-            <?php endif; ?>
-          </div>
-        </div>
-      </section>
+                       <div class="materialActions">
+                         <a href="<?= htmlspecialchars($material['file_path']) ?>" target="_blank" class="downloadFileBtn"><i class="fa-solid fa-download"></i> Download</a>
+                         <button class="deleteMaterialButton"
+                           onclick="deleteMaterial(<?= (int) $material['material_id'] ?>)">Delete</button>
+                       </div>
 
-    </section>
+                     </article>
+                   <?php endforeach; ?>
+                 </div>
+               <?php endif; ?>
 
-    <!-- Activity Time Section ---------------------------------- -->
-    <section id="quiz" class="panelSection evaluateContainer">
-      <article class="workshopCard activityCard">
-          <div class="cardHeader activityHeader">
-            <h4><i class="fas fa-gamepad"></i> ACTIVITY TIME</h4>
-          </div>
-          
-          <div class="cardBody activityBody">
-              <!-- Game Challenge Banner -->
-              <div class="gameBanner">
-                  <!-- Animated Game Avatar -->
-                  <div class="gameAvatar">
-                      <div class="avatarCircle">
-                          <i class="fas fa-robot avatarIcon"></i>
-                      </div>
-                      <div class="avatarGlow"></div>
-                  </div>
+               <?php if (count($materialsSoft) > 0): ?>
+                 <div class="materialCategorySection" id="softMaterials">
+                   <h5>Soft Skills Materials</h5>
+                   <?php foreach ($materialsSoft as $material): ?>
+                     <article class="materialItem">
+                       <div class="materialInfo">
+                         <span class="materialFileName">
+                           <?= htmlspecialchars($material['material_title']) ?>
+                         </span>
+                       </div>
+                       <div class="materialActions">
+                         <a href="<?= htmlspecialchars($material['file_path']) ?>" target="_blank" class="downloadFileBtn"><i class="fa-solid fa-download"></i> Download</a>
+                         <button class="deleteMaterialButton"
+                           onclick="deleteMaterial(<?= (int) $material['material_id'] ?>)">Delete</button>
+                       </div>
+                     </article>
+                   <?php endforeach; ?>
+                 </div>
+               <?php endif; ?>
+             <?php endif; ?>
+           </div>
+         </div>
+       </section>
 
-                  <div class="bannerIcons">
-                      <i class="fas fa-trophy bannerIcon"></i>
-                      <i class="fas fa-star bannerIcon"></i>
-                      <i class="fas fa-fire bannerIcon"></i>
-                  </div>
-                  <h3 class="gameTitle">🎮 Weekly Challenge Game!</h3>
-                  <p class="gameSubtitle">Cast your quiz, spark curiosity!</p>
-              </div>
+     </section>
 
-              <!-- Game Info Cards -->
-              <!-- <div class="gameInfoGrid">
+     <!-- Activity Time Section ---------------------------------- -->
+     <section id="quiz" class="panelSection evaluateContainer">
+       <article class="workshopCard activityCard">
+         <div class="cardHeader activityHeader">
+           <h4><i class="fas fa-gamepad"></i> ACTIVITY TIME</h4>
+         </div>
+
+         <div class="cardBody activityBody">
+           <!-- Game Challenge Banner -->
+           <div class="gameBanner">
+             <!-- Animated Game Avatar -->
+             <div class="gameAvatar">
+               <div class="avatarCircle">
+                 <i class="fas fa-robot avatarIcon"></i>
+               </div>
+               <div class="avatarGlow"></div>
+             </div>
+
+             <div class="bannerIcons">
+               <i class="fas fa-trophy bannerIcon"></i>
+               <i class="fas fa-star bannerIcon"></i>
+               <i class="fas fa-fire bannerIcon"></i>
+             </div>
+             <h3 class="gameTitle">🎮 Weekly Challenge Game!</h3>
+             <p class="gameSubtitle">Cast your quiz, spark curiosity!</p>
+           </div>
+
+           <!-- Game Info Cards -->
+           <!-- <div class="gameInfoGrid">
                   <div class="gameInfoCard rewardCard">
                       <div class="infoIcon">
                           <i class="fas fa-gem"></i>
@@ -1288,24 +1285,24 @@ function redirectPanel($sessionId, $tab, $type = 'msg', $text = '')
                   </div>
               </div> -->
 
-              <!-- Motivational Message -->
-              <div class="motivationalBox">
-                  <i class="fas fa-bullseye"></i>
-                  <p>Create quizzes that challenge, inspire, and leave a lasting impact. 🚀</p>
-              </div>
+           <!-- Motivational Message -->
+           <div class="motivationalBox">
+             <i class="fas fa-bullseye"></i>
+             <p>Create quizzes that challenge, inspire, and leave a lasting impact. 🚀</p>
+           </div>
 
-              <!-- Play Button -->
-              <div class="playButtonContainer">
-                  <a href="https://awadcoding.github.io/SCCI-Quiz/admin.html" class="playGameBtn">
-                      <span class="btnGlow"></span>
-                      <i class="fas fa-play"></i>
-                      <span class="btnText">START GAME NOW</span>
-                      <i class="fas fa-arrow-right"></i>
-                  </a>
-              </div>
+           <!-- Play Button -->
+           <div class="playButtonContainer">
+             <a href="https://awadcoding.github.io/SCCI-Quiz/admin.html" class="playGameBtn">
+               <span class="btnGlow"></span>
+               <i class="fas fa-play"></i>
+               <span class="btnText">START GAME NOW</span>
+               <i class="fas fa-arrow-right"></i>
+             </a>
+           </div>
 
-              <!-- Stats Preview -->
-              <!-- <div class="statsPreview">
+           <!-- Stats Preview -->
+           <!-- <div class="statsPreview">
                   <div class="statItem">
                       <i class="fas fa-users"></i>
                       <span>300 Players</span>
@@ -1315,72 +1312,72 @@ function redirectPanel($sessionId, $tab, $type = 'msg', $text = '')
                       <span>Top Score: 98/100</span>
                   </div>
               </div> -->
-          </div>
-      </article>
-    </section>
+         </div>
+       </article>
+     </section>
 
-  </main>
-  <!-- end add materials section-->
+   </main>
+   <!-- end add materials section-->
 
-  <!-- Feedback Modal Popup -->
-  <div id="feedbackModal" class="reviewFeedbackPopup">
-    <div class="reviewFeedbackContainer">
+   <!-- Feedback Modal Popup -->
+   <div id="feedbackModal" class="reviewFeedbackPopup">
+     <div class="reviewFeedbackContainer">
 
-      <div class="FeedbackContainerTop">
-        <h6><i class="fas fa-comment-dots"></i> Add Feedback</h6>
-        <button type="button" class="closeFeedback">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
+       <div class="FeedbackContainerTop">
+         <h6><i class="fas fa-comment-dots"></i> Add Feedback</h6>
+         <button type="button" class="closeFeedback">
+           <i class="fas fa-times"></i>
+         </button>
+       </div>
 
-      <div class="modalBody FeedbackBox">
-        <form id="feedbackForm" method="POST" action="">
-          <input type="hidden" name="action" value="save_feedback">
-          <input type="hidden" name="tab" value="<?php echo htmlspecialchars($currentTab); ?>">
-          <input type="hidden" name="session_id" value="<?php echo $selectedSessionId; ?>">
-          <input type="hidden" name="submission_id" id="submissionIdInput" value="0">
-          <input type="hidden" id="ratingValue" name="rating" value="0">
+       <div class="modalBody FeedbackBox">
+         <form id="feedbackForm" method="POST" action="">
+           <input type="hidden" name="action" value="save_feedback">
+           <input type="hidden" name="tab" value="<?php echo htmlspecialchars($currentTab); ?>">
+           <input type="hidden" name="session_id" value="<?php echo $selectedSessionId; ?>">
+           <input type="hidden" name="submission_id" id="submissionIdInput" value="0">
+           <input type="hidden" id="ratingValue" name="rating" value="0">
 
-          <div class="materialForm">
-            <label class="formLabel" for="feedback_text">Add feedback:</label>
-            <textarea class="textInput popupInput" name="feedback_text" id="feedback_text" rows="4"></textarea>
-            <p id="feedbackTextMsg" class="errorMsg"></p>
-          </div>
+           <div class="materialForm">
+             <label class="formLabel" for="feedback_text">Add feedback:</label>
+             <textarea class="textInput popupInput" name="feedback_text" id="feedback_text" rows="4"></textarea>
+             <p id="feedbackTextMsg" class="errorMsg"></p>
+           </div>
 
-          <div class="feedbackFormGroup">
-            <label class="feedbackLabel">Rating:</label>
-            <div class="feedbackStarsInput">
-              <i class="fa-regular fa-star feedbackStars" data-rating="1"></i>
-              <i class="fa-regular fa-star feedbackStars" data-rating="2"></i>
-              <i class="fa-regular fa-star feedbackStars" data-rating="3"></i>
-              <i class="fa-regular fa-star feedbackStars" data-rating="4"></i>
-              <i class="fa-regular fa-star feedbackStars" data-rating="5"></i>
-            </div>
-            <p id="ratingMsg" class="errorMsg"></p>
-          </div>
+           <div class="feedbackFormGroup">
+             <label class="feedbackLabel">Rating:</label>
+             <div class="feedbackStarsInput">
+               <i class="fa-regular fa-star feedbackStars" data-rating="1"></i>
+               <i class="fa-regular fa-star feedbackStars" data-rating="2"></i>
+               <i class="fa-regular fa-star feedbackStars" data-rating="3"></i>
+               <i class="fa-regular fa-star feedbackStars" data-rating="4"></i>
+               <i class="fa-regular fa-star feedbackStars" data-rating="5"></i>
+             </div>
+             <p id="ratingMsg" class="errorMsg"></p>
+           </div>
 
-          <div class="modalFooter">
-            <button type="submit" class="btn btn-primary btn-sm">Save Feedback</button>
-            <p id="feedbackOkMsg" class="okMsg"></p>
-          </div>
-        </form>
-      </div>
+           <div class="modalFooter">
+             <button type="submit" class="btn btn-primary btn-sm">Save Feedback</button>
+             <p id="feedbackOkMsg" class="okMsg"></p>
+           </div>
+         </form>
+       </div>
 
-    </div>
-  </div>
+     </div>
+   </div>
 
-  <!-- JAVASCRIPT -->
+   <!-- JAVASCRIPT -->
 
-  <script src="assets/js/all.min.js" defer></script>
-  <script src="assets/js/messages.js" defer></script>
-  <script src="assets/js/memberWorkshopPanel.js" defer></script>
-  <script src="assets/js/pagination.js"></script>
-  <script>
-      document.addEventListener('DOMContentLoaded', () => {
-          setupPagination('workshopTableScroll', 'workshopPagination'); 
-      });
-  </script>
+   <script src="assets/js/all.min.js" defer></script>
+   <script src="assets/js/messages.js" defer></script>
+   <script src="assets/js/memberWorkshopPanel.js" defer></script>
+   <script src="assets/js/pagination.js"></script>
+   <script>
+     document.addEventListener('DOMContentLoaded', () => {
+       setupPagination('workshopTableScroll', 'workshopPagination');
+     });
+   </script>
 
-</body>
+ </body>
 
-</html>
+ </html>
