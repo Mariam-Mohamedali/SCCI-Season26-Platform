@@ -930,6 +930,13 @@ body.red-theme .decorative-element {
   display: block;
 }
 
+.success-message {
+  color: #20b454;
+  padding: 15px 25px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 16px;
+}
 
 @media (max-width: 1200px) {
   .homeTitles {
