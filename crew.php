@@ -5,41 +5,35 @@
 
 <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SCCI - Crew</title>
-    <link rel="icon" href="./assets/icons/logoSCCI.png" type="image/png">
-
-    <!-- Preload critical CSS files -->
-    <link rel="preload" href="./assets/css/root.css" as="style">
-    <link rel="preload" href="./assets/css/crew.css" as="style">
-    
-    <!-- Inline critical CSS to prevent FOUC -->
-    <style>
-        /* Prevent FOUC by hiding content until CSS loads */
-        header {
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
-        }
-        header.loaded {
-            opacity: 1;
-        }
-    </style>
-    
-    <!-- Font Awesome -->
+    <!-- favicon -->
+    <link rel="icon" type="image/x-icon" href="./assets/icons/logoSCCI.png" />
+    <meta property="og:image" content="./assets/images/seo/crew.png" />
+    <meta property="og:title" content="SCCI`26" />
+    <meta
+      property="og:description"
+      content="SCCI is the university's premier student community, uniting creative minds to build the future of tech, media, business, and entrepreneurship."  
+    />
+    <meta
+      name="keywords"
+      content="SCCI, Student Community, Creative Minds, Tech, Media, Business, Entrepreneurship, University, Community, College"
+    />
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- css -->
     <link rel="stylesheet" href="./assets/css/all.min.css" />
-    
-    <!-- CSS Files -->
     <link rel="stylesheet" href="./assets/css/root.css" />
     <link rel="stylesheet" href="./assets/css/crew.css" />
-    
-    <!-- AOS Animation -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap" rel="stylesheet">
-</head>
+    <!-- aos -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <title>SCCI - Crew</title>
+  </head>
 
 <body>
 
@@ -137,7 +131,6 @@ if ($result) {
         <div class="cardsGrid">
 
             <div class="boardItem js-auto-flip" data-aos="fade-up" data-aos-delay="400">
-                <h3 class="roleTitle">Technical</h3>
                 <a href="ViewProfile.php?user_id=<?= $crew_ids['Marwan Wael'] ?? '#' ?>" class="memberCardLink">
                 <div class="flipCard  " data-aos="flip">
                     <div class="flipInner  ">
@@ -250,7 +243,6 @@ if ($result) {
             </div>
 
             <div class="boardItem" data-aos="fade-up" data-aos-delay="200">
-                <h3 class="roleTitle">Academic Committee</h3>
                 <a href="ViewProfile.php?user_id=<?= $crew_ids['Mohamed Ahmed'] ?? '#' ?>" class="memberCardLink">
                 <div class="flipCard" data-aos="flip">
                     <div class="flipInner">
@@ -276,7 +268,6 @@ if ($result) {
             </div>
 
             <div class="boardItem" data-aos="fade-up" data-aos-delay="300">
-                <h3 class="roleTitle">Human Resource</h3>
                 <a href="ViewProfile.php?user_id=<?= $crew_ids['Alaa Aboelazm'] ?? '#' ?>" class="memberCardLink">
                 <div class="flipCard" data-aos="flip">
                     <div class="flipInner">
@@ -301,7 +292,6 @@ if ($result) {
                 <a href="crewDetails.php?committee_id=12" class="btn btn-primary ">Know Us !</a>
             </div>
             <div class="boardItem" data-aos="fade-up" data-aos-delay="400">
-                <h3 class="roleTitle">External Relations</h3>
                 <a href="ViewProfile.php?user_id=<?= $crew_ids['Mohamed Hesham'] ?? '#' ?>" class="memberCardLink">
                 <div class="flipCard" data-aos="flip">
                     
