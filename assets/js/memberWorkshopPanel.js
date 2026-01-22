@@ -1,5 +1,3 @@
-
-
 document.addEventListener("DOMContentLoaded", () => {
   /* =========================================================
      1) MINI NAV TABS
@@ -9,7 +7,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function getActiveTab() {
     const urlTab = new URLSearchParams(window.location.search).get("tab");
-    return urlTab || localStorage.getItem("activePanel") || links[0]?.dataset.page || "evaluate";
+    return (
+      urlTab ||
+      localStorage.getItem("activePanel") ||
+      links[0]?.dataset.page ||
+      "evaluate"
+    );
   }
 
   function activatePage(pageId) {
@@ -63,9 +66,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
       e.preventDefault();
 
-      const currentTab = localStorage.getItem("activePanel")
-        || new URLSearchParams(window.location.search).get("tab")
-        || "evaluate";
+      const currentTab =
+        localStorage.getItem("activePanel") ||
+        new URLSearchParams(window.location.search).get("tab") ||
+        "evaluate";
 
       // parse session_id from the button href
       const href = btn.getAttribute("href") || "";
@@ -107,7 +111,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Close popup (X button)
   document.addEventListener("click", (e) => {
-    if (e.target.closest(".closeFeedback") || e.target.closest(".modalCancelBtn")) {
+    if (
+      e.target.closest(".closeFeedback") ||
+      e.target.closest(".modalCancelBtn")
+    ) {
       const popup = e.target.closest(".reviewFeedbackPopup");
       if (!popup) return;
 
@@ -129,9 +136,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // Escape key closes any active popup
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
-      document.querySelectorAll(".reviewFeedbackPopup.active").forEach((popup) => {
-        popup.classList.remove("active");
-      });
+      document
+        .querySelectorAll(".reviewFeedbackPopup.active")
+        .forEach((popup) => {
+          popup.classList.remove("active");
+        });
       document.body.classList.remove("no-scroll");
     }
   });
@@ -145,8 +154,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     frames.forEach((frame) => {
       const selector = frame.querySelector(".sessionsSelector");
-      const leftBtn = frame.querySelector(".scrollLeft, .scrollBtn.leftBtn, .scrollBtn.left");
-      const rightBtn = frame.querySelector(".scrollRight, .scrollBtn.rightBtn, .scrollBtn.right");
+      const leftBtn = frame.querySelector(
+        ".scrollLeft, .scrollBtn.leftBtn, .scrollBtn.left",
+      );
+      const rightBtn = frame.querySelector(
+        ".scrollRight, .scrollBtn.rightBtn, .scrollBtn.right",
+      );
 
       if (!selector) return;
 
@@ -242,39 +255,104 @@ document.addEventListener("DOMContentLoaded", () => {
   /* =========================================================
      8) FILE UPLOAD UI
   ========================================================= */
-  document.querySelectorAll(".fileUpload").forEach((container) => {
-    const fileInput = container.querySelector(".taskFileInput, input[type='file']");
-    const fileState = container.querySelector(".uploadText");
-    const fileUploadedName = container.querySelector(".fileUploadedName");
-    const fileMessage = container.querySelector(".fileMessage");
+document.querySelectorAll(".fileUpload").forEach((container) => {
+  const fileInput = container.querySelector("input[type='file']");
+  const fileState = container.querySelector(".uploadText");
+  const fileUploadedName = container.querySelector(".fileUploadedName");
+  const fileUploadInfo = container.querySelector(".fileUploadInfo");
+  const removeBtn = container.querySelector(".removeUpload");
+  const fileMessage = container.querySelector(".fileMessage");
+  const uploadBtn = container.querySelector(".uploadBtn");
 
-    if (!fileInput) return;
+  if (!fileInput) return;
 
-    fileInput.addEventListener("change", function () {
-      const file = this.files?.[0];
-      if (!file) {
-        if (fileUploadedName) {
-          fileUploadedName.textContent = "";
-          fileUploadedName.style.display = "none";
-        }
-        if (fileState) {
-          fileState.textContent = "Drag and drop or click to browse";
-          fileState.style.color = "";
-        }
-        return;
-      }
+  fileInput.addEventListener("change", function () {
+    const file = this.files[0];
 
-      if (fileUploadedName) {
-        fileUploadedName.textContent = file.name;
-        fileUploadedName.style.display = "block";
-      }
-      if (fileState) {
-        fileState.textContent = "File Uploaded Successfully!";
-        fileState.style.color = "green";
-      }
-      if (fileMessage) fileMessage.textContent = "";
+    if (!file) {
+      reset();
+      return;
+    }
+
+    // show uploaded info
+    if (fileUploadedName) {
+      fileUploadedName.textContent = file.name;
+      fileUploadedName.style.display = "block";
+    }
+
+    if (fileUploadInfo) fileUploadInfo.style.display = "flex";
+    if (removeBtn) removeBtn.style.display = "inline-block";
+    if (uploadBtn) uploadBtn.style.display = "none";
+
+    if (fileState) {
+      fileState.textContent = "File Uploaded Successfully!";
+      fileState.style.color = "green";
+    }
+
+    if (fileMessage) fileMessage.textContent = "";
+  });
+
+  removeBtn?.addEventListener("click", () => {
+    fileInput.value = "";
+    reset();
+  });
+
+  function reset() {
+    if (fileUploadedName) {
+      fileUploadedName.textContent = "";
+      fileUploadedName.style.display = "none";
+    }
+
+    if (fileUploadInfo) fileUploadInfo.style.display = "none";
+    if (removeBtn) removeBtn.style.display = "none";
+    if (uploadBtn) uploadBtn.style.display = "inline-block";
+
+    if (fileState) {
+      fileState.textContent = "Drag and drop or click to browse";
+      fileState.style.color = "";
+    }
+  }
+});
+
+// Drag & Drop support
+document.querySelectorAll(".fileUpload").forEach((container) => {
+  const fileInput = container.querySelector("input[type='file']");
+  const dropArea = container.querySelector(".uploadContainer");
+  const dropMessage = container.querySelector(".dragMessage");
+
+  if (!fileInput || !dropArea) return;
+
+  // prevent default browser behavior
+  ["dragenter", "dragover", "dragleave", "drop"].forEach((event) => {
+    dropArea.addEventListener(event, (e) => {
+      e.preventDefault();
+      e.stopPropagation();
     });
   });
+
+  dropArea.addEventListener("dragover", () => {
+    dropArea.classList.add("dragOver");
+    dropMessage.style.display = "block";
+  });
+
+  dropArea.addEventListener("dragleave", () => {
+    dropArea.classList.remove("dragOver");
+    dropMessage.style.display = "none";
+  });
+
+  dropArea.addEventListener("drop", (e) => {
+    dropArea.classList.remove("dragOver");
+    dropMessage.style.display = "none";
+
+    const files = e.dataTransfer.files;
+    if (!files.length) return;
+
+    fileInput.files = files;
+
+    fileInput.dispatchEvent(new Event("change"));
+  });
+});
+
 
   /* =========================================================
      9) FORMS VALIDATION (Add Task / Add Material)
@@ -290,6 +368,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // messages
       const taskNameMessage = form.querySelector("#taskNameMessage");
+      const fileMessage = form.querySelector(".fileMessage");
       const taskBioMessage = form.querySelector("#taskBioMessage");
       const taskDeadlineMessage = form.querySelector("#taskDeadlineMessage");
 
@@ -300,10 +379,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (!nameVal) {
         isValid = false;
-        if (taskNameMessage) {
+        if (fileMessage) {
           taskNameMessage.textContent = "This field is required.";
           taskNameMessage.style.color = "red";
           taskNameMessage.style.fontSize = "12px";
+        }
+      }
+
+      // file input validation (works for both forms)
+      const fileInput = form.querySelector("input[type='file']");
+
+      if (fileMessage) fileMessage.textContent = "";
+
+      if (fileInput && fileInput.files.length === 0) {
+        isValid = false;
+        if (fileMessage) {
+          fileMessage.textContent = "Please upload a file.";
+          fileMessage.style.color = "red";
+          fileMessage.style.fontSize = "12px";
         }
       }
 
@@ -337,7 +430,9 @@ document.addEventListener("DOMContentLoaded", () => {
      10) MATERIAL TYPE FILTERING
   ========================================================= */
   const filterButtons = document.querySelectorAll(".materialTypeButton");
-  const materialSections = document.querySelectorAll(".materialCategorySection");
+  const materialSections = document.querySelectorAll(
+    ".materialCategorySection",
+  );
 
   if (filterButtons.length && materialSections.length) {
     filterButtons.forEach((button) => {
