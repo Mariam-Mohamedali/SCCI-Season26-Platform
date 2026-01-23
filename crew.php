@@ -114,12 +114,12 @@ if ($result) {
                 </div>
                 <div class="jobCardContent">
                     <p class="textPrimary">
-                        Developing Members In Negotiation, Persuasive And Communication Skills.
-                        Helping Members To Discover Their Own Skills And What Can They Do.
-                        Responsible For The Budget And The Cash Inflow And Outflow.
-                        Making CR Outing For All Members To Create Connections Between CR Members.
-                        After Each Phase Creating One To One Meeting
-                         For Each Member To Evaluate The Members And Incentivize Them.
+                        <span>⚜ </span>Developing Members In Negotiation, Persuasive And Communication Skills.
+                        <span>⚜ </span>Helping Members To Discover Their Own Skills And What Can They Do.
+                        <span>⚜ </span>Responsible For The Budget And The Cash Inflow And Outflow.
+                        <span>⚜ </span>Making CR Outing For All Members To Create Connections Between CR Members.
+                        <span>⚜ </span>After Each Phase Creating One To One Meeting
+                        <span>⚜ </span>For Each Member To Evaluate The Members And Incentivize Them.
                     </p>
                 </div>
             </div>

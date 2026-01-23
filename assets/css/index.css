@@ -109,51 +109,51 @@ main {
    Animation: Word Glow In + Fly Sparks
 */
 .word-split span {
-    animation: wordExplode 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) forwards;
+    animation: wordExplode 0.2s cubic-bezier(0.215, 0.610, 0.355, 1.000) forwards;
 }
 
 .word-split-p span {
-    animation: wordExplode 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) forwards;
+    animation: wordExplode 0.2s cubic-bezier(0.215, 0.610, 0.355, 1.000) forwards;
     color: #ffffff;
     text-shadow: 0 0 10px #FFD700;
 }
 
 /* Staggered Delays for H1 */
 .word-split span:nth-child(1) {
-    animation-delay: 0.5s;
+    animation-delay: 0.25s;
 }
 
 .word-split span:nth-child(2) {
-    animation-delay: 1.0s;
+    animation-delay: 0.5s;
 }
 
 .word-split span:nth-child(3) {
-    animation-delay: 1.5s;
+    animation-delay: 0.75s;
 }
 
 /* Staggered Delays for P (starts after H1) */
 .word-split-p span:nth-child(1) {
-    animation-delay: 2.2s;
+    animation-delay: 1s;
 }
 
 .word-split-p span:nth-child(2) {
-    animation-delay: 2.5s;
+    animation-delay: 1.25s;
 }
 
 .word-split-p span:nth-child(3) {
-    animation-delay: 2.8s;
+    animation-delay: 1.5s;
 }
 
 .word-split-p span:nth-child(4) {
-    animation-delay: 3.1s;
+    animation-delay: 1.75s;
 }
 
 .word-split-p span:nth-child(5) {
-    animation-delay: 3.4s;
+    animation-delay: 2s;
 }
 
 .word-split-p span:nth-child(6) {
-    animation-delay: 3.7s;
+    animation-delay: 2.25s;
 }
 
 
@@ -201,27 +201,27 @@ main {
 
 /* Sparks flying animation */
 .word-split span::before {
-    animation: sparkFly1 0.6s ease-out forwards;
+    animation: sparkFly1 0.1s ease-out forwards;
 }
 
 .word-split span::after {
-    animation: sparkFly2 0.6s ease-out forwards;
+    animation: sparkFly2 0.1s ease-out forwards;
 }
 
 /* Stagger sparks same as text */
 .word-split span:nth-child(1)::before,
 .word-split span:nth-child(1)::after {
-    animation-delay: 0.5s;
+    animation-delay: 0.20s;
 }
 
 .word-split span:nth-child(2)::before,
 .word-split span:nth-child(2)::after {
-    animation-delay: 1.0s;
+    animation-delay: 0.4s;
 }
 
 .word-split span:nth-child(3)::before,
 .word-split span:nth-child(3)::after {
-    animation-delay: 1.5s;
+    animation-delay: 0.8s;
 }
 
 /* (We can add more for P tags if needed, but H1 is the main focus) */
