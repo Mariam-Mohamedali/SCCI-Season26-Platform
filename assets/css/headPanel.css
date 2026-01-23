@@ -60,13 +60,14 @@
     border-radius: 3px 3px 0 0;
     position: absolute;
     left: 50%;
-    bottom: -10px;
+    bottom: -25.4px;
     transition: 0.3s ease-in-out;
 }
 
 .miniNav a:hover::after,
 .miniNav a.activePanelLine::after {
     left: 0;
+    bottom: -25.4px;
     width: 100%;
 }
 
@@ -175,21 +176,25 @@
 
 /* ================= Table ================= */
 .headTableScroll {
+    width: 100%;
+    max-width: 100%;
+    max-height: 70vh;
+    overflow-x: auto;
+    overflow-y: auto;
+    margin: 60px auto;
+    padding: 0;
+    box-sizing: border-box;
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-light);
-    margin-top: var(--space-5);
-    overflow-x: auto;
-    width: 100%;
-    margin: 7rem auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .headTable {
-
     width: 100%;
-    margin-inline: auto;
+    min-width: 1100px;
     border-collapse: collapse;
+    table-layout: fixed;
     background-color: var(--card-bg);
-
 }
 
 /* ================= Header ================= */
@@ -248,43 +253,8 @@
     border-bottom: none;
 }
 
-
-/* ================= Responsive ================= */
-/* ===== Tablet ===== */
-@media (max-width: 992px) {
-    .headTable {
-        display: block;
-        width: 100%;
-    }
-
-    .tableHeader,
-    .tableData {
-        white-space: normal;
-        padding: var(--space-3);
-        font-size: var(--fs-sm);
-        word-break: normal;
-        overflow-wrap: break-word;
-    }
-}
-
-
-/* ===== Mobile ===== */
-@media (max-width: 769px) {
-
-    .headTable {
-        display: block;
-        width: 100%;
-        overflow-x: auto;
-    }
-
-    .tableHeader,
-    .tableData {
-        white-space: normal;
-        padding: var(--space-2);
-        font-size: var(--fs-xs);
-        word-break: normal;
-        overflow-wrap: break-word;
-    }
+.email-text {
+    word-break: break-all;
 }
 
 /* ================= Pagination ================= */
@@ -323,18 +293,81 @@
 }
 
 
-/* Pagination Responsive */
+/* ================= Responsive Breakpoints ================= */
+
+/* ===== Large tablets / small desktops ===== */
+@media (max-width: 1200px) {
+    main {
+        width: 95%;
+        padding-top: 13vh;
+    }
+
+    .tableHeader {
+        font-size: 1.3rem;
+    }
+
+    .tableData {
+        font-size: 1.3rem;
+        padding: 1.6rem 1.8rem;
+    }
+}
+
+/* ===== Medium tablets / iPads ===== */
+@media (max-width: 1024px) {
+    main {
+        width: 95%;
+        padding-top: 12vh;
+    }
+
+    .tableHeader {
+        font-size: 1.3rem;
+    }
+
+    .tableData {
+        font-size: 1.3rem;
+        padding: 1.8rem 1.8rem;
+    }
+}
+
+/* ===== Small tablets / large phones ===== */
+@media (max-width: 900px) {
+    main {
+        width: 95%;
+        padding-top: 11vh;
+    }
+
+    .tableHeader {
+        font-size: 1.3rem;
+    }
+
+    .tableData {
+        font-size: 1.3rem;
+        padding: 1.6rem 1.7rem;
+    }
+}
+
+/* ===== Mobile phones ===== */
 @media (max-width: 768px) {
-    .pagination-controls {
-        gap: 1rem;
-        margin: 1rem auto 2rem auto;
+    main {
+        width: 95%;
+        padding-top: 10vh;
     }
 
-    .nav-arrow {
-        font-size: 1.4rem;
+    .headTableScroll {
+        max-height: 60vh;
     }
 
-    .page-info {
-        font-size: 0.9rem;
+    .tableHeader {
+        font-size: 1.3rem;
+    }
+
+    .tableData {
+        font-size: 1.3rem;
+        padding: 2.2rem 2rem;
+    }
+
+    .headTable .tableData:last-child .btn {
+        font-size: 1.3rem;
+        padding: 1.6rem 1.6rem;
     }
 }
