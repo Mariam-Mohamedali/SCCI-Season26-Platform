@@ -329,8 +329,10 @@ include('./includes/nav.php');
               placeholder="Enter your LinkedIn">
           </div>
 
-          <button class="saveProfile">Save Changes</button>
-          <button type="button" class="closePopup">Close</button>
+          <div class="button-group">
+            <button type="button" class="closePopup">Close</button>
+            <button type="submit" class="saveProfile">Save Changes</button>
+          </div>
         </div>
       </div>
     </form>
