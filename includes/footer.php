@@ -1,3 +1,4 @@
+<?php  ?>
 <footer>
   <div class="footerCont">
     <div class="footerLeft footerWide">
@@ -6,14 +7,19 @@
     <div class="contactForm footerForm">
       <h3>Quick Links</h3>
       <section>
-        
+
         <a href="./home.php">home</a>
         <a href="./about.php">about us</a>
-        <a href="./gallery.php">gallery</a>
+        <a href="./gallary.php">gallery</a>
         <a href="./workshops.php">workshops</a>
         <a href="./crew.php">crew</a>
+
+        <?php if (isset($_SESSION['user_id']) && in_array($_SESSION['role'], [1,2,3,4])): ?>
         <a href="./profile.php">profile</a>
+        <?php endif; ?>
+        <?php if (!isset($_SESSION['user_id'])): ?>
         <a href="./auth/login.php">login</a>
+        <?php endif; ?>
       </section>
     </div>
     <div class="contactForm footerForm">
