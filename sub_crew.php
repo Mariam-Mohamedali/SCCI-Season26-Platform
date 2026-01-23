@@ -117,11 +117,11 @@ $group = $_GET['group'] ?? '';
                     </div>
                     <div class="jobCardContent">
                         <p class="textPrimary">
-                            Leading The Technical Committees (IT, DD, MP, SMM).
-                            Overseeing All Technical Operations And Digital Initiatives.
-                            Coordinating Between Technical Teams For Seamless Integration.
-                            Ensuring High-Quality Technical Deliverables And Innovation.
-                            Managing Technical Resources And Infrastructure.
+                            <span>⚜ </span>Leading The Technical Committees (IT, DD, MP, SMM).
+                            <span>⚜ </span>Overseeing All Technical Operations And Digital Initiatives.
+                            <span>⚜ </span>Coordinating Between Technical Teams For Seamless Integration.
+                            <span>⚜ </span>Ensuring High-Quality Technical Deliverables And Innovation.
+                            <span>⚜ </span>Managing Technical Resources And Infrastructure.
                         </p>
                     </div>
                 </div>
@@ -262,11 +262,11 @@ $group = $_GET['group'] ?? '';
                     </div>
                     <div class="jobCardContent">
                         <p class="textPrimary">
-                            Leading The External Relations Committees (BD, Logistics, CR, PR).
-                            Managing Partnerships And External Communications.
-                            Coordinating Events And Community Outreach Programs.
-                            Building Strategic Relationships With Organizations.
-                            Overseeing Public Relations And Brand Image.
+                            <span>⚜ </span>Leading The External Relations Committees (BD, Logistics, CR, PR).
+                            <span>⚜ </span>Managing Partnerships And External Communications.
+                            <span>⚜ </span>Coordinating Events And Community Outreach Programs.
+                            <span>⚜ </span>Building Strategic Relationships With Organizations.
+                            <span>⚜ </span>Overseeing Public Relations And Brand Image.
                         </p>
                     </div>
                 </div>
