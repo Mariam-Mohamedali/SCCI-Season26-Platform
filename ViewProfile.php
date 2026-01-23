@@ -68,7 +68,7 @@ $user = mysqli_fetch_assoc($run_user);
 
 // Determine image path based on role
 $imagePath = $user['image'] ?? 'default.png';
-if (isset($user['role']) && $user['role'] == 4) {
+if (isset($user['role']) && $user['role'] == 4 or $user['role'] == 5) {
   $imagePath = 'SCCI Board/' . $imagePath;
 }
 ?>

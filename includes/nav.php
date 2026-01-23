@@ -22,7 +22,7 @@ if (isset($_SESSION['user_id'])) {
             $committeeId = $row['committee_id'] ?? 0; // Fetch committee_id from DB
 
             // Add SCCI Board prefix for role 4 users
-            if ($role == 4) {
+            if ($role == 4 or $role == 5) {
                 $user_image = 'SCCI Board/' . $user_image;
             }
         }
@@ -67,9 +67,14 @@ if (isset($_SESSION['user_id'])) {
         }
         ?>
         <?php
-        if ($role == 4) {
-            echo '<a href="/SCCI-Season26-Platform/contactPanel.php" id="homeNavLine">contact panel</a>';
+        if ($role == 5) {
             echo '<a href="/SCCI-Season26-Platform/headPanel.php" id="homeNavLine">head panel</a>';
+        }
+        ?>
+        <?php
+         if ($role == 5 or $role == 4) {
+            echo '<a href="/SCCI-Season26-Platform/contactPanel.php" id="homeNavLine">contact panel</a>';
+        
         }
         ?>
         <?php

@@ -130,8 +130,8 @@ if ($result) {
 
         <div class="cardsGrid">
 
-            <div class="boardItem js-auto-flip" data-aos="fade-up" data-aos-delay="400">
-                <a href="ViewProfile.php?user_id=<?= $crew_ids['Marwan Wael'] ?? '#' ?>" class="memberCardLink">
+            <div class="boardItem" data-aos="fade-up" data-aos-delay="200">
+                <a href="javascript:void(0)" onclick="openModal(this.closest('.boardItem'))"<?= $crew_ids['Marwan Wael'] ?? '#' ?>" class="memberCardLink">
                 <div class="flipCard  " data-aos="flip">
                     <div class="flipInner  ">
                         <div class="flipSide  flipFront">
@@ -159,7 +159,7 @@ if ($result) {
                 <div class="subCrewGrid hiddenGrid">
                     <!-- 1. IT -->
                     <div class="subCard">
-                       <div class="flipCard smCard card1" data-aos="flip">
+                     <div class="flipCard smCard card1" data-aos="flip">
                            <div class="flipInner">
                                <div class="flipSide flipFront">
                                 <img src="./assets/img/crew/backCardCrew.png" loading="lazy" alt="backCard" />
@@ -170,7 +170,7 @@ if ($result) {
                                         <img src="./assets/uploadedImages/SCCI Board/Mahmoud Alaam.jpg" alt="Mahmoud Alaam" class="memberImage" />
                                     </div>
                                     <div class="memberName">
-                                        <h3>Mahmoud Alaam</h3>
+                                        <h3>Mahmoud Allam</h3>
                                     </div>
                             </div>
                                </div>
@@ -243,7 +243,7 @@ if ($result) {
             </div>
 
             <div class="boardItem" data-aos="fade-up" data-aos-delay="200">
-                <a href="ViewProfile.php?user_id=<?= $crew_ids['Mohamed Ahmed'] ?? '#' ?>" class="memberCardLink">
+                <a href="crewDetails.php?committee_id=3" class="memberCardLink">
                 <div class="flipCard" data-aos="flip">
                     <div class="flipInner">
                         <div class="flipSide flipFront">
@@ -268,7 +268,7 @@ if ($result) {
             </div>
 
             <div class="boardItem" data-aos="fade-up" data-aos-delay="300">
-                <a href="ViewProfile.php?user_id=<?= $crew_ids['Alaa Aboelazm'] ?? '#' ?>" class="memberCardLink">
+                <a href="crewDetails.php?committee_id=12" class="memberCardLink">
                 <div class="flipCard" data-aos="flip">
                     <div class="flipInner">
                         <div class="flipSide flipFront">
@@ -291,8 +291,8 @@ if ($result) {
                 </a>
                 <a href="crewDetails.php?committee_id=12" class="btn btn-primary ">Know Us !</a>
             </div>
-            <div class="boardItem" data-aos="fade-up" data-aos-delay="400">
-                <a href="ViewProfile.php?user_id=<?= $crew_ids['Mohamed Hesham'] ?? '#' ?>" class="memberCardLink">
+             <div class="boardItem" data-aos="fade-up" data-aos-delay="200">
+                <a href="javascript:void(0)" onclick="openModal(this.closest('.boardItem'))"<?= $crew_ids['Mohamed Hesham '] ?? '#' ?>" class="memberCardLink">
                 <div class="flipCard" data-aos="flip">
                     
                     

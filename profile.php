@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -80,23 +79,25 @@ if (!$user) {
 
 // Handle profile update
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_POST['logout'])) {
-    // Validate inputs
+        // Validate inputs
     if (isset($_POST['user_name'], $_POST['email'], $_POST['phone'], $_POST['githup'], $_POST['linkedin'])) {
         $user_name = trim($_POST['user_name']);
         $email = trim($_POST['email']);
         $phone = trim($_POST['phone']);
         $githup = trim($_POST['githup']);
         $linkedin = trim($_POST['linkedin']);
-        
+
         // Validate email
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $error_message = "Invalid email format";
+        } elseif (isset($_POST['password']) && !empty($_POST['password']) && $_POST['password'] !== $_POST['confirm_password']) {
+            $error_message = "Passwords do not match";
         } else {
             // Prepare update query
             if (isset($_POST['password']) && !empty($_POST['password'])) {
                 $password = $_POST['password'];
                 $passwordhashing = password_hash($password, PASSWORD_DEFAULT);
-                
+
                 $update_query = "UPDATE users SET user_name=?, email=?, phone=?, githup=?, linkedin=?, password=? WHERE user_id=?";
                 $stmt_update = mysqli_prepare($connect, $update_query);
                 mysqli_stmt_bind_param($stmt_update, "ssssssi", $user_name, $email, $phone, $githup, $linkedin, $passwordhashing, $user_id);
@@ -105,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_POST['logout'])) {
                 $stmt_update = mysqli_prepare($connect, $update_query);
                 mysqli_stmt_bind_param($stmt_update, "sssssi", $user_name, $email, $phone, $githup, $linkedin, $user_id);
             }
-            
+
             if (mysqli_stmt_execute($stmt_update)) {
                 $success_message = "Profile updated successfully!";
                 // Refresh user data
@@ -126,7 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_POST['logout'])) {
 
 // Determine image path based on role
 $imagePath = $user['image'] ?? 'default.png';
-if (isset($user['role']) && $user['role'] == 4) {
+if (isset($user['role']) && ($user['role'] == 4 or $user['role'] == 5)) {
   $imagePath = 'SCCI Board/' . $imagePath;
 }
 ?>
@@ -247,7 +248,7 @@ if (isset($user['role']) && $user['role'] == 4) {
               <div class="infoLabel">Department</div>
               <div class="infoValue">
                 <?php 
-                if ($user['role'] == 4) {
+                if ($user['role'] == 4 OR $user['role'] == 5) {
                   $dept = !empty($user['committe_name']) ? $user['committe_name'] . " Head" : "Head";
                   echo htmlspecialchars($dept);
                 } else {
@@ -288,19 +289,19 @@ if (isset($user['role']) && $user['role'] == 4) {
           <div class="input-group">
             <label for="user_name">Name</label>
             <input type="text" name="user_name" id="user_name" value="<?php echo htmlspecialchars($user['user_name']); ?>"
-              placeholder="Enter your name" required>
+              placeholder="Enter your name" >
           </div>
 
           <div class="input-group">
             <label for="email">E-mail</label>
             <input type="email" name="email" id="email" value="<?php echo htmlspecialchars($user['email']); ?>"
-              placeholder="Enter your email" required>
+              placeholder="Enter your email" >
           </div>
 
           <div class="input-group">
             <label for="phone">Phone</label>
             <input type="tel" name="phone" id="phone" value="<?php echo htmlspecialchars($user['phone']); ?>"
-              placeholder="Enter your phone" required>
+              placeholder="Enter your phone" >
           </div>
 
           <div class="input-group">
@@ -309,6 +310,10 @@ if (isset($user['role']) && $user['role'] == 4) {
           </div>
 
           <div class="input-group">
+            <label for="confirm_password">Confirm Password</label>
+            <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm new password">
+    
+            <div class="input-group">
             <label for="githup">GitHub</label>
             <input type="text" name="githup" id="githup" value="<?php echo htmlspecialchars($user['githup']); ?>"
               placeholder="Enter your GitHub">
