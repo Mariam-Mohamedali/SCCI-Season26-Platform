@@ -20,10 +20,8 @@
 .miniNav {
   position: relative;
   margin: auto;
-  /* padding: 5rem 0; */
-  /* width: 95%; */
   height: 7rem;
-  gap: 11%;
+  gap: 10%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -216,10 +214,12 @@
 
 .sessionWhite {
   border: var(--color-white-gradient) 2px solid;
-  background: linear-gradient(90deg,
-      var(--color-white-gradient),
-      var(--color-white),
-      var(--color-white-gradient));
+  background: linear-gradient(
+    90deg,
+    var(--color-white-gradient),
+    var(--color-white),
+    var(--color-white-gradient)
+  );
 }
 
 .sessionBlue {
@@ -350,16 +350,18 @@ Table
   align-items: center;
   color: var(--color-secondary);
   border: grey 2px solid;
-  background: linear-gradient(90deg,
-      var(--color-white-gradient),
-      var(--color-white),
-      var(--color-white-gradient));
+  background: linear-gradient(
+    90deg,
+    var(--color-white-gradient),
+    var(--color-white),
+    var(--color-white-gradient)
+  );
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 /* attended */
-.radioOption input:checked+.evaluateCheckTask {
+.radioOption input:checked + .evaluateCheckTask {
   color: white;
   border: 1px solid #017001;
   background: linear-gradient(90deg, #017001, #39b839, #017001);
@@ -368,14 +370,16 @@ Table
 .evaluateCheckTask:hover {
   color: #017001;
   border: 1px solid rgba(1, 112, 1, 0.4);
-  background: linear-gradient(90deg,
-      rgba(1, 112, 1, 0.4),
-      rgba(57, 184, 57, 0.4),
-      rgba(1, 112, 1, 0.4));
+  background: linear-gradient(
+    90deg,
+    rgba(1, 112, 1, 0.4),
+    rgba(57, 184, 57, 0.4),
+    rgba(1, 112, 1, 0.4)
+  );
 }
 
 /* not attended */
-.radioOption input:checked+.evaluateXtask {
+.radioOption input:checked + .evaluateXtask {
   color: white;
   border: 1px solid #9b1313;
   background: linear-gradient(90deg, #9b1313, #d64141, #9b1313);
@@ -384,10 +388,12 @@ Table
 .evaluateXtask:hover {
   color: #9b1313;
   border: 1px solid rgba(155, 19, 19, 0.4);
-  background: linear-gradient(90deg,
-      rgba(155, 19, 19, 0.4),
-      rgba(214, 65, 65, 0.4),
-      rgba(155, 19, 19, 0.4));
+  background: linear-gradient(
+    90deg,
+    rgba(155, 19, 19, 0.4),
+    rgba(214, 65, 65, 0.4),
+    rgba(155, 19, 19, 0.4)
+  );
 }
 
 /* task link */
@@ -708,6 +714,37 @@ body.no-scroll {
    =============================================================================== */
 
 /* Add Task Section */
+
+/* Form success Popup */
+.submitPopup {
+  width: 220px;
+  height: 90px;
+  padding: var(--space-3);
+  background-color: #76d176;
+  color: var(--color-gray-dark);
+  text-transform: capitalize;
+  position: sticky;
+  bottom: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 99;
+  border-radius: 10px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  pointer-events: none;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+
+.submitPopup button {
+  background: none;
+  border: none;
+  color: var(--color-white);
+  cursor: pointer;
+}
 
 /* The layout for Material Name | Session Type */
 .materialForm {
@@ -1356,7 +1393,7 @@ body.no-scroll {
   }
 
   .miniNav a::after {
-    bottom: -16px;
+    bottom: -17.3px;
   }
 }
 
@@ -1599,7 +1636,6 @@ body.no-scroll {
 }
 
 @keyframes avatarFloat {
-
   0%,
   100% {
     transform: translateY(0) rotate(0deg);
@@ -1662,7 +1698,6 @@ body.no-scroll {
 }
 
 @keyframes iconBop {
-
   0%,
   100% {
     transform: scale(1);
@@ -1691,7 +1726,6 @@ body.no-scroll {
 }
 
 @keyframes glowPulse {
-
   0%,
   100% {
     transform: translate(-50%, -50%) scale(1);
@@ -1732,7 +1766,6 @@ body.no-scroll {
 }
 
 @keyframes iconBounce {
-
   0%,
   100% {
     transform: translateY(0) rotate(0deg);
@@ -1803,9 +1836,11 @@ body.no-scroll {
   width: 60px;
   height: 60px;
   min-width: 60px;
-  background: linear-gradient(135deg,
-      var(--color-primary),
-      var(--color-primary-dark));
+  background: linear-gradient(
+    135deg,
+    var(--color-primary),
+    var(--color-primary-dark)
+  );
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -1912,7 +1947,6 @@ body.no-scroll {
 }
 
 @keyframes btnPulse {
-
   0%,
   100% {
     box-shadow: 0 0 0 0 rgba(218, 165, 32, 0.4);
@@ -1933,10 +1967,12 @@ body.no-scroll {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: linear-gradient(45deg,
-      transparent,
-      rgba(255, 255, 255, 0.3),
-      transparent);
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
   transform: rotate(45deg);
   animation: btnGlowMove 3s linear infinite;
 }
@@ -1975,9 +2011,11 @@ body.no-scroll {
   justify-content: center;
   gap: var(--space-8);
   padding: var(--space-5);
-  background: linear-gradient(145deg,
-      rgba(0, 0, 91, 0.05),
-      rgba(0, 0, 91, 0.1));
+  background: linear-gradient(
+    145deg,
+    rgba(0, 0, 91, 0.05),
+    rgba(0, 0, 91, 0.1)
+  );
   border-radius: var(--radius-xl);
 }
 
@@ -2110,7 +2148,7 @@ body.no-scroll {
   justify-content: center;
   align-items: center;
   gap: 1.5rem;
-  margin: 1rem auto 3rem auto;
+  margin: 2rem auto 0rem;
 }
 
 .nav-arrow {
@@ -2120,7 +2158,9 @@ body.no-scroll {
   font-size: 1.8rem;
   cursor: pointer;
   padding: 0.5rem;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
 }
 
 .nav-arrow:hover:not(:disabled) {
@@ -2139,7 +2179,6 @@ body.no-scroll {
   font-family: "Stencil", sans-serif;
   letter-spacing: 2px;
 }
-
 
 /* Pagination Responsive */
 @media (max-width: 768px) {
