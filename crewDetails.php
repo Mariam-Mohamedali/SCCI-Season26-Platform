@@ -44,7 +44,7 @@ include './includes/config.php';
         $committee_id = $_GET['committee_id'];
 
         // Fetch committee details
-        $select_committee = "SELECT committe_name, head_id, committee_description, committee_member
+        $select_committee = "SELECT committe_name, head_id, committee_description, committee_member,missoin
                          FROM committees 
                          WHERE committee_id = '$committee_id'";
         $run_committee = mysqli_query($connect, $select_committee);
@@ -114,7 +114,7 @@ include './includes/config.php';
                 </div>
                 <div class="paperContent">
                     <p class="paperText">
-                        <?php echo $committee['committee_description']; ?>
+                        <?php echo $committee['missoin']; ?>
                     </p>
                 </div>
             </div>

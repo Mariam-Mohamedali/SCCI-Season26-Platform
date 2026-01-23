@@ -174,7 +174,7 @@ $rowCountUsers = mysqli_num_rows($usersResult);
     <?php include('./includes/nav.php'); ?>
     <main>
         <h1>IT Panel</h1>
-
+    <hr>
         <!-- Search Bar -->
         <div class="search-container">
             <input type="text" id="searchInput" placeholder="Search by name, email, or phone...">

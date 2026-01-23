@@ -1,0 +1,147 @@
+/* Sub Crew Page Specific Styles */
+.subCrewPageContainer {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: var(--space-6) var(--space-4);
+}
+
+.subCrewPageContainer .mainTitle {
+    margin-bottom: var(--space-6);
+}
+
+/* Head Section Grid - Card + Job Description */
+.headSectionGrid {
+    display: grid;
+    grid-template-columns: minmax(300px, 1fr) minmax(300px, 1.5fr);
+    gap: var(--space-6);
+    align-items: center;
+    margin-bottom: var(--space-8);
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Main Board Member Section */
+.mainBoardMember {
+    max-width: 380px;
+    margin: 0 auto;
+}
+
+.mainBoardMember .flipCard {
+    max-width: 100%;
+}
+
+/* Sub Crew Grid - Match crew.php layout with smaller cards */
+.subCrewGrid.activeGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-8);
+    opacity: 1;
+    max-height: none;
+    margin-top: 0;
+    width: 100%;
+    max-width: 1300px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: var(--space-4);
+}
+
+/* Constrain card sizes in grid */
+.subCrewGrid.activeGrid .subCard {
+    max-width: 360px;
+    margin: 0 auto;
+}
+
+/* Desktop - 2 columns like crew.php */
+@media (min-width: 992px) {
+    .subCrewGrid.activeGrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-10);
+        max-width: 1300px;
+    }
+
+    .subCrewGrid.activeGrid .subCard {
+        max-width: 360px;
+    }
+}
+
+/* Mobile Optimization */
+@media (max-width: 992px) {
+    .subCrewPageContainer {
+        padding: var(--space-4) var(--space-3);
+    }
+
+    .headSectionGrid {
+        grid-template-columns: 1fr;
+        gap: var(--space-6);
+        margin-bottom: var(--space-6);
+    }
+
+    .mainBoardMember {
+        max-width: 340px;
+        margin-bottom: 0;
+    }
+
+    .subCrewGrid.activeGrid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: var(--space-6);
+    }
+
+    .subCrewGrid.activeGrid .subCard {
+        max-width: 320px;
+    }
+
+    .subCrewPageContainer .mainTitle {
+        font-size: var(--fs-2xl);
+        margin-bottom: var(--space-4);
+    }
+
+    .subCrewPageContainer hr {
+        margin-bottom: var(--space-4);
+    }
+}
+
+@media (max-width: 768px) {
+    .subCrewGrid.activeGrid {
+        grid-template-columns: 1fr;
+        gap: var(--space-6);
+        padding: var(--space-2);
+        max-width: 360px;
+        margin: 0 auto;
+    }
+
+    .mainBoardMember {
+        max-width: 280px;
+    }
+
+    .subCrewGrid.activeGrid .subCard {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .mainBoardMember {
+        max-width: 260px;
+    }
+
+    .subCrewGrid.activeGrid {
+        max-width: 300px;
+    }
+}
+
+/* Back Button Styling */
+.backToCrewBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+    transition: transform 0.3s ease;
+}
+
+.backToCrewBtn:hover {
+    transform: translateX(-5px);
+}
+
+.backToCrewBtn i {
+    font-size: var(--fs-lg);
+}

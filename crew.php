@@ -133,7 +133,7 @@ if ($result) {
         <div class="cardsGrid">
 
             <div class="boardItem" data-aos="fade-up" data-aos-delay="200">
-                <a href="javascript:void(0)" onclick="openModal(this.closest('.boardItem'))"<?= $crew_ids['Marwan Wael'] ?? '#' ?>" class="memberCardLink">
+                <a href="sub_crew.php?group=technical" class="memberCardLink">
                 <div class="flipCard  " data-aos="flip">
                     <div class="flipInner  ">
                         <div class="flipSide  flipFront">
@@ -155,93 +155,7 @@ if ($result) {
                      
                 </div>
                 </a>
-                <a href="javascript:void(0)" onclick="openModal(this.closest('.boardItem'))" class="btn btn-primary ">Discover More</a>
-
-                <!-- Sub Cards Container -->
-                <div class="subCrewGrid hiddenGrid">
-                    <!-- 1. IT -->
-                    <div class="subCard">
-                     <div class="flipCard smCard card1" data-aos="flip">
-                           <div class="flipInner">
-                               <div class="flipSide flipFront">
-                                <img src="./assets/img/crew/backCardCrew.png" loading="lazy" alt="backCard" />
-                            </div>
-                               <div class="flipSide flipBack" data-title="IT">
-                                 <div class="backCard">
-                                    <div class="memberImageContainer">
-                                        <img src="./assets/uploadedImages/SCCI Board/Mahmoud Alaam.jpg" alt="Mahmoud Alaam" class="memberImage" />
-                                    </div>
-                                    <div class="memberName">
-                                        <h3>Mahmoud Allam</h3>
-                                    </div>
-                            </div>
-                               </div>
-                           </div>
-                       </div>
-                       </a>
-                       <a href="crewDetails.php?committee_id=6" class="btn btn-primary ">Know Us !</a>
-                    </div>
-                    <!-- 2. DD -->
-                    <div class="subCard">
-                       <div class="flipCard smCard card2" data-aos="flip">
-                           <div class="flipInner">
-                               <div class="flipSide flipFront"><img src="./assets/img/crew/backCardCrew.png" loading="lazy" alt="backCard" /></div>
-                               <div class="flipSide flipBack" data-title="DD">
-                                 <div class="backCard">
-                                    <div class="memberImageContainer">
-                                        <img src="./assets/uploadedImages/SCCI Board/Mohamed El Hossiny.jpg" alt="Mohamed El Hossiny" class="memberImage" />
-                                    </div>
-                                    <div class="memberName">
-                                        <h3>Mohamed El Hossiny</h3>
-                                    </div>
-                            </div>
-                               </div>
-                           </div>
-                       </div>
-                       </a>
-                       <a href="crewDetails.php?committee_id=7" class="btn btn-primary ">Know Us !</a>
-                    </div>
-                    <!-- 3. MP -->
-                    <div class="subCard">
-                       <div class="flipCard smCard card3" data-aos="flip">
-                           <div class="flipInner">
-                               <div class="flipSide flipFront"><img src="./assets/img/crew/backCardCrew.png" loading="lazy" alt="backCard" /></div>
-                               <div class="flipSide flipBack" data-title="MP">
-                                 <div class="backCard">
-                                    <div class="memberImageContainer">
-                                        <img src="./assets/uploadedImages/SCCI Board/Omar Ahmed.jpg" alt="Omar Ahmed" class="memberImage" />
-                                    </div>
-                                    <div class="memberName">
-                                        <h3>Omar Ahmed</h3>
-                                    </div>
-                            </div>
-                               </div>
-                           </div>
-                       </div>
-                       </a>   
-                       <a href="crewDetails.php?committee_id=10" class="btn btn-primary ">Know Us !</a>
-                    </div>
-                    <!-- 4. SMM -->
-                    <div class="subCard">
-                       <div class="flipCard smCard card4" data-aos="flip">
-                           <div class="flipInner">
-                               <div class="flipSide flipFront"><img src="./assets/img/crew/backCardCrew.png" loading="lazy" alt="backCard" /></div>
-                               <div class="flipSide flipBack" data-title="SMM">
-                                 <div class="backCard">
-                                    <div class="memberImageContainer">
-                                        <img src="./assets/uploadedImages/SCCI Board/Nour Mohamed.jpg" alt="Nour Mohamed" class="memberImage" />
-                                    </div>
-                                    <div class="memberName">
-                                        <h3>Nour Mohamed</h3>
-                                    </div>
-                            </div>
-                               </div>
-                           </div>
-                       </div>
-                       </a>   
-                       <a href="crewDetails.php?committee_id=5" class="btn btn-primary ">Know Us !</a>
-                    </div>
-                </div>
+                <a href="sub_crew.php?group=technical" class="btn btn-primary ">Discover More</a>
             </div>
 
             <div class="boardItem" data-aos="fade-up" data-aos-delay="200">
@@ -294,7 +208,7 @@ if ($result) {
                 <a href="crewDetails.php?committee_id=12" class="btn btn-primary ">Know Us !</a>
             </div>
              <div class="boardItem" data-aos="fade-up" data-aos-delay="200">
-                <a href="javascript:void(0)" onclick="openModal(this.closest('.boardItem'))"<?= $crew_ids['Mohamed Hesham '] ?? '#' ?>" class="memberCardLink">
+                <a href="sub_crew.php?group=er" class="memberCardLink">
                 <div class="flipCard" data-aos="flip">
                     
                     
@@ -315,91 +229,7 @@ if ($result) {
                     </div>
                 </div>
                 </a>
-                <a href="javascript:void(0)" onclick="openModal(this.closest('.boardItem'))" class="btn btn-primary ">Discover More</a>
-                <!-- Sub Cards Container -->
-                <div class="subCrewGrid hiddenGrid">
-                    <!-- 1. BD -->
-                    <div class="subCard">
-                       <div class="flipCard smCard card1" data-aos="flip">
-                           <div class="flipInner">
-                               <div class="flipSide flipFront"><img src="./assets/img/crew/backCardCrew.png" loading="lazy"></div>
-                               <div class="flipSide flipBack" data-title="BD">
-                                 <div class="backCard">
-                                    <div class="memberImageContainer">
-                                        <img src="./assets/uploadedImages/SCCI Board/Omar Hesham.jpg" alt="Omar Hesham" class="memberImage" />
-                                    </div>
-                                    <div class="memberName">
-                                        <h3>Omar Hesham</h3>
-                                    </div>
-                            </div>
-                               </div>
-                           </div>
-                       </div>
-                       </a>   
-                       <a href="crewDetails.php?committee_id=4" class="btn btn-primary ">Know Us !</a>
-                    </div>
-                    <!-- 2. L -->
-                    <div class="subCard">
-                     
-                       <div class="flipCard smCard card2" data-aos="flip">
-                           <div class="flipInner">
-                               <div class="flipSide flipFront"><img src="./assets/img/crew/backCardCrew.png" loading="lazy"></div>
-                               <div class="flipSide flipBack" data-title="LOGISTICS">
-                                 <div class="backCard">
-                                    <div class="memberImageContainer">
-                                        <img src="./assets/uploadedImages/SCCI Board/Asser El-Sayed.jpg" alt="Asser El-Sayed" class="memberImage" />
-                                    </div>
-                                    <div class="memberName">
-                                        <h3>Asser El-Sayed</h3>
-                                    </div>
-                            </div>
-                               </div>
-                           </div>
-                       </div>
-                       </a>   
-                       <a href="crewDetails.php?committee_id=9" class="btn btn-primary ">Know Us !</a>
-                    </div>
-                    <!-- 3. CR -->
-                    <div class="subCard">
-                       <div class="flipCard smCard card3" data-aos="flip">
-                           <div class="flipInner">
-                               <div class="flipSide flipFront"><img src="./assets/img/crew/backCardCrew.png" loading="lazy"></div>
-                               <div class="flipSide flipBack" data-title="CR">
-                                 <div class="backCard">
-                                    <div class="memberImageContainer">
-                                        <img src="./assets/uploadedImages/SCCI Board/Belal Omar.jpg" alt="Belal Omar" class="memberImage" />
-                                    </div>
-                                    <div class="memberName">
-                                        <h3>Belal Omar</h3>
-                                    </div>
-                            </div>
-                               </div>
-                           </div>
-                       </div>
-                       </a>   
-                       <a href="crewDetails.php?committee_id=8" class="btn btn-primary ">Know Us !</a>
-                    </div>
-                    <!-- 4. PR -->
-                    <div class="subCard">
-                       <div class="flipCard smCard card4" data-aos="flip">
-                           <div class="flipInner">
-                               <div class="flipSide flipFront"><img src="./assets/img/crew/backCardCrew.png" loading="lazy"></div>
-                               <div class="flipSide flipBack" data-title="PR">
-                                 <div class="backCard">
-                                    <div class="memberImageContainer">
-                                        <img src="./assets/uploadedImages/SCCI Board/Yasmine Gawish.jpg" alt="Yasmine Gawish" class="memberImage" />
-                                    </div>
-                                    <div class="memberName">
-                                        <h3>Yasmine Gawish</h3>
-                                    </div>
-                            </div>
-                               </div>
-                           </div>
-                       </div>
-                       </a>   
-                       <a href="crewDetails.php?committee_id=11" class="btn btn-primary ">Know Us !</a>
-                    </div>
-                </div>
+                <a href="sub_crew.php?group=er" class="btn btn-primary ">Discover More</a>
             </div>
         </div>
     </section>
