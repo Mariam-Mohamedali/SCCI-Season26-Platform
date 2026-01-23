@@ -1,5 +1,4 @@
 <?php
-error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 include "./includes/config.php";
 if (isset($_GET['category_id'])) {
     $workshop_id = $_GET['category_id'];

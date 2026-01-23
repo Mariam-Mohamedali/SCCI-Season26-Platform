@@ -1,6 +1,36 @@
 <?php
-error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
+
 include "./includes/config.php";
+
+$crewId = (int) $_SESSION['user_id'];
+
+$stmt = $connect->prepare("SELECT workshop_id, role FROM users WHERE user_id = ? AND status = 1");
+$stmt->bind_param("i", $crewId);
+$stmt->execute();
+$crew = $stmt->get_result()->fetch_assoc();
+
+
+if (!isset($_SESSION['user_id'])) {
+  header("Location:./auth/login.php");
+  exit;
+}
+
+if (!$crew) {
+  http_response_code(403);
+  die("Access denied");
+}
+
+if ((int) $crew['role'] !== 2) { // crew = 2
+  http_response_code(403);
+  die("Access denied");
+}
+
+if (empty($crew['workshop_id'])) {
+  die("You are not assigned to a workshop");
+}
+
+$workshopId = (int) $crew['workshop_id'];
+
 
 // Access control: Only allow IT committee members (role 2, committee_id 6)
 if (!isset($_SESSION['user_id'])) {

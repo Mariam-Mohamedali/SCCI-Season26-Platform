@@ -1,11 +1,11 @@
 <?php
-error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
+
 include "./includes/config.php";
 /* =====================
    Auth & Role Check
 ===================== */
 if (!isset($_SESSION['user_id'])) {
-  header("Location: login.php");
+  header("Location:./auth/login.php");
   exit;
 }
 

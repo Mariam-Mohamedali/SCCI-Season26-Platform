@@ -1,5 +1,5 @@
 <?php
-include(__DIR__ . '/config.php');
+
 
 
 // Fetch user's profile image if logged in

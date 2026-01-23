@@ -1,3 +1,20 @@
+<?php
+include './includes/config.php';
+
+if (!isset($_SESSION['user_id'])) {
+  header("Location:./auth/login.php");
+  exit;
+}
+
+if (!in_array($_SESSION['role'], [4, 5])) {
+  http_response_code(403);
+  die("Access denied");
+}
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
