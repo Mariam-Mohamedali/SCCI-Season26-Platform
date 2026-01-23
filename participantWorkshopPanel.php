@@ -1,5 +1,4 @@
 <?php
-// ana radwan
 require_once './includes/config.php';
 /* =====================
    Auth & Role Check

@@ -1,3 +1,37 @@
+<?php
+include './includes/config.php';
+
+if (!isset($_SESSION['user_id'])) {
+  header("Location:./auth/login.php");
+  exit;
+}
+
+$crewId = (int) $_SESSION['user_id'];
+
+$stmt = $connect->prepare("SELECT workshop_id, role FROM users WHERE user_id = ? AND status = 1");
+$stmt->bind_param("i", $crewId);
+$stmt->execute();
+$crew = $stmt->get_result()->fetch_assoc();
+
+
+if (!isset($_SESSION['user_id'])) {
+  header("Location:./auth/login.php");
+  exit;
+}
+
+if (!$crew) {
+  http_response_code(403);
+  die("Access denied");
+}
+
+if ((int) $crew['role'] !== 5) { // admin = 5
+  http_response_code(403);
+  die("Access denied");
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
