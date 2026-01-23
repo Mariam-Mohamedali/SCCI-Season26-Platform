@@ -51,7 +51,7 @@ if (isset($_SESSION['user_id'])) {
         <a href="/SCCI-Season26-Platform/crew.php" id="crewNavLine">crew</a>
         
         <?php
-        if ($role == 2 || $role == 1 || $role == 4 || $committeeId == 6) {
+        if ($role == 2 || $role == 1 || $role == 4 || $role == 5 || $committeeId == 6) {
            echo '<div class="nav-separator"></div>';
         }
         ?>
@@ -133,6 +133,18 @@ if (isset($_SESSION['user_id'])) {
                 echo '<a href="/SCCI-Season26-Platform/headPanel.php"><i class="fa-solid fa-user-tie"></i> head panel</a>';
             }
             ?>
+                    <?php
+        if ($role == 5) {
+            echo '<a href="/SCCI-Season26-Platform/headPanel.php" id="homeNavLine">head panel</a>';
+        }
+        ?>
+        <?php
+         if ($role == 5 or $role == 4) {
+            echo '<a href="/SCCI-Season26-Platform/contactPanel.php" id="homeNavLine">contact panel</a>';
+        
+        }
+        ?>
+
             <?php
             if ($committeeId == 6) {
                 echo '<a href="/SCCI-Season26-Platform/itPanel.php"><i class="fa-solid fa-screwdriver-wrench"></i> IT panel</a>';
