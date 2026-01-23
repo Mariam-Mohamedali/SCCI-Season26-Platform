@@ -381,44 +381,42 @@ function renderStars($rating)
         </div>
 
         <!-- Name the "data-page" in the mini nav the same as its section -->
-        <a data-page="evaluate" class="activePanelLine">view task</a>
-        <a data-page="review" class="">review Task</a>
-        <a data-page="addTask" class="">materials</a>
-        <a data-page="addMaterial" class="">activity time </a>
+        <a data-page="evaluate" class="<?= ($currentTab === 'evaluate') ? 'activePanelLine' : '' ?>">view task</a>
+        <a data-page="review" class="<?= ($currentTab === 'review') ? 'activePanelLine' : '' ?>">review Task</a>
+        <a data-page="addTask" class="<?= ($currentTab === 'addTask') ? 'activePanelLine' : '' ?>">materials</a>
+        <a data-page="addMaterial" class="<?= ($currentTab === 'addMaterial') ? 'activePanelLine' : '' ?>">activity time </a>
     </div>
 
     <!-- Main Workshop Panel Section -->
     <section class="workshopPanelSection">
         <div class="container">
 
-            <!-- Panel Section: View Task (Evaluate) -->
-            <div id="evaluate" class="panelSection panelSectionActive">
-                <!-- Sessions Selector with SVG Buttons -->
-                <div class="sessionsSelectorFrame">
-                    <button class="scrollBtn leftBtn" onclick="scrollSessions('left')">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <div class="sessionsSelector" id="sessionsContainer">
-                        <?php foreach ($sessions as $s): ?>
-                            <?php $sid = (int) $s['session_id']; ?>
-                            <?php $isActive = ($selectedSessionId === $sid); ?>
+            <!-- Sessions Selector with SVG Buttons -->
+            <div class="sessionsSelectorFrame">
+                <button class="scrollBtn leftBtn" onclick="scrollSessions('left')">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="sessionsSelector" id="sessionsContainer">
+                    <?php foreach ($sessions as $s): ?>
+                        <?php $sid = (int) $s['session_id']; ?>
+                        <?php $isActive = ($selectedSessionId === $sid); ?>
 
-                            <a href="?tab=<?= htmlspecialchars($currentTab) ?>&session_id=<?= $sid ?>"
-                                class="sessionBtn <?= $isActive ? 'sessionActive' : '' ?>">
-                                <!-- svg shape -->
-                                <div class="panelSvg panelSession">
-                                    <!-- left edge -->
-                                    <svg shape-rendering="geometricPrecision" class="panelEdge sessionEdge"
-                                        preserveAspectRatio="none" viewBox="0 0 50 100" xmlns="http://www.w3.org/2000/svg"
-                                        aria-hidden="true">
-                                        <path d="M50 0 C40 0 30 20 10 50 C30 80 40 100 50 100 Z"
-                                            fill="<?= $isActive ? '#1f184e' : 'var(--color-white-gradient)' ?>"
-                                            stroke="<?= $isActive ? '#1f184e' : 'var(--color-white-gradient)' ?>"
-                                            stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
-                                    </svg>
+                        <a href="?tab=<?= htmlspecialchars($currentTab) ?>&session_id=<?= $sid ?>"
+                            class="sessionBtn <?= $isActive ? 'sessionActive' : '' ?>">
+                            <!-- svg shape -->
+                            <div class="panelSvg panelSession">
+                                <!-- left edge -->
+                                <svg shape-rendering="geometricPrecision" class="panelEdge sessionEdge"
+                                    preserveAspectRatio="none" viewBox="0 0 50 100" xmlns="http://www.w3.org/2000/svg"
+                                    aria-hidden="true">
+                                    <path d="M50 0 C40 0 30 20 10 50 C30 80 40 100 50 100 Z"
+                                        fill="<?= $isActive ? '#1f184e' : 'var(--color-white-gradient)' ?>"
+                                        stroke="<?= $isActive ? '#1f184e' : 'var(--color-white-gradient)' ?>"
+                                        stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
+                                </svg>
 
-                                    <!-- center -->
-                                    <div class="panelBody <?= $isActive ? 'sessionBlue' : 'sessionWhite' ?>"></div>
+                                <!-- center -->
+                                <div class="panelBody <?= $isActive ? 'sessionBlue' : 'sessionWhite' ?>"></div>
 
                                     <!-- right edge -->
                                     <svg shape-rendering="geometricPrecision" class="panelEdge sessionEdge"
@@ -439,6 +437,10 @@ function renderStars($rating)
                         <i class="fas fa-chevron-right"></i>
                     </button>
                 </div>
+
+            <!-- Panel Section: View Task (Evaluate) -->
+            <div id="evaluate" class="panelSection panelSectionActive">
+
 
                 <!-- Workshop Card -->
                 <?php if (count($tasks) > 0): ?>

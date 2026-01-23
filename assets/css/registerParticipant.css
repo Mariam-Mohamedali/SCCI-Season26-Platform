@@ -85,8 +85,17 @@ body {
     }
 }
 
+/* Logo */
+.register-logo {
+    width: 140px;
+    margin: 0 auto var(--space-4);
+    display: block;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
+}
+
 /* Title */
 .register-title {
+    font-family: "Stencil", system-ui;
     font-size: var(--fs-3xl);
     letter-spacing: 2px;
     margin-bottom: var(--space-2);
@@ -125,8 +134,29 @@ body {
     position: relative;
 }
 
+.password-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.toggle-password-btn {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.6);
+    z-index: 10;
+    font-size: 1.1rem;
+    padding: 5px;
+    transition: color 0.3s ease;
+}
+
+.toggle-password-btn:hover {
+    color: var(--color-primary);
+}
+
 .input-group label {
-    font-family: "Stencil", system-ui;
     font-size: var(--fs-sm);
     color: var(--color-primary-dark);
     /* Lighter color for visibility on dark glass */
@@ -138,10 +168,12 @@ body {
 
 .input-group input,
 .input-group select {
-    font-family: "Stencil", system-ui;
+    font-family: "system-ui", system-ui;
     /* Keeping requested font */
     width: 100%;
     padding: var(--space-3) var(--space-4);
+    padding-right: 45px;
+    /* Space for icon */
     border-radius: var(--radius-lg);
     border: 1px solid rgba(255, 255, 255, 0.1);
     background: linear-gradient(to bottom, #5a5a5a, #6d6d6d);

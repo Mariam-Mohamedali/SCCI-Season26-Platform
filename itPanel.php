@@ -32,42 +32,116 @@ if (empty($crew['workshop_id'])) {
 $workshopId = (int) $crew['workshop_id'];
 
 
+// Access control: Only allow IT committee members (role 2, committee_id 6)
+if (!isset($_SESSION['user_id'])) {
+    header("Location: auth/login.php");
+    exit;
+}
+ 
+
+// Fetch committee_id if not in session
+if (!isset($_SESSION['committee_id'])) {
+    $user_id = $_SESSION['user_id'];
+    $stmt = mysqli_prepare($connect, "SELECT committee_id FROM users WHERE user_id = ?");
+    mysqli_stmt_bind_param($stmt, "i", $user_id);
+    mysqli_stmt_execute($stmt);
+    $result_comm = mysqli_stmt_get_result($stmt);
+    if ($row_comm = mysqli_fetch_assoc($result_comm)) {
+        $_SESSION['committee_id'] = $row_comm['committee_id'];
+    }
+    mysqli_stmt_close($stmt);
+}
+
+if ($_SESSION['role'] != 2 || $_SESSION['committee_id'] != 6) {
+    die("Access denied: Only IT committee members can access this panel.");
+}
+
+/* ===============================
+   ACCEPT USER
+================================ */
 if (isset($_GET['accept'])) {
-    $id = intval($_GET['accept']);
-    mysqli_query($connect, "UPDATE users SET status = 1 WHERE user_id = $id");
+    $id = (int) $_GET['accept'];
+
+    $stmt = mysqli_prepare($connect, "UPDATE users SET status = 1 WHERE user_id = ?");
+    mysqli_stmt_bind_param($stmt, "i", $id);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+
     header("Location: itPanel.php");
     exit();
 }
 
+/* ===============================
+   DELETE USER
+================================ */
 if (isset($_GET['delete'])) {
-    $id = intval($_GET['delete']);
+    $id = (int) $_GET['delete'];
 
-    // Fetch image before deletion
-    $result = mysqli_query($connect, "SELECT image FROM users WHERE user_id = $id");
-    if ($result && $row = mysqli_fetch_assoc($result)) {
-        $image_path = './assets/uploadedImages/' . $row['image'];
-        if (file_exists($image_path) && $row['image'] != 'default.png') {
-            unlink($image_path);
+    // get image
+    $stmt = mysqli_prepare($connect, "SELECT image FROM users WHERE user_id = ?");
+    mysqli_stmt_bind_param($stmt, "i", $id);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+
+    if ($row = mysqli_fetch_assoc($result)) {
+        if (!empty($row['image']) && $row['image'] !== 'default.png') {
+            $imagePath = "./assets/uploadedImages/" . $row['image'];
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
         }
     }
+    mysqli_stmt_close($stmt);
 
-    mysqli_query($connect, "DELETE FROM users WHERE user_id = $id");
+    // delete user
+    $stmt = mysqli_prepare($connect, "DELETE FROM users WHERE user_id = ?");
+    mysqli_stmt_bind_param($stmt, "i", $id);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+
     header("Location: itPanel.php");
     exit();
 }
 
-// Fetch all workshops for filter
-$workshops = mysqli_query($connect, "SELECT * FROM workshops");
+/* ===============================
+   FETCH FILTERS DATA
+================================ */
+$workshops = mysqli_query($connect, "SELECT workshop_id, workshop_name FROM workshops");
+if (!$workshops) {
+    die("Workshops Error: " . mysqli_error($connect));
+}
 
-$result = mysqli_query(
-    $connect,
-    "SELECT u.*, w.workshop_name 
-     FROM users u 
-     LEFT JOIN workshops w ON u.workshop_id = w.workshop_id
-     WHERE u.status ='0' 
-     ORDER BY u.user_id DESC"
-);
+$committees = mysqli_query($connect, "SELECT committee_id, committe_name FROM committees");
+if (!$committees) {
+    die("Committees Error: " . mysqli_error($connect));
+}
+
+/* ===============================
+   FETCH PENDING PARTICIPANTS
+================================ */
+$sql = "
+SELECT 
+    u.user_id,
+    u.user_name,
+    u.email,
+    u.phone,
+    u.status,
+    u.role,
+    w.workshop_name
+FROM users u
+LEFT JOIN workshops w ON u.workshop_id = w.workshop_id
+WHERE u.status = 0 AND u.role = 1
+ORDER BY u.user_id DESC
+";
+
+$usersResult = mysqli_query($connect, $sql);
+
+if (!$usersResult) {
+    die("Users Query Error: " . mysqli_error($connect));
+}
+$rowCountUsers = mysqli_num_rows($usersResult);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -107,7 +181,7 @@ $result = mysqli_query(
             <i class="fa-solid fa-magnifying-glass search-icon"></i>
         </div>
 
-        <!-- Workshop Filter -->
+        <!-- Filters -->
         <div class="filter-container">
             <select id="workshopFilter">
                 <option value="">All Workshops</option>
@@ -118,43 +192,57 @@ $result = mysqli_query(
                 <?php } ?>
             </select>
         </div>
+
         <div class="userTableScroll" id="userTableScroll">
             <table class="userTable">
                 <thead class="tableHead">
-                    <tr class="tableRow">
+                    <tr class="tableHeaderRow">
                         <th class="tableHeader">Full Name</th>
                         <th class="tableHeader">Email</th>
                         <th class="tableHeader">Workshop</th>
-                        <th class="tableHeader">phone</th>
-                        <th class="tableHeader">status</th>
+                        <th class="tableHeader">Phone</th>
                         <th class="tableHeader">Action</th>
                     </tr>
                 </thead>
                 <tbody class="tableBody">
-                    <?php while ($row = mysqli_fetch_assoc($result)) { ?>
-                        <tr class="tableRow" data-workshop="<?= htmlspecialchars($row['workshop_name'] ?? '') ?>">
+                    <?php
+                    $hasUsers = false;
+                    if ($usersResult) {
+                        mysqli_data_seek($usersResult, 0);
+                        while ($rowUser = mysqli_fetch_assoc($usersResult)) {
+                            $hasUsers = true;
+                            ?>
+                            <tr class="tableRow" data-workshop="<?= htmlspecialchars($rowUser['workshop_name'] ?? 'N/A') ?>">
+                                <td class="tableData">
+                                    <?= htmlspecialchars($rowUser['user_name'] ?? '') ?>
+                                </td>
+                                <td class="tableData">
+                                    <?= htmlspecialchars($rowUser['email'] ?? '') ?>
+                                </td>
+                                <td class="tableData">
+                                    <?= htmlspecialchars($rowUser['workshop_name'] ?? 'N/A') ?>
+                                </td>
+                                <td class="tableData">
+                                    <?= htmlspecialchars($rowUser['phone'] ?? '') ?>
+                                </td>
 
-                            <td class="tableData"><?= $row['user_name'] ?></td>
-                            <td class="tableData"><?= $row['email'] ?></td>
-                            <td class="tableData"><?= htmlspecialchars($row['workshop_name'] ?? 'N/A') ?></td>
-                            <td class="tableData"><?= $row['phone'] ?></td>
+                                <td class="tableData">
+                                    <a href="itPanel.php?accept=<?= $rowUser['user_id'] ?>" class="btn accept">
+                                        Accept
+                                    </a>
 
-                            <td class="tableData">
-                                <?= ($row['status'] == 0) ? 'User Blocked' : 'Active'; ?>
-                            </td>
-
-                            <td class="tableData">
-
-                                <a href="itPanel.php?accept=<?= $row['user_id'] ?>" class="btn accept">
-                                    Accept
-                                </a>
-
-                                <a href="itPanel.php?delete=<?= $row['user_id'] ?>" class="btn block">
-                                    Delete
-                                </a>
-                            </td>
-                        </tr>
-                    <?php } ?>
+                                    <a href="itPanel.php?delete=<?= $rowUser['user_id'] ?>" class="btn block"
+                                        onclick="return confirmDelete()">
+                                        Delete
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php }
+                    }
+                    if (!$hasUsers) {
+                        echo '<tr><td colspan="5" class="tableData" style="text-align: center;">No pending participants found.</td></tr>';
+                    }
+                    ?>
                 </tbody>
             </table>
         </div>
@@ -164,12 +252,15 @@ $result = mysqli_query(
             <button class="nav-arrow next-btn"><i class="fa-solid fa-caret-right"></i></button>
         </div>
     </main>
-    </main>
     <script src="assets/js/all.min.js"></script>
     <script src="assets/js/itPanel.js?v=<?= time() ?>"></script>
     <script>
+        function confirmDelete() {
+            return confirm('Are you sure you want to delete this user? This action cannot be undone.');
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
-             // Pagination setup is now handled inside itPanel.js automatically or via explicit call if needed
+            // Pagination setup is now handled inside itPanel.js automatically or via explicit call if needed
         });
     </script>
 </body>

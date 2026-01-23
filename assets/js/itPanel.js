@@ -1,86 +1,103 @@
-// get table section
-const userTableScroll = document.getElementById('userTableScroll');
-
-// get pagination controls
-const itPagination = document.getElementById('itPagination');
-
-// get search input
-const searchInput = document.getElementById('searchInput');
-
-// get workshop filter
-const workshopFilter = document.getElementById('workshopFilter');
+console.log('--- IT Panel JS v5.0 Loaded ---');
 
 let userManager;
 
-// Function to handle pagination AND search
+/**
+ * Handles table pagination and filtering
+ */
 function setupPagination(tableScrollId, paginationId, rowsPerPage = 10) {
+    console.log(`Setting up pagination for: ${tableScrollId}`);
     const tableScroll = document.getElementById(tableScrollId);
     const pagination = document.getElementById(paginationId);
-    if (!tableScroll || !pagination) return null;
+    if (!tableScroll || !pagination) {
+        console.error('Missing required elements:', { tableScroll, pagination });
+        return null;
+    }
 
     const tableBody = tableScroll.querySelector('tbody');
-    // Store original rows for filtering
-    const originalRows = Array.from(tableBody.querySelectorAll('tr'));
+    if (!tableBody) {
+        console.error('tableBody not found in:', tableScrollId);
+        return null;
+    }
+
+    // Capture ALL rows with class .tableRow
+    const originalRows = Array.from(tableBody.querySelectorAll('.tableRow'));
+    console.log(`Found ${originalRows.length} total data rows in the table.`);
+
+    let currentRows = [...originalRows];
+    let currentPage = 1;
+    let totalPages = Math.ceil(currentRows.length / rowsPerPage);
 
     const prevBtn = pagination.querySelector('.prev-btn');
     const nextBtn = pagination.querySelector('.next-btn');
     const pageInfo = pagination.querySelector('.page-info');
 
-    let currentPage = 1;
-    // Current rows starts as all rows
-    let currentRows = [...originalRows];
-    let totalPages = Math.ceil(currentRows.length / rowsPerPage);
-
     function showPage(page) {
         const start = (page - 1) * rowsPerPage;
         const end = start + rowsPerPage;
+        console.log(`Showing Page ${page}. Indices: ${start} to ${end}. Results to show: ${currentRows.length}`);
 
-        // Hide ALL original rows first to be safe
+        // Hide all rows initially
         originalRows.forEach(row => row.style.display = 'none');
 
-        // Show the slice of CURRENT (filtered) rows
+        // Show the filtered slice for the current page
         currentRows.forEach((row, index) => {
             if (index >= start && index < end) {
                 row.style.display = '';
             }
         });
 
-        // Update PAGINATION INFO
+        // Update UI status
         if (pageInfo) pageInfo.textContent = `Page ${page} of ${Math.max(1, totalPages)}`;
-
-        // Update BUTTON STATES
         if (prevBtn) prevBtn.disabled = page <= 1;
         if (nextBtn) nextBtn.disabled = page >= totalPages || totalPages === 0;
+
+        // Hide pagination if only one page exists
+        pagination.style.display = (currentRows.length > rowsPerPage) ? 'flex' : 'none';
+        console.log(`Pagination visibility: ${pagination.style.display}`);
     }
 
-    // Filter Function
     function filter(searchQuery, workshopValue) {
+        console.log(`Filter triggered: Query="${searchQuery}", Workshop="${workshopValue}"`);
         searchQuery = searchQuery ? searchQuery.toLowerCase().trim() : '';
         workshopValue = workshopValue ? workshopValue.trim() : '';
 
         currentRows = originalRows.filter(row => {
-            // Text Search Check
-            const matchesSearch = !searchQuery || row.textContent.toLowerCase().includes(searchQuery);
+            const text = row.textContent.toLowerCase();
+            const matchesSearch = !searchQuery || text.includes(searchQuery);
+            const rowWS = (row.getAttribute('data-workshop') || '').toLowerCase().trim();
+            const workshopVal = workshopValue.toLowerCase().trim();
+            const matchesWorkshop = !workshopVal || rowWS === workshopVal;
 
-            // Workshop Check
-            let matchesWorkshop = true;
-            if (workshopValue) {
-                const rowWorkshop = row.getAttribute('data-workshop') || '';
-                matchesWorkshop = rowWorkshop.trim() === workshopValue;
-            }
-
+            // console.log(`Row check: MatchSearch=${matchesSearch}, MatchWorkshop=${matchesWorkshop}, Text="${text.substring(0,20)}..."`);
             return matchesSearch && matchesWorkshop;
         });
 
-        // Reset to page 1 after filter
+        console.log(`Filtered count: ${currentRows.length}`);
+
+        // Handle no results message
+        const noResultsRow = tableBody.querySelector('.no-results-row');
+        if (currentRows.length === 0) {
+            if (!noResultsRow) {
+                const newNoResultsRow = document.createElement('tr');
+                newNoResultsRow.className = 'no-results-row tableRow';
+                newNoResultsRow.innerHTML = '<td colspan="5" class="tableData" style="text-align: center;">No pending participants found.</td>';
+                tableBody.appendChild(newNoResultsRow);
+            }
+        } else {
+            if (noResultsRow) {
+                noResultsRow.remove();
+            }
+        }
+
         currentPage = 1;
         totalPages = Math.ceil(currentRows.length / rowsPerPage);
         showPage(currentPage);
     }
 
-    // Event Listeners for Pagination
     if (prevBtn) {
         prevBtn.onclick = () => {
+            console.log('Prev button clicked');
             if (currentPage > 1) {
                 currentPage--;
                 showPage(currentPage);
@@ -90,6 +107,7 @@ function setupPagination(tableScrollId, paginationId, rowsPerPage = 10) {
 
     if (nextBtn) {
         nextBtn.onclick = () => {
+            console.log('Next button clicked');
             if (currentPage < totalPages) {
                 currentPage++;
                 showPage(currentPage);
@@ -97,37 +115,33 @@ function setupPagination(tableScrollId, paginationId, rowsPerPage = 10) {
         };
     }
 
-    // Initial show
     showPage(1);
-    
-    // Show/Hide pagination based on results
-    if (currentRows.length > 0) {
-        pagination.style.display = 'flex';
-    } else {
-        pagination.style.display = 'none';
-    }
-
+    console.log('Initial showPage(1) completed.');
     return { filter };
 }
 
-// Initialize pagination logic
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOMContentLoaded triggered.');
     userManager = setupPagination('userTableScroll', 'itPagination');
 
-    function applyFilters() {
-        const query = searchInput ? searchInput.value : '';
-        const workshop = workshopFilter ? workshopFilter.value : '';
+    const searchInput = document.getElementById('searchInput');
+    const workshopFilter = document.getElementById('workshopFilter');
 
+    function applyFilters() {
+        console.log('applyFilters invoked via event.');
         if (userManager) {
-            userManager.filter(query, workshop);
+            userManager.filter(searchInput?.value, workshopFilter?.value);
+        } else {
+            console.error('userManager is NOT initialized!');
         }
     }
 
-    // Listeners
     if (searchInput) {
+        console.log('Hooking up searchInput listener.');
         searchInput.addEventListener('input', applyFilters);
     }
     if (workshopFilter) {
+        console.log('Hooking up workshopFilter listener.');
         workshopFilter.addEventListener('change', applyFilters);
     }
 });

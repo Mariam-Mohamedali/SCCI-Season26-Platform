@@ -179,7 +179,7 @@ if (isset($_POST['contact'])) {
         <div class="sponsorSliderWrapper">
             <div class="sponsorSliderTrack">
 
-                <!-- sponsor card -->
+                <!-- Sponsor: Innovation Area -->
                 <div class="sponsorCardItems">
                     <div class="sponsorsCard card2">
                         <div class="corner-ornament top-left"></div>
@@ -188,13 +188,13 @@ if (isset($_POST['contact'])) {
                         <div class="corner-ornament bottom-right"></div>
 
                         <div class="sponsorCardContent">
-                            <img src="./assets/icons/logoSCCI.png" class="sponsorLogo" alt="Sponsor Logo" loading="lazy">
-                            <h4 class="sponsorTitle">SPONSOR</h4>
+                            <img src="./assets/img/sponser/innovation_area.png" class="sponsorLogo" alt="Innovation Area Logo" loading="lazy">
+                            <h4 class="sponsorTitle">INNOVATION AREA</h4>
                         </div>
                     </div>
                 </div>
 
-                <!-- sponsor card -->
+                <!-- Sponsor: Puzzle Station -->
                 <div class="sponsorCardItems">
                     <div class="sponsorsCard card2">
                         <div class="corner-ornament top-left"></div>
@@ -203,13 +203,13 @@ if (isset($_POST['contact'])) {
                         <div class="corner-ornament bottom-right"></div>
 
                         <div class="sponsorCardContent">
-                            <img src="./assets/icons/logoSCCI.png" class="sponsorLogo" alt="Sponsor Logo" loading="lazy">
-                            <h4 class="sponsorTitle">SPONSOR</h4>
+                            <img src="./assets/img/sponser/puzzle_station.png" class="sponsorLogo" alt="Puzzle Station Logo" loading="lazy">
+                            <h4 class="sponsorTitle">PUZZLE STATION</h4>
                         </div>
                     </div>
                 </div>
 
-                <!-- sponsor card -->
+                <!-- Sponsor: Rooh -->
                 <div class="sponsorCardItems">
                     <div class="sponsorsCard card2">
                         <div class="corner-ornament top-left"></div>
@@ -218,13 +218,13 @@ if (isset($_POST['contact'])) {
                         <div class="corner-ornament bottom-right"></div>
 
                         <div class="sponsorCardContent">
-                            <img src="./assets/icons/logoSCCI.png" class="sponsorLogo" alt="Sponsor Logo" loading="lazy">
-                            <h4 class="sponsorTitle">SPONSOR</h4>
+                            <img src="./assets/img/sponser/rooh_coworking_space.png" class="sponsorLogo" alt="Rooh Logo" loading="lazy">
+                            <h4 class="sponsorTitle">ROOH CO-WORKING SPACE</h4>
                         </div>
                     </div>
                 </div>
 
-                <!-- sponsor card -->
+                <!-- Sponsor: Youth Scope -->
                 <div class="sponsorCardItems">
                     <div class="sponsorsCard card2">
                         <div class="corner-ornament top-left"></div>
@@ -233,13 +233,15 @@ if (isset($_POST['contact'])) {
                         <div class="corner-ornament bottom-right"></div>
 
                         <div class="sponsorCardContent">
-                            <img src="./assets/icons/logoSCCI.png" class="sponsorLogo" alt="Sponsor Logo" loading="lazy">
-                            <h4 class="sponsorTitle">SPONSOR</h4>
+                            <img src="./assets/img/sponser/youth_scope.png" class="sponsorLogo" alt="Youth Scope Logo" loading="lazy">
+                            <h4 class="sponsorTitle">YOUTH SCOPE</h4>
                         </div>
                     </div>
                 </div>
 
-                <!-- Duplicate cards for seamless loop -->
+                <!-- Duplicate for seamless loop -->
+
+                <!-- Sponsor: Innovation Area -->
                 <div class="sponsorCardItems">
                     <div class="sponsorsCard card2">
                         <div class="corner-ornament top-left"></div>
@@ -248,12 +250,13 @@ if (isset($_POST['contact'])) {
                         <div class="corner-ornament bottom-right"></div>
 
                         <div class="sponsorCardContent">
-                            <img src="./assets/icons/logoSCCI.png" class="sponsorLogo" alt="Sponsor Logo" loading="lazy">
-                            <h4 class="sponsorTitle">SPONSOR</h4>
+                            <img src="./assets/img/sponser/innovation_area.png" class="sponsorLogo" alt="Innovation Area Logo" loading="lazy">
+                            <h4 class="sponsorTitle">INNOVATION AREA</h4>
                         </div>
                     </div>
                 </div>
 
+                <!-- Sponsor: Puzzle Station -->
                 <div class="sponsorCardItems">
                     <div class="sponsorsCard card2">
                         <div class="corner-ornament top-left"></div>
@@ -262,8 +265,38 @@ if (isset($_POST['contact'])) {
                         <div class="corner-ornament bottom-right"></div>
 
                         <div class="sponsorCardContent">
-                            <img src="./assets/icons/logoSCCI.png" class="sponsorLogo" alt="Sponsor Logo" loading="lazy">
-                            <h4 class="sponsorTitle">SPONSOR</h4>
+                            <img src="./assets/img/sponser/puzzle_station.png" class="sponsorLogo" alt="Puzzle Station Logo" loading="lazy">
+                            <h4 class="sponsorTitle">PUZZLE STATION</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sponsor: Rooh -->
+                <div class="sponsorCardItems">
+                    <div class="sponsorsCard card2">
+                        <div class="corner-ornament top-left"></div>
+                        <div class="corner-ornament top-right"></div>
+                        <div class="corner-ornament bottom-left"></div>
+                        <div class="corner-ornament bottom-right"></div>
+
+                        <div class="sponsorCardContent">
+                            <img src="./assets/img/sponser/rooh_coworking_space.png" class="sponsorLogo" alt="Rooh Logo" loading="lazy">
+                            <h4 class="sponsorTitle">ROOH CO-WORKING SPACE</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sponsor: Youth Scope -->
+                <div class="sponsorCardItems">
+                    <div class="sponsorsCard card2">
+                        <div class="corner-ornament top-left"></div>
+                        <div class="corner-ornament top-right"></div>
+                        <div class="corner-ornament bottom-left"></div>
+                        <div class="corner-ornament bottom-right"></div>
+
+                        <div class="sponsorCardContent">
+                            <img src="./assets/img/sponser/youth_scope.png" class="sponsorLogo" alt="Youth Scope Logo" loading="lazy">
+                            <h4 class="sponsorTitle">YOUTH SCOPE</h4>
                         </div>
                     </div>
                 </div>

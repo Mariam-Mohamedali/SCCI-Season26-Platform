@@ -111,7 +111,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 3rem;
+  gap: 13rem;
   padding: 60px 20px;
 }
 
@@ -518,8 +518,8 @@ body.red-theme .decorative-element {
 }
 
 .sponsorsCard {
-  width: 400px;
-  height: 170px !important;
+  width: 300px;
+  height: 350px !important;
   padding: 0;
   display: flex;
   flex-direction: row;
@@ -544,21 +544,43 @@ body.red-theme .decorative-element {
 
 .sponsorCardContent {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 3rem;
+  gap: 1rem;
   /* space between logo & title */
   width: 100%;
 }
 
 .sponsorLogo {
-  width: 110px;
+  width: 180px;
+  height: 180px;
+  object-fit: contain;
   margin: 0;
 }
 
 .sponsorTitle {
   margin: 0;
+  text-align: center;
+  font-size: 1.2rem;
+  padding: 0 10px;
+  min-height: 3rem;
+  /* ensure consistency even if title wraps */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .sponsorsCard {
+    width: 260px;
+    height: 320px !important;
+  }
+
+  .sponsorLogo {
+    width: 150px;
+    height: 150px;
+  }
 }
 
 /* ===============================

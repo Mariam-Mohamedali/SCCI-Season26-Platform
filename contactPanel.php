@@ -60,8 +60,9 @@ if (!in_array($_SESSION['role'], [4, 5])) {
     );
     ?>
     <main>
-        <h1>Contact Panel</h1>
-        <div class="contactTableScroll" id="contactTableScroll">
+        <h1 data-aos="fade-up" data-aos-duration="1000">Contact Panel</h1>
+        <hr data-aos="fade-up" data-aos-duration="2000">
+        <div data-aos="fade-up" data-aos-duration="3000" class="contactTableScroll" id="contactTableScroll">
             <table class="contactTable">
                 <thead class="TableHead">
                     <tr class="tableRow">

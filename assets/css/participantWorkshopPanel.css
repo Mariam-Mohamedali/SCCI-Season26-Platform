@@ -6,7 +6,7 @@
     min-height: 100vh;
     padding: calc(var(--space-10) * 2) var(--space-5) var(--space-10);
     position: relative;
-    padding-top: 70px;
+    padding-top: 80px !important;
 }
 
 
@@ -137,6 +137,10 @@
     }
 
     .miniNav a::after {
+        display: none;
+    }
+
+    .miniNav .panelSvg {
         display: none;
     }
 }
@@ -470,7 +474,7 @@
     border: 2px solid var(--border-light);
     margin-bottom: 8rem;
 }
-}
+
 
 /* Card Header */
 .workshopCard .cardHeader {

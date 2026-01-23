@@ -18,9 +18,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $run_select = mysqli_query($connect, $select);
 
     if (mysqli_num_rows($run_select) > 0) {
-
         $error = "Email or Phone already exists";
-
+    } elseif ($password != $_POST['cpassword']) {
+        $error = "Passwords do not match";
     } else {
 
         // Image validation
@@ -30,11 +30,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 
         } else {
 
-            $image    = $_FILES['image']['name'];
-            $tempname = $_FILES['image']['tmp_name'];
-            $folder   = "../assets/uploadedImages/" . $image;
+            $image = $_FILES['image']['name'];
+            $imageExtension = strtolower(pathinfo($image, PATHINFO_EXTENSION));
+            $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp'];
 
-            if (move_uploaded_file($tempname, $folder)) {
+            if (!in_array($imageExtension, $allowedExtensions)) {
+                $error = "Only Image files (JPG, PNG, GIF, WEBP) are allowed";
+            } else {
+                $tempname = $_FILES['image']['tmp_name'];
+                $folder = "../assets/uploadedImages/" . $image;
+
+                if (move_uploaded_file($tempname, $folder)) {
 
                 $insert_p = "INSERT INTO `users`
                 (`user_id`,`workshop_id`,`user_name`,`email`,`phone`,
@@ -54,6 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
             }
         }
     }
+}
 }
 
 // Fetch workshops
@@ -87,7 +94,10 @@ $run_w = mysqli_query($connect, $select_w);
       href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet"
     />
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- css -->
+     <link rel="stylesheet" href="../assets/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/registerParticipant.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>SCCI - Register</title>
@@ -98,6 +108,7 @@ $run_w = mysqli_query($connect, $select_w);
 <div class="main-content">
     <form class="form-content" id="form" action="" method="POST" enctype="multipart/form-data" novalidate>
 
+        <img src="../assets/icons/logoSCCI.png" alt="SCCI Logo" class="register-logo">
         <h1 class="register-title">Register</h1>
         <div class="divider">
             <span class="line"></span>
@@ -123,10 +134,26 @@ $run_w = mysqli_query($connect, $select_w);
             <div class="error-text" id="error-phone"></div>
         </div>
 
-        <div class="input-group">
+        <div class="input-group password-group">
             <label>Password</label>
-            <input type="password" name="password" id="password" placeholder="••••••••" required>
+            <div class="password-wrapper">
+                <input type="password" name="password" id="password" placeholder="••••••••" required oncopy="return false" oncut="return false" onpaste="return false">
+                <span class="toggle-password-btn" id="togglePasswordBtn">
+                    <i class="fas fa-eye-slash"></i>
+                </span>
+            </div>
             <div class="error-text" id="error-password"></div>
+        </div>
+
+        <div class="input-group password-group">
+            <label>Confirm Password</label>
+            <div class="password-wrapper">
+                <input type="password" name="cpassword" id="cpassword" placeholder="••••••••" required oncopy="return false" oncut="return false" onpaste="return false">
+                <span class="toggle-password-btn" id="toggleCPasswordBtn">
+                    <i class="fas fa-eye-slash"></i>
+                </span>
+            </div>
+            <div class="error-text" id="error-cpassword"></div>
         </div>
 
         <div class="input-group">
@@ -154,7 +181,7 @@ $run_w = mysqli_query($connect, $select_w);
 </div>
 
 <!-- Validation Script -->
-<script src="../assets/js/registerParticipant.js"></script>
+
 
 <?php if (!empty($error)) { ?>
 <script>
@@ -179,7 +206,7 @@ Swal.fire({
 });
 </script>
 <?php } ?>
-
-    <script src="../assets/js/index.js?v=<?php echo time(); ?>"></script>
+     <script src="../assets/js/all.min.js"></script>
+    <script src="../assets/js/registerParticipant.js?v=<?php echo time(); ?>"></script>
 </body>
 </html>
