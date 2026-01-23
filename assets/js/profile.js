@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     e.stopPropagation();
     if (isOpen) return;
 
-    
+
     settingsMenu.classList.remove('closing');
     settingsMenu.classList.add('opening');
     isOpen = true;
@@ -59,6 +59,14 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault();   // 🔥 prevents 404
     e.stopPropagation();
     overlay.classList.add('active');
+
+    // Scroll to top on mobile screens
+    if (window.innerWidth <= 768) {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
   });
 
   // Close popup button
