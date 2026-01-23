@@ -153,7 +153,7 @@ $sql = "
   SELECT user_id, user_name
   FROM users
   WHERE workshop_id = ?
-    AND role = 1
+    AND role = 1 and status = 1
   ORDER BY user_name ASC
 ";
 $stmt2 = $connect->prepare($sql);
@@ -386,6 +386,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'add_t
     exit;
   }
 
+  // Check if a task already exists for this session
+  $chk = $connect->prepare("SELECT task_id FROM tasks WHERE workshop_session_id = ?");
+  $chk->bind_param("i", $workshopSessionId);
+  $chk->execute();
+  if ($chk->get_result()->num_rows > 0) {
+    header("Location: memberWorkshopPanel.php?session_id=$selectedSessionId&tab=addTask&err=A task has already been added for this session.");
+    exit;
+  }
+  $chk->close();
+
   // upload file (optional)
   $taskFilePath = null;
 
@@ -393,6 +403,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'add_t
 
     if ($_FILES['task_file']['error'] !== UPLOAD_ERR_OK) {
       header("Location: memberWorkshopPanel.php?session_id=$selectedSessionId&tab=addTask&err=File upload error");
+      exit;
+    }
+
+    if ($_FILES['task_file']['size'] > 20 * 1024 * 1024) {
+      header("Location: memberWorkshopPanel.php?session_id=$selectedSessionId&tab=addTask&err=File too large (max 20MB)");
       exit;
     }
 
@@ -457,6 +472,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'add_m
 
   if (!isset($_FILES['material_file']) || $_FILES['material_file']['error'] !== UPLOAD_ERR_OK) {
     header("Location: memberWorkshopPanel.php?session_id=$selectedSessionId&tab=$currentTab&err=File upload error");
+    exit;
+  }
+
+  if ($_FILES['material_file']['size'] > 20 * 1024 * 1024) {
+    header("Location: memberWorkshopPanel.php?session_id=$selectedSessionId&tab=$currentTab&err=File too large (max 20MB)");
     exit;
   }
 
@@ -657,7 +677,7 @@ if ($workshopSessionId > 0) {
 
     <?php endforeach; ?>
   <?php endif; ?>
-  
+
   <main class="materialPage">
     <!-- FORM Success Popup ----------------------------------------------------------------------------- -->
 
@@ -1372,7 +1392,7 @@ if ($workshopSessionId > 0) {
     </div>
   </div>
 
-  
+
   <!-- successful submit popup -->
   <div class="submitPopup" style="display:none;">
     form submitted
@@ -1381,10 +1401,36 @@ if ($workshopSessionId > 0) {
 
   <!-- JAVASCRIPT -->
   <script>
-    window.sessionMessages = {
-      msg: <?php echo isset($_SESSION['msg']) ? json_encode($_SESSION['msg']) : 'null'; ?>,
-      err: <?php echo isset($_SESSION['err']) ? json_encode($_SESSION['err']) : 'null'; ?>
-    };
+    document.addEventListener("DOMContentLoaded", () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const urlMsg = urlParams.get('msg');
+      const urlErr = urlParams.get('err');
+
+      const sessionMsg = <?php echo isset($_SESSION['msg']) ? json_encode($_SESSION['msg']) : 'null'; ?>;
+      const sessionErr = <?php echo isset($_SESSION['err']) ? json_encode($_SESSION['err']) : 'null'; ?>;
+
+      const finalMsg = sessionMsg || urlMsg;
+      const finalErr = sessionErr || urlErr;
+
+      const popup = document.querySelector(".submitPopup");
+      if (popup && (finalMsg || finalErr)) {
+        // Clear children but preserve the close button
+        const closeBtn = popup.querySelector('.popupSubmitClose');
+        popup.textContent = finalMsg || finalErr;
+        if (closeBtn) popup.appendChild(closeBtn);
+
+        if (finalErr) {
+          popup.style.backgroundColor = "#d64141";
+          popup.style.color = "white";
+        } else {
+          popup.style.backgroundColor = "#73e081";
+          popup.style.color = "white";
+        }
+
+        popup.style.display = "flex";
+        setTimeout(() => { popup.style.display = "none"; }, 5000);
+      }
+    });
     <?php unset($_SESSION['msg']);
     unset($_SESSION['err']); ?>
   </script>

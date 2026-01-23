@@ -19,7 +19,7 @@
 
 .miniNav {
   position: relative;
-  margin: auto;
+  margin: 50px;
   height: 7rem;
   gap: 10%;
   display: flex;

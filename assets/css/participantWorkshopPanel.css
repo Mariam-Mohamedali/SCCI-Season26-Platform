@@ -27,14 +27,12 @@
 
 .miniNav {
     position: relative;
-    margin: 5rem auto;
+    margin-top: 50px;
     height: 7rem;
-    gap: 11%;
-    margin-top: 20px;
+    gap: 10%;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 85%;
 }
 
 
@@ -94,64 +92,68 @@
     width: 100%;
 }
 
+@media (min-width: 950px) {
+    .materialPage {
+        width: 88%;
+        margin: 0 auto;
+    }
+}
+
 @media (max-width: 800px) {
     .miniNav {
-        height: 6.5rem;
-        gap: 4%;
-        padding: var(--space-4) var(--space-3);
+        height: 6rem;
+        gap: 7%;
+        /* padding: 0 3.7rem; */
     }
 
     .miniNav a {
-        font-size: 14px;
-        padding: var(--space-3) var(--space-2);
+        font-size: 14.5px;
     }
 
     .miniNav a::after {
         bottom: -19px;
-        height: 4px;
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 500px) {
     .miniNav {
-        height: auto;
-        gap: var(--space-2);
-        width: 92%;
-        padding: var(--space-3);
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    .miniNav a {
-        font-size: 13px;
-        padding: var(--space-3) var(--space-4);
-        flex: 0 0 45%;
-        text-align: center;
-        border-radius: var(--radius-md);
-        background: rgba(0, 0, 91, 0.05);
-    }
-
-    .miniNav a.activePanelLine {
-        background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
-        color: var(--color-white);
-    }
-
-    .miniNav a::after {
-        display: none;
-    }
-}
-
-@media (max-width: 480px) {
-    .miniNav {
-        width: 95%;
-        gap: var(--space-2);
-        padding: var(--space-2);
+        height: 5rem;
+        gap: 4%;
     }
 
     .miniNav a {
         font-size: 12px;
-        padding: var(--space-2) var(--space-3);
-        flex: 0 0 48%;
+    }
+
+    .miniNav a::after {
+        bottom: -16px;
+    }
+
+    .sessionBtn {
+        cursor: pointer;
+        min-width: 85px;
+        width: 9rem;
+        height: 4rem;
+        display: flex;
+        transition: ease-in-out 0.3s;
+        position: relative;
+        bottom: 0px;
+        text-decoration: none;
+    }
+}
+
+@media (max-width: 350px) {
+    .miniNav {
+        height: 5rem;
+        gap: 4%;
+    }
+
+    .miniNav a {
+        font-size: 10px;
+    }
+
+    .miniNav a::after {
+        bottom: -17.3px;
     }
 }
 
@@ -484,6 +486,7 @@
     justify-content: center;
     align-items: center;
     border-bottom: 2px solid var(--color-gray-light);
+    z-index: 2100;
 }
 
 .workshopCard .cardHeader h2 {
@@ -2458,4 +2461,69 @@
     .motivationalBox p {
         font-size: var(--fs-base);
     }
+}
+
+/* ======================================================== 
+  CUSTOM POPUP ALERT 
+  ======================================================== */
+.submitPopup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    width: 280px;
+    min-height: 100px;
+    padding: var(--space-5);
+    background: #76d176;
+    /* Default success green */
+    color: white;
+    font-family: inherit;
+    text-transform: capitalize;
+    z-index: 10000;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-4);
+    transition: all 0.3s ease;
+    opacity: 0;
+}
+
+.submitPopup.show {
+    display: flex;
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.submitPopup.error {
+    background: #d64141;
+    /* Error red */
+}
+
+.submitPopup .popupSubmitClose {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    transition: background 0.2s;
+    margin-top: 10px;
+}
+
+.submitPopup .popupSubmitClose:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.submitPopup span {
+    font-size: 1.1rem;
+    line-height: var(--lh-normal);
 }

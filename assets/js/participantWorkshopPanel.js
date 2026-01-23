@@ -78,9 +78,77 @@ document.addEventListener("DOMContentLoaded", () => {
     if (fileMessage) fileMessage.textContent = "";
   }
 
+  /* Custom Popup Logic */
+  const popup = document.querySelector(".submitPopup");
+  const popupMsg = document.getElementById("popupMessage");
+  const popupClose = document.querySelector(".popupSubmitClose");
+  let popupTimer;
+
+  function showPopup(message, isError = false) {
+    if (!popup || !popupMsg) {
+      alert(message);
+      return;
+    }
+    clearTimeout(popupTimer);
+    popupMsg.textContent = message;
+    popup.classList.toggle("error", isError);
+    popup.classList.add("show");
+
+    popupTimer = setTimeout(() => {
+      popup.classList.remove("show");
+    }, 4000);
+  }
+
+  if (popupClose) {
+    popupClose.addEventListener("click", () => {
+      popup.classList.remove("show");
+      clearTimeout(popupTimer);
+    });
+  }
+
+  // Reload survival logic (if any)
+  if (localStorage.getItem("taskSubmitted") === "true") {
+    showPopup("Your task has been submitted successfully!", false);
+    localStorage.removeItem("taskSubmitted");
+  }
+
+  // Handle session messages from PHP
+  if (window.sessionMessages) {
+    if (window.sessionMessages.msg) showPopup(window.sessionMessages.msg, false);
+    if (window.sessionMessages.err) showPopup(window.sessionMessages.err, true);
+  }
+
+  const MAX_FILE_SIZE = 20 * 1024 * 1024; // 20 MB
+  const ALLOWED_EXT = ["pdf", "doc", "docx", "zip", "rar", "png", "jpg", "jpeg"];
+
   if (fileInput) {
     fileInput.addEventListener("change", () => {
-      updateFileUI(fileInput.files[0] || null);
+      const file = fileInput.files[0];
+      if (!file) {
+        updateFileUI(null);
+        return;
+      }
+
+      const ext = (file.name.split(".").pop() || "").toLowerCase();
+      if (!ALLOWED_EXT.includes(ext)) {
+        fileInput.value = "";
+        updateFileUI(null);
+        const msg = "This file type is not supported";
+        setFileMsg(msg, "red");
+        showPopup(msg, true);
+        return;
+      }
+
+      if (file.size > MAX_FILE_SIZE) {
+        fileInput.value = "";
+        updateFileUI(null);
+        const msg = "File size must be less than 20MB";
+        setFileMsg(msg, "red");
+        showPopup(msg, true);
+        return;
+      }
+
+      updateFileUI(file);
     });
   }
 
@@ -98,9 +166,43 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
       console.log("Submission started...");
 
-      if (!fileInput.files[0]) {
+      const file = fileInput.files[0];
+      if (!file) {
         setFileMsg("Please select a file.", "red");
         return;
+      }
+
+      const ext = (file.name.split(".").pop() || "").toLowerCase();
+      if (!ALLOWED_EXT.includes(ext)) {
+        const msg = "This file type is not supported";
+        setFileMsg(msg, "red");
+        showPopup(msg, true);
+        return;
+      }
+
+      if (file.size > MAX_FILE_SIZE) {
+        const msg = "File size must be less than 20MB";
+        setFileMsg(msg, "red");
+        showPopup(msg, true);
+        return;
+      }
+
+      if (submitForm.dataset.submitted === "true") {
+        const msg = "You have already submitted this task.";
+        setFileMsg(msg, "red");
+        showPopup(msg, true);
+        return;
+      }
+
+      const deadlineStr = submitForm.dataset.deadline;
+      if (deadlineStr) {
+        const deadlineDate = new Date(deadlineStr);
+        if (!isNaN(deadlineDate) && new Date() > deadlineDate) {
+          const msg = "The deadline for this task has passed.";
+          setFileMsg(msg, "red");
+          showPopup(msg, true);
+          return;
+        }
       }
 
       if (submitTaskBtn) submitTaskBtn.disabled = true;
@@ -131,95 +233,10 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("Server data:", data);
 
         if (data.status === "success") {
-          if (typeof Swal !== "undefined") {
-            await Swal.fire({
-              icon: "success",
-              title: "Task Submitted!",
-              text: "Your task has been submitted successfully.",
-              confirmButtonText: "OK"
-            });
-          } else {
-            alert("Task submitted successfully!");
-          }
+          localStorage.setItem("taskSubmitted", "true");
           setFileMsg("submitted", "green");
           window.scrollTo({ top: 0, behavior: "smooth" });
-          setTimeout(() => window.location.reload(), 1000);
-        } else if (data.status === "already_submitted") {
-          if (typeof Swal !== "undefined") {
-            const result = await Swal.fire({
-              icon: "warning",
-              title: "Already Submitted",
-              text: "You have already submitted this task. Do you want to resubmit?",
-              showCancelButton: true,
-              confirmButtonText: "Yes, Resubmit",
-              cancelButtonText: "Cancel"
-            });
-            if (!result.isConfirmed) {
-              if (submitTaskBtn) submitTaskBtn.disabled = false;
-              if (removeBtn) removeBtn.disabled = false;
-              return;
-            }
-            // If confirmed, proceed with resubmission
-            const formData2 = new FormData(submitForm);
-            const response2 = await fetch(window.location.href, {
-              method: "POST",
-              body: formData2
-            });
-
-            // Safety: check if response is ok
-            if (!response2.ok) throw new Error("Server error (HTTP " + response2.status + ")");
-
-            // Check if redirected (session expired)
-            if (response2.redirected) {
-              throw new Error("Session expired. Please refresh the page and try again.");
-            }
-
-            // Check if response is JSON
-            const contentType2 = response2.headers.get("content-type");
-            if (!contentType2 || !contentType2.includes("application/json")) {
-              throw new Error("Session expired or invalid response. Please refresh the page and try again.");
-            }
-
-            const data2 = await response2.json();
-            if (data2.status === "success") {
-              await Swal.fire({
-                icon: "success",
-                title: "Task Resubmitted!",
-                text: "Your task has been resubmitted successfully.",
-                confirmButtonText: "OK"
-              });
-              window.scrollTo({ top: 0, behavior: "smooth" });
-              setTimeout(() => window.location.reload(), 1000);
-            }
-          } else {
-            if (confirm("You have already submitted this task. Do you want to resubmit?")) {
-              // Proceed with resubmission
-              const formData2 = new FormData(submitForm);
-              const response2 = await fetch(window.location.href, {
-                method: "POST",
-                body: formData2
-              });
-
-              // Safety: check if response is ok
-              if (!response2.ok) throw new Error("Server error (HTTP " + response2.status + ")");
-
-              // Check if response is JSON
-              const contentType2 = response2.headers.get("content-type");
-              if (!contentType2 || !contentType2.includes("application/json")) {
-                throw new Error("Session expired or invalid response. Please refresh the page and try again.");
-              }
-
-              const data2 = await response2.json();
-              if (data2.status === "success") {
-                alert("Task resubmitted successfully!");
-                window.scrollTo({ top: 0, behavior: "smooth" });
-                setTimeout(() => window.location.reload(), 1000);
-              }
-            } else {
-              if (submitTaskBtn) submitTaskBtn.disabled = false;
-              if (removeBtn) removeBtn.disabled = false;
-            }
-          }
+          window.location.reload();
         } else {
           throw new Error(data.message || "Upload failed");
         }
@@ -230,12 +247,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const msg = err.message || "Upload failed";
         setFileMsg(msg, "red");
-
-        if (typeof Swal !== "undefined") {
-          Swal.fire({ icon: "error", title: "Error", text: msg });
-        } else {
-          alert("Error: " + msg);
-        }
+        showPopup(msg, true);
       }
     });
   }
@@ -276,5 +288,41 @@ document.addEventListener("DOMContentLoaded", () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
   });
+
   document.addEventListener("click", (e) => { if (e.target === modal) modal.classList.remove("show"); });
+
+  /* =========================
+     Delete Submission (Custom Confirm)
+  ========================= */
+  const deleteModal = document.getElementById("deleteConfirmPopup");
+  const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
+  let submissionToDelete = null;
+
+  window.deleteSubmission = function (id) {
+    if (!id) return;
+    submissionToDelete = id;
+    if (deleteModal) deleteModal.classList.add("show");
+  };
+
+  window.closeDeleteConfirm = function () {
+    if (deleteModal) deleteModal.classList.remove("show");
+    submissionToDelete = null;
+  };
+
+  if (confirmDeleteBtn) {
+    confirmDeleteBtn.addEventListener("click", () => {
+      if (submissionToDelete) {
+        const url = new URL(window.location.href);
+        url.searchParams.set("delete_submission_id", submissionToDelete);
+        window.location.href = url.toString();
+      }
+    });
+  }
+
+  // Close delete modal if clicking outside
+  if (deleteModal) {
+    deleteModal.addEventListener("click", (e) => {
+      if (e.target === deleteModal) closeDeleteConfirm();
+    });
+  }
 });

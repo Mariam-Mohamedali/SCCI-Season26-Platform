@@ -257,7 +257,7 @@ document.addEventListener("DOMContentLoaded", () => {
   ========================================================= */
 
   // ✅ CHANGE: allowed extensions list (minimal)
-  const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 MB
+  const MAX_FILE_SIZE = 20 * 1024 * 1024; // 20 MB
 
   const ALLOWED_EXT = ["pdf", "doc", "docx", "png", "jpg", "jpeg", "zip"];
 
@@ -310,7 +310,7 @@ document.addEventListener("DOMContentLoaded", () => {
         this.value = "";
         reset();
         if (fileState) {
-          fileState.textContent = "File size must be less than 10MB";
+          fileState.textContent = "File size must be less than 20MB";
           fileState.style.color = "red";
         }
         return;
@@ -541,34 +541,5 @@ function deleteMaterial(materialId) {
 
 /* =========================================================
    FORM MESSAGE
-========================================================= */
-
-// Mark form submission (for all valid forms)
-document.querySelectorAll("form.validForm").forEach((form) => {
-  form.addEventListener("submit", () => {
-    localStorage.setItem("quizSubmitted", "true");
-  });
-});
-
-// Show popup after reload
-document.addEventListener("DOMContentLoaded", () => {
-  const popup = document.querySelector(".submitPopup");
-  const closeBtn = document.querySelector(".popupSubmitClose");
-
-  if (!popup) return;
-
-  if (localStorage.getItem("quizSubmitted") === "true") {
-    popup.style.display = "flex";
-
-    const timer = setTimeout(() => {
-      popup.style.display = "none";
-      localStorage.removeItem("quizSubmitted");
-    }, 3000);
-
-    closeBtn?.addEventListener("click", () => {
-      clearTimeout(timer);
-      popup.style.display = "none";
-      localStorage.removeItem("quizSubmitted");
-    });
-  }
-});
+========================================= */
+// Generic form message logic removed in favor of status-specific messages in memberWorkshopPanel.php

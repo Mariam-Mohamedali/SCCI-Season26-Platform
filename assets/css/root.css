@@ -733,7 +733,7 @@ header {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 2100;
+  z-index: 5100;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -944,7 +944,7 @@ header.navbar-hidden {
   -webkit-backdrop-filter: blur(50px) saturate(150%);
 
   box-shadow: 0 0 100px rgba(0, 0, 0, 0.5);
-  z-index: 2000;
+  z-index: 5000;
   /* Start hidden */
   opacity: 0;
   visibility: hidden;

@@ -88,12 +88,13 @@ $tasks = [];
 
 if ($workshopSessionId > 0) {
     $st = $connect->prepare("
-        SELECT task_id, taskName, taskDeadline, taskBio, task_file
-        FROM tasks
-        WHERE workshop_session_id = ?
-        ORDER BY task_id DESC
+        SELECT t.task_id, t.taskName, t.taskDeadline, t.taskBio, t.task_file, ts.submission_id, ts.submit_link
+        FROM tasks t
+        LEFT JOIN task_submissions ts ON ts.task_id = t.task_id AND ts.user_id = ?
+        WHERE t.workshop_session_id = ?
+        ORDER BY t.task_id DESC
     ");
-    $st->bind_param("i", $workshopSessionId);
+    $st->bind_param("ii", $userId, $workshopSessionId);
     $st->execute();
     $tasks = $st->get_result()->fetch_all(MYSQLI_ASSOC);
     $st->close();
@@ -121,6 +122,40 @@ if ($workshopSessionId > 0) {
     $stSub->close();
 }
 
+
+/* =====================
+   Handle Task Deletion
+===================== */
+if (isset($_GET['delete_submission_id'])) {
+    $submissionId = (int) $_GET['delete_submission_id'];
+
+    // Security check: ensure it belongs to this user
+    $stSub = $connect->prepare("SELECT submit_link FROM task_submissions WHERE submission_id = ? AND user_id = ?");
+    $stSub->bind_param("ii", $submissionId, $userId);
+    $stSub->execute();
+    $sub = $stSub->get_result()->fetch_assoc();
+    $stSub->close();
+
+    if ($sub) {
+        $filePath = __DIR__ . "/" . $sub['submit_link'];
+        if (file_exists($filePath)) {
+            @unlink($filePath);
+        }
+
+        $del = $connect->prepare("DELETE FROM task_submissions WHERE submission_id = ?");
+        $del->bind_param("i", $submissionId);
+        $del->execute();
+        $del->close();
+
+        $_SESSION['msg'] = "Task submission deleted successfully.";
+    } else {
+        $_SESSION['err'] = "Invalid submission or permission denied.";
+    }
+
+    header("Location: participantWorkshopPanel.php?session_id=$selectedSessionId&tab=$currentTab");
+    exit;
+}
+
 /* =====================
    Handle Task Submission (AJAX)
 ===================== */
@@ -136,6 +171,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'submi
         exit;
     }
 
+    // Check for deadline
+    $stDl = $connect->prepare("SELECT taskDeadline FROM tasks WHERE task_id = ?");
+    $stDl->bind_param("i", $taskId);
+    $stDl->execute();
+    $taskData = $stDl->get_result()->fetch_assoc();
+    $stDl->close();
+
+    if ($taskData) {
+        $deadlineTime = strtotime($taskData['taskDeadline']);
+        if ($deadlineTime !== false && time() > $deadlineTime) {
+            $response['message'] = 'The deadline for this task has passed.';
+            echo json_encode($response);
+            exit;
+        }
+    }
+
     // Check if task already submitted
     $chkSub = $connect->prepare("
         SELECT submission_id FROM task_submissions
@@ -144,8 +195,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'submi
     $chkSub->bind_param("ii", $taskId, $userId);
     $chkSub->execute();
     if ($chkSub->get_result()->num_rows > 0) {
-        $response['status'] = 'already_submitted';
-        $response['message'] = 'You have already submitted this task. Do you want to resubmit?';
+        $response['message'] = 'You have already submitted this task.';
         echo json_encode($response);
         exit;
     }
@@ -157,8 +207,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'submi
         exit;
     }
 
-    if ($_FILES['submit_link']['size'] > 10 * 1024 * 1024) {
-        $response['message'] = 'File too large (max 10MB).';
+    if ($_FILES['submit_link']['size'] > 20 * 1024 * 1024) {
+        $response['message'] = 'File too large (max 20MB).';
         echo json_encode($response);
         exit;
     }
@@ -316,9 +366,10 @@ function renderStars($rating)
         rel="stylesheet" />
     <!-- css -->
     <link rel="stylesheet" href="./assets/css/all.min.css">
-    <link rel="stylesheet" href="./assets/css/root.css">
-    <link rel="stylesheet" href="./assets/css/message-toast.css">
-    <link rel="stylesheet" href="./assets/css/participantWorkshopPanel.css">
+    <link rel="stylesheet" href="./assets/css/root.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="./assets/css/message-toast.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="./assets/css/participantWorkshopPanel.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="./assets/css/task-management.css?v=<?php echo time(); ?>">
     <title>SCCI - Workshop Panel</title>
 </head>
 
@@ -384,7 +435,8 @@ function renderStars($rating)
         <a data-page="evaluate" class="<?= ($currentTab === 'evaluate') ? 'activePanelLine' : '' ?>">view task</a>
         <a data-page="review" class="<?= ($currentTab === 'review') ? 'activePanelLine' : '' ?>">review Task</a>
         <a data-page="addTask" class="<?= ($currentTab === 'addTask') ? 'activePanelLine' : '' ?>">materials</a>
-        <a data-page="addMaterial" class="<?= ($currentTab === 'addMaterial') ? 'activePanelLine' : '' ?>">activity time </a>
+        <a data-page="addMaterial" class="<?= ($currentTab === 'addMaterial') ? 'activePanelLine' : '' ?>">activity time
+        </a>
     </div>
 
     <!-- Main Workshop Panel Section -->
@@ -418,25 +470,25 @@ function renderStars($rating)
                                 <!-- center -->
                                 <div class="panelBody <?= $isActive ? 'sessionBlue' : 'sessionWhite' ?>"></div>
 
-                                    <!-- right edge -->
-                                    <svg shape-rendering="geometricPrecision" class="panelEdge sessionEdge"
-                                        preserveAspectRatio="none" viewBox="0 0 50 100" xmlns="http://www.w3.org/2000/svg"
-                                        aria-hidden="true">
-                                        <path d="M0 0 C10 0 20 20 40 50 C20 80 10 100 0 100 Z"
-                                            fill="<?= $isActive ? '#1f184e' : 'var(--color-white-gradient)' ?>"
-                                            stroke="<?= $isActive ? '#1f184e' : 'var(--color-white-gradient)' ?>"
-                                            stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
-                                    </svg>
-                                </div>
+                                <!-- right edge -->
+                                <svg shape-rendering="geometricPrecision" class="panelEdge sessionEdge"
+                                    preserveAspectRatio="none" viewBox="0 0 50 100" xmlns="http://www.w3.org/2000/svg"
+                                    aria-hidden="true">
+                                    <path d="M0 0 C10 0 20 20 40 50 C20 80 10 100 0 100 Z"
+                                        fill="<?= $isActive ? '#1f184e' : 'var(--color-white-gradient)' ?>"
+                                        stroke="<?= $isActive ? '#1f184e' : 'var(--color-white-gradient)' ?>"
+                                        stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
+                                </svg>
+                            </div>
 
-                                <p><?= htmlspecialchars($s['session_name']) ?></p>
-                            </a>
-                        <?php endforeach; ?>
-                    </div>
-                    <button class="scrollBtn rightBtn" onclick="scrollSessions('right')">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
+                            <p><?= htmlspecialchars($s['session_name']) ?></p>
+                        </a>
+                    <?php endforeach; ?>
                 </div>
+                <button class="scrollBtn rightBtn" onclick="scrollSessions('right')">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
 
             <!-- Panel Section: View Task (Evaluate) -->
             <div id="evaluate" class="panelSection panelSectionActive">
@@ -501,11 +553,20 @@ function renderStars($rating)
                         <div class="cardBody">
                             <p>No tasks assigned for this session yet.</p>
                         </div>
+
                     </article>
                 <?php endif; ?>
 
                 <!-- Submit Task Form Section -->
-                <form class="fileUpload" id="validForm" action="" method="post" enctype="multipart/form-data">
+                <?php
+                $isSubmitted = false;
+                if (isset($tasks[0])) {
+                    $isSubmitted = in_array((int) $tasks[0]['task_id'], $submittedTaskIds);
+                }
+                ?>
+                <form class="fileUpload" id="validForm" action="" method="post" enctype="multipart/form-data"
+                    data-submitted="<?= $isSubmitted ? 'true' : 'false' ?>"
+                    data-deadline="<?= isset($tasks[0]) ? htmlspecialchars($tasks[0]['taskDeadline']) : '' ?>">
                     <div class="uploadCard">
                         <!-- Upload Header -->
                         <div class="uploadHeader">
@@ -550,6 +611,51 @@ function renderStars($rating)
                         </button>
                     </div>
                 </form>
+
+                <div class="panelWhiteBox">
+                    <h4>Tasks</h4>
+                    <div class="articleFiles">
+                        <?php if (count($tasks) === 0): ?>
+                            <div class="notFIleAdded">
+                                <i class="fa-solid fa-folder-open"></i>
+                                <p>No tasks assigned yet.</p>
+                            </div>
+                        <?php else: ?>
+                            <?php foreach ($tasks as $task): ?>
+                                <article class="materialItem">
+                                    <div class="materialInfo">
+                                        <span class="materialFileName">
+                                            <?php if (!empty($task['taskName'])): ?>
+                                                <?= htmlspecialchars($task['taskName']) ?>
+                                            <?php else: ?>
+                                                No Task Name
+                                            <?php endif; ?>
+                                        </span>
+                                        <p class="taskDescription">
+                                            <?php if (!empty($task['taskDeadline'])): ?>
+                                                <?= htmlspecialchars($task['taskDeadline']) ?>
+                                            <?php else: ?>
+                                                No Task Deadline
+                                            <?php endif; ?>
+                                        </p>
+                                    </div>
+                                    <div class="materialActions">
+                                        <?php if (!empty($task['submit_link'])): ?>
+                                            <a href="<?= htmlspecialchars($task['submit_link']) ?>" target="_blank"
+                                                class="downloadFileBtn"><i class="fa-solid fa-download"></i> Download Submission</a>
+                                            <button class="deleteMaterialButton" style="background-color: #d6414131;"
+                                                onclick="deleteSubmission(<?= (int) $task['submission_id'] ?>)">Delete
+                                                Submission</button>
+                                        <?php elseif (!empty($task['task_file'])): ?>
+                                            <a href="<?= htmlspecialchars($task['task_file']) ?>" target="_blank"
+                                                class="downloadFileBtn"><i class="fa-solid fa-file-download"></i> Task Resource</a>
+                                        <?php endif; ?>
+                                    </div>
+                                </article>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </div>
+                </div>
             </div>
 
             <!-- Panel Section: Review Task -->
@@ -815,6 +921,27 @@ function renderStars($rating)
         </div>
     </div>
 
+    <!-- successful submit popup -->
+    <div class="submitPopup">
+        <span id="popupMessage">Form Submitted</span>
+        <button type="button" class="popupSubmitClose">X</button>
+    </div>
+
+    <!-- delete confirmation popup -->
+    <div class="deleteConfirmPopup" id="deleteConfirmPopup">
+        <div class="confirmCard">
+            <div class="confirmHeader">
+                <i class="fas fa-trash-alt"></i>
+                <h3>Delete Submission?</h3>
+            </div>
+            <p>This action cannot be undone. You will need to re-upload your task.</p>
+            <div class="confirmBtnGroup">
+                <button type="button" class="btn btn-confirm-cancel" onclick="closeDeleteConfirm()">Cancel</button>
+                <button type="button" class="btn btn-confirm-delete" id="confirmDeleteBtn">Delete</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Page Scripts -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
@@ -829,7 +956,15 @@ function renderStars($rating)
     </script>
     <script src="./assets/js/all.min.js" defer></script>
     <script src="./assets/js/messages.js" defer></script>
-    <script src="./assets/js/participantWorkshopPanel.js" defer></script>
+    <script>
+        window.sessionMessages = {
+            msg: <?php echo isset($_SESSION['msg']) ? json_encode($_SESSION['msg']) : 'null'; ?>,
+            err: <?php echo isset($_SESSION['err']) ? json_encode($_SESSION['err']) : 'null'; ?>
+        };
+        <?php unset($_SESSION['msg']);
+        unset($_SESSION['err']); ?>
+    </script>
+    <script src="./assets/js/participantWorkshopPanel.js?v=<?php echo time(); ?>" defer></script>
 </body>
 
 </html>
