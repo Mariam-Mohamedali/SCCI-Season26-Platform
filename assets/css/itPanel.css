@@ -124,42 +124,19 @@ main {
 }
 
 
-/* ================= Zebra Rows ================= */
-.tableBody .tableRow:nth-child(odd) {
-    background-color: var(--color-white-neutral);
-    color: var(--color-black);
-}
-
-.tableBody .tableRow:nth-child(even) {
-    background-color: var(--color-gray-medium);
-    color: var(--color-white);
+/* ================= Rows ================= */
+.tableBody .tableRow {
+    background-color: var(--color-white);
+    color: var(--color-black) !important;
+    border-bottom: 1px solid var(--border-light);
 }
 
 /* ================= Data cells ================= */
 .tableData {
-    padding: var(--space-7);
+    padding: var(--space-4);
     font-size: var(--fs-md);
-    border-right: 3px solid var(--color-gray-lighter);
-    line-height: var(--lh-loose);
     text-align: center;
-}
-
-.tableData {
-    max-height: 150px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    font-size: 19px;
-    font-size: 19px;
-    color: inherit;
-    font-family: var(--font-system);
-}
-
-.tableData:last-child {
-    border-right: none;
-}
-
-.tableBody .tableRow:last-child .tableData {
-    border-bottom: none;
+    color: black !important;
 }
 
 
