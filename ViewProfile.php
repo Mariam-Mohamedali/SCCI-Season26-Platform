@@ -145,7 +145,7 @@ if (isset($user['role']) && $user['role'] == 4 or $user['role'] == 5) {
             <div class="infoLabel">Department</div>
             <div class="infoValue">
                 <?php 
-                if ($user['role'] == 4) {
+                if ($user['role'] == 4 || $user['role'] == 5) {
                   $dept = !empty($user['committe_name']) ? $user['committe_name'] . " Head" : "Head";
                   echo htmlspecialchars($dept);
                 } else {
