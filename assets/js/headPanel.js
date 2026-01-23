@@ -15,6 +15,8 @@ const searchInput = document.getElementById('searchInput');
 
 // get committee filter
 const committeeFilter = document.getElementById('committeeFilter');
+const workshopFilter = document.getElementById('workshopFilter');
+const filterContainer = document.getElementById('filterContainer');
 
 // get current section from URL parameter
 const urlParams = new URLSearchParams(window.location.search);
@@ -65,23 +67,30 @@ function setupPagination(tableScrollId, paginationId, rowsPerPage = 10) {
     }
 
     // Filter Function
-    function filter(searchQuery, committeeValue) {
+    function filter(searchQuery, filterValue) {
         searchQuery = searchQuery ? searchQuery.toLowerCase().trim() : '';
-        committeeValue = committeeValue ? committeeValue.trim() : '';
+        filterValue = filterValue ? filterValue.toLowerCase().trim() : '';
 
         currentRows = originalRows.filter(row => {
             // Text Search Check
             const matchesSearch = !searchQuery || row.textContent.toLowerCase().includes(searchQuery);
 
-            // Committee Check
-            let matchesCommittee = true;
-            if (committeeValue) {
-                const committeeCell = row.querySelector('[data-committee]');
-                const rowCommittee = committeeCell ? committeeCell.dataset.committee.trim() : '';
-                matchesCommittee = rowCommittee === committeeValue;
+            // Filter Check (Committee for members, Workshop for participants)
+            let matchesFilter = true;
+            if (filterValue) {
+                let rowFilter = '';
+                if (row.querySelector('[data-workshop]')) {
+                    // Participants row - use workshop
+                    rowFilter = row.querySelector('[data-workshop]').dataset.workshop || '';
+                } else {
+                    // Members row - use committee
+                    rowFilter = row.querySelector('[data-committee]').dataset.committee || '';
+                }
+                rowFilter = rowFilter.toLowerCase().trim();
+                matchesFilter = rowFilter === filterValue;
             }
 
-            return matchesSearch && matchesCommittee;
+            return matchesSearch && matchesFilter;
         });
 
         // Reset to page 1 after filter
@@ -118,12 +127,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function applyFilters() {
         const query = searchInput ? searchInput.value : '';
-        const committee = committeeFilter ? committeeFilter.value : '';
+        const filterValue = currentSection === 'participants'
+            ? (workshopFilter ? workshopFilter.value : '')
+            : (committeeFilter ? committeeFilter.value : '');
 
         if (currentSection === 'participants' && participantsManager) {
-            participantsManager.filter(query, committee);
+            participantsManager.filter(query, filterValue);
         } else if (currentSection === 'members' && membersManager) {
-            membersManager.filter(query, committee);
+            membersManager.filter(query, filterValue);
         }
     }
 
@@ -133,6 +144,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (committeeFilter) {
         committeeFilter.addEventListener('change', applyFilters);
+    }
+    if (workshopFilter) {
+        workshopFilter.addEventListener('change', applyFilters);
     }
 });
 
@@ -153,6 +167,7 @@ function switchTab(section) {
     // Clear Filters on Switch
     if (searchInput) searchInput.value = '';
     if (committeeFilter) committeeFilter.value = '';
+    if (workshopFilter) workshopFilter.value = '';
 
     if (participantsManager) participantsManager.filter('', '');
     if (membersManager) membersManager.filter('', '');
@@ -163,6 +178,9 @@ function switchTab(section) {
 
         participantsPagination.style.display = 'flex';
         membersPagination.style.display = 'none';
+
+        if (workshopFilter) workshopFilter.style.display = 'block';
+        if (committeeFilter) committeeFilter.style.display = 'none';
 
         participantBtn.classList.add('activePanelLine');
         memberBtn.classList.remove('activePanelLine');
@@ -175,6 +193,9 @@ function switchTab(section) {
 
         membersPagination.style.display = 'flex';
         participantsPagination.style.display = 'none';
+
+        if (workshopFilter) workshopFilter.style.display = 'none';
+        if (committeeFilter) committeeFilter.style.display = 'block';
 
         memberBtn.classList.add('activePanelLine');
         participantBtn.classList.remove('activePanelLine');
@@ -192,5 +213,7 @@ if (currentSection === 'members') {
     membersSchedule.style.display = 'none';
     participantsPagination.style.display = 'flex';
     membersPagination.style.display = 'none';
+    if (workshopFilter) workshopFilter.style.display = 'block';
+    if (committeeFilter) committeeFilter.style.display = 'none';
     participantBtn.classList.add('activePanelLine');
 }

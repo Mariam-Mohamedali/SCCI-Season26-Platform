@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -8,28 +9,25 @@
     <link rel="icon" type="image/x-icon" href="./assets/icons/logoSCCI.png" />
     <meta property="og:image" content="./assets/images/seo/headPanel.png" />
     <meta property="og:title" content="SCCI`26" />
-    <meta
-      property="og:description"
-      content="SCCI is the university's premier student community, uniting creative minds to build the future of tech, media, business, and entrepreneurship."  
-    />
-    <meta
-      name="keywords"
-      content="SCCI, Student Community, Creative Minds, Tech, Media, Business, Entrepreneurship, University, Community, College"
-    />
+    <meta property="og:description"
+        content="SCCI is the university's premier student community, uniting creative minds to build the future of tech, media, business, and entrepreneurship." />
+    <meta name="keywords"
+        content="SCCI, Student Community, Creative Minds, Tech, Media, Business, Entrepreneurship, University, Community, College" />
     <!-- google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-      rel="stylesheet"
-    />
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet" />
     <!-- css -->
     <link rel="stylesheet" href="./assets/css/headPanel.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="./assets/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>SCCI - Head Panel</title>
-  </head>
+</head>
 
 <body>
     <?php
@@ -83,12 +81,16 @@
     // Fetch distinct committees for filter
     $committees = mysqli_query($connect, "SELECT * FROM committees");
 
-    // Fetch participants with committee name
+    // Fetch distinct workshops for filter
+    $workshops = mysqli_query($connect, "SELECT * FROM workshops");
+
+    // Fetch participants with committee name and workshop name
     $participants = mysqli_query($connect, "
-        SELECT u.*, c.committe_name 
-        FROM users u 
-        LEFT JOIN committees c ON u.committee_id = c.committee_id 
-        WHERE u.role='1' AND u.status = 1 
+        SELECT u.*, c.committe_name, w.workshop_name
+        FROM users u
+        LEFT JOIN committees c ON u.committee_id = c.committee_id
+        LEFT JOIN workshops w ON u.workshop_id = w.workshop_id
+        WHERE u.role='1' AND u.status = 1
         ORDER BY u.user_id DESC
     ");
 
@@ -151,9 +153,20 @@
             <i class="fa-solid fa-magnifying-glass search-icon"></i>
         </div>
 
-        <!-- Committee Filter -->
-        <div class="filter-container">
-            <select id="committeeFilter">
+        <!-- Filters -->
+        <div class="filter-container" id="filterContainer">
+            <!-- Workshop Filter for Participants -->
+            <select id="workshopFilter" style="display: none;">
+                <option value="">All Workshops</option>
+                <?php while ($work = mysqli_fetch_assoc($workshops)) { ?>
+                    <option value="<?= htmlspecialchars(trim($work['workshop_name'])) ?>">
+                        <?= htmlspecialchars(trim($work['workshop_name'])) ?>
+                    </option>
+                <?php } ?>
+            </select>
+
+            <!-- Committee Filter for Members -->
+            <select id="committeeFilter" style="display: none;">
                 <option value="">All Committees</option>
                 <?php while ($comm = mysqli_fetch_assoc($committees)) { ?>
                     <option value="<?= htmlspecialchars($comm['committe_name']) ?>">
@@ -169,6 +182,7 @@
                 <thead class="tableHead">
                     <tr class="tableRow">
                         <th class="tableHeader">Full Name</th>
+                        <th class="tableHeader">Workshop</th>
                         <th class="tableHeader">Committee</th>
                         <th class="tableHeader">Email</th>
                         <th class="tableHeader">Phone</th>
@@ -179,13 +193,24 @@
                 <tbody class="tableBody">
                     <?php while ($row = mysqli_fetch_assoc($participants)) { ?>
                         <tr class="tableRow">
-                            <td class="tableData"><?= htmlspecialchars($row['user_name']) ?></td>
+                            <td class="tableData">
+                                <?= htmlspecialchars($row['user_name']) ?>
+                            </td>
+                            <td class="tableData" data-workshop="<?= htmlspecialchars(trim($row['workshop_name'] ?? '')) ?>">
+                                <?= htmlspecialchars($row['workshop_name'] ?? 'N/A') ?>
+                            </td>
                             <td class="tableData" data-committee="<?= htmlspecialchars($row['committe_name'] ?? '') ?>">
                                 <?= htmlspecialchars($row['committe_name'] ?? 'N/A') ?>
                             </td>
-                            <td class="tableData email-text"><?= htmlspecialchars($row['email']) ?></td>
-                            <td class="tableData">0<?= htmlspecialchars($row['phone']) ?></td>
-                            <td class="tableData"><?= ($row['status'] == 0) ? 'User Blocked' : 'Active'; ?></td>
+                            <td class="tableData email-text">
+                                <?= htmlspecialchars($row['email']) ?>
+                            </td>
+                            <td class="tableData">0
+                                <?= htmlspecialchars($row['phone']) ?>
+                            </td>
+                            <td class="tableData">
+                                <?= ($row['status'] == 0) ? 'User Blocked' : 'Active'; ?>
+                            </td>
                             <td class="tableData">
                                 <?php if ($row['status'] == 1): ?>
                                     <form method="post" style="display:inline;"
