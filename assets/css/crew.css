@@ -95,12 +95,16 @@ body {
   position: relative;
   z-index: 1;
 }
+.jobCardContent span{
+  color: var(--color-secondary-dark);
+}
 
 .jobCardContent p {
+  text-transform: none;
   font-size: var(--fs-md);
   line-height: 1.8;
   color: var(--color-secondary-dark);
-  text-align: center;
+  text-align: left;
   margin: 0;
   font-weight: 500;
   white-space: pre-line;
