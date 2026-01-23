@@ -9,7 +9,33 @@ document.addEventListener('DOMContentLoaded', () => {
     const workshopSelect = document.getElementById('workshop');
     const imageInput = document.getElementById('image');
 
-    
+    const cpasswordInput = document.getElementById('cpassword');
+    const errorCPassword = document.getElementById('error-cpassword');
+
+    // Password Toggle
+    const togglePasswordBtn = document.getElementById('togglePasswordBtn');
+    if (togglePasswordBtn) {
+        togglePasswordBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            // Toggle Icon
+            this.innerHTML = type === 'password' ? '<i class="fas fa-eye-slash"></i>' : '<i class="fas fa-eye"></i>';
+        });
+    }
+
+    // Confirm Password Toggle
+    const toggleCPasswordBtn = document.getElementById('toggleCPasswordBtn');
+    if (toggleCPasswordBtn) {
+        toggleCPasswordBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            const type = cpasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            cpasswordInput.setAttribute('type', type);
+            // Toggle Icon
+            this.innerHTML = type === 'password' ? '<i class="fas fa-eye-slash"></i>' : '<i class="fas fa-eye"></i>';
+        });
+    }
+
     // Error Containers
     const errorName = document.getElementById('error-name');
     const errorEmail = document.getElementById('error-email');
@@ -87,6 +113,17 @@ document.addEventListener('DOMContentLoaded', () => {
             clearError(passwordInput, errorPassword);
         }
 
+        // Confirm Password Validation
+        if (cpasswordInput.value.length === 0) {
+            showError(cpasswordInput, errorCPassword, 'Confirm Password is required');
+            valid = false;
+        } else if (cpasswordInput.value !== passwordInput.value) {
+            showError(cpasswordInput, errorCPassword, 'Passwords do not match');
+            valid = false;
+        } else {
+            clearError(cpasswordInput, errorCPassword);
+        }
+
         // Dropdown Validation
         if (workshopSelect.value === "") {
             showError(workshopSelect, errorWorkshop, 'Please select a workshop');
@@ -100,7 +137,16 @@ document.addEventListener('DOMContentLoaded', () => {
             showError(imageInput, errorImage, 'Please upload an image');
             valid = false;
         } else {
-            clearError(imageInput, errorImage);
+            const fileName = imageInput.files[0].name.toLowerCase();
+            const allowedExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.bmp'];
+            const isValid = allowedExtensions.some(ext => fileName.endsWith(ext));
+
+            if (!isValid) {
+                showError(imageInput, errorImage, 'Only Image files (JPG, PNG, GIF, WEBP) are allowed');
+                valid = false;
+            } else {
+                clearError(imageInput, errorImage);
+            }
         }
 
 
@@ -110,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Real-time validation
-    const inputs = [nameInput, emailInput, phoneInput, passwordInput, workshopSelect, imageInput];
+    const inputs = [nameInput, emailInput, phoneInput, passwordInput, cpasswordInput, workshopSelect, imageInput];
     inputs.forEach(input => {
         input.addEventListener('input', () => {
             input.parentElement.classList.remove('error');

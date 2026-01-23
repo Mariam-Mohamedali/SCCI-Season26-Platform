@@ -657,9 +657,9 @@ if ($workshopSessionId > 0) {
 
     <?php endforeach; ?>
   <?php endif; ?>
-
-
+  
   <main class="materialPage">
+    <!-- FORM Success Popup ----------------------------------------------------------------------------- -->
 
     <div class="miniNav">
       <div class="panelSvg">
@@ -827,11 +827,11 @@ if ($workshopSessionId > 0) {
               </tbody>
             </table>
           </div>
-          <div class="pagination-controls" id="workshopPagination">
-            <button class="nav-arrow prev-btn" disabled><i class="fa-solid fa-caret-left"></i></button>
-            <span class="page-info">Page 1</span>
-            <button class="nav-arrow next-btn"><i class="fa-solid fa-caret-right"></i></button>
-          </div>
+        </div>
+        <div class="pagination-controls" id="workshopPagination">
+          <button class="nav-arrow prev-btn" disabled><i class="fa-solid fa-caret-left"></i></button>
+          <span class="page-info">Page 1</span>
+          <button class="nav-arrow next-btn"><i class="fa-solid fa-caret-right"></i></button>
         </div>
       </div>
     </section>
@@ -1372,6 +1372,13 @@ if ($workshopSessionId > 0) {
     </div>
   </div>
 
+  
+  <!-- successful submit popup -->
+  <div class="submitPopup" style="display:none;">
+    form submitted
+    <button type="button" class="popupSubmitClose">X</button>
+  </div>
+
   <!-- JAVASCRIPT -->
   <script>
     window.sessionMessages = {
@@ -1382,7 +1389,7 @@ if ($workshopSessionId > 0) {
     unset($_SESSION['err']); ?>
   </script>
   <script src="assets/js/all.min.js" defer></script>
-  <script src="assets/js/messages.js" defer></script>
+  <!-- <script src="assets/js/messages.js" defer></script> -->
   <script src="assets/js/memberWorkshopPanel.js" defer></script>
   <script src="assets/js/pagination.js"></script>
   <script>
