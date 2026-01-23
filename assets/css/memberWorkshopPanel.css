@@ -2154,23 +2154,22 @@ body.no-scroll {
 .nav-arrow {
   background: none;
   border: none;
-  color: black;
+  color: var(--color-secondary);
+  border-radius: 50%;
+  background: rgba(0, 0, 91, 0.2);
   font-size: 1.8rem;
   cursor: pointer;
   padding: 0.5rem;
-  transition:
-    transform 0.2s ease,
-    opacity 0.2s ease;
+  display: flex;
+  font-size: 2rem;
+  position: relative;
+  bottom: 0;
+  transition: 0.2s ease-in-out;
 }
 
-.nav-arrow:hover:not(:disabled) {
-  transform: scale(1.2);
-  color: var(--color-primary);
-}
-
-.nav-arrow:disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
+.nav-arrow:hover {
+  bottom: 1.3px;
+  background: rgba(0, 0, 91, 0.4);
 }
 
 .page-info {

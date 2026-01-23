@@ -829,7 +829,7 @@ if ($workshopSessionId > 0) {
           </div>
         </div>
         <div class="pagination-controls" id="workshopPagination">
-          <button class="nav-arrow prev-btn" disabled><i class="fa-solid fa-caret-left"></i></button>
+          <button class="nav-arrow prev-btn"><i class="fa-solid fa-caret-left"></i></button>
           <span class="page-info">Page 1</span>
           <button class="nav-arrow next-btn"><i class="fa-solid fa-caret-right"></i></button>
         </div>

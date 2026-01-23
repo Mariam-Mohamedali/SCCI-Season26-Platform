@@ -255,6 +255,12 @@ document.addEventListener("DOMContentLoaded", () => {
   /* =========================================================
      8) FILE UPLOAD UI
   ========================================================= */
+
+  // ✅ CHANGE: allowed extensions list (minimal)
+  const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 MB
+
+  const ALLOWED_EXT = ["pdf", "doc", "docx", "png", "jpg", "jpeg", "zip"];
+
   document.querySelectorAll(".fileUpload").forEach((container) => {
     const fileInput = container.querySelector("input[type='file']");
     const fileState = container.querySelector(".uploadText");
@@ -274,11 +280,48 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
+      // ✅ CHANGE: block unsupported file types + show message in .uploadText (red)
+      const ext = (file.name.split(".").pop() || "").toLowerCase();
+      if (!ALLOWED_EXT.includes(ext)) {
+        this.value = ""; // clear invalid file
+        reset();
+        if (fileState) {
+          fileState.textContent = "This file isn't supported";
+          fileState.style.color = "red";
+        }
+        return;
+      }
+
       // show uploaded info
+      // ✅ check file extension
+      const extT = (file.name.split(".").pop() || "").toLowerCase();
+      if (!ALLOWED_EXT.includes(extT)) {
+        this.value = "";
+        reset();
+        if (fileState) {
+          fileState.textContent = "This file type is not supported";
+          fileState.style.color = "red";
+        }
+        return;
+      }
+
+      // ✅ check file size
+      if (file.size > MAX_FILE_SIZE) {
+        this.value = "";
+        reset();
+        if (fileState) {
+          fileState.textContent = "File size must be less than 10MB";
+          fileState.style.color = "red";
+        }
+        return;
+      }
+
+      // ✅ show uploaded info
       if (fileUploadedName) {
         fileUploadedName.textContent = file.name;
         fileUploadedName.style.display = "block";
       }
+
 
       if (fileUploadInfo) fileUploadInfo.style.display = "flex";
       if (removeBtn) removeBtn.style.display = "inline-block";
@@ -399,6 +442,20 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
 
+      // ✅ CHANGE: block submit if file type is unsupported (minimal)
+      if (fileInput && fileInput.files.length > 0) {
+        const f = fileInput.files[0];
+        const ext = (f.name.split(".").pop() || "").toLowerCase();
+        if (!ALLOWED_EXT.includes(ext)) {
+          isValid = false;
+          const fileState = form.querySelector(".uploadText");
+          if (fileState) {
+            fileState.textContent = "This file isn't supported";
+            fileState.style.color = "red";
+          }
+        }
+      }
+
       // task-only fields
       const deadlineEl = form.querySelector("input[name='taskDeadline']");
       const bioEl = form.querySelector("textarea[name='taskBio']");
@@ -424,6 +481,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!isValid) event.preventDefault();
     });
   });
+
 
   /* =========================================================
      10) MATERIAL TYPE FILTERING

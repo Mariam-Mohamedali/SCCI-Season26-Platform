@@ -252,16 +252,21 @@ include './includes/config.php';
         <div class="sliderWrapper" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
 
             <div class="cardStack">
-                <img src="./assets/img/crewImg/workshopCard1.png" class="crewCard" alt="Crew Photo #1" loading="lazy">
-                <img src="./assets/img/crewImg/workshopCard2-r.png" class="crewCard" alt="Crew Photo #2" loading="lazy">
-                <img src="./assets/img/crewImg/workshopCard3-r.png" class="crewCard" alt="Crew Photo #3" loading="lazy">
-                <img src="./assets/img/crewImg/workshopCard4.png" class="crewCard" alt="Crew Photo #4" loading="lazy">
-                <img src="./assets/img/crewImg/workshopCard5.png" class="crewCard" alt="Crew Photo #5" loading="lazy">
-                <img src="./assets/img/crewImg/workshopCard6-r.png" class="crewCard" alt="Crew Photo #6" loading="lazy">
-                <img src="./assets/img/crewImg/workshopCard7.png" class="crewCard" alt="Crew Photo #7" loading="lazy">
-                <img src="./assets/img/crewImg/workshopCard8.png" class="crewCard" alt="Crew Photo #8" loading="lazy">
-                <img src="./assets/img/crewImg/workshopCard9-r.png" class="crewCard" alt="Crew Photo #9" loading="lazy">
-                <img src="./assets/img/crewImg/workshopCard10.png" class="crewCard" alt="Crew Photo #10" loading="lazy">
+                <?php
+                // Get all images from crewImg directory
+                $imageDir = './assets/img/crewImg/';
+                $images = glob($imageDir . '*.{png,jpg,jpeg,PNG,JPG,JPEG}', GLOB_BRACE);
+                
+                // Sort images naturally
+                natsort($images);
+                
+                // Loop through and display each image
+                foreach ($images as $index => $image) {
+                    $imageName = basename($image);
+                    $altText = "Crew Photo #" . ($index + 1);
+                    echo '<img src="' . htmlspecialchars($image) . '" class="crewCard" alt="' . htmlspecialchars($altText) . '" loading="lazy">' . "\n                ";
+                }
+                ?>
             </div>
 
             <div class="arrowsContainer">
