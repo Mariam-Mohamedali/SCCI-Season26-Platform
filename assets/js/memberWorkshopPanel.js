@@ -255,104 +255,103 @@ document.addEventListener("DOMContentLoaded", () => {
   /* =========================================================
      8) FILE UPLOAD UI
   ========================================================= */
-document.querySelectorAll(".fileUpload").forEach((container) => {
-  const fileInput = container.querySelector("input[type='file']");
-  const fileState = container.querySelector(".uploadText");
-  const fileUploadedName = container.querySelector(".fileUploadedName");
-  const fileUploadInfo = container.querySelector(".fileUploadInfo");
-  const removeBtn = container.querySelector(".removeUpload");
-  const fileMessage = container.querySelector(".fileMessage");
-  const uploadBtn = container.querySelector(".uploadBtn");
+  document.querySelectorAll(".fileUpload").forEach((container) => {
+    const fileInput = container.querySelector("input[type='file']");
+    const fileState = container.querySelector(".uploadText");
+    const fileUploadedName = container.querySelector(".fileUploadedName");
+    const fileUploadInfo = container.querySelector(".fileUploadInfo");
+    const removeBtn = container.querySelector(".removeUpload");
+    const fileMessage = container.querySelector(".fileMessage");
+    const uploadBtn = container.querySelector(".uploadBtn");
 
-  if (!fileInput) return;
+    if (!fileInput) return;
 
-  fileInput.addEventListener("change", function () {
-    const file = this.files[0];
+    fileInput.addEventListener("change", function () {
+      const file = this.files[0];
 
-    if (!file) {
+      if (!file) {
+        reset();
+        return;
+      }
+
+      // show uploaded info
+      if (fileUploadedName) {
+        fileUploadedName.textContent = file.name;
+        fileUploadedName.style.display = "block";
+      }
+
+      if (fileUploadInfo) fileUploadInfo.style.display = "flex";
+      if (removeBtn) removeBtn.style.display = "inline-block";
+      if (uploadBtn) uploadBtn.style.display = "none";
+
+      if (fileState) {
+        fileState.textContent = "File Uploaded Successfully!";
+        fileState.style.color = "green";
+      }
+
+      if (fileMessage) fileMessage.textContent = "";
+    });
+
+    removeBtn?.addEventListener("click", () => {
+      fileInput.value = "";
       reset();
-      return;
+    });
+
+    function reset() {
+      if (fileUploadedName) {
+        fileUploadedName.textContent = "";
+        fileUploadedName.style.display = "none";
+      }
+
+      if (fileUploadInfo) fileUploadInfo.style.display = "none";
+      if (removeBtn) removeBtn.style.display = "none";
+      if (uploadBtn) uploadBtn.style.display = "inline-block";
+
+      if (fileState) {
+        fileState.textContent = "Drag and drop or click to browse";
+        fileState.style.color = "";
+      }
     }
-
-    // show uploaded info
-    if (fileUploadedName) {
-      fileUploadedName.textContent = file.name;
-      fileUploadedName.style.display = "block";
-    }
-
-    if (fileUploadInfo) fileUploadInfo.style.display = "flex";
-    if (removeBtn) removeBtn.style.display = "inline-block";
-    if (uploadBtn) uploadBtn.style.display = "none";
-
-    if (fileState) {
-      fileState.textContent = "File Uploaded Successfully!";
-      fileState.style.color = "green";
-    }
-
-    if (fileMessage) fileMessage.textContent = "";
   });
 
-  removeBtn?.addEventListener("click", () => {
-    fileInput.value = "";
-    reset();
-  });
+  // Drag & Drop support
+  document.querySelectorAll(".fileUpload").forEach((container) => {
+    const fileInput = container.querySelector("input[type='file']");
+    const dropArea = container.querySelector(".uploadContainer");
+    const dropMessage = container.querySelector(".dragMessage");
 
-  function reset() {
-    if (fileUploadedName) {
-      fileUploadedName.textContent = "";
-      fileUploadedName.style.display = "none";
-    }
+    if (!fileInput || !dropArea) return;
 
-    if (fileUploadInfo) fileUploadInfo.style.display = "none";
-    if (removeBtn) removeBtn.style.display = "none";
-    if (uploadBtn) uploadBtn.style.display = "inline-block";
+    // prevent default browser behavior
+    ["dragenter", "dragover", "dragleave", "drop"].forEach((event) => {
+      dropArea.addEventListener(event, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      });
+    });
 
-    if (fileState) {
-      fileState.textContent = "Drag and drop or click to browse";
-      fileState.style.color = "";
-    }
-  }
-});
+    dropArea.addEventListener("dragover", () => {
+      dropArea.classList.add("dragOver");
+      dropMessage.style.display = "block";
+    });
 
-// Drag & Drop support
-document.querySelectorAll(".fileUpload").forEach((container) => {
-  const fileInput = container.querySelector("input[type='file']");
-  const dropArea = container.querySelector(".uploadContainer");
-  const dropMessage = container.querySelector(".dragMessage");
+    dropArea.addEventListener("dragleave", () => {
+      dropArea.classList.remove("dragOver");
+      dropMessage.style.display = "none";
+    });
 
-  if (!fileInput || !dropArea) return;
+    dropArea.addEventListener("drop", (e) => {
+      dropArea.classList.remove("dragOver");
+      dropMessage.style.display = "none";
 
-  // prevent default browser behavior
-  ["dragenter", "dragover", "dragleave", "drop"].forEach((event) => {
-    dropArea.addEventListener(event, (e) => {
-      e.preventDefault();
-      e.stopPropagation();
+      const files = e.dataTransfer.files;
+      if (!files.length) return;
+
+      fileInput.files = files;
+
+      fileInput.dispatchEvent(new Event("change"));
     });
   });
-
-  dropArea.addEventListener("dragover", () => {
-    dropArea.classList.add("dragOver");
-    dropMessage.style.display = "block";
-  });
-
-  dropArea.addEventListener("dragleave", () => {
-    dropArea.classList.remove("dragOver");
-    dropMessage.style.display = "none";
-  });
-
-  dropArea.addEventListener("drop", (e) => {
-    dropArea.classList.remove("dragOver");
-    dropMessage.style.display = "none";
-
-    const files = e.dataTransfer.files;
-    if (!files.length) return;
-
-    fileInput.files = files;
-
-    fileInput.dispatchEvent(new Event("change"));
-  });
-});
-
 
   /* =========================================================
      9) FORMS VALIDATION (Add Task / Add Material)
@@ -481,3 +480,37 @@ function deleteMaterial(materialId) {
     window.location.href = url.toString();
   }
 }
+
+/* =========================================================
+   FORM MESSAGE
+========================================================= */
+
+// Mark form submission (for all valid forms)
+document.querySelectorAll("form.validForm").forEach((form) => {
+  form.addEventListener("submit", () => {
+    localStorage.setItem("quizSubmitted", "true");
+  });
+});
+
+// Show popup after reload
+document.addEventListener("DOMContentLoaded", () => {
+  const popup = document.querySelector(".submitPopup");
+  const closeBtn = document.querySelector(".popupSubmitClose");
+
+  if (!popup) return;
+
+  if (localStorage.getItem("quizSubmitted") === "true") {
+    popup.style.display = "flex";
+
+    const timer = setTimeout(() => {
+      popup.style.display = "none";
+      localStorage.removeItem("quizSubmitted");
+    }, 3000);
+
+    closeBtn?.addEventListener("click", () => {
+      clearTimeout(timer);
+      popup.style.display = "none";
+      localStorage.removeItem("quizSubmitted");
+    });
+  }
+});
