@@ -7,6 +7,7 @@ if (!isset($_SESSION['user_id'])) {
     header("Location: auth/login.php");
     exit;
 }
+ 
 
 // Fetch committee_id if not in session
 if (!isset($_SESSION['committee_id'])) {
