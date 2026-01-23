@@ -118,7 +118,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Irish Grover', cursive;
     font-size: var(--fs-xl);
     font-weight: 900;
     color: var(--color-parchment);
@@ -267,7 +266,6 @@
 .flipBack .memberName h3,
 .flipBack .memberName h5,
 .memberName h3 {
-    font-family: 'Irish Grover', cursive;
     font-size: var(--fs-lg);
     color: var(--color-parchment);
     text-shadow:
@@ -373,7 +371,6 @@
     border: 2px solid rgba(255, 255, 255, 0.3);
     padding: 15px 30px;
     border-radius: 30px;
-    font-family: 'Cinzel', serif;
     font-weight: 600;
     font-size: 1rem;
     cursor: pointer;
@@ -529,7 +526,6 @@
 }
 
 .contentBlock h3 {
-    font-family: 'Cinzel', serif;
     color: var(--color-primary-dark);
     margin-bottom: var(--space-3);
     font-size: var(--fs-xl);

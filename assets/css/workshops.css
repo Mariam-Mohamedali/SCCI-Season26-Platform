@@ -7,9 +7,6 @@
   position: relative;
   padding: var(--space-10) 0 var(--space-6);
   text-align: center;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   min-height: 400px;
   display: flex;
   flex-direction: column;
@@ -28,7 +25,6 @@
 .heroSubtitle {
   font-size: var(--fs-xl);
   color: var(--color-secondary);
-  font-family: 'Cinzel', serif;
   margin-bottom: var(--space-6);
   letter-spacing: 2px;
 }
