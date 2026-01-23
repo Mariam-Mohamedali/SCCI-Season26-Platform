@@ -227,11 +227,11 @@ $rowCountUsers = mysqli_num_rows($usersResult);
                                 </td>
 
                                 <td class="tableData">
-                                    <a href="itPanel.php?accept=<?= $rowUser['user_id'] ?>" class="btn .btn-primary accept">
+                                    <a href="itPanel.php?accept=<?= $rowUser['user_id'] ?>" class="btn btn-primary accept">
                                         Accept
                                     </a>
 
-                                    <a href="itPanel.php?delete=<?= $rowUser['user_id'] ?>" class="btn .btn-secondary block"
+                                    <a href="itPanel.php?delete=<?= $rowUser['user_id'] ?>" class="btn btn-secondary block"
                                         onclick="return confirmDelete()">
                                         Delete
                                     </a>
