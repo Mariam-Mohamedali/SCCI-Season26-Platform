@@ -1833,8 +1833,6 @@ footer {
     footer {
         position: relative;
         bottom: 0;
-        margin-top: -40rem;
-        /* Negative margin pulls footer up over gallery */
         margin-bottom: 0;
         z-index: 100;
         width: 100%;

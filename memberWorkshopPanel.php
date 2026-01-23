@@ -79,7 +79,6 @@ if ($selectedSessionId > 0) {
 }
 
 
-// لو مفيش session_id أو session_id مش تابع للوركشوب → خده أول سيشن
 if ($selectedSessionId <= 0 || !in_array($selectedSessionId, $sessionIds, true)) {
   $selectedSessionId = count($sessions) ? (int) $sessions[0]['session_id'] : 0;
 }
@@ -884,9 +883,33 @@ if ($workshopSessionId > 0) {
       </div>
 
       <div class="panelWhiteBox">
+        <!-- Filters -->
+        <div class="reviewFilters" style="display: flex; gap: 30px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; padding-left: 10px;">
+
+          <!-- Attendance Filter -->
+          <div class="filterGroup" style="display: flex; align-items: center; gap: 10px;">
+            <span style="color: var(--color-secondary); font-weight: bold; font-family: sans-serif; font-size: 0.9rem;">Attendance:</span>
+            <div class="filterOptions" style="display: flex; gap: 5px;">
+              <button type="button" class="filterBtn active" data-group="attendance" data-value="all">All</button>
+              <button type="button" class="filterBtn" data-group="attendance" data-value="present">Present</button>
+              <button type="button" class="filterBtn" data-group="attendance" data-value="absent">Absent</button>
+            </div>
+          </div>
+
+          <!-- Task Status Filter -->
+          <div class="filterGroup" style="display: flex; align-items: center; gap: 10px;">
+            <span style="color: var(--color-secondary); font-weight: bold; font-family: sans-serif; font-size: 0.9rem;">Task Status:</span>
+            <div class="filterOptions" style="display: flex; gap: 5px;">
+              <button type="button" class="filterBtn active" data-group="task" data-value="all">All</button>
+              <button type="button" class="filterBtn" data-group="task" data-value="accepted">Accepted</button>
+              <button type="button" class="filterBtn" data-group="task" data-value="pending">Pending</button>
+            </div>
+          </div>
+
+        </div>
         <!-- Table -->
         <div class="tableScrollFrame">
-          <div class="tableScroll">
+          <div class="tableScroll" id="reviewTableScroll">
             <table cellpadding="0" cellspacing="0" summary="participants dashboard">
               <colgroup>
                 <col span="1" style="width: 25%" />
@@ -907,6 +930,8 @@ if ($workshopSessionId > 0) {
 
               <!-- Table body -->
               <tbody>
+
+
                 <?php if (count($participants) === 0): ?>
                   <tr>
                     <td class="tableParticipantName" colspan="5">No participants in this workshop.</td>
@@ -921,7 +946,7 @@ if ($workshopSessionId > 0) {
                     $text = $latestByUser[$pid]['feedback_text'] ?? null;
                     $given = $latestByUser[$pid]['user_name'] ?? null;
                     ?>
-                    <tr>
+                    <tr class="reviewRow" data-attendance="<?= $st ?>" data-task-status="<?= isset($latestByUser[$pid]) ? 'accepted' : 'pending' ?>">
                       <td class="tableParticipantName"><?php echo htmlspecialchars($p['user_name']); ?></td>
 
                       <!-- attendance -->
@@ -987,6 +1012,12 @@ if ($workshopSessionId > 0) {
               </tbody>
             </table>
           </div>
+        </div>
+        </div>
+        <div class="pagination-controls" id="reviewPagination">
+          <button class="nav-arrow prev-btn"><i class="fa-solid fa-caret-left"></i></button>
+          <span class="page-info">Page 1</span>
+          <button class="nav-arrow next-btn"><i class="fa-solid fa-caret-right"></i></button>
         </div>
       </div>
     </section>
@@ -1441,6 +1472,7 @@ if ($workshopSessionId > 0) {
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       setupPagination('workshopTableScroll', 'workshopPagination');
+      setupPagination('reviewTableScroll', 'reviewPagination');
     });
   </script>
 
