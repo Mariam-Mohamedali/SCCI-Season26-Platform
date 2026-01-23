@@ -961,6 +961,55 @@ body.red-theme .decorative-element {
 }
 
 @media (max-width: 1200px) {
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
+  .heroContainer {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 85%;
+  }
+
+  .aboutSection .aboutBGresponsive {
+    display: inline-block;
+    width: 90%;
+    height: 560px;
+    margin: 0 auto;
+  }
+
+  .aboutSection .aboutBG {
+    display: none;
+  }
+
+  .aboutContainer {
+    width: 75%;
+    max-width: 530px;
+    min-width: 200px;
+    text-align: center;
+    z-index: 1;
+    padding: 2rem 1.5rem;
+  }
+
+  .aboutContainer p {
+    font-size: 1.9rem;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+  }
+
+  .heroText h1,
+  .heroText h2,
+  .heroText p {
+    text-align: center;
+  }
+
   .homeTitles {
     padding: 0 3rem;
     margin: 5rem 0 3rem;
@@ -999,10 +1048,35 @@ body.red-theme .decorative-element {
 }
 
 @media (max-width: 850px) {
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
+  .heroContainer {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 85%;
+  }
+
+  .heroText h1,
+  .heroText h2,
+  .heroText p {
+    text-align: center;
+  }
+
   .aboutSection .aboutBGresponsive {
     display: inline-block;
-    width: 100%;
+    width: 90%;
     height: 560px;
+    margin: 0 auto;
   }
 
   .aboutSection .aboutBG {
@@ -1019,8 +1093,8 @@ body.red-theme .decorative-element {
   }
 
   .aboutContainer p {
-    font-size: 0.95rem;
-    line-height: 1.6;
+    font-size: 1.9rem;
+    line-height: 1.8;
     margin-bottom: 2.5rem;
   }
 
@@ -1079,6 +1153,17 @@ body.red-theme .decorative-element {
     width: 85%;
   }
 
+  .aboutSection .aboutBGresponsive {
+    display: inline-block;
+    width: 90%;
+    height: 560px;
+    margin: 0 auto;
+  }
+
+  .aboutSection .aboutBG {
+    display: none;
+  }
+
   .aboutContainer {
     width: 82%;
     padding: 1.5rem 1rem;
@@ -1093,7 +1178,6 @@ body.red-theme .decorative-element {
   .aboutContainer h1 {
     font-size: 1.8rem;
   }
-
 
   .statContainer {
     padding: 0 2rem;
@@ -1147,17 +1231,15 @@ body.red-theme .decorative-element {
     width: 90%;
   }
 
-
-
   .aboutContainer {
-    width: 88%;
+    width: 100%;
     min-width: 150px;
     padding: 1.2rem 0.8rem;
   }
 
   .aboutContainer p {
-    font-size: 0.85rem;
-    line-height: 1.5;
+    font-size: 1.5rem;
+    line-height: 1.7;
     margin-bottom: 1.8rem;
   }
 
@@ -1192,12 +1274,12 @@ body.red-theme .decorative-element {
   }
 
   .aboutContainer {
-    width: 90%;
+    width: 100%;
     padding: 1rem 0.5rem;
   }
 
   .aboutContainer p {
-    font-size: 0.8rem;
+    font-size: 1.4rem;
     line-height: 1.4;
     margin-bottom: 1.5rem;
   }
@@ -1241,6 +1323,53 @@ body.red-theme .decorative-element {
 }
 
 @media (max-width: 768px) {
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
+  .heroContainer {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 85%;
+  }
+
+  .heroText h1,
+  .heroText h2,
+  .heroText p {
+    text-align: center;
+  }
+
+  .aboutSection .aboutBGresponsive {
+    display: inline-block;
+    width: 90%;
+    height: 560px;
+    margin: 0 auto;
+  }
+
+  .aboutSection .aboutBG {
+    display: none;
+  }
+
+  .aboutContainer {
+    width: 75%;
+    max-width: 390PX;
+    padding: 1rem 0.5rem;
+  }
+
+  .aboutContainer p {
+    font-size: 1.8rem;
+    line-height: 1.4;
+    margin-bottom: 1.3rem;
+  }
+
   .contactUsContainer {
     flex-direction: column;
     align-items: center;
@@ -1284,7 +1413,30 @@ body.red-theme .decorative-element {
   }
 }
 
+
 @media (max-width: 480px) {
+  .aboutSection .aboutBGresponsive {
+    display: inline-block;
+    width: 100%;
+    height: 560px;
+    margin: 0 auto;
+  }
+
+  .aboutSection .aboutBG {
+    display: none;
+  }
+
+  .aboutContainer {
+    width: 70%;
+    padding: 1rem 0.5rem;
+  }
+
+  .aboutContainer p {
+    font-size: 1.5rem;
+    line-height: 1.4;
+    margin-bottom: 1.3rem;
+  }
+
   .contactUsContainer {
     padding: 0 1rem;
     gap: 2rem;
