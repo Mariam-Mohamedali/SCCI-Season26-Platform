@@ -699,7 +699,6 @@ footer {
         width: 100%;
         margin-top: 0;
         /* Override auto margin if needed */
-        margin-bottom: 50px;
         /* spacing */
         z-index: 10;
     }
@@ -1833,7 +1832,6 @@ footer {
     footer {
         position: relative;
         bottom: 0;
-        margin-top: -40rem;
         /* Negative margin pulls footer up over gallery */
         margin-bottom: 0;
         z-index: 100;
@@ -1841,7 +1839,7 @@ footer {
     }
 
     .polaroidGallery {
-        padding-bottom: 45rem;
+        padding-bottom: 10rem;
         /* Add padding to make room for footer overlap */
         margin-bottom: 0;
     }

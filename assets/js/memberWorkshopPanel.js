@@ -515,6 +515,60 @@ document.addEventListener("DOMContentLoaded", () => {
     filterButtons[0].click();
   }
 
+  /* =========================================================
+     11) REVIEW TABLE FILTERS (Attendance + Task Status)
+  ========================================================= */
+  const reviewFilterBtns = document.querySelectorAll(".reviewFilters .filterBtn");
+  const reviewRows = document.querySelectorAll(".reviewRow");
+
+  if (reviewFilterBtns.length && reviewRows.length) {
+    let attendanceFilter = "all";
+    let taskFilter = "all";
+
+    function applyReviewFilters() {
+      reviewRows.forEach((row) => {
+        const attStatus = row.dataset.attendance; // "present", "absent"
+        const taskStatus = row.dataset.taskStatus; // "accepted", "pending"
+
+        // check attendance
+        const attMatch =
+          attendanceFilter === "all" || attStatus === attendanceFilter;
+
+        // check task
+        const taskMatch = taskFilter === "all" || taskStatus === taskFilter;
+
+        if (attMatch && taskMatch) {
+          row.style.display = "";
+        } else {
+          row.style.display = "none";
+        }
+      });
+    }
+
+    reviewFilterBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const group = btn.dataset.group; // "attendance" or "task"
+        const value = btn.dataset.value;
+
+        // update active class in this group
+        const groupBtns = document.querySelectorAll(
+          `.reviewFilters .filterBtn[data-group='${group}']`
+        );
+        groupBtns.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        // update state
+        if (group === "attendance") {
+          attendanceFilter = value;
+        } else if (group === "task") {
+          taskFilter = value;
+        }
+
+        applyReviewFilters();
+      });
+    });
+  }
+
   console.log("memberWorkshopPanel.js loaded ✅");
 });
 
