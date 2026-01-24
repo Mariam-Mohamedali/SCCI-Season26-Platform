@@ -129,8 +129,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     popupTimer = setTimeout(() => {
       popup.classList.remove("show");
-    }, 4000);
+    }, 10000); // 10 seconds per user request
   }
+
+  // Make global
+  window.showPopup = showPopup;
 
   if (popupClose) {
     popupClose.addEventListener("click", () => {

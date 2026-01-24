@@ -49,18 +49,21 @@ function saveFeedback() {
 
     // Validate form
     if (!sessionSelect.value) {
-        alert('Please select a session');
+        if (window.showPopup) window.showPopup('Please select a session', true);
+        else alert('Please select a session');
         sessionSelect.focus();
         return;
     }
 
     if (ratingValue.value === '0') {
-        alert('Please select a rating');
+        if (window.showPopup) window.showPopup('Please select a rating', true);
+        else alert('Please select a rating');
         return;
     }
 
     if (!feedbackMessage.value.trim()) {
-        alert('Please enter feedback message');
+        if (window.showPopup) window.showPopup('Please enter feedback message', true);
+        else alert('Please enter feedback message');
         feedbackMessage.focus();
         return;
     }
@@ -95,7 +98,10 @@ function saveFeedback() {
     // });
 
     // For now, just show success message
-    alert('Feedback saved successfully!\\n\\nSession: ' + feedbackData.sessionName + '\\nRating: ' + feedbackData.rating + ' stars');
+    const successMsg = 'Feedback saved successfully! Session: ' + feedbackData.sessionName + ' Rating: ' + feedbackData.rating + ' stars';
+    if (window.showPopup) window.showPopup(successMsg, false);
+    else alert(successMsg);
+
     closeFeedbackModal();
 }
 

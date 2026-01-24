@@ -370,6 +370,8 @@ function renderStars($rating)
     <link rel="stylesheet" href="./assets/css/message-toast.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="./assets/css/participantWorkshopPanel.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="./assets/css/task-management.css?v=<?php echo time(); ?>">
+    <!-- Quill CSS -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <title>SCCI - Workshop Panel</title>
 </head>
 
@@ -527,8 +529,8 @@ function renderStars($rating)
                                     <!-- Task Bio Box -->
                                     <div class="taskBio">
                                         <label class="taskLabel">Task bio:</label>
-                                        <div class="taskBioContent">
-                                            <?= htmlspecialchars($task['taskBio']); ?>
+                                        <div class="taskBioContent ql-editor">
+                                            <?= $task['taskBio']; // Raw HTML from Quill ?>
                                         </div>
                                     </div>
 
@@ -967,13 +969,26 @@ function renderStars($rating)
                 err: <?php echo isset($_SESSION['err']) ? json_encode($_SESSION['err']) : 'null'; ?> || urlErr
             };
 
-            // Clear URL parameters to prevent recurring popup on refresh
             if (urlMsg || urlErr) {
                 const newUrl = new URL(window.location.href);
                 newUrl.searchParams.delete('msg');
                 newUrl.searchParams.delete('err');
                 window.history.replaceState({}, '', newUrl.toString());
             }
+
+            // Display message using global popup if available
+            // Note: We need to wait for the JS file to load, or ensure JS handles window.sessionMessages
+            // The participantWorkshopPanel.js already handles window.sessionMessages on load, 
+            // so we don't need to call showPopup explicitly here, just setting the variable is enough.
+            // But for safety/consistency with member panel:
+            
+            window.addEventListener('load', () => {
+                 if (window.showPopup && (window.sessionMessages.msg || window.sessionMessages.err)) {
+                     // handled inside js file, but we can force it here if logic differs
+                     // actually participantWorkshopPanel.js lines 148-152 handle this automatically on DOMContentLoaded/load
+                 }
+            });
+
         })();
         <?php unset($_SESSION['msg']);
         unset($_SESSION['err']); ?>

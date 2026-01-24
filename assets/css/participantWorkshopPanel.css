@@ -2527,3 +2527,14 @@
     font-size: 1.1rem;
     line-height: var(--lh-normal);
 }
+
+/* ===============================================================================
+   QUILL EDITOR STYLES (READ-ONLY)
+   =============================================================================== */
+.ql-editor {
+    border: none !important;
+    padding: 0 !important;
+    font-family: "system-ui", system-ui;
+    font-size: inherit;
+    line-height: inherit;
+}

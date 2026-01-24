@@ -106,10 +106,13 @@
 
 .panelWhiteBox {
   overflow: hidden;
-  background-color: var(--color-white-neutral);
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
   margin: 4rem 0;
   padding: var(--space-8);
   border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
 }
 
 .sessionsBox {
@@ -731,7 +734,7 @@ body.no-scroll {
   justify-content: center;
   align-items: center;
   gap: 3rem;
-  pointer-events: none;
+  pointer-events: auto;
   transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
@@ -739,8 +742,24 @@ body.no-scroll {
 .submitPopup button {
   background: none;
   border: none;
-  color: var(--color-white);
+  color: var(--color-gray-medium);
   cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  font-weight: bold;
+}
+
+.submitPopup button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: var(--color-primary);
 }
 
 /* The layout for Material Name | Session Type */
@@ -938,21 +957,22 @@ body.no-scroll {
 .textInput,
 .selectInput {
   flex: 1;
-  border: 2px solid var(--color-secondary);
-  border-radius: 11px;
-  padding: 0.6rem 1.2rem;
-  font-family: inherit;
-  font-size: var(--fs-sm);
-  color: var(--color-secondary);
-  background: transparent;
+  border: 1px solid var(--color-gray-light);
+  border-radius: 8px;
+  padding: 0.8rem 1.2rem;
+  font-family: "system-ui", system-ui;
+  font-size: var(--fs-base);
+  color: var(--color-black);
+  background: var(--color-white);
   outline: none;
-  transition: box-shadow var(--transition-fast);
-  background: linear-gradient(to bottom, #d7d7d7, #a5a5a5);
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-light);
 }
 
 .textInput:focus,
 .selectInput:focus {
-  box-shadow: 0 0 0 3px rgba(0, 0, 91, 0.1);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(197, 37, 37, 0.1);
 }
 
 /* Divider between the two form groups */
@@ -2305,4 +2325,42 @@ body.no-scroll {
   border-radius: 50px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   border: 1px solid var(--border-light);
+}
+
+/* ===============================================================================
+   QUILL EDITOR STYLES
+   =============================================================================== */
+.quill-wrapper {
+  background: var(--color-white);
+  border-radius: 8px;
+  box-shadow: var(--shadow-light);
+  width: 100%;
+}
+
+.ql-toolbar.ql-snow {
+  border: 1px solid var(--color-gray-light);
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+  background-color: #f8f9fa;
+  font-family: inherit;
+}
+
+.ql-container.ql-snow {
+  border: 1px solid var(--color-gray-light);
+  border-radius: 0 0 8px 8px;
+  font-family: var(--font-system);
+  font-size: var(--fs-base);
+  height: 200px;
+}
+
+.ql-editor {
+  min-height: 180px;
+  font-family: "system-ui", system-ui;
+  font-size: 1.4rem;
+}
+
+.columnGroup {
+  flex-direction: column !important;
+  align-items: stretch !important;
+  gap: var(--space-2);
 }

@@ -636,6 +636,8 @@ if ($workshopSessionId > 0) {
   <link rel="stylesheet" href="./assets/css/message-toast.css">
   <link rel="stylesheet" href="./assets/css/memberWorkshopPanel.css?v=<?php echo time(); ?>">
   <link rel="stylesheet" href="./assets/css/task-management.css?v=<?php echo time(); ?>">
+  <!-- Quill CSS -->
+  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <title>SCCI - Member Panel</title>
 </head>
@@ -1083,9 +1085,12 @@ if ($workshopSessionId > 0) {
             </div>
             <!-- add task Description -->
             <div class="inputsBox">
-              <div class="groupInputs">
+              <div class="groupInputs columnGroup">
                 <label class="formLabel" for="taskBio" id="taskBioLabel">Task Description:</label>
-                <textarea class="textInput" name="taskBio" id="taskBioInput" rows="5"></textarea>
+                <div class="quill-wrapper">
+                  <div id="editor-container"></div>
+                </div>
+                <textarea name="taskBio" id="taskBioInput" style="display:none"></textarea>
               </div>
               <p id="taskBioMessage"></p>
             </div>
@@ -1140,9 +1145,9 @@ if ($workshopSessionId > 0) {
                   <span class="materialFileName">
                     <?= htmlspecialchars($task['taskName']) ?> - Deadline: <?= htmlspecialchars($task['taskDeadline']) ?>
                   </span>
-                  <p class="taskDescription">
-                    <?= htmlspecialchars($task['taskBio']) ?>
-                  </p>
+                  <div class="taskDescription ql-editor">
+                    <?= $task['taskBio'] // raw html from quill ?>
+                  </div>
                 </div>
                 <div class="materialActions">
                   <?php if (!empty($task['task_file'])): ?>
@@ -1451,23 +1456,11 @@ if ($workshopSessionId > 0) {
 
       const popup = document.querySelector(".submitPopup");
       if (popup && (finalMsg || finalErr)) {
-        // Clear children but preserve the close button
-        const closeBtn = popup.querySelector('.popupSubmitClose');
-        popup.textContent = finalMsg || finalErr;
-        if (closeBtn) popup.appendChild(closeBtn);
-
-        if (finalErr) {
-          popup.style.backgroundColor = "#d64141";
-          popup.style.color = "white";
-        } else {
-          popup.style.backgroundColor = "#73e081";
-          popup.style.color = "white";
+        if (typeof window.displayCustomPopup === 'function') {
+          window.displayCustomPopup(finalMsg || finalErr, !!finalErr);
         }
 
-        popup.style.display = "flex";
-        setTimeout(() => { popup.style.display = "none"; }, 5000);
-
-        // Clear URL parameters to prevent recurring popup on refresh
+        // Clear URL parameters
         if (urlMsg || urlErr) {
           const newUrl = new URL(window.location.href);
           newUrl.searchParams.delete('msg');
@@ -1481,6 +1474,39 @@ if ($workshopSessionId > 0) {
   </script>
   <script src="assets/js/all.min.js" defer></script>
   <!-- <script src="assets/js/messages.js" defer></script> -->
+  <!-- Quill JS -->
+  <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Check if editor container exists
+      if (document.getElementById('editor-container')) {
+        var quill = new Quill('#editor-container', {
+          theme: 'snow',
+          placeholder: 'Write the task description here...',
+          modules: {
+            toolbar: [
+              [{
+                'header': [1, 2, 3, false]
+              }],
+              ['bold', 'italic', 'underline'],
+              [{
+                'list': 'ordered'
+              }, {
+                'list': 'bullet'
+              }],
+              ['clean']
+            ]
+          }
+        });
+
+        // Sync with hidden textarea
+        var taskBioInput = document.getElementById('taskBioInput');
+        quill.on('text-change', function() {
+          taskBioInput.value = quill.root.innerHTML;
+        });
+      }
+    });
+  </script>
   <script src="assets/js/memberWorkshopPanel.js" defer></script>
   <script src="assets/js/pagination.js"></script>
   <script>

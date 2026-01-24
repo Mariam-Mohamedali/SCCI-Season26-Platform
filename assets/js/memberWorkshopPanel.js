@@ -663,4 +663,42 @@ if (deleteModal) {
 /* =========================================================
    FORM MESSAGE
 ========================================= */
-// Generic form message logic removed in favor of status-specific messages in memberWorkshopPanel.php
+
+/* =========================================================
+   12) GLOBAL CUSTOM POPUP
+   ========================================================= */
+window.displayCustomPopup = function (message, isError = false) {
+  const popup = document.querySelector(".submitPopup");
+  if (!popup) return;
+
+  // Clear children but preserve the close button
+  const closeBtn = popup.querySelector('.popupSubmitClose');
+  popup.textContent = message;
+
+  if (closeBtn) {
+    popup.appendChild(closeBtn);
+    // Ensure event listener is attached
+    closeBtn.onclick = function () {
+      popup.style.display = 'none';
+    };
+  }
+
+  if (isError) {
+    popup.style.borderColor = "#d64141";
+  } else {
+    popup.style.borderColor = "#73e081";
+  }
+
+  popup.style.display = "flex";
+
+  // Clear any existing timeout to prevent early closing
+  if (popup.dataset.timeoutId) {
+    clearTimeout(popup.dataset.timeoutId);
+  }
+
+  const timeoutId = setTimeout(() => {
+    popup.style.display = "none";
+  }, 10000);
+
+  popup.dataset.timeoutId = timeoutId;
+};
