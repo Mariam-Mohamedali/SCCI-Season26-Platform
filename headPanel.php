@@ -71,10 +71,23 @@ if ((int) $crew['role'] !== 5) { // admin = 5
     // Handle blocking user via POST
     $blocked_message = '';
 
+    // Handle accept user
+    if (isset($_GET['accept'])) {
+        $id = (int) $_GET['accept'];
+        $section = isset($_GET['section']) ? $_GET['section'] : 'participants';
+
+        $stmt = mysqli_prepare($connect, "UPDATE users SET status = 1 WHERE user_id = ?");
+        mysqli_stmt_bind_param($stmt, "i", $id);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+
+        header("Location: headPanel.php?section=$section");
+        exit();
+    }
+
     // Handle blocking user
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['block_user_id'])) {
         $id = intval($_POST['block_user_id']);
-        $section = isset($_POST['section']) ? $_POST['section'] : 'participants';
 
         // Fetch image before deletion
         $result = mysqli_query($connect, "SELECT image FROM users WHERE user_id = $id");
@@ -88,7 +101,7 @@ if ((int) $crew['role'] !== 5) { // admin = 5
         mysqli_query($connect, "SET FOREIGN_KEY_CHECKS=0");
         mysqli_query($connect, "DELETE FROM users WHERE user_id = $id");
         mysqli_query($connect, "SET FOREIGN_KEY_CHECKS=1");
-        header("Location: headPanel.php?section=$section");
+        header("Location: " . $_SERVER['REQUEST_URI']);
         exit();
     }
 
@@ -247,16 +260,13 @@ if ((int) $crew['role'] !== 5) { // admin = 5
                             </td>
                             <td class="tableData">
                                 <?php if ($row['status'] == 1): ?>
-                                    <form method="post" style="display:inline;"
-                                        onsubmit="return confirm('Are you sure you want to block this user?');">
-                                        <input type="hidden" name="block_user_id" value="<?= $row['user_id'] ?>">
-                                        <input type="hidden" name="section" value="participants">
-
-                                        <div class="headAction">
-                                            <button type="submit" class="btn-primary acceptBtn">Accept</button>
-                                            <button type="submit" class="btn-primary blockBtn">Block</button>
-                                        </div>
-                                    </form>
+                                    <div class="headAction">
+                                        <form method="post" style="display:inline;" id="blockFormParticipants<?= $row['user_id'] ?>">
+                                            <input type="hidden" name="block_user_id" value="<?= $row['user_id'] ?>">
+                                            <input type="hidden" name="section" value="participants">
+                                            <button type="button" class="btn-primary blockBtn" data-form-id="blockFormParticipants<?= $row['user_id'] ?>">Block</button>
+                                        </form>
+                                    </div>
                                 <?php else: ?>
                                     <span class="blocked-text">Blocked</span>
                                 <?php endif; ?>
@@ -297,16 +307,13 @@ if ((int) $crew['role'] !== 5) { // admin = 5
                             <td class="tableData"><?= ($row['status'] == 0) ? 'User Blocked' : 'Active'; ?></td>
                             <td class="tableData">
                                 <?php if ($row['status'] == 1): ?>
-                                    <form method="post" style="display:inline;"
-                                        onsubmit="return confirm('Are you sure you want to block this user?');">
-                                        <input type="hidden" name="delete" value="<?= $row['user_id'] ?>">
-                                        <input type="hidden" name="section" value="members">
-
-                                        <div class="headAction">
-                                            <div type="submit" class="btn-primary acceptBtn">Accept</div>
-                                            <button type="submit" class="btn-primary blockBtn">Block</button>
-                                        </div>
-                                    </form>
+                                    <div class="headAction">
+                                        <form method="post" style="display:inline;" id="blockFormMembers<?= $row['user_id'] ?>">
+                                            <input type="hidden" name="block_user_id" value="<?= $row['user_id'] ?>">
+                                            <input type="hidden" name="section" value="members">
+                                            <button type="button" class="btn-primary blockBtn" data-form-id="blockFormMembers<?= $row['user_id'] ?>">Block</button>
+                                        </form>
+                                    </div>
                                 <?php else: ?>
                                     <span class="blocked-text">Blocked</span>
                                 <?php endif; ?>
@@ -322,11 +329,19 @@ if ((int) $crew['role'] !== 5) { // admin = 5
             <button class="nav-arrow next-btn"><i class="fa-solid fa-caret-right"></i></button>
         </div>
     </main>
-    <div class="acceptPopup">
-        <div class="acceptBox">
-            <div class="closepopup">X</div>
-            <h5 class="acceptTitle">Accept User?</h5>
-            <div class="confirmAccept btn">Confirm</div>
+    <div class="blockConfirmPopup" id="blockConfirmPopup" style="display:none;">
+        <div class="confirmCard">
+            <div class="confirmHeader">
+            <i class="fas fa-ban" id="confirmIcon"></i>
+            <h3 id="blockConfirmTitle">Block User?</h3>
+            </div>
+
+            <p id="blockConfirmMsg">This action cannot be undone.</p>
+
+            <div class="confirmBtnGroup">
+            <button type="button" class="btn btn-confirm-cancel" id="cancelBlockBtn">Cancel</button>
+            <button type="button" class="btn btn-confirm-block" id="confirmBlockBtn">Block</button>
+            </div>
         </div>
     </div>
     

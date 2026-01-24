@@ -1,5 +1,34 @@
 <?php
 include './includes/config.php';
+
+// Define names to fetch
+$target_names = [
+    'Marwan Wael',
+    'Mohamed Hesham',
+];
+
+$names_string = "'" . implode("','", $target_names) . "'";
+// Fetch IDs
+$crew_ids = [];
+$query = "SELECT user_id, user_name FROM users WHERE user_name IN ($names_string)";
+$result = mysqli_query($connect, $query);
+
+if ($result) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        $crew_ids[trim($row['user_name'])] = $row['user_id'];
+    }
+}
+
+$group = $_GET['group'] ?? '';
+
+// Set head based on group
+if ($group === 'technical') {
+    $crew_ids['head'] = 'Head Technical';
+} elseif ($group === 'er') {
+    $crew_ids['head'] = 'Head ER';
+} else {
+    $crew_ids['head'] = 'Crew';
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,34 +63,14 @@ include './includes/config.php';
     <link rel="stylesheet" href="./assets/css/crew.css" />
     <!-- aos -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-    <title>SCCI - Sub Crew</title>
+    <title> SCCI - <?php echo $crew_ids['head']; ?></title>
     <link rel="stylesheet" href="./assets/css/sub_crew.css" />
   </head>
 
 <body>
 
     <?php
-   include './includes/nav.php'; 
-
-// Define names to fetch
-$target_names = [
-    'Marwan Wael',
-    'Mohamed Hesham',
-];
-
-$names_string = "'" . implode("','", $target_names) . "'";
-// Fetch IDs
-$crew_ids = [];
-$query = "SELECT user_id, user_name FROM users WHERE user_name IN ($names_string)";
-$result = mysqli_query($connect, $query);
-
-if ($result) {
-    while ($row = mysqli_fetch_assoc($result)) {
-        $crew_ids[trim($row['user_name'])] = $row['user_id'];
-    }
-}
-
-$group = $_GET['group'] ?? '';
+   include './includes/nav.php';
 ?>
     <script>
         // Add loaded class to header after page loads to prevent FOUC

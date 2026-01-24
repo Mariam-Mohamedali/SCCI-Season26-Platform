@@ -220,37 +220,60 @@ if (currentSection === 'members') {
 
 
 // ===========================================
-// accept popup
+// block popup
 // ===========================================
 
-// Get all trigger buttons
-const acceptButtons = document.querySelectorAll('.acceptBtn');
+// Get all block buttons
+const blockButtons = document.querySelectorAll('.blockBtn');
 // Popup elements
-const popup = document.querySelector('.acceptPopup');
-const closeBtn = popup.querySelector('.closepopup');
-const confirmBtn = popup.querySelector('.confirmAccept');
+const blockPopup = document.querySelector('#blockConfirmPopup');
+const cancelBlockBtn = document.querySelector('#cancelBlockBtn');
+const confirmBlockBtn = document.querySelector('#confirmBlockBtn');
 
-let currentUser = null;
+let currentBlockForm = null;
 
 // Open popup
-acceptButtons.forEach(btn => {
+blockButtons.forEach(btn => {
   btn.addEventListener('click', () => {
-    currentUser = btn.dataset.user; // store which user/element triggered
-    popup.style.display = 'flex';
+    const formId = btn.dataset.formId;
+    currentBlockForm = document.getElementById(formId);
+    blockPopup.style.display = 'flex';
   });
 });
 
 // Close popup
-closeBtn.addEventListener('click', () => {
-  popup.style.display = 'none';
+cancelBlockBtn.addEventListener('click', () => {
+  blockPopup.style.display = 'none';
+  currentBlockForm = null;
 });
 
-// Confirm action (just example)
-confirmBtn.addEventListener('click', () => {
-  popup.style.display = 'none';
+// Confirm action
+confirmBlockBtn.addEventListener('click', () => {
+  if (currentBlockForm) {
+    const formData = new FormData(currentBlockForm);
+    fetch(window.location.href, {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => {
+      if (response.ok) {
+        location.reload();
+      } else {
+        alert('Error occurred. Please try again.');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('Error occurred. Please try again.');
+    });
+  }
+  blockPopup.style.display = 'none';
 });
 
 // Optional: close when clicking outside content
-popup.addEventListener('click', (e) => {
-  if (e.target === popup) popup.style.display = 'none';
+blockPopup.addEventListener('click', (e) => {
+  if (e.target === blockPopup) {
+    blockPopup.style.display = 'none';
+    currentBlockForm = null;
+  }
 });

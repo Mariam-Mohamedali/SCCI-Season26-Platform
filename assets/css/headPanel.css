@@ -337,6 +337,87 @@
   background: #00008f;
 }
 
+/* block confirm popup -------------------------------------------------------------- */
+.blockConfirmPopup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.confirmCard {
+  background: var(--color-white);
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+  min-width: 300px;
+  max-width: 90%;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.confirmHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+#confirmIcon {
+  color: var(--color-primary);
+  font-size: 2rem;
+}
+
+#blockConfirmTitle {
+  color: var(--color-black);
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+#blockConfirmMsg {
+  color: var(--color-gray-medium);
+  margin-bottom: 2rem;
+}
+
+.confirmBtnGroup {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.btn {
+  padding: 0.7rem 2rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.btn-confirm-cancel {
+  background: var(--color-gray-medium);
+  color: var(--color-white);
+}
+
+.btn-confirm-cancel:hover {
+  background: var(--color-gray-dark);
+}
+
+.btn-confirm-block {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+.btn-confirm-block:hover {
+  background: var(--color-primary-darker);
+}
+
 /* Optional button styling for triggers */
 .btn-primary {
   background: #c52525;

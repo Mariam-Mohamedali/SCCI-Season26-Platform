@@ -194,7 +194,7 @@
 
 
 .card2 {
-  min-height: 480px;
+  min-height: 530px;
   height: auto;
   background: linear-gradient(to bottom, #e8dfd0 0%, #d4c5b0 100%);
   padding: 40px;
@@ -469,7 +469,7 @@ body.red-theme .decorative-element {
   }
 
   .card2 {
-    min-height: 500px;
+    min-height: 530px;
     padding: 45px;
   }
 
