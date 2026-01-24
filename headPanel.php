@@ -1,7 +1,7 @@
 <?php
 include './includes/config.php';
 
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['user_id'])) { 
   header("Location:./auth/login.php");
   exit;
 }
@@ -251,7 +251,11 @@ if ((int) $crew['role'] !== 5) { // admin = 5
                                         onsubmit="return confirm('Are you sure you want to block this user?');">
                                         <input type="hidden" name="block_user_id" value="<?= $row['user_id'] ?>">
                                         <input type="hidden" name="section" value="participants">
-                                        <button type="submit" class="btn btn-primary block">Block</button>
+
+                                        <div class="headAction">
+                                            <button type="submit" class="btn-primary acceptBtn">Accept</button>
+                                            <button type="submit" class="btn-primary blockBtn">Block</button>
+                                        </div>
                                     </form>
                                 <?php else: ?>
                                     <span class="blocked-text">Blocked</span>
@@ -297,7 +301,11 @@ if ((int) $crew['role'] !== 5) { // admin = 5
                                         onsubmit="return confirm('Are you sure you want to block this user?');">
                                         <input type="hidden" name="delete" value="<?= $row['user_id'] ?>">
                                         <input type="hidden" name="section" value="members">
-                                        <button type="submit" class="btn btn-primary block">Block</button>
+
+                                        <div class="headAction">
+                                            <div type="submit" class="btn-primary acceptBtn">Accept</div>
+                                            <button type="submit" class="btn-primary blockBtn">Block</button>
+                                        </div>
                                     </form>
                                 <?php else: ?>
                                     <span class="blocked-text">Blocked</span>
@@ -314,6 +322,14 @@ if ((int) $crew['role'] !== 5) { // admin = 5
             <button class="nav-arrow next-btn"><i class="fa-solid fa-caret-right"></i></button>
         </div>
     </main>
+    <div class="acceptPopup">
+        <div class="acceptBox">
+            <div class="closepopup">X</div>
+            <h5 class="acceptTitle">Accept User?</h5>
+            <div class="confirmAccept btn">Confirm</div>
+        </div>
+    </div>
+    
     <script src="./assets/js/all.min.js"></script>
     <script src="./assets/js/headPanel.js?v=<?= time() ?>"></script>
 </body>
