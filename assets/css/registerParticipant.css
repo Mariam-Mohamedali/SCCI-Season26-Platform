@@ -195,8 +195,9 @@ body {
 .input-group input:focus,
 .input-group select:focus {
     background: rgba(0, 0, 0, 0.5);
-    border-color: var(--color-primary);
-    box-shadow: 0 0 10px rgba(197, 37, 37, 0.3), inset 0 2px 4px rgba(0, 0, 0, 0.2);
+    border-color: transparent;
+    box-shadow: 0 0 10px rgba(39, 174, 96, 0.4), inset 0 2px 4px rgba(0, 0, 0, 0.2);
+    outline: none;
 }
 
 /* Select Option Styles */
