@@ -227,14 +227,15 @@ $rowCountUsers = mysqli_num_rows($usersResult);
                                 </td>
 
                                 <td class="tableData">
-                                    <a href="itPanel.php?accept=<?= $rowUser['user_id'] ?>" class="btn btn-primary accept">
+                                    <a href="itPanel.php?accept=<?= $rowUser['user_id'] ?>" class="btn btn-secondary accept">
                                         Accept
                                     </a>
 
-                                    <a href="itPanel.php?delete=<?= $rowUser['user_id'] ?>" class="btn btn-secondary block"
-                                        onclick="return confirmDelete()">
-                                        Delete
+                                <a href="itPanel.php?delete=<?= (int)$rowUser['user_id'] ?>"
+                                 class="btn btn-primary block js-delete">
+                                         Delete
                                     </a>
+
                                 </td>
                             </tr>
                         <?php }
@@ -245,6 +246,42 @@ $rowCountUsers = mysqli_num_rows($usersResult);
                     ?>
                 </tbody>
             </table>
+
+                        <div class="deleteConfirmPopup" id="deleteConfirmPopup" style="display:none;">
+            <div class="confirmCard">
+                <div class="confirmHeader">
+                <i class="fas fa-trash-alt" id="confirmIcon"></i>
+                <h3 id="deleteConfirmTitle">Delete Participant?</h3>
+                </div>
+
+                <p id="deleteConfirmMsg">This action cannot be undone.</p>
+
+                <div class="confirmBtnGroup">
+                <button type="button" class="btn btn-confirm-cancel" id="cancelDeleteBtn">Cancel</button>
+                <button type="button" class="btn btn-confirm-delete" id="confirmDeleteBtn">Delete</button>
+                </div>
+            </div>
+            </div>
+
+
+            <div class="acceptConfirmPopup" id="acceptConfirmPopup">
+            <div class="confirmCard">
+                <div class="confirmHeader">
+                <i class="fas fa-user-check"></i>
+                <h3>Accept Participant?</h3>
+                </div>
+
+                <p id="deleteConfirmMsg">
+                This participant will be added to the workshop.
+                </p>
+
+                <div class="confirmBtnGroup">
+                <button class="btn btn-confirm-cancel" onclick="closeAcceptConfirm()">Cancel</button>
+                <button class="btn btn-confirm-delete" id="acceptBtnConfirm">Accept</button>
+                </div>
+            </div>
+            </div>
+
         </div>
         <div class="pagination-controls" id="itPagination">
             <button class="nav-arrow prev-btn" disabled><i class="fa-solid fa-caret-left"></i></button>

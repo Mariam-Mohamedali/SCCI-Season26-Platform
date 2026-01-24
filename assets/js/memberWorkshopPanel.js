@@ -608,22 +608,56 @@ document.addEventListener("DOMContentLoaded", () => {
 /* =========================================================
    DELETE FUNCTIONS (global)
 ========================================================= */
-function deleteTask(taskId) {
+const deleteModal = document.getElementById("deleteConfirmPopup");
+const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
+const deleteConfirmTitle = document.getElementById("deleteConfirmTitle");
+const deleteConfirmMsg = document.getElementById("deleteConfirmMsg");
+let deleteId = null;
+let deleteType = null;
+
+window.deleteTask = function (taskId) {
   if (!taskId) return;
-  if (confirm("Are you sure you want to delete this task?")) {
-    const url = new URL(window.location.href);
-    url.searchParams.set("delete_task_id", taskId);
-    window.location.href = url.toString();
-  }
+  deleteId = taskId;
+  deleteType = "task";
+  if (deleteConfirmTitle) deleteConfirmTitle.textContent = "Delete Task?";
+  if (deleteConfirmMsg) deleteConfirmMsg.textContent = "This action cannot be undone. All task submissions will be affected.";
+  if (deleteModal) deleteModal.classList.add("show");
+};
+
+window.deleteMaterial = function (materialId) {
+  if (!materialId) return;
+  deleteId = materialId;
+  deleteType = "material";
+  if (deleteConfirmTitle) deleteConfirmTitle.textContent = "Delete Material?";
+  if (deleteConfirmMsg) deleteConfirmMsg.textContent = "Are you sure you want to delete this material? This action cannot be undone.";
+  if (deleteModal) deleteModal.classList.add("show");
+};
+
+window.closeDeleteConfirm = function () {
+  if (deleteModal) deleteModal.classList.remove("show");
+  deleteId = null;
+  deleteType = null;
+};
+
+if (confirmDeleteBtn) {
+  confirmDeleteBtn.addEventListener("click", () => {
+    if (deleteId && deleteType) {
+      const url = new URL(window.location.href);
+      if (deleteType === "task") {
+        url.searchParams.set("delete_task_id", deleteId);
+      } else {
+        url.searchParams.set("delete_material_id", deleteId);
+      }
+      window.location.href = url.toString();
+    }
+  });
 }
 
-function deleteMaterial(materialId) {
-  if (!materialId) return;
-  if (confirm("Are you sure you want to delete this material?")) {
-    const url = new URL(window.location.href);
-    url.searchParams.set("delete_material_id", materialId);
-    window.location.href = url.toString();
-  }
+// Close delete modal if clicking outside
+if (deleteModal) {
+  deleteModal.addEventListener("click", (e) => {
+    if (e.target === deleteModal) closeDeleteConfirm();
+  });
 }
 
 /* =========================================================

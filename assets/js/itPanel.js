@@ -145,3 +145,88 @@ document.addEventListener('DOMContentLoaded', () => {
         workshopFilter.addEventListener('change', applyFilters);
     }
 });
+
+// ===============================
+// Custom Delete Popup (NO browser confirm)
+// ===============================
+let deletePopup, confirmDeleteBtn, cancelDeleteBtn;
+let pendingDeleteUrl = null;
+
+document.addEventListener("DOMContentLoaded", () => {
+  deletePopup = document.getElementById("deleteConfirmPopup");
+  confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
+  cancelDeleteBtn = document.getElementById("cancelDeleteBtn");
+
+  // افتح البوب اب عند الضغط على أي Delete (باستخدام event delegation)
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest("a.js-delete");
+    if (!btn) return;
+
+    e.preventDefault(); // يمنع الانتقال للرابط
+    pendingDeleteUrl = btn.getAttribute("href");
+
+    if (deletePopup) deletePopup.style.display = "flex";
+  });
+
+  // Confirm
+  if (confirmDeleteBtn) {
+    confirmDeleteBtn.addEventListener("click", () => {
+      if (pendingDeleteUrl) window.location.href = pendingDeleteUrl;
+    });
+  }
+
+  // Cancel
+  function closePopup() {
+    if (deletePopup) deletePopup.style.display = "none";
+    pendingDeleteUrl = null;
+  }
+
+  if (cancelDeleteBtn) cancelDeleteBtn.addEventListener("click", closePopup);
+
+  // Close when clicking outside card
+  if (deletePopup) {
+    deletePopup.addEventListener("click", (e) => {
+      if (e.target === deletePopup) closePopup();
+    });
+  }
+});
+
+let acceptPopup, confirmAcceptBtn, cancelAcceptBtn;
+let pendingAcceptUrl = null;
+
+document.addEventListener("DOMContentLoaded", () => {
+  acceptPopup = document.getElementById("acceptConfirmPopup");
+  confirmAcceptBtn = document.getElementById("confirmAcceptBtn");
+  cancelAcceptBtn = document.getElementById("cancelAcceptBtn");
+
+  // افتح Accept popup عند الضغط على Accept
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest("a.js-accept");
+    if (!btn) return;
+
+    e.preventDefault(); // يمنع الانتقال للرابط
+    pendingAcceptUrl = btn.getAttribute("href");
+
+    if (acceptPopup) acceptPopup.style.display = "flex";
+  });
+
+  function closeAcceptPopup() {
+    if (acceptPopup) acceptPopup.style.display = "none";
+    pendingAcceptUrl = null;
+  }
+
+  if (cancelAcceptBtn) cancelAcceptBtn.addEventListener("click", closeAcceptPopup);
+
+  if (confirmAcceptBtn) {
+    confirmAcceptBtn.addEventListener("click", () => {
+      if (pendingAcceptUrl) window.location.href = pendingAcceptUrl;
+    });
+  }
+
+  if (acceptPopup) {
+    acceptPopup.addEventListener("click", (e) => {
+      if (e.target === acceptPopup) closeAcceptPopup();
+    });
+  }
+});
+

@@ -278,3 +278,176 @@ main {
         padding: 0.3rem 0.55rem;
     }
 }
+
+/* ==============================
+   POPUP OVERLAY
+============================== */
+.deleteConfirmPopup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  backdrop-filter: blur(3px);
+}
+
+/* ==============================
+   POPUP BOX
+============================== */
+.confirmCard {
+  width: 360px;
+  background: #121212;
+  border-radius: 12px;
+  padding: 25px 22px;
+  text-align: center;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+  animation: popupScale 0.25s ease;
+  border-top: 5px solid #e74c3c;
+}
+
+/* Animation */
+@keyframes popupScale {
+  from {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ==============================
+   HEADER
+============================== */
+.confirmHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.confirmHeader i {
+  font-size: 36px;
+  color: #e74c3c;
+}
+
+.confirmHeader h3 {
+  font-size: 20px;
+  margin: 0;
+  color: #fff;
+}
+
+/* ==============================
+   TEXT
+============================== */
+#deleteConfirmMsg {
+  margin: 15px 0 25px;
+  font-size: 14px;
+  color: #ccc;
+  line-height: 1.5;
+}
+
+/* ==============================
+   BUTTONS
+============================== */
+.confirmBtnGroup {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.confirmBtnGroup .btn {
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  transition: 0.2s ease;
+}
+
+/* Cancel */
+.btn-confirm-cancel {
+  background: #333;
+  color: #fff;
+}
+
+.btn-confirm-cancel:hover {
+  background: #444;
+}
+
+/* Delete */
+.btn-confirm-delete {
+  background: #e74c3c;
+  color: #fff;
+}
+
+.btn-confirm-delete:hover {
+  background: #c0392b;
+}
+
+/* ==============================
+   ACCEPT POPUP (GREEN VERSION)
+============================== */
+.acceptConfirmPopup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  backdrop-filter: blur(3px);
+}
+
+/* Box */
+.acceptConfirmPopup .confirmCard {
+  width: 360px;
+  background: #0f1f17;
+  border-radius: 12px;
+  padding: 25px 22px;
+  text-align: center;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+  animation: popupScale 0.25s ease;
+  border-top: 5px solid #2ecc71;
+}
+
+/* Header */
+.acceptConfirmPopup .confirmHeader i {
+  font-size: 36px;
+  color: #2ecc71;
+}
+
+.acceptConfirmPopup .confirmHeader h3 {
+  font-size: 20px;
+  margin: 0;
+  color: #eafff2;
+}
+
+/* Message */
+.acceptConfirmPopup #deleteConfirmMsg {
+  margin: 15px 0 25px;
+  font-size: 14px;
+  color: #cfeedd;
+}
+
+/* Buttons */
+.acceptConfirmPopup .btn-confirm-cancel {
+  background: #2c3e35;
+  color: #dfffee;
+}
+
+.acceptConfirmPopup .btn-confirm-cancel:hover {
+  background: #3b5c4a;
+}
+
+.acceptConfirmPopup .btn-confirm-delete {
+  background: #2ecc71;
+  color: #fff;
+}
+
+.acceptConfirmPopup .btn-confirm-delete:hover {
+  background: #27ae60;
+}

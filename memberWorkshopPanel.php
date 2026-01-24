@@ -635,6 +635,7 @@ if ($workshopSessionId > 0) {
   <link rel="stylesheet" href="./assets/css/footer.css">
   <link rel="stylesheet" href="./assets/css/message-toast.css">
   <link rel="stylesheet" href="./assets/css/memberWorkshopPanel.css?v=<?php echo time(); ?>">
+  <link rel="stylesheet" href="./assets/css/task-management.css?v=<?php echo time(); ?>">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <title>SCCI - Member Panel</title>
 </head>
@@ -1488,6 +1489,21 @@ if ($workshopSessionId > 0) {
       setupPagination('reviewTableScroll', 'reviewPagination');
     });
   </script>
+
+  <!-- delete confirmation popup -->
+  <div class="deleteConfirmPopup" id="deleteConfirmPopup">
+    <div class="confirmCard">
+      <div class="confirmHeader">
+        <i class="fas fa-trash-alt"></i>
+        <h3 id="deleteConfirmTitle">Delete?</h3>
+      </div>
+      <p id="deleteConfirmMsg">This action cannot be undone.</p>
+      <div class="confirmBtnGroup">
+        <button type="button" class="btn btn-confirm-cancel" onclick="closeDeleteConfirm()">Cancel</button>
+        <button type="button" class="btn btn-confirm-delete" id="confirmDeleteBtn">Delete</button>
+      </div>
+    </div>
+  </div>
 
 </body>
 
