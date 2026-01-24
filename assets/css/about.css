@@ -114,7 +114,7 @@ h1 {
   width: 100%;
   height: 100px;
   background: linear-gradient(to bottom,
-      rgb(12 12 12 / 0%),
+      rgba(158, 153, 153, 0),
       rgb(239 222 205 / 60%),
       #eddbc8);
   z-index: 5;
@@ -125,7 +125,7 @@ h1 {
 .heroLogo {
   display: grid;
   position: absolute;
-  bottom: 11%;
+  bottom: 15%;
   place-items: center;
   z-index: 10;
   color: #fff;
@@ -136,13 +136,6 @@ h1 {
   opacity: 0;
 }
 
-.logoSCCI {
-  height: auto;
-  width: 15%;
-  /* Reduced from 20% */
-  opacity: 0.85;
-  /* Added transparency */
-}
 
 .heroLogo h5 {
   font-size: 4rem !important;
@@ -169,11 +162,6 @@ h1 {
     height: 80vh;
   }
 
-  .logoSCCI {
-    height: auto;
-    width: 160px;
-  }
-
   .heroLogo h1 {
     font-size: 5.5rem;
   }
@@ -193,10 +181,6 @@ h1 {
     height: 70vh;
   }
 
-  .logoSCCI {
-    height: auto;
-    width: 120px;
-  }
 
   .heroLogo h1 {
     font-size: 3.5rem;
@@ -217,10 +201,6 @@ h1 {
     height: 60vh;
   }
 
-  .logoSCCI {
-    height: 200px;
-    width: 200px;
-  }
 
   .heroLogo h1 {
     font-size: 2.5rem;
@@ -988,10 +968,6 @@ body.red-theme .decorative-element {
     height: 85vh;
   }
 
-  .logoSCCI {
-    width: 18%;
-    height: auto;
-  }
 
   .heroLogo {
     bottom: 10%;

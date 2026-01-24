@@ -43,12 +43,11 @@ include './includes/config.php';
         <div class="hero">
             <div class="heroBackground">
                 <picture>
-                    <img src="./assets/img/heroImage.png" alt="Hero Image" loading="lazy">
+                    <img src="./assets/img/heroImage1.png" alt="Hero Image" loading="lazy">
                 </picture>
             </div>
 
             <div class="heroLogo" data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="200">
-                <img src="./assets/icons/logoSCCI.png" class="logoSCCI" alt="SCCI Logo" loading="lazy">
                 <h5>SEEK THE PEEK</h5>
             </div>
         </div>
