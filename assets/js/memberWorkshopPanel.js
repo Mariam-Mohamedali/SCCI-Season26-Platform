@@ -698,7 +698,7 @@ window.displayCustomPopup = function (message, isError = false) {
 
   const timeoutId = setTimeout(() => {
     popup.style.display = "none";
-  }, 10000);
+  }, 2000);
 
   popup.dataset.timeoutId = timeoutId;
 };
