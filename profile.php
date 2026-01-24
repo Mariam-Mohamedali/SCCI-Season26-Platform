@@ -126,7 +126,7 @@ if (isset($user['role']) && ($user['role'] == 4 or $user['role'] == 5)) {
   <!-- aos -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
   <script src="./assets/js/profile.js"></script>
-  <title>SCCI - Profile</title>
+  <title>SCCI - <?php echo htmlspecialchars($user['user_name']); ?> Profile</title>
 </head>
 
 <body>

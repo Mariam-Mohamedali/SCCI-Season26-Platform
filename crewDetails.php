@@ -1,5 +1,30 @@
 <?php
 include './includes/config.php';
+
+// Initialize title
+$page_title = 'Crew Details';
+
+if (isset($_GET['committee_id'])) {
+    $committee_id = $_GET['committee_id'];
+
+    // Fetch committee details
+    $select_committee = "SELECT committe_name, head_id, committee_description, committee_member,missoin
+                     FROM committees
+                     WHERE committee_id = '$committee_id'";
+    $run_committee = mysqli_query($connect, $select_committee);
+    $committee = mysqli_fetch_assoc($run_committee);
+
+    // Fetch head details
+    $head_id = $committee['head_id'];
+    $select_head = "SELECT user_id, user_name, image
+                FROM users
+                WHERE user_id = '$head_id'";
+    $run_head = mysqli_query($connect, $select_head);
+    $head = mysqli_fetch_assoc($run_head);
+
+    // Set title to "Head [Committee Name]"
+    $page_title = 'Head ' . $committee['committe_name'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +58,7 @@ include './includes/config.php';
     <link rel="stylesheet" href="./assets/css/crewDetails.css?v=<?php echo time(); ?>" />
     <!-- aos -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-    <title>SCCI - Crew Details</title>
+    <title>SCCI - <?php echo $page_title; ?></title>
   </head>
 
 <body>
