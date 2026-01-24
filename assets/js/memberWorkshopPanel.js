@@ -35,6 +35,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const url = new URL(window.location.href);
     url.searchParams.set("tab", pageId);
     history.replaceState({}, "", url.toString());
+
+    // NEW: Update all hidden tab inputs on the page to match active tab
+    document.querySelectorAll('input[name="tab"]').forEach((input) => {
+      input.value = pageId;
+    });
   }
 
   // click handlers for tabs
@@ -146,8 +151,11 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* =========================================================
-     4) SESSIONS SCROLL (safe init)
+     4) SESSIONS SCROLL & PERSISTENCE
   ========================================================= */
+  const PERSIST_KEY_PAGE = "member_scroll_page";
+  const PERSIST_KEY_SESSIONS = "member_scroll_sessions";
+
   (function initSessionsScroll() {
     const frames = document.querySelectorAll(".sessionsSelectorFrame");
     if (!frames.length) return;
@@ -162,6 +170,17 @@ document.addEventListener("DOMContentLoaded", () => {
       );
 
       if (!selector) return;
+
+      // Restore session scroll
+      const savedSessionsScroll = localStorage.getItem(PERSIST_KEY_SESSIONS);
+      if (savedSessionsScroll) {
+        selector.scrollLeft = parseInt(savedSessionsScroll, 10);
+      }
+
+      // Save session scroll on change
+      selector.addEventListener("scroll", () => {
+        localStorage.setItem(PERSIST_KEY_SESSIONS, selector.scrollLeft);
+      });
 
       const scrollByAmount = 320;
 
@@ -180,6 +199,20 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   })();
+
+  // Restore Page Scroll
+  const savedPageScroll = localStorage.getItem(PERSIST_KEY_PAGE);
+  if (savedPageScroll) {
+    // We use a small timeout to ensure everything is rendered
+    setTimeout(() => {
+      window.scrollTo({ top: parseInt(savedPageScroll, 10), behavior: "instant" });
+    }, 50);
+  }
+
+  // Save Page Scroll on scroll (debounced or constant)
+  window.addEventListener("scroll", () => {
+    localStorage.setItem(PERSIST_KEY_PAGE, window.scrollY);
+  });
 
   /* =========================================================
      5) ATTENDANCE AUTO SUBMIT

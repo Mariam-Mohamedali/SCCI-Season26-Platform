@@ -15,6 +15,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const url = new URL(window.location.href);
     url.searchParams.set("tab", pageId);
     history.replaceState({}, "", url.toString());
+
+    // NEW: Update all hidden tab inputs on the page to match active tab
+    document.querySelectorAll('input[name="tab"]').forEach((input) => {
+      input.value = pageId;
+    });
   }
 
   links.forEach(link => link.addEventListener("click", (e) => {
@@ -28,15 +33,43 @@ document.addEventListener("DOMContentLoaded", () => {
   if (initialTab && document.getElementById(initialTab)) activatePage(initialTab);
 
   /* =========================
-     Sessions Scroll
+     Sessions Scroll & Persistence
   ========================= */
+  const PERSIST_KEY_PAGE = "participant_scroll_page";
+  const PERSIST_KEY_SESSIONS = "participant_scroll_sessions";
+
   const sessionsContainer = document.getElementById("sessionsContainer");
   const leftBtn = document.querySelector(".scrollBtn.leftBtn");
   const rightBtn = document.querySelector(".scrollBtn.rightBtn");
+
   if (sessionsContainer && leftBtn && rightBtn) {
+    // Restore session scroll
+    const savedSessionsScroll = localStorage.getItem(PERSIST_KEY_SESSIONS);
+    if (savedSessionsScroll) {
+      sessionsContainer.scrollLeft = parseInt(savedSessionsScroll, 10);
+    }
+
+    // Save session scroll on change
+    sessionsContainer.addEventListener("scroll", () => {
+      localStorage.setItem(PERSIST_KEY_SESSIONS, sessionsContainer.scrollLeft);
+    });
+
     leftBtn.addEventListener("click", () => sessionsContainer.scrollBy({ left: -300, behavior: "smooth" }));
     rightBtn.addEventListener("click", () => sessionsContainer.scrollBy({ left: 300, behavior: "smooth" }));
   }
+
+  // Restore Page Scroll
+  const savedPageScroll = localStorage.getItem(PERSIST_KEY_PAGE);
+  if (savedPageScroll) {
+    setTimeout(() => {
+      window.scrollTo({ top: parseInt(savedPageScroll, 10), behavior: "instant" });
+    }, 50);
+  }
+
+  // Save Page Scroll
+  window.addEventListener("scroll", () => {
+    localStorage.setItem(PERSIST_KEY_PAGE, window.scrollY);
+  });
 
   /* =========================
      Submit Task (AJAX)

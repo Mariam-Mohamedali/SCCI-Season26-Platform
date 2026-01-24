@@ -957,10 +957,24 @@ function renderStars($rating)
     <script src="./assets/js/all.min.js" defer></script>
     <script src="./assets/js/messages.js" defer></script>
     <script>
-        window.sessionMessages = {
-            msg: <?php echo isset($_SESSION['msg']) ? json_encode($_SESSION['msg']) : 'null'; ?>,
-            err: <?php echo isset($_SESSION['err']) ? json_encode($_SESSION['err']) : 'null'; ?>
-        };
+        (function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const urlMsg = urlParams.get('msg');
+            const urlErr = urlParams.get('err');
+
+            window.sessionMessages = {
+                msg: <?php echo isset($_SESSION['msg']) ? json_encode($_SESSION['msg']) : 'null'; ?> || urlMsg,
+                err: <?php echo isset($_SESSION['err']) ? json_encode($_SESSION['err']) : 'null'; ?> || urlErr
+            };
+
+            // Clear URL parameters to prevent recurring popup on refresh
+            if (urlMsg || urlErr) {
+                const newUrl = new URL(window.location.href);
+                newUrl.searchParams.delete('msg');
+                newUrl.searchParams.delete('err');
+                window.history.replaceState({}, '', newUrl.toString());
+            }
+        })();
         <?php unset($_SESSION['msg']);
         unset($_SESSION['err']); ?>
     </script>

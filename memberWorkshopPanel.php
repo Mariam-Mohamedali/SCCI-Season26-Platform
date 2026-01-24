@@ -884,11 +884,13 @@ if ($workshopSessionId > 0) {
 
       <div class="panelWhiteBox">
         <!-- Filters -->
-        <div class="reviewFilters" style="display: flex; gap: 30px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; padding-left: 10px;">
+        <div class="reviewFilters"
+          style="display: flex; gap: 30px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; padding-left: 10px;">
 
           <!-- Attendance Filter -->
           <div class="filterGroup" style="display: flex; align-items: center; gap: 10px;">
-            <span style="color: var(--color-secondary); font-weight: bold; font-family: sans-serif; font-size: 0.9rem;">Attendance:</span>
+            <span
+              style="color: var(--color-secondary); font-weight: bold; font-family: sans-serif; font-size: 0.9rem;">Attendance:</span>
             <div class="filterOptions" style="display: flex; gap: 5px;">
               <button type="button" class="filterBtn active" data-group="attendance" data-value="all">All</button>
               <button type="button" class="filterBtn" data-group="attendance" data-value="present">Present</button>
@@ -898,7 +900,9 @@ if ($workshopSessionId > 0) {
 
           <!-- Task Status Filter -->
           <div class="filterGroup" style="display: flex; align-items: center; gap: 10px;">
-            <span style="color: var(--color-secondary); font-weight: bold; font-family: sans-serif; font-size: 0.9rem;">Task Status:</span>
+            <span
+              style="color: var(--color-secondary); font-weight: bold; font-family: sans-serif; font-size: 0.9rem;">Task
+              Status:</span>
             <div class="filterOptions" style="display: flex; gap: 5px;">
               <button type="button" class="filterBtn active" data-group="task" data-value="all">All</button>
               <button type="button" class="filterBtn" data-group="task" data-value="accepted">Accepted</button>
@@ -946,7 +950,8 @@ if ($workshopSessionId > 0) {
                     $text = $latestByUser[$pid]['feedback_text'] ?? null;
                     $given = $latestByUser[$pid]['user_name'] ?? null;
                     ?>
-                    <tr class="reviewRow" data-attendance="<?= $st ?>" data-task-status="<?= isset($latestByUser[$pid]) ? 'accepted' : 'pending' ?>">
+                    <tr class="reviewRow" data-attendance="<?= $st ?>"
+                      data-task-status="<?= isset($latestByUser[$pid]) ? 'accepted' : 'pending' ?>">
                       <td class="tableParticipantName"><?php echo htmlspecialchars($p['user_name']); ?></td>
 
                       <!-- attendance -->
@@ -1013,12 +1018,12 @@ if ($workshopSessionId > 0) {
             </table>
           </div>
         </div>
-        </div>
-        <div class="pagination-controls" id="reviewPagination">
-          <button class="nav-arrow prev-btn"><i class="fa-solid fa-caret-left"></i></button>
-          <span class="page-info">Page 1</span>
-          <button class="nav-arrow next-btn"><i class="fa-solid fa-caret-right"></i></button>
-        </div>
+      </div>
+      <div class="pagination-controls" id="reviewPagination">
+        <button class="nav-arrow prev-btn"><i class="fa-solid fa-caret-left"></i></button>
+        <span class="page-info">Page 1</span>
+        <button class="nav-arrow next-btn"><i class="fa-solid fa-caret-right"></i></button>
+      </div>
       </div>
     </section>
 
@@ -1460,6 +1465,14 @@ if ($workshopSessionId > 0) {
 
         popup.style.display = "flex";
         setTimeout(() => { popup.style.display = "none"; }, 5000);
+
+        // Clear URL parameters to prevent recurring popup on refresh
+        if (urlMsg || urlErr) {
+          const newUrl = new URL(window.location.href);
+          newUrl.searchParams.delete('msg');
+          newUrl.searchParams.delete('err');
+          window.history.replaceState({}, '', newUrl.toString());
+        }
       }
     });
     <?php unset($_SESSION['msg']);
