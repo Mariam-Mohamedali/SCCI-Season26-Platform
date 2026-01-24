@@ -157,7 +157,7 @@ if (isset($_POST['contact'])) {
 
             <div class="stat">
                 <i class="fas fa-user-shield statIcon"></i>
-                <h4 data-aos="fade-down" data-aos-duration="3500" class="statNumber" data-target="200">0</h4>
+                <h4 data-aos="fade-down" data-aos-duration="3500" class="statNumber" data-target="100">0</h4>
                 <h4 data-aos="fade-up" data-aos-duration="3000" class="statUnit">MEMBERS</h4>
             </div>
 
@@ -410,3 +410,4 @@ if (isset($_POST['contact'])) {
 </body>
 
 </html>
+
