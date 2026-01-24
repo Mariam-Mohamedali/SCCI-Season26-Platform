@@ -217,3 +217,40 @@ if (currentSection === 'members') {
     if (committeeFilter) committeeFilter.style.display = 'none';
     participantBtn.classList.add('activePanelLine');
 }
+
+
+// ===========================================
+// accept popup
+// ===========================================
+
+// Get all trigger buttons
+const acceptButtons = document.querySelectorAll('.acceptBtn');
+// Popup elements
+const popup = document.querySelector('.acceptPopup');
+const closeBtn = popup.querySelector('.closepopup');
+const confirmBtn = popup.querySelector('.confirmAccept');
+
+let currentUser = null;
+
+// Open popup
+acceptButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    currentUser = btn.dataset.user; // store which user/element triggered
+    popup.style.display = 'flex';
+  });
+});
+
+// Close popup
+closeBtn.addEventListener('click', () => {
+  popup.style.display = 'none';
+});
+
+// Confirm action (just example)
+confirmBtn.addEventListener('click', () => {
+  popup.style.display = 'none';
+});
+
+// Optional: close when clicking outside content
+popup.addEventListener('click', (e) => {
+  if (e.target === popup) popup.style.display = 'none';
+});
