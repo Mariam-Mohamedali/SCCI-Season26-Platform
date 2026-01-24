@@ -906,7 +906,7 @@ if ($workshopSessionId > 0) {
               Status:</span>
             <div class="filterOptions" style="display: flex; gap: 5px;">
               <button type="button" class="filterBtn active" data-group="task" data-value="all">All</button>
-              <button type="button" class="filterBtn" data-group="task" data-value="accepted">Accepted</button>
+              <button type="button" class="filterBtn" data-group="task" data-value="accepted">Submitted</button>
               <button type="button" class="filterBtn" data-group="task" data-value="pending">Pending</button>
             </div>
           </div>
@@ -987,7 +987,7 @@ if ($workshopSessionId > 0) {
                               <div class="reviewAttendedLeft"></div>
                               <i class="fa-solid fa-check reviewAttendedSymbol"></i>
                             </div>
-                            <div>Accepted</div>
+                            <div>Submitted</div>
                           </div>
                         <?php else: ?>
                           <!-- task pending -->
