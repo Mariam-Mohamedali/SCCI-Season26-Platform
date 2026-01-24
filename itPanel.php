@@ -227,7 +227,7 @@ $rowCountUsers = mysqli_num_rows($usersResult);
                                 </td>
 
                                 <td class="tableData">
-                                    <a href="itPanel.php?accept=<?= $rowUser['user_id'] ?>" class="btn btn-secondary accept">
+                                    <a href="itPanel.php?accept=<?= $rowUser['user_id'] ?>" class="btn btn-secondary js-accept">
                                         Accept
                                     </a>
 
@@ -264,20 +264,18 @@ $rowCountUsers = mysqli_num_rows($usersResult);
             </div>
 
 
-            <div class="acceptConfirmPopup" id="acceptConfirmPopup">
+            <div class="acceptConfirmPopup" id="acceptConfirmPopup" style="display:none;">
             <div class="confirmCard">
                 <div class="confirmHeader">
-                <i class="fas fa-user-check"></i>
+                <i class="fas fa-check-circle"></i>
                 <h3>Accept Participant?</h3>
                 </div>
 
-                <p id="deleteConfirmMsg">
-                This participant will be added to the workshop.
-                </p>
+                <p>This will activate the participant's account.</p>
 
                 <div class="confirmBtnGroup">
-                <button class="btn btn-confirm-cancel" onclick="closeAcceptConfirm()">Cancel</button>
-                <button class="btn btn-confirm-delete" id="acceptBtnConfirm">Accept</button>
+                <button type="button" class="btn btn-confirm-cancel" id="cancelAcceptBtn">Cancel</button>
+                <button type="button" class="btn btn-confirm-delete" id="confirmAcceptBtn">Accept</button>
                 </div>
             </div>
             </div>
