@@ -1,0 +1,237 @@
+/* ======================================================== 
+  TASKS SECTION (Mirrored from Member Panel)
+  ======================================================== */
+.articleFiles {
+    padding: 1.5rem;
+    overflow: hidden;
+    border-radius: 14px;
+    background-color: var(--color-gray-lighter);
+    margin: 1rem 0;
+}
+
+.materialItem {
+    padding: 12px 20px;
+    border-radius: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    transition: ease-in-out 0.3s;
+}
+
+.materialItem:hover {
+    background-color: var(--color-gray-light);
+}
+
+.materialItem:not(:last-child)::after {
+    content: "";
+    width: calc(100% - 40px);
+    height: 1px;
+    background: var(--color-gray-medium);
+    position: absolute;
+    bottom: 0;
+    left: 20px;
+}
+
+.materialInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+}
+
+.materialFileName {
+    color: var(--color-secondary-dark);
+    font-size: var(--fs-md);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+}
+
+.materialFileName::before {
+    display: inline-block;
+    font-family: "Font Awesome 6 Free";
+    font-weight: 400;
+    content: "\f15b";
+    font-size: 1.2em;
+    min-width: 20px;
+    color: var(--color-secondary);
+}
+
+.taskDescription {
+    padding-left: 30px;
+    font-size: var(--fs-sm);
+    color: var(--color-gray-dark);
+    margin: 0;
+}
+
+.materialActions {
+    display: flex;
+    gap: var(--space-4);
+    align-items: center;
+}
+
+.downloadFileBtn {
+    width: max-content;
+    color: #5556c4;
+    padding: var(--space-2) var(--space-4);
+    border-radius: 15px;
+    transition: ease-in-out 0.3s;
+    text-decoration: none;
+    font-size: var(--fs-sm);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.downloadFileBtn:hover {
+    background-color: #5557c431;
+}
+
+.deleteMaterialButton {
+    color: var(--color-primary);
+    width: max-content;
+    padding: var(--space-2) var(--space-4);
+    border-radius: 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: ease-in-out 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: var(--fs-sm);
+}
+
+.deleteMaterialButton::before {
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    content: "\f2ed";
+}
+
+.deleteMaterialButton:hover {
+    background-color: #c5252531;
+}
+
+.notFIleAdded {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: var(--space-10);
+    color: var(--color-gray-dark);
+    text-align: center;
+}
+
+.notFIleAdded i {
+    font-size: 3rem;
+    opacity: 0.3;
+}
+
+/* ======================================================== 
+  DELETE CONFIRMATION POPUP
+  ======================================================== */
+.deleteConfirmPopup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 20000;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.deleteConfirmPopup.show {
+    display: flex;
+    opacity: 1;
+}
+
+.confirmCard {
+    background: white;
+    width: 100%;
+    max-width: 400px;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+}
+
+.deleteConfirmPopup.show .confirmCard {
+    transform: translateY(0);
+}
+
+.confirmHeader {
+    color: #d64141;
+    margin-bottom: 15px;
+}
+
+.confirmHeader i {
+    font-size: 3.5rem;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.confirmHeader h3 {
+    font-size: 1.5rem;
+    margin: 0;
+    font-weight: 700;
+}
+
+.confirmCard p {
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 30px;
+}
+
+.confirmBtnGroup {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.btn-confirm-cancel {
+    background: #f3f4f6;
+    color: #4b5563;
+    border: none;
+    padding: 14px 30px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+
+.btn-confirm-cancel:hover {
+    background: #e5e7eb;
+    color: #1f2937;
+}
+
+.btn-confirm-delete {
+    background: #d64141;
+    color: white;
+    border: none;
+    padding: 14px 30px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 12px rgba(214, 65, 65, 0.25);
+    font-family: inherit;
+}
+
+.btn-confirm-delete:hover {
+    background: #c23838;
+    box-shadow: 0 6px 15px rgba(214, 65, 65, 0.35);
+    transform: translateY(-1px);
+}

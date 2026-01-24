@@ -1,0 +1,11 @@
+/* Custom positioning for message toasts below navbar */
+.message-toast-container {
+    top: 100px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+}
+
+.swal2-toast {
+    width: auto;
+    max-width: 500px;
+}

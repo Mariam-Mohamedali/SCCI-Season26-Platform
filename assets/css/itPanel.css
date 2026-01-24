@@ -1,0 +1,453 @@
+@import url("root.css");
+
+/* ================= Main ================= */
+html,
+body {
+    height: auto;
+    overflow-y: auto;
+    /* vertical scroll allowed */
+}
+
+main {
+    padding-top: 15vh;
+    width: 90%;
+    margin: 0 auto;
+    overflow-x: auto;
+    /* horizontal scroll if needed */
+    overflow-y: visible;
+    /* vertical scroll works */
+}
+
+/* ================= Search ================= */
+.search-container {
+    position: relative;
+    width: 90%;
+    max-width: 450px;
+    margin: 2rem auto;
+    display: flex;
+    align-items: center;
+}
+
+#searchInput {
+    width: 100%;
+    padding: var(--space-3) var(--space-5);
+    padding-left: 4.5rem;
+    font-size: var(--fs-sm);
+    border: 2px solid var(--border-light);
+    border-radius: 50px;
+    outline: none;
+    transition: all var(--transition-normal);
+    background-color: var(--color-white);
+    box-shadow: var(--shadow-light);
+    font-family: var(--font-system);
+}
+
+#searchInput:focus {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-medium);
+}
+
+.search-icon {
+    position: absolute;
+    left: 1.5rem;
+    color: var(--color-gray-medium);
+    font-size: var(--fs-base);
+    pointer-events: none;
+    transition: color var(--transition-normal);
+}
+
+#searchInput:focus+.search-icon {
+    color: var(--color-primary);
+}
+
+/* ================= Filter ================= */
+.filter-container {
+    width: 90%;
+    max-width: 450px;
+    margin: 0 auto 2rem auto;
+}
+
+#workshopFilter {
+    width: 100%;
+    padding: var(--space-3) var(--space-5);
+    font-size: var(--fs-sm);
+    border: 2px solid var(--border-light);
+    border-radius: 50px;
+    outline: none;
+    transition: all var(--transition-normal);
+    background-color: var(--color-white);
+    box-shadow: var(--shadow-light);
+    font-family: var(--font-system);
+    cursor: pointer;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1.5rem center;
+    background-size: 1.5rem;
+    appearance: none;
+}
+
+#workshopFilter:focus {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-medium);
+}
+
+/* ================= Table Container ================= */
+.userTableScroll {
+    width: 100%;
+    max-width: 100%;
+    max-height: 70vh;
+    overflow-x: auto;
+    overflow-y: auto;
+    margin: 60px auto;
+    padding: 0;
+    box-sizing: border-box;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-light);
+    -webkit-overflow-scrolling: touch;
+}
+
+
+/* ================= Table ================= */
+.userTable {
+    width: 100%;
+    min-width: 600px;
+    border-collapse: collapse;
+    table-layout: fixed;
+    background-color: var(--card-bg);
+}
+
+
+/* ================= Header ================= */
+.tableHead {
+    background: var(--gradient-nav-red);
+}
+
+.tableHeader {
+    text-align: center;
+    padding: var(--space-6);
+    font-size: var(--fs-lg);
+    font-weight: var(--fw-bold);
+    color: var(--color-white);
+    letter-spacing: 0.5px;
+    border: none;
+}
+
+.tableHeader:last-child {
+    border-right: none;
+}
+
+/* ================= Rows ================= */
+.tableBody .tableRow {
+    background-color: var(--color-white);
+    color: var(--color-black) !important;
+    border-bottom: 1px solid var(--border-light);
+}
+
+/* ================= Data cells ================= */
+.tableData {
+    padding: var(--space-4);
+    font-size: var(--fs-md);
+    text-align: center;
+    color: black;
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Last column shrink */
+.userTable .tableData:last-child {
+    white-space: normal !important;
+    width: 100% !important;
+}
+
+/* ================= Pagination ================= */
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    margin: 1rem auto 3rem auto;
+}
+
+.nav-arrow {
+    background: none;
+    border: none;
+    color: black;
+    font-size: 1.8rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.nav-arrow:hover:not(:disabled) {
+    transform: scale(1.2);
+    color: var(--color-primary);
+}
+
+.nav-arrow:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.page-info {
+    color: var(--color-white);
+    font-size: 1.5rem;
+    font-family: "Stencil", sans-serif;
+    letter-spacing: 2px;
+}
+
+/* ================= Responsive Breakpoints ================= */
+
+/* ===== Large tablets / small desktops ===== */
+@media (max-width: 1200px) {
+    main {
+        width: 95%;
+        padding-top: 13vh;
+    }
+
+    .tableHeader {
+        font-size: 1.3rem;
+    }
+
+    .tableData {
+        font-size: 1.3rem;
+        padding: 0.6rem 0.85rem;
+    }
+}
+
+/* ===== Medium tablets / iPads ===== */
+@media (max-width: 1024px) {
+    main {
+        width: 95%;
+        padding-top: 12vh;
+    }
+
+    .tableHeader {
+        font-size: 1.3rem;
+    }
+
+    .tableData {
+        font-size: 1.3rem;
+        padding: 0.55rem 0.8rem;
+    }
+}
+
+/* ===== Small tablets / large phones ===== */
+@media (max-width: 900px) {
+    main {
+        width: 95%;
+        padding-top: 11vh;
+    }
+
+    .tableHeader {
+        font-size: 1.3rem;
+    }
+
+    .tableData {
+        font-size: 1.3rem;
+        padding: 0.5rem 0.7rem;
+    }
+}
+
+/* ===== Mobile phones ===== */
+@media (max-width: 768px) {
+    main {
+        width: 95%;
+        padding-top: 10vh;
+    }
+
+    .userTableScroll {
+        max-height: 60vh;
+    }
+
+    .userTable {
+        min-width: 500px;
+    }
+
+    .tableHeader {
+        font-size: 1.3rem;
+    }
+
+    .tableData {
+        font-size: 1.3rem;
+        padding: 0.45rem 0.65rem;
+    }
+
+    .userTable .tableData:last-child .btn {
+        font-size: 1.3rem;
+        padding: 0.3rem 0.55rem;
+    }
+}
+
+/* ==============================
+   POPUP OVERLAY
+============================== */
+.deleteConfirmPopup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  backdrop-filter: blur(3px);
+}
+
+/* ==============================
+   POPUP BOX
+============================== */
+.confirmCard {
+  width: 360px;
+  background: #121212;
+  border-radius: 12px;
+  padding: 25px 22px;
+  text-align: center;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+  animation: popupScale 0.25s ease;
+  border-top: 5px solid #e74c3c;
+}
+
+/* Animation */
+@keyframes popupScale {
+  from {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ==============================
+   HEADER
+============================== */
+.confirmHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.confirmHeader i {
+  font-size: 36px;
+  color: #e74c3c;
+}
+
+.confirmHeader h3 {
+  font-size: 20px;
+  margin: 0;
+  color: #fff;
+}
+
+/* ==============================
+   TEXT
+============================== */
+#deleteConfirmMsg {
+  margin: 15px 0 25px;
+  font-size: 14px;
+  color: #ccc;
+  line-height: 1.5;
+}
+
+/* ==============================
+   BUTTONS
+============================== */
+.confirmBtnGroup {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.confirmBtnGroup .btn {
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  transition: 0.2s ease;
+}
+
+/* Cancel */
+.btn-confirm-cancel {
+  background: #333;
+  color: #fff;
+}
+
+.btn-confirm-cancel:hover {
+  background: #444;
+}
+
+/* Delete */
+.btn-confirm-delete {
+  background: #e74c3c;
+  color: #fff;
+}
+
+.btn-confirm-delete:hover {
+  background: #c0392b;
+}
+
+/* ==============================
+   ACCEPT POPUP (GREEN VERSION)
+============================== */
+.acceptConfirmPopup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  backdrop-filter: blur(3px);
+}
+
+/* Box */
+.acceptConfirmPopup .confirmCard {
+  width: 360px;
+  background: #0f1f17;
+  border-radius: 12px;
+  padding: 25px 22px;
+  text-align: center;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+  animation: popupScale 0.25s ease;
+  border-top: 5px solid #2ecc71;
+}
+
+/* Header */
+.acceptConfirmPopup .confirmHeader i {
+  font-size: 36px;
+  color: #2ecc71;
+}
+
+.acceptConfirmPopup .confirmHeader h3 {
+  font-size: 20px;
+  margin: 0;
+  color: #eafff2;
+}
+
+/* Message */
+.acceptConfirmPopup #deleteConfirmMsg {
+  margin: 15px 0 25px;
+  font-size: 14px;
+  color: #cfeedd;
+}
+
+/* Buttons */
+.acceptConfirmPopup .btn-confirm-cancel {
+  background: #2c3e35;
+  color: #dfffee;
+}
+
+.acceptConfirmPopup .btn-confirm-cancel:hover {
+  background: #3b5c4a;
+}
+
+.acceptConfirmPopup .btn-confirm-delete {
+  background: #2ecc71;
+  color: #fff;
+}
+
+.acceptConfirmPopup .btn-confirm-delete:hover {
+  background: #27ae60;
+}

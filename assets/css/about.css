@@ -1,0 +1,1211 @@
+:root {
+  --cardabout-background: hsl(59, 58%, 78%);
+  --cardabout-background-gradient: hsl(54, 35%, 79%);
+  --cardabout-border: var(--color-primary-dark);
+  --cardabout-text: hsl(40, 70%, 85%);
+  --cardabout-button-hover: hsl(280, 25%, 12%);
+}
+
+/* ===============================
+   SCROLL REVEAL (ABOUT PAGE)
+================================ */
+
+.cardAbout,
+.card2Items,
+.sliderWrapper {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+  will-change: opacity, transform;
+}
+
+.cardAbout.is-visible,
+.card2Items.is-visible,
+.sliderWrapper.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+h1 {
+  text-shadow: none !important;
+}
+
+/* ===============================
+   Hero Section Base
+================================ */
+
+/* ===============================
+   Hero Logo
+================================ */
+.hero {
+  display: grid;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  place-items: center;
+  overflow: hidden;
+  animation: clip-hero-anim 1.25s cubic-bezier(0.29, 0.8, 0.8, 0.98);
+  will-change: clip-path;
+}
+
+/* Hero Background and Content Grid */
+.heroBackground,
+.heroLogo {
+  align-self: center;
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+}
+
+/* Background */
+.heroBackground {
+  display: grid;
+  position: relative;
+  z-index: 0;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  place-items: center;
+  animation: fade-in 0.75s linear;
+  will-change: opacity;
+}
+
+/* Optional background overlay */
+.heroBackground::before {
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: 5;
+  top: -10%;
+  right: -10%;
+  bottom: -10%;
+  left: -10%;
+  background: rgba(41, 4, 47, 0.4);
+  background-blend-mode: screen;
+}
+
+/* Picture inside background */
+.heroBackground picture {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  animation: scaling-hero-anim 4s 0.25s cubic-bezier(0, 0.71, 0.4, 0.97) forwards;
+  will-change: transform;
+}
+
+.heroBackground img {
+  position: relative;
+  bottom: -10%;
+  display: block;
+  object-fit: cover;
+  object-position: 77% 20%;
+  height: auto;
+  width: 100%;
+}
+
+/* Gradient Fade at Bottom of Hero */
+.heroBackground::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  /* z-index: 0; */
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(to bottom,
+      rgba(158, 153, 153, 0),
+      rgb(239 222 205 / 60%),
+      #eddbc8);
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* Hero Content */
+.heroLogo {
+  display: grid;
+  position: absolute;
+  bottom: 15%;
+  place-items: center;
+  z-index: 10;
+  color: #fff;
+  font-size: 2.5vw;
+  text-transform: uppercase;
+  animation: fade-in 0.75s 1.5s linear forwards;
+  will-change: opacity;
+  opacity: 0;
+}
+
+
+.heroLogo h5 {
+  font-size: 4rem !important;
+  position: relative;
+  margin-top: 3%;
+  margin-bottom: 0;
+  color: var(--color-primary);
+  font-weight: bolder;
+  text-align: center;
+  text-shadow: none;
+}
+
+/* ===============================
+   HERO RESPONSIVE BREAKPOINTS
+================================ */
+
+/* Tablets */
+@media (max-width: 992px) {
+  .hero {
+    height: 80vh;
+  }
+
+  .heroBackground picture {
+    height: 80vh;
+  }
+
+  .heroLogo h1 {
+    font-size: 5.5rem;
+  }
+
+  .heroBackground::after {
+    height: 100px;
+  }
+}
+
+/* Small tablets / large phones */
+@media (max-width: 600px) {
+  .hero {
+    height: 70vh;
+  }
+
+  .heroBackground picture {
+    height: 70vh;
+  }
+
+
+  .heroLogo h1 {
+    font-size: 3.5rem;
+  }
+
+  .heroBackground::after {
+    height: 80px;
+  }
+}
+
+/* Phones */
+@media (max-width: 400px) {
+  .hero {
+    height: 60vh;
+  }
+
+  .heroBackground picture {
+    height: 60vh;
+  }
+
+
+  .heroLogo h1 {
+    font-size: 2.5rem;
+  }
+
+  .heroBackground::after {
+    height: 60px;
+  }
+}
+
+/* ===============================
+   Hero Section Animations
+================================ */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaling-hero-anim {
+  from {
+    transform: scale(1.25);
+  }
+
+  to {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes clip-hero-anim {
+  from {
+    clip-path: polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%);
+  }
+
+  to {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+  }
+}
+
+/* =============================== 
+   SECTION WRAPPER 
+================================ */
+.aboutSection {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 60px 20px;
+  /* Added horizontal padding */
+}
+
+.aboutComponents {
+  width: 100%;
+}
+
+/* =============================== 
+   CARD CONTAINER 
+================================ */
+.cardAbout {
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg,
+      rgba(247, 234, 191, 0.85) 0%,
+      rgba(244, 234, 222, 0.8) 30%,
+      rgba(234, 211, 189, 0.9) 60%,
+      rgba(244, 228, 177, 0.85) 100%);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 100rem;
+  /* Changed from fixed width */
+  height: auto;
+  /* Changed from fixed height */
+  min-height: 35rem;
+  border: 1px solid var(--cardabout-border);
+  position: relative;
+  padding: 2rem;
+}
+
+.cardAbout .corner {
+  width: 0.5rem;
+  height: 0.5rem;
+  border: 1px solid var(--cardabout-border);
+  position: absolute;
+}
+
+.cardAbout .corner::after,
+.cardAbout .corner::before {
+  content: "";
+  position: absolute;
+}
+
+.cardAbout .corner::after {
+  width: 2rem;
+  height: calc(1rem - 1px);
+}
+
+.cardAbout .corner::before {
+  width: calc(1rem - 1px);
+  height: 2rem;
+}
+
+.cardAbout .corner.left {
+  left: -0.5rem;
+}
+
+.cardAbout .corner.left::after {
+  left: calc(-2px + 1rem);
+  border-left: 1px solid var(--cardabout-border);
+}
+
+.cardAbout .corner.left::before {
+  left: -1px;
+  border-left: 1px solid var(--cardabout-border);
+}
+
+.cardAbout .corner.right {
+  right: -0.5rem;
+}
+
+.cardAbout .corner.right::after {
+  right: calc(-2px + 1rem);
+  border-right: 1px solid var(--cardabout-border);
+}
+
+.cardAbout .corner.right::before {
+  right: -1px;
+  border-right: 1px solid var(--cardabout-border);
+}
+
+.cardAbout .corner.top {
+  top: -0.5rem;
+}
+
+.cardAbout .corner.top::after {
+  top: -1px;
+  border-top: 1px solid var(--cardabout-border);
+}
+
+.cardAbout .corner.top::before {
+  top: calc(-2px + 1rem);
+  border-top: 1px solid var(--cardabout-border);
+}
+
+.cardAbout .corner.bottom {
+  bottom: -0.5rem;
+}
+
+.cardAbout .corner.bottom::after {
+  bottom: -1px;
+  border-bottom: 1px solid var(--cardabout-border);
+}
+
+.cardAbout .corner.bottom::before {
+  bottom: calc(-2px + 1rem);
+  border-bottom: 1px solid var(--cardabout-border);
+}
+
+.cardAbout h1 {
+  color: var(--color-primary);
+  text-shadow: none;
+  font-size: 2.5rem;
+  margin: 1.5rem 0;
+}
+
+.cardAbout p {
+  color: var(--color-black);
+  text-align: center;
+  text-transform: none !important;
+  padding-right: 5%;
+  padding-left: 5%;
+  font-size: 2rem;
+  margin-top: 30px;
+  line-height: 1.6;
+}
+
+.cardAbout hr {
+  width: 80%;
+  margin: 0 auto;
+}
+
+/* =============================== 
+   TABLET STYLES (768px - 1024px)
+================================ */
+@media screen and (max-width: 1024px) {
+  .aboutSection {
+    padding: 40px 20px;
+  }
+
+  .cardAbout {
+    min-height: 30rem;
+    padding: 1.5rem;
+  }
+
+  .cardAbout h1 {
+    margin: 1.2rem 0;
+  }
+
+  .cardAbout p {
+    font-size: 2rem;
+    padding-right: 3%;
+    padding-left: 3%;
+  }
+}
+
+/* =============================== 
+   MOBILE STYLES (< 768px)
+================================ */
+@media screen and (max-width: 768px) {
+  .aboutSection {
+    padding: 30px 15px;
+  }
+
+  .cardAbout {
+    min-height: auto;
+    padding: 1.5rem 1rem;
+    border-radius: 6px;
+  }
+
+  .cardAbout h1 {
+    margin: 1rem 0;
+  }
+
+  .cardAbout p {
+    font-size: 1.5rem;
+    padding-right: 2%;
+    padding-left: 2%;
+    line-height: 1.5;
+  }
+
+  .cardAbout hr {
+    width: 90%;
+  }
+
+  /* Smaller corner decorations on mobile */
+  .cardAbout .corner::after {
+    width: 1.5rem;
+  }
+
+  .cardAbout .corner::before {
+    height: 1.5rem;
+  }
+}
+
+/* =============================== 
+   SMALL MOBILE STYLES (< 480px)
+================================ */
+@media screen and (max-width: 480px) {
+  .aboutSection {
+    padding: 20px 10px;
+  }
+
+  .cardAbout {
+    padding: 1.25rem 0.75rem;
+    border-radius: 4px;
+  }
+
+  .cardAbout h1 {
+    margin: 0.8rem 0;
+  }
+
+  .cardAbout p {
+    font-size: 1.5rem;
+    padding-right: 1%;
+    padding-left: 1%;
+  }
+
+  .cardAbout hr {
+    width: 95%;
+  }
+
+  /* Even smaller corner decorations */
+  .cardAbout .corner {
+    width: 0.4rem;
+    height: 0.4rem;
+  }
+
+  .cardAbout .corner::after {
+    width: 1.2rem;
+  }
+
+  .cardAbout .corner::before {
+    height: 1.2rem;
+  }
+}
+
+/*==============================
+   What Makes Us Different Cards Section
+==============================*/
+
+/* ===============================
+   LAYOUT CONTAINER
+================================ */
+
+.card2Container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 60px 20px;
+  box-sizing: border-box;
+  flex-wrap: wrap;
+  gap: 3rem;
+}
+
+.card2Items {
+  width: 300px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
+  gap: 24px;
+}
+
+.card2 {
+  height: auto;
+  background: linear-gradient(to bottom, #e8dfd0 0%, #d4c5b0 100%);
+  padding: 40px;
+  position: relative;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.card2::before {
+  content: "";
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  border: 2px solid var(--color-primary-dark);
+  pointer-events: none;
+}
+
+.card2::after {
+  content: "";
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  border: 1px solid var(--color-primary-dark);
+  pointer-events: none;
+  box-shadow: inset 0 0 20px rgba(26, 58, 82, 0.1);
+}
+
+.card2I {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2%;
+  font-size: 5rem !important;
+  color: var(--color-primary-dark) !important;
+}
+
+.card2 h4 {
+  color: var(--color-primary-dark);
+}
+
+.card2 p {
+  text-align: center;
+}
+
+.corner-ornament {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+}
+
+.corner-ornament.top-left {
+  top: 8px;
+  left: 8px;
+}
+
+.corner-ornament.top-left::before,
+.corner-ornament.top-left::after {
+  content: "";
+  position: absolute;
+  background: var(--color-primary-dark);
+}
+
+.corner-ornament.top-left::before {
+  width: 50px;
+  height: 2px;
+  top: 0;
+  left: 0;
+}
+
+.corner-ornament.top-left::after {
+  width: 2px;
+  height: 50px;
+  top: 0;
+  left: 0;
+}
+
+.corner-ornament.top-right {
+  top: 8px;
+  right: 8px;
+}
+
+.corner-ornament.top-right::before,
+.corner-ornament.top-right::after {
+  content: "";
+  position: absolute;
+  background: var(--color-primary-dark);
+}
+
+.corner-ornament.top-right::before {
+  width: 50px;
+  height: 2px;
+  top: 0;
+  right: 0;
+}
+
+.corner-ornament.top-right::after {
+  width: 2px;
+  height: 50px;
+  top: 0;
+  right: 0;
+}
+
+.corner-ornament.bottom-left {
+  bottom: 8px;
+  left: 8px;
+}
+
+.corner-ornament.bottom-left::before,
+.corner-ornament.bottom-left::after {
+  content: "";
+  position: absolute;
+  background: var(--color-primary-dark);
+}
+
+.corner-ornament.bottom-left::before {
+  width: 50px;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+}
+
+.corner-ornament.bottom-left::after {
+  width: 2px;
+  height: 50px;
+  bottom: 0;
+  left: 0;
+}
+
+.corner-ornament.bottom-right {
+  bottom: 8px;
+  right: 8px;
+}
+
+.corner-ornament.bottom-right::before,
+.corner-ornament.bottom-right::after {
+  content: "";
+  position: absolute;
+  background: var(--color-primary-dark);
+}
+
+.corner-ornament.bottom-right::before {
+  width: 50px;
+  height: 2px;
+  bottom: 0;
+  right: 0;
+}
+
+.corner-ornament.bottom-right::after {
+  width: 2px;
+  height: 50px;
+  bottom: 0;
+  right: 0;
+}
+
+.card2-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.card2-title {
+  font-size: 32px;
+  color: var(--color-primary-dark);
+  margin: 0 0 20px 0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  letter-spacing: 2px;
+  border-bottom: 2px solid var(--color-primary-dark);
+  padding-bottom: 15px;
+}
+
+.card2-title::before,
+.card2-title::after {
+  content: "◆";
+  margin: 0 15px;
+  color: var(--color-primary-dark);
+  font-size: 20px;
+}
+
+.divider {
+  width: 80%;
+  height: 2px;
+  background: linear-gradient(to right,
+      transparent,
+      var(--color-primary-dark),
+      transparent);
+  margin: 20px auto;
+}
+
+.decorative-element {
+  text-align: center;
+  color: var(--color-primary-dark);
+  font-size: 24px;
+  margin: 15px 0;
+}
+
+/* Red theme (still works with variable) */
+body.red-theme .card2,
+body.red-theme .card2::before,
+body.red-theme .card2::after {
+  border-color: var(--color-primary-dark);
+}
+
+body.red-theme .corner-ornament::before,
+body.red-theme .corner-ornament::after {
+  background: var(--color-primary-dark);
+}
+
+body.red-theme .card2-title,
+body.red-theme .card2-title::before,
+body.red-theme .card2-title::after,
+body.red-theme .divider,
+body.red-theme .decorative-element {
+  color: var(--color-primary-dark);
+}
+
+/*==================================
+            Cards System
+==================================*/
+
+.sliderWrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0%;
+  margin-bottom: 120px;
+  gap: 0;
+  /* default gap for desktop */
+}
+
+.cardStack {
+  margin-top: 10%;
+  position: relative;
+  width: min(100vw, 1000px);
+  height: calc(min(90vw, 750px) * 0.7);
+  margin-bottom: 10%;
+}
+
+/* Cards */
+.crewCard {
+  position: absolute;
+  inset: 0;
+  width: 1000rem;
+  height: auto;
+  object-fit: contain;
+  opacity: 1;
+  transform: translateX(0);
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  pointer-events: auto;
+  transform-origin: center;
+  background-color: none;
+}
+
+.crewCard.active {
+  z-index: 10;
+}
+
+.crewCard.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Slide out to right */
+.crewCard.slide-right {
+  transform: translateX(120%);
+  opacity: 0;
+}
+
+/* Slide back */
+.crewCard.slide-back {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.sliderBtn {
+  background: none;
+  border: none;
+  width: 0;
+  height: 0;
+  cursor: pointer;
+  transition: transform 0.2s;
+  user-select: none;
+  padding: 0;
+}
+
+.sliderBtn.prev {
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+  border-right: 25px solid #8B0000;
+  position: absolute;
+  left: 40rem;
+  z-index: 50;
+}
+
+.sliderBtn.next {
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+  border-left: 25px solid #8B0000;
+  position: absolute;
+  right: 40rem;
+  z-index: 50;
+}
+
+.sliderBtn:hover {
+  transform: scale(1.2);
+  filter: brightness(1.2);
+}
+
+.sliderBtn:active {
+  transform: scale(0.9);
+}
+
+
+
+/* ===============================
+   RESPONSIVE
+================================ */
+
+/* Large screens / desktop */
+@media (min-width: 1201px) {
+  .crewPicture {
+    flex: 0 0 clamp(350px, 40%, 500px);
+    justify-content: flex-end;
+    position: relative;
+    top: -160px;
+    align-items: flex-start;
+  }
+}
+
+/* Laptops / medium screens */
+@media (max-width: 1200px) and (min-width: 993px) {
+  .crewPicture {
+    flex: 0 0 clamp(300px, 38%, 450px);
+    justify-content: flex-end;
+    position: relative;
+    top: -120px;
+    align-items: flex-start;
+  }
+
+  .crewCard {
+    left: 90px;
+  }
+
+  #prevBtn,
+  #nextBtn {
+    position: relative;
+    margin: 0 40px;
+
+  }
+
+  #prevBtn {
+    left: -500px;
+    bottom: -220px;
+  }
+
+  #nextBtn {
+    bottom: -250px;
+    right: 300px;
+  }
+}
+
+/* Tablet and below */
+@media (max-width: 992px) {
+  .sliderWrapper {
+    flex-direction: column;
+    /* stack cards first, arrows second */
+    align-items: center;
+    gap: 1rem;
+    /* space between cards and arrows */
+  }
+
+  .cardStack {
+    order: 1;
+    width: min(90vw, 750px);
+    height: calc(min(90vw, 750px) * 0.7);
+    position: relative;
+  }
+
+  .arrowsContainer {
+    order: 2;
+    /* below cards */
+    display: flex;
+    /* row layout for arrows */
+    justify-content: center;
+    /* center horizontally */
+    gap: 10px;
+    /* small gap between arrows */
+    width: auto;
+  }
+
+  #prevBtn,
+  #nextBtn {
+    position: relative;
+    margin: 0 20px;
+    bottom: 100px;
+
+  }
+
+  #prevBtn {
+    left: -60px;
+  }
+
+  #nextBtn {
+    right: -60px;
+  }
+}
+
+
+/* Small phones */
+@media (max-width: 600px) {
+  .cardStack {
+    width: 90vw;
+    height: calc(90vw * 0.8);
+  }
+
+  #prevBtn,
+  #nextBtn {
+    position: relative;
+    margin-bottom: 20%;
+  }
+}
+
+/* ===============================
+   1366 x 768 RESPONSIVE ADJUSTMENTS
+================================ */
+
+@media screen and (min-width: 1200px) and (max-width: 1400px) {
+
+  /* ===============================
+     Hero Section Adjustments
+  ================================ */
+  .hero {
+    height: 85vh;
+  }
+
+  .heroBackground picture {
+    height: 85vh;
+  }
+
+
+  .heroLogo {
+    bottom: 10%;
+  }
+
+  .heroLogo h5 {
+    font-size: 2rem;
+    margin-top: 2%;
+  }
+
+  .heroBackground::after {
+    height: 90px;
+  }
+
+  /* ===============================
+     About Section Card
+  ================================ */
+  .aboutSection {
+    padding: 50px 20px;
+  }
+
+  .cardAbout {
+    max-width: 90rem;
+    min-height: 30rem;
+    padding: 1.8rem;
+  }
+
+  .cardAbout h1 {
+    font-size: 2.2rem;
+    margin: 1.3rem 0;
+  }
+
+  .cardAbout p {
+    font-size: 1.8rem;
+    padding-right: 4%;
+    padding-left: 4%;
+    margin-top: 25px;
+    line-height: 1.5;
+  }
+
+  .cardAbout hr {
+    width: 75%;
+  }
+
+  /* ===============================
+     Title for Cards Section
+  ================================ */
+  .title2Cards {
+    padding: 40px 20px 20px;
+  }
+
+  .titleWrapper2 h2 {
+    font-size: 2rem;
+  }
+
+  /* ===============================
+     What Makes Us Different Cards
+  ================================ */
+  .card2Container {
+    padding: 40px 15px;
+    gap: 1.5rem;
+    max-width: 100%;
+    margin: 0 auto;
+    flex-wrap: nowrap;
+    justify-content: center;
+    overflow-x: auto;
+  }
+
+  .card2Items {
+    width: 240px;
+    flex-shrink: 0;
+  }
+
+  .card2 {
+    padding: 30px 25px;
+  }
+
+  .card2I {
+    font-size: 4.5rem !important;
+    margin-bottom: 1.5%;
+  }
+
+  .card2 h4 {
+    font-size: 1.8rem;
+    margin: 15px 0;
+  }
+
+  .card2 p {
+    font-size: 1.5rem;
+    line-height: 1.4;
+  }
+
+  .corner-ornament {
+    width: 45px;
+    height: 45px;
+  }
+
+  .corner-ornament.top-left::before,
+  .corner-ornament.top-right::before,
+  .corner-ornament.bottom-left::before,
+  .corner-ornament.bottom-right::before {
+    width: 45px;
+  }
+
+  .corner-ornament.top-left::after,
+  .corner-ornament.top-right::after,
+  .corner-ornament.bottom-left::after,
+  .corner-ornament.bottom-right::after {
+    height: 45px;
+  }
+
+  .divider {
+    width: 75%;
+    margin: 15px auto;
+  }
+
+  .decorative-element {
+    font-size: 20px;
+    margin: 12px 0;
+  }
+
+  /* ===============================
+     Behind the Scenes Section
+  ================================ */
+  section>hr {
+    margin: 30px auto;
+    width: 60%;
+  }
+
+  section>h1 {
+    font-size: 2.2rem;
+    margin: 20px 0;
+  }
+
+  .sliderWrapper {
+    margin-top: 0;
+    margin-bottom: 80px;
+  }
+
+  .cardStack {
+    margin-top: 8%;
+    margin-bottom: 8%;
+    width: min(85vw, 900px);
+    height: calc(min(85vw, 900px) * 0.68);
+  }
+
+  .crewCard {
+    width: 100%;
+    max-width: 900px;
+  }
+
+  /* ===============================
+     Slider Button Adjustments
+  ================================ */
+  .sliderBtn.prev {
+    left: 20rem;
+    top: 35rem;
+    border-top: 13px solid transparent;
+    border-bottom: 13px solid transparent;
+    border-right: 22px solid #8B0000;
+  }
+
+  .sliderBtn.next {
+    right: 20rem;
+    top: 35rem;
+    border-top: 13px solid transparent;
+    border-bottom: 13px solid transparent;
+    border-left: 22px solid #8B0000;
+  }
+
+  .sliderBtn:hover {
+    transform: scale(1.15);
+  }
+}
+
+/* ===============================
+   Fine-tuning for exactly 1366x768
+================================ */
+@media screen and (width: 1366px) and (height: 768px) {
+
+  .hero {
+    height: 80vh;
+  }
+
+  .heroBackground picture {
+    height: 80vh;
+  }
+
+  .aboutSection {
+    padding: 45px 20px;
+  }
+
+  .cardAbout {
+    min-height: 28rem;
+  }
+
+  .card2Container {
+    padding: 35px 15px;
+    gap: 2rem;
+  }
+
+  .sliderWrapper {
+    margin-bottom: 60px;
+  }
+
+  .cardStack {
+    margin-top: 6%;
+    margin-bottom: 6%;
+  }
+}
+
+/* ===============================
+   Optimization for laptop screens
+   1280px - 1440px width range
+================================ */
+@media screen and (min-width: 1280px) and (max-width: 1440px) and (min-height: 700px) and (max-height: 900px) {
+
+  /* Ensure content doesn't overflow vertically */
+  .hero {
+    min-height: 70vh;
+    max-height: 85vh;
+  }
+
+  /* Compact spacing for better fit */
+  .aboutSection,
+  .card2Container {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  /* Optimize card grid for this screen size */
+  .card2Container {
+    justify-content: space-evenly;
+  }
+
+  /* Ensure slider doesn't push footer off-screen */
+  .sliderWrapper {
+    margin-top: 20px;
+    margin-bottom: 60px;
+  }
+}

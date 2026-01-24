@@ -1,0 +1,249 @@
+/* ============================ BASE ============================ */
+body,
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: "Irish Grover", cursive;
+    background: linear-gradient(135deg, #001f4d, #8b0000);
+    overflow: hidden;
+}
+
+
+main {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ============================ HERO CONTENT ============================ */
+.landingHero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+}
+
+/* Logo */
+.landingContent figure {
+    margin: 0 0 2rem 0;
+    animation: bounceLogo 2s ease-in-out infinite alternate;
+}
+
+.landingLogo {
+    width: 15rem;
+    height: auto;
+}
+
+/* Main Heading */
+.landingContent h1 {
+    font-family: "Stencil", sans-serif;
+    font-size: 4rem;
+    color: #ffffff;
+    /* changed from gold to white */
+    margin-bottom: 1rem;
+    letter-spacing: 0.3rem;
+    text-transform: uppercase;
+    animation: glowText 2s ease-in-out infinite alternate, shakeText 1.5s ease-in-out infinite alternate;
+    text-shadow: 0 0 15px #fff, 0 0 30px #ccc, 0 0 60px #aaa;
+    /* neutral glow */
+}
+
+/* Subtitle */
+.landingContent p {
+    font-size: 1.8rem;
+    color: #ddd;
+    /* softer neutral color */
+    margin-bottom: 2rem;
+    animation: fadeInUp 2s ease forwards;
+}
+
+/* ============================ JOIN NOW BUTTON ============================ */
+.btn-glow {
+    display: inline-block;
+    padding: 1rem 3rem;
+    font-size: 2rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    color: #000;
+    /* text black is fine */
+    background: linear-gradient(145deg, #888, #555);
+    /* removed yellow, neutral gradient */
+    border: none;
+    border-radius: 1.2rem;
+    box-shadow: 0 5px 20px rgba(136, 136, 136, 0.6), 0 0 50px rgba(85, 85, 85, 0.7);
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    animation: pulseButton 2s ease-in-out infinite;
+    text-decoration: none;
+}
+
+.btn-glow::after {
+    content: "";
+    position: absolute;
+    top: -6px;
+    left: -6px;
+    width: calc(100% + 12px);
+    height: calc(100% + 12px);
+    border-radius: 1.2rem;
+    background: linear-gradient(145deg, #888, #555);
+    filter: blur(10px);
+    opacity: 0.7;
+    z-index: -1;
+    transition: opacity 0.3s ease;
+}
+
+.btn-glow:hover {
+    transform: scale(1.15) translateY(-2px);
+    box-shadow: 0 8px 30px rgba(136, 136, 136, 0.8), 0 0 60px rgba(85, 85, 85, 0.9);
+}
+
+.btn-glow:hover::after {
+    opacity: 1;
+}
+
+/* ============================ FLOATING DECORATIONS ============================ */
+.floatingDecorations {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.decoration-icon {
+    position: absolute;
+    font-size: 2.5rem;
+    color: #fff;
+    /* removed yellow, white glow */
+    animation: floatStars 5s ease-in-out infinite;
+}
+
+.decoration-icon:nth-child(1) {
+    top: 10%;
+    left: 15%;
+    animation-delay: 0s;
+}
+
+.decoration-icon:nth-child(2) {
+    top: 40%;
+    right: 10%;
+    animation-delay: 1s;
+}
+
+.decoration-icon:nth-child(3) {
+    bottom: 20%;
+    left: 25%;
+    animation-delay: 2s;
+}
+
+.decoration-icon:nth-child(4) {
+    bottom: 10%;
+    right: 20%;
+    animation-delay: 3s;
+}
+
+/* ============================ ANIMATIONS ============================ */
+@keyframes bounceLogo {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-1.5rem);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes shakeText {
+    0% {
+        transform: rotate(-3deg) scale(1);
+    }
+
+    25% {
+        transform: rotate(3deg) scale(1.05);
+    }
+
+    50% {
+        transform: rotate(-3deg) scale(1);
+    }
+
+    75% {
+        transform: rotate(3deg) scale(1.05);
+    }
+
+    100% {
+        transform: rotate(0deg) scale(1);
+    }
+}
+
+@keyframes glowText {
+    0% {
+        text-shadow: 0 0 15px #fff, 0 0 30px #ccc, 0 0 60px #aaa;
+    }
+
+    50% {
+        text-shadow: 0 0 25px #fff, 0 0 50px #ccc, 0 0 100px #aaa;
+    }
+
+    100% {
+        text-shadow: 0 0 15px #fff, 0 0 30px #ccc, 0 0 60px #aaa;
+    }
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(2rem);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulseButton {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 5px 20px rgba(136, 136, 136, 0.6), 0 0 50px rgba(85, 85, 85, 0.7);
+    }
+
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 8px 30px rgba(136, 136, 136, 0.8), 0 0 60px rgba(85, 85, 85, 0.9);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow: 0 5px 20px rgba(136, 136, 136, 0.6), 0 0 50px rgba(85, 85, 85, 0.7);
+    }
+}
+
+@keyframes floatStars {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.7;
+    }
+
+    50% {
+        transform: translateY(-1.25rem) rotate(15deg);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.7;
+    }
+}

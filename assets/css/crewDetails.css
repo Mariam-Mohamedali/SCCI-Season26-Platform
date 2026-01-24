@@ -1,0 +1,666 @@
+/* ===== Layout Utilities ===== */
+body {
+
+  padding-top: calc(8vh + 3rem);
+}
+
+.sectionBlock {
+  padding: var(--space-8) 0;
+}
+
+.titleWrapper {
+  text-align: center;
+  margin-bottom: var(--space-8);
+}
+
+.mainTitle {
+  font-size: var(--fs-4xl);
+  font-family: "Irish Grover", cursive;
+  margin-bottom: var(--space-4);
+}
+
+.textPrimary {
+  color: var(--color-primary);
+}
+
+.textDark {
+  color: var(--color-primary-dark);
+}
+
+/* ===== Head Section Layout ===== */
+.headLayout {
+  display: grid;
+  grid-template-columns: minmax(300px, 1fr) minmax(300px, 1.5fr);
+  gap: var(--space-6);
+  align-items: center;
+  margin-bottom: var(--space-8);
+}
+
+.headCard {
+  width: 100%;
+  max-width: 380px;
+  margin: 0 auto;
+}
+
+/* ===== Paper Scroll Component (Paper-like card design) ===== */
+.paperScroll {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  min-width: 280px;
+  background: linear-gradient(135deg, #f4e4c1 0%, #e8d5b5 100%);
+  border: 2px solid #c8a882;
+  border-radius: 8px;
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0;
+}
+
+/* Paper texture effect */
+.paperScroll::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 1px solid rgba(139, 101, 62, 0.2);
+  border-radius: 6px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Paper Scroll Header - Red Banner */
+.paperScrollHeader {
+  width: 100%;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
+  padding: var(--space-5) var(--space-6);
+  clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
+  box-shadow: 0 8px 30px rgba(197, 37, 37, 0.6);
+  position: relative;
+  z-index: 2;
+}
+
+.paperScrollTitle {
+  font-family: 'Irish Grover', cursive;
+  font-size: var(--fs-2xl);
+  font-weight: 900;
+  color: var(--color-parchment);
+  text-shadow:
+    0 0 30px rgba(224, 192, 143, 1),
+    0 3px 8px rgba(0, 0, 0, 0.8);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 0;
+}
+
+.paperContent {
+  width: 100%;
+  text-align: center;
+  padding: var(--space-8) var(--space-6) var(--space-6);
+  position: relative;
+  z-index: 1;
+  overflow-y: auto;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.paperTitle {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  color: var(--color-secondary);
+  margin-bottom: var(--space-4);
+  font-family: "Irish Grover", cursive;
+  position: relative;
+  z-index: 3;
+}
+
+.paperText {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  line-height: 1.8;
+  color: var(--color-secondary-dark);
+  font-weight: 500;
+  margin: 0;
+  font-size: var(--fs-md);
+  white-space: pre-line;
+}
+
+/* ===== Members Grid Layout ===== */
+.membersGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-8) var(--space-6);
+  justify-items: center;
+  justify-content: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--space-4);
+}
+
+.memberCard {
+  width: 100%;
+  max-width: 380px;
+  margin: 0 auto;
+}
+
+/* ===== Flip Card Logic ===== */
+.flipCard {
+  width: 100%;
+  aspect-ratio: 2/3;
+  perspective: 1200px;
+  cursor: pointer;
+  position: relative;
+}
+
+.flipInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-style: preserve-3d;
+  border-radius: var(--radius-lg);
+}
+
+.flipCard.isFlipped .flipInner {
+  transform: rotateY(180deg);
+}
+
+.flipCard:hover .flipInner {
+  transform: rotateY(0deg);
+  animation: none;
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+}
+
+.flipCard[data-aos="flip"].aos-animate .flipInner {
+  animation: flip 1s ease-in-out forwards !important;
+  transition: none !important;
+}
+
+.flipSide {
+  position: absolute;
+  width: 100%;
+  height: auto;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.flipSide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* FlipBack - Dark Navy Background with Gold Border */
+.flipBack {
+  background: linear-gradient(180deg, #1a1a2e 0%, #0f1929 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  transform: rotateY(180deg);
+  border: 4px solid var(--color-parchment);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.4),
+    0 0 80px rgba(224, 192, 143, 0.2),
+    inset 0 0 60px rgba(224, 192, 143, 0.05);
+}
+
+/* Card Header - Red Banner with Title */
+.flipBack::before {
+  content: attr(data-title);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 85px;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Irish Grover', cursive;
+  font-size: var(--fs-xl);
+  font-weight: 900;
+  color: var(--color-parchment);
+  text-shadow:
+    0 0 30px rgba(224, 192, 143, 1),
+    0 3px 8px rgba(0, 0, 0, 0.8);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
+  box-shadow: 0 8px 30px rgba(197, 37, 37, 0.6);
+  z-index: 1;
+}
+
+/* Decorative Stars in Corners */
+.flipBack::after {
+  content: '✦';
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  font-size: 2rem;
+  color: var(--color-parchment);
+  text-shadow: 0 0 25px var(--color-parchment);
+  animation: star 3s ease-in-out infinite;
+  z-index: 10;
+}
+
+/* Top Left Star */
+.flipBack .backCard::before {
+  content: '✦';
+  position: absolute;
+  top: 100px;
+  left: 20px;
+  font-size: 2rem;
+  color: var(--color-parchment);
+  text-shadow: 0 0 25px var(--color-parchment);
+  animation: star 3s ease-in-out infinite;
+  animation-delay: 1.5s;
+  z-index: 10;
+}
+
+@keyframes star {
+
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(1) rotate(0deg);
+  }
+
+  50% {
+    opacity: 0.8;
+    transform: scale(1.2) rotate(180deg);
+  }
+}
+
+/* BackCard Container */
+.flipBack .backCard {
+  background: transparent;
+  border-radius: 0;
+  position: relative;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 110px var(--space-6) var(--space-6);
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: center;
+}
+
+/* Photo Frame - Gradient Border */
+.flipBack .memberImageContainer {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: 240px;
+  aspect-ratio: 2/3;
+  border-radius: 25px;
+  padding: 6px;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  box-shadow:
+    0 15px 50px rgba(0, 0, 0, 0.5),
+    0 0 80px rgba(224, 192, 143, 0.3),
+    inset 0 0 40px rgba(224, 192, 143, 0.15);
+  flex-shrink: 0;
+  margin-bottom: 0.5rem;
+}
+
+/* Outer Gold Border for Photo Frame */
+.flipBack .memberImageContainer::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  right: -12px;
+  bottom: -12px;
+  border: 3px solid var(--color-parchment);
+  border-radius: 30px;
+  opacity: 0.6;
+  box-shadow: 0 0 30px rgba(224, 192, 143, 0.4);
+}
+
+/* Inner Photo Container */
+.flipBack .memberImageContainer::after {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  background: linear-gradient(135deg, var(--color-secondary), var(--color-secondary-lighter));
+  border-radius: 20px;
+  z-index: -1;
+}
+
+/* Member Image */
+.flipBack .memberImage {
+  width: 100%;
+  height: 100%;
+  margin-top: 10px;
+  border-radius: 20px;
+  object-fit: cover;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+
+/* Member Name with Decorative Line */
+.flipBack .memberName {
+  text-align: center;
+  padding: 0;
+  background: transparent;
+  border: none;
+  min-width: unset;
+  box-shadow: none;
+  position: relative;
+  width: 100%;
+}
+
+.flipBack .memberName h3,
+.flipBack .memberName h5 {
+  font-family: 'Irish Grover', cursive;
+  font-size: var(--fs-lg);
+  color: var(--color-parchment);
+  text-shadow:
+    2px 2px 4px rgba(0, 0, 0, 0.5),
+    0 0 10px rgba(224, 192, 143, 0.5);
+  margin: 0;
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+
+/* Decorative Line Under Name */
+.flipBack .memberName::before,
+.flipBack .memberName::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  width: 35%;
+  height: 2px;
+  background: var(--color-parchment);
+  box-shadow: 0 0 10px var(--color-parchment);
+}
+
+.flipBack .memberName::before {
+  left: 10%;
+}
+
+.flipBack .memberName::after {
+  right: 10%;
+}
+
+/* Center Star Decoration */
+.flipBack .memberName::after {
+  content: '✦';
+  position: absolute;
+  bottom: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  height: auto;
+  background: none;
+  box-shadow: none;
+  font-size: 20px;
+  color: var(--color-parchment);
+  text-shadow: 0 0 15px var(--color-parchment);
+}
+
+/* Bottom Right Star Group */
+.flipBack .backCard::after {
+  content: '✦ ✦';
+  position: absolute;
+  bottom: 15px;
+  right: 20px;
+  font-size: 18px;
+  color: var(--color-parchment);
+  opacity: 0.7;
+  letter-spacing: 8px;
+}
+
+/* Member Title/Workshop Badge */
+.memberTitle {
+  text-align: center;
+  padding: var(--space-1) var(--space-4);
+  background: rgba(171, 32, 32, 0.3);
+  backdrop-filter: blur(5px);
+  border-radius: 15px;
+  border: 1px solid rgba(224, 192, 143, 0.3);
+}
+
+.memberTitle p {
+  font-family: 'Irish Grover', cursive;
+  font-size: var(--fs-sm);
+  color: #f4e4b1;
+  margin: 0;
+  letter-spacing: 0.5px;
+  text-transform: capitalize;
+  transition: all 0.8s ease-in-out;
+}
+
+a.memberCardLink {
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  height: 100%;
+  color: inherit;
+}
+
+a.memberCardLink:hover {
+  text-decoration: none;
+}
+
+.sm-card,
+.smCard {
+  width: 100%;
+  max-width: 380px;
+  aspect-ratio: 2/3;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.sm-card:hover,
+.smCard:hover {
+  transform: translateY(-5px);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 900px) {
+  .headLayout {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+    justify-items: center;
+  }
+
+  .headCard {
+    max-width: 340px;
+  }
+
+  .paperScroll {
+    max-width: 600px;
+  }
+}
+
+@media (max-width: 768px) {
+  .sectionBlock {
+    padding: var(--space-6) 0;
+  }
+
+  .mainTitle {
+    font-size: var(--fs-3xl);
+  }
+
+  .headCard {
+    max-width: 100%;
+    width: 360px;
+  }
+
+  .paperScroll {
+    width: 94%;
+    max-width: 600px;
+    min-height: auto;
+  }
+
+  .paperScrollHeader {
+    padding: var(--space-4) var(--space-5);
+  }
+
+  .paperScrollTitle {
+    font-size: var(--fs-xl);
+    letter-spacing: 2px;
+  }
+
+  .paperContent {
+    padding: var(--space-6) var(--space-4) var(--space-5);
+  }
+
+  .paperTitle {
+    font-size: 1.4rem;
+    margin-bottom: var(--space-2);
+  }
+
+  .paperText {
+    font-size: 1.05rem;
+    padding: 0 var(--space-2);
+    text-align: left;
+    line-height: 1.9;
+  }
+
+  .membersGrid {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--space-4);
+    padding: 0 var(--space-4);
+  }
+
+  .flipBack::before {
+    height: 70px;
+    font-size: var(--fs-md);
+  }
+
+  .flipBack .backCard {
+    padding: 90px var(--space-4) var(--space-4);
+  }
+
+  .flipBack .memberImageContainer {
+    width: 100%;
+    max-width: 180px;
+  }
+
+  .flipBack .memberName h3,
+  .flipBack .memberName h5 {
+    font-size: var(--fs-base);
+  }
+}
+
+@media (max-width: 480px) {
+  .membersGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+    padding: 0 var(--space-2);
+    place-items: center;
+  }
+
+  .headLayout {
+    align-items: center;
+    padding: 0 var(--space-2);
+  }
+
+  .headCard,
+  .memberCard {
+    width: 100%;
+    max-width: 340px;
+  }
+
+
+  .flipCard {
+    height: auto;
+    min-height: 500px;
+    aspect-ratio: 2/3;
+  }
+
+  .flipSide {
+    height: 100%;
+  }
+
+  /* ضبط البانر الأحمر */
+  .flipBack::before {
+    height: 70px;
+    font-size: var(--fs-md);
+    letter-spacing: 1px;
+  }
+
+  .flipBack .backCard {
+    padding: 85px var(--space-3) var(--space-4);
+    gap: 0.8rem;
+  }
+
+  .flipBack .memberImageContainer {
+    width: 100%;
+    max-width: 200px;
+  }
+
+  /* تكبير النص */
+  .flipBack .memberName h3,
+  .flipBack .memberName h5 {
+    font-size: var(--fs-base);
+  }
+
+  /* ضبط الـ memberTitle إذا كان موجود */
+  .memberTitle {
+    padding: var(--space-1) var(--space-3);
+  }
+
+  .memberTitle p {
+    font-size: var(--fs-sm);
+  }
+
+  .paperScroll {
+    width: 100%;
+    max-width: 340px;
+  }
+}
+
+/* ===== AUTO FLIP ANIMATION ===== */
+@keyframes flip {
+  from {
+    transform: rotateY(0deg);
+  }
+
+  to {
+    transform: rotateY(180deg);
+  }
+}
+
+[data-aos="flip"].aos-animate .flipInner,
+.flipCard[data-aos="flip"].aos-animate .flipInner {
+  animation: flip 1s ease-in-out forwards !important;
+  transition: none !important;
+  transform-style: preserve-3d;
+}
+
+[data-aos="flip"].aos-animate.card1 .flipInner,
+.flipCard.card1[data-aos="flip"].aos-animate .flipInner {
+  animation-delay: 0.3s !important;
+}
+
+[data-aos="flip"].aos-animate.card2 .flipInner,
+.flipCard.card2[data-aos="flip"].aos-animate .flipInner {
+  animation-delay: 0.6s !important;
+}
+
+[data-aos="flip"].aos-animate.card3 .flipInner,
+.flipCard.card3[data-aos="flip"].aos-animate .flipInner {
+  animation-delay: 0.9s !important;
+}
+
+[data-aos="flip"].aos-animate.card4 .flipInner,
+.flipCard.card4[data-aos="flip"].aos-animate .flipInner {
+  animation-delay: 1.2s !important;
+}

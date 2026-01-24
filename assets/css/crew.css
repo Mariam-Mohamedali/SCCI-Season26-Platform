@@ -1,0 +1,923 @@
+/* ===== Layout & Typography ===== */
+body {
+
+  padding-top: calc(8vh + 3rem);
+}
+
+.sectionBlock {
+  padding: var(--space-8) 0;
+}
+
+.mainTitle {
+  text-align: center;
+  color: var(--color-primary);
+  margin-bottom: var(--space-6);
+}
+
+/* ===== President Grid (Card + Paper) ===== */
+.presidentGrid {
+  display: grid;
+  grid-template-columns: minmax(300px, 1fr) minmax(300px, 1.5fr);
+  gap: var(--space-6);
+  align-items: center;
+  margin-bottom: var(--space-10);
+}
+
+.memberCardLink {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+.presidentGrid .flipCard {
+  max-width: 380px;
+  margin: 0 auto;
+}
+
+/* ===== Job Description Card Styling (Paper-like design) ===== */
+.jobDescriptionCard {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  background: linear-gradient(135deg, #f4e4c1 0%, #e8d5b5 100%);
+  border-radius: var(--radius-xl);
+  border: 2px solid #c8a882;
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+/* Paper texture effect */
+.jobDescriptionCard::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 1px solid rgba(139, 101, 62, 0.2);
+  border-radius: calc(var(--radius-xl) - 4px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Card Header - Red Banner */
+.jobCardHeader {
+  width: 100%;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
+  padding: var(--space-5) var(--space-6);
+  clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
+  box-shadow: 0 8px 30px rgba(197, 37, 37, 0.6);
+  position: relative;
+  z-index: 2;
+}
+
+.jobCardTitle {
+  font-family: 'Irish Grover', cursive;
+  font-size: var(--fs-2xl);
+  font-weight: 900;
+  color: var(--color-parchment);
+  text-shadow:
+    0 0 30px rgba(224, 192, 143, 1),
+    0 3px 8px rgba(0, 0, 0, 0.8);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 0;
+}
+
+/* Card Content */
+.jobCardContent {
+  padding: var(--space-8) var(--space-6) var(--space-6);
+  position: relative;
+  z-index: 1;
+}
+.jobCardContent span{
+  color: var(--color-secondary-dark);
+}
+
+.jobCardContent p {
+  text-transform: none;
+  font-size: var(--fs-md);
+  line-height: 1.8;
+  color: var(--color-secondary-dark);
+  text-align: left;
+  margin: 0;
+  font-weight: 500;
+  white-space: pre-line;
+}
+
+@media (max-width: 992px) {
+  .presidentGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+    margin-bottom: var(--space-10);
+    align-items: center;
+  }
+
+  .presidentGrid .flipCard {
+    max-width: 340px;
+    margin: 0 auto;
+  }
+
+  .jobDescriptionCard {
+    width: 94%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .jobCardTitle {
+    font-size: var(--fs-xl);
+  }
+
+  .jobCardContent p {
+    font-size: var(--fs-sm);
+    line-height: 1.6;
+  }
+
+  .cardsGrid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-6);
+  }
+
+  .boardItem {
+    max-width: 320px;
+  }
+}
+
+/* ===== High Board Grid ===== */
+.cards-grid,
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-8);
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--space-4);
+}
+
+@media (min-width: 992px) {
+
+  .cards-grid,
+  .cardsGrid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    max-width: 1300px;
+    margin-inline: auto;
+    gap: var(--space-10);
+  }
+}
+
+.boardItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  max-width: 360px;
+  margin-inline: auto;
+}
+
+.roleTitle {
+  color: var(--color-secondary);
+  font-size: var(--fs-xl);
+  margin-bottom: var(--space-2);
+  text-align: center;
+}
+
+/* ===== Buttons Customization ===== */
+.btn-sm,
+.btnSm {
+  padding: var(--space-1) var(--space-4);
+  font-size: var(--fs-xs);
+  min-width: 120px;
+  border-radius: 50px;
+  margin-top: var(--space-2);
+  text-transform: uppercase;
+}
+
+/* ===== Flip Card Logic ===== */
+.flipCard {
+  width: 100%;
+  aspect-ratio: 2/3.2;
+  perspective: 1200px;
+  cursor: pointer;
+  position: relative;
+  border-radius: var(--radius-xl);
+}
+
+.flipInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-style: preserve-3d;
+  border-radius: var(--radius-xl);
+}
+
+.flipCard.isFlipped .flipInner {
+  transform: rotateY(180deg);
+}
+
+.flipCard:hover .flipInner {
+  transform: rotateY(0deg);
+  animation: none;
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+}
+
+.flipCard[data-aos="flip"].aos-animate .flipInner {
+  animation: flip 1s ease-in-out forwards !important;
+  transition: none !important;
+}
+
+.flipSide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+
+.flipSide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.cardOverlayIcon {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: auto;
+  z-index: 2;
+}
+
+/* FlipBack - Dark Navy Background with Gold Border */
+.flipBack {
+  background: linear-gradient(180deg, #1a1a2e 0%, #0f1929 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  transform: rotateY(180deg);
+  border: 4px solid var(--color-parchment);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.4),
+    0 0 80px rgba(224, 192, 143, 0.2),
+    inset 0 0 60px rgba(224, 192, 143, 0.05);
+}
+
+/* Card Header - Red Banner with Title */
+.flipBack::before {
+  content: attr(data-title);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 85px;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Irish Grover', cursive;
+  font-size: var(--fs-xl);
+  font-weight: 900;
+  color: var(--color-parchment);
+  text-shadow:
+    0 0 30px rgba(224, 192, 143, 1),
+    0 3px 8px rgba(0, 0, 0, 0.8);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
+  box-shadow: 0 8px 30px rgba(197, 37, 37, 0.6);
+  z-index: 1;
+}
+
+/* Decorative Stars in Corners */
+.flipBack::after {
+  content: '✦';
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  font-size: 2rem;
+  color: var(--color-parchment);
+  text-shadow: 0 0 25px var(--color-parchment);
+  animation: star 3s ease-in-out infinite;
+  z-index: 10;
+}
+
+/* Top Left Star */
+.flipBack .backCard::before {
+  content: '✦';
+  position: absolute;
+  top: 100px;
+  left: 20px;
+  font-size: 2rem;
+  color: var(--color-parchment);
+  text-shadow: 0 0 25px var(--color-parchment);
+  animation: star 3s ease-in-out infinite;
+  animation-delay: 1.5s;
+  z-index: 10;
+}
+
+@keyframes star {
+
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(1) rotate(0deg);
+  }
+
+  50% {
+    opacity: 0.8;
+    transform: scale(1.2) rotate(180deg);
+  }
+}
+
+/* BackCard Container */
+.flipBack .backCard {
+  background: transparent;
+  border-radius: 0;
+  position: relative;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 110px var(--space-6) var(--space-6);
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: center;
+}
+
+/* Photo Frame - Gradient Border */
+.flipBack .memberImageContainer {
+  position: relative;
+  overflow: hidden;
+  width: 85%;
+  max-width: 240px;
+  aspect-ratio: 2/3;
+  border-radius: 25px;
+  padding: 6px;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  box-shadow:
+    0 15px 50px rgba(0, 0, 0, 0.5),
+    0 0 80px rgba(224, 192, 143, 0.3),
+    inset 0 0 40px rgba(224, 192, 143, 0.15);
+  flex-shrink: 0;
+  margin-bottom: 0.5rem;
+}
+
+/* Outer Gold Border for Photo Frame */
+.flipBack .memberImageContainer::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  right: -12px;
+  bottom: -12px;
+  border: 3px solid var(--color-parchment);
+  border-radius: 30px;
+  opacity: 0.6;
+  box-shadow: 0 0 30px rgba(224, 192, 143, 0.4);
+}
+
+/* Inner Photo Container */
+.flipBack .memberImageContainer::after {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  background: linear-gradient(135deg, var(--color-secondary), var(--color-secondary-lighter));
+  border-radius: 20px;
+  z-index: -1;
+}
+
+/* Member Image */
+.flipBack .memberImage {
+  width: 100%;
+  height: 100%;
+  margin-top: 10px;
+  border-radius: 20px;
+  object-fit: cover;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+
+/* Member Name with Decorative Line */
+.flipBack .memberName {
+  text-align: center;
+  padding: 0;
+  background: transparent;
+  border: none;
+  min-width: unset;
+  box-shadow: none;
+  position: relative;
+  width: 100%;
+}
+
+.flipBack .memberName h3,
+.flipBack .memberName h5 {
+  font-family: 'Irish Grover', cursive;
+  font-size: var(--fs-lg);
+  color: var(--color-parchment);
+  text-shadow:
+    2px 2px 4px rgba(0, 0, 0, 0.5),
+    0 0 10px rgba(224, 192, 143, 0.5);
+  margin: 0;
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+
+/* Decorative Line Under Name */
+.flipBack .memberName::before,
+.flipBack .memberName::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  width: 35%;
+  height: 2px;
+  background: var(--color-parchment);
+  box-shadow: 0 0 10px var(--color-parchment);
+}
+
+.flipBack .memberName::before {
+  left: 10%;
+}
+
+.flipBack .memberName::after {
+  right: 10%;
+}
+
+/* Center Star Decoration */
+.flipBack .memberName::after {
+  content: '✦';
+  position: absolute;
+  bottom: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  height: auto;
+  background: none;
+  box-shadow: none;
+  font-size: 20px;
+  color: var(--color-parchment);
+  text-shadow: 0 0 15px var(--color-parchment);
+}
+
+/* Bottom Right Star Group */
+.flipBack .backCard::after {
+  content: '✦ ✦';
+  position: absolute;
+  bottom: 15px;
+  right: 20px;
+  font-size: 18px;
+  color: var(--color-parchment);
+  opacity: 0.7;
+  letter-spacing: 8px;
+}
+
+/* ===== Side Labels ===== */
+.sideLabel {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-lg);
+  color: var(--color-secondary-lighter);
+  z-index: 5;
+  letter-spacing: 2px;
+}
+
+.sideLabel.left {
+  left: -25px;
+  writing-mode: vertical-rl;
+  transform: translateY(-50%) rotate(180deg);
+}
+
+.sideLabel.right {
+  right: -25px;
+  writing-mode: vertical-rl;
+}
+
+/* ===== Interactive Modal Expansion ===== */
+.page-overlay,
+.pageOverlay {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  z-index: 900;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.page-overlay.active,
+.pageOverlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ===== Modal Container ===== */
+.crew-modal,
+.crewModal {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translate(-50%, 0) scale(0.9);
+  width: 100%;
+  max-width: 100%;
+  max-height: calc(100vh - 100px);
+  overflow: hidden;
+  overflow-y: auto;
+  padding: var(--space-6) var(--space-8);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.crew-modal.active,
+.crewModal.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0) scale(1);
+}
+
+/* ===== Modal Close Button ===== */
+.modalCloseBtn {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  border: 2px solid var(--color-parchment);
+  color: var(--color-white);
+  font-size: 2.5rem;
+  font-weight: bold;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(224, 192, 143, 0.4);
+  font-family: Arial, sans-serif;
+  line-height: 1;
+  padding: 0;
+}
+
+.modalCloseBtn:hover {
+  transform: rotate(90deg) scale(1.1);
+  box-shadow: 0 6px 25px rgba(224, 192, 143, 0.6);
+  background: linear-gradient(135deg, var(--color-secondary), var(--color-primary));
+}
+
+.modalCloseBtn:active {
+  transform: rotate(90deg) scale(0.95);
+}
+
+/* Modal Content Styling */
+.crew-modal .roleTitle,
+.crewModal .roleTitle {
+  color: var(--color-white);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  margin-bottom: var(--space-2);
+  font-size: var(--fs-2xl);
+}
+
+.crew-modal>.modal-content>.flipCard,
+.crewModal>.modalContent>.flipCard {
+  pointer-events: auto;
+  cursor: pointer;
+  margin-bottom: 0;
+  max-width: 320px;
+  max-height: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.crew-modal .sub-crew-grid .flipCard,
+.crewModal .subCrewGrid .flipCard {
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.crew-modal .sub-crew-grid,
+.crewModal .subCrewGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-6);
+  width: 95%;
+  max-width: 1400px;
+  opacity: 1;
+  transform: translateY(0);
+  margin-top: 0;
+  pointer-events: auto;
+  padding: var(--space-6) var(--space-4);
+}
+
+.boardItem .sub-crew-grid,
+.boardItem .subCrewGrid {
+  display: none;
+}
+
+.sub-crew-grid,
+.subCrewGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-3);
+  width: 100%;
+  margin-top: var(--space-4);
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.6s ease;
+}
+
+.subCard {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.subRoleTitle {
+  font-size: var(--fs-md);
+  color: var(--color-white);
+  font-weight: bold;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.headName {
+  font-size: var(--fs-sm);
+  color: var(--color-parchment);
+  font-weight: normal;
+  margin-top: -2px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.sm-card,
+.smCard {
+  width: 100%;
+  aspect-ratio: 2/3;
+  cursor: pointer;
+  transition: transform 0.2s;
+  min-width: 200px;
+}
+
+.sm-card:hover,
+.smCard:hover {
+  transform: translateY(-5px);
+}
+
+/* ===== AUTO FLIP ANIMATION ===== */
+@keyframes flip {
+  from {
+    transform: rotateY(0deg);
+  }
+
+  to {
+    transform: rotateY(180deg);
+  }
+}
+
+[data-aos="flip"].aos-animate .flipInner,
+.flipCard[data-aos="flip"].aos-animate .flipInner,
+.crewModal.active .flipCard .flipInner {
+  animation: flip 1s ease-in-out forwards !important;
+  transition: none !important;
+  transform-style: preserve-3d;
+}
+
+[data-aos="flip"].aos-animate.card1 .flipInner,
+.flipCard.card1[data-aos="flip"].aos-animate .flipInner {
+  animation-delay: 0.3s !important;
+}
+
+[data-aos="flip"].aos-animate.card2 .flipInner,
+.flipCard.card2[data-aos="flip"].aos-animate .flipInner {
+  animation-delay: 0.6s !important;
+}
+
+[data-aos="flip"].aos-animate.card3 .flipInner,
+.flipCard.card3[data-aos="flip"].aos-animate .flipInner {
+  animation-delay: 0.9s !important;
+}
+
+[data-aos="flip"].aos-animate.card4 .flipInner,
+.flipCard.card4[data-aos="flip"].aos-animate .flipInner {
+  animation-delay: 1.2s !important;
+}
+
+/* ===== Mobile Responsive ===== */
+@media (max-width: 768px) {
+
+  .sub-crew-grid,
+  .subCrewGrid,
+  .crew-modal .sub-crew-grid,
+  .crewModal .subCrewGrid {
+    grid-template-columns: repeat(1, 1fr);
+    gap: var(--space-4);
+  }
+
+  .cardsGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+    max-width: 360px;
+    margin: 0 auto;
+  }
+
+  .boardItem {
+    max-width: 100%;
+  }
+
+  .presidentGrid .flipCard {
+    max-width: 280px;
+  }
+
+  .jobDescriptionCard {
+    max-width: 100%;
+  }
+
+  .jobCardHeader {
+    padding: var(--space-4) var(--space-5);
+  }
+
+  .jobCardTitle {
+    font-size: var(--fs-lg);
+    letter-spacing: 2px;
+  }
+
+  .jobCardContent {
+    padding: var(--space-6) var(--space-4) var(--space-5);
+  }
+
+  .jobCardContent p {
+    font-size: var(--fs-sm);
+    line-height: 1.6;
+  }
+}
+
+@media (max-width: 480px) {
+  .presidentGrid .flipCard {
+    max-width: 260px;
+  }
+
+  .cardsGrid {
+    max-width: 300px;
+  }
+
+  .boardItem {
+    max-width: 280px;
+  }
+
+  .jobDescriptionCard {
+    max-width: 100%;
+  }
+
+  .jobCardTitle {
+    font-size: var(--fs-md);
+    letter-spacing: 1px;
+  }
+
+  .jobCardContent p {
+    font-size: var(--fs-xs);
+    line-height: 1.5;
+  }
+}
+
+/* ===== Scroll Indicator Arrow ===== */
+.scroll-indicator {
+  position: fixed;
+  right: 30px;
+  top: 12%;
+  transform: translateY(-12%);
+  z-index: 1001;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.scroll-indicator.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.scroll-arrow {
+  color: var(--color-white);
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 4px 15px rgba(197, 37, 37, 0.4),
+    0 0 20px rgba(197, 37, 37, 0.2);
+  animation: bounceArrow 2s ease-in-out infinite;
+}
+
+.scroll-arrow i {
+  font-size: 1.5rem;
+  color: var(--color-parchment);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.scroll-text {
+  font-family: 'Irish Grover', cursive;
+  font-size: 1.1rem;
+  color: var(--color-parchment);
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.3);
+  padding: 5px 10px;
+  border-radius: 8px;
+  backdrop-filter: blur(4px);
+}
+
+@keyframes bounceArrow {
+
+  0%,
+  100% {
+    transform: translateY(0);
+    box-shadow: 0 4px 15px rgba(197, 37, 37, 0.4);
+  }
+
+  50% {
+    transform: translateY(10px);
+    box-shadow: 0 8px 25px rgba(197, 37, 37, 0.6);
+  }
+}
+
+/* Responsive for scroll indicator */
+@media (max-width: 768px) {
+  .scroll-indicator {
+    right: 15px;
+  }
+
+  .scroll-arrow {
+    width: 40px;
+    height: 40px;
+  }
+
+  .scroll-arrow i {
+    font-size: 1.2rem;
+  }
+
+  .scroll-text {
+    font-size: 0.85rem;
+    padding: 4px 8px;
+  }
+}
+
+/* Left scroll indicator */
+.scroll-indicator-left {
+  left: 30px;
+  right: auto;
+}
+
+.scroll-indicator-right {
+  right: 30px;
+  flex-direction: row-reverse;
+}
+
+@media (max-width: 768px) {
+  .scroll-indicator-left {
+    left: 15px;
+  }
+
+  .scroll-indicator-right {
+    right: 15px;
+  }
+}
