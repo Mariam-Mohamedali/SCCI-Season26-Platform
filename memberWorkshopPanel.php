@@ -792,29 +792,33 @@ if ($workshopSessionId > 0) {
                     <tr>
                       <td class="tableParticipantName"><?php echo htmlspecialchars($participant['user_name']); ?></td>
                       <td>
-                        <form method="POST" class="attendanceForm">
-                          <input type="hidden" name="action" value="mark_attendance">
-                          <input type="hidden" name="participant_id" value="<?php echo $participant['user_id']; ?>">
-                          <input type="hidden" name="tab" value="<?php echo htmlspecialchars($currentTab); ?>">
-                          <input type="hidden" name="session_id" value="<?php echo $selectedSessionId; ?>"></label>
-                          <div class="evaluateTaskRow">
-                            <label class="radioOption">
-                              <input type="radio" name="status" value="present" <?php echo (isset($attMap[$participant['user_id']]) && $attMap[$participant['user_id']] === 'present') ? 'checked' : ''; ?> />
-                              <div class="evaluateAttendanceCircle evaluateCheckTask">
-                                <i class="fa-solid fa-check"></i>
-                              </div>
-                            </label>
+                        <?php if (isset($attMap[$participant['user_id']])): ?>
+                          <span class="text-muted">Attendance Saved</span>
+                        <?php else: ?>
+                          <form method="POST" class="attendanceForm">
+                            <input type="hidden" name="action" value="mark_attendance">
+                            <input type="hidden" name="participant_id" value="<?php echo $participant['user_id']; ?>">
+                            <input type="hidden" name="tab" value="<?php echo htmlspecialchars($currentTab); ?>">
+                            <input type="hidden" name="session_id" value="<?php echo $selectedSessionId; ?>"></label>
+                            <div class="evaluateTaskRow">
+                              <label class="radioOption">
+                                <input type="radio" name="status" value="present" <?php echo (isset($attMap[$participant['user_id']]) && $attMap[$participant['user_id']] === 'present') ? 'checked' : ''; ?> />
+                                <div class="evaluateAttendanceCircle evaluateCheckTask">
+                                  <i class="fa-solid fa-check"></i>
+                                </div>
+                              </label>
 
-                            <label class="radioOption">
-                              <input type="radio" name="status" value="absent" <?php echo (!isset($attMap[$participant['user_id']]) || $attMap[$participant['user_id']] !== 'present') ? 'checked' : ''; ?> />
-                              <div class="evaluateAttendanceCircle evaluateXtask">
-                                <i class="fa-solid fa-x"></i>
-                              </div>
-                            </label>
-                          </div>
-                          <button type="submit" class="btn btn-primary btn-sm attendanceSubmit"
-                            style="display: none;">Save</button>
-                        </form>
+                              <label class="radioOption">
+                                <input type="radio" name="status" value="absent" <?php echo (!isset($attMap[$participant['user_id']]) || $attMap[$participant['user_id']] !== 'present') ? 'checked' : ''; ?> />
+                                <div class="evaluateAttendanceCircle evaluateXtask">
+                                  <i class="fa-solid fa-x"></i>
+                                </div>
+                              </label>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-sm attendanceSubmit"
+                              style="display: none;">Save</button>
+                          </form>
+                        <?php endif; ?>
                       </td>
                       <td>
                         <?php if (!empty($submitMap[$participant['user_id']])): ?>
