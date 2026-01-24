@@ -958,7 +958,7 @@ body.no-scroll {
 .selectInput {
   flex: 1;
   border: 1px solid var(--color-gray-light);
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   padding: 0.8rem 1.2rem;
   font-family: "system-ui", system-ui;
   font-size: var(--fs-base);
@@ -971,8 +971,7 @@ body.no-scroll {
 
 .textInput:focus,
 .selectInput:focus {
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(197, 37, 37, 0.1);
+  border-color: var(--color-secondary);
 }
 
 /* Divider between the two form groups */
