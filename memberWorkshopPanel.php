@@ -830,12 +830,13 @@ if ($workshopSessionId > 0) {
                         <?php
                         $pid = (int) $participant['user_id'];
                         $submissionId = $latestByUser[$pid]['submission_id'] ?? 0;
+                        $hasFeedback = isset($latestByUser[$pid]['rating']);
                         ?>
 
                         <?php if ($submissionId > 0): ?>
                           <button data-popup="feedbackModal" data-submission-id="<?= (int) $submissionId ?>"
-                            class="evaluateFeedback btn-primary" type="button">
-                            Add Feedback
+                            class="evaluateFeedback btn-primary" type="button" <?php echo $hasFeedback ? 'disabled' : ''; ?>>
+                            <?php echo $hasFeedback ? 'Feedback Added' : 'Add Feedback'; ?>
                           </button>
                         <?php else: ?>
                           <span class="text-muted">No submission</span>
