@@ -36,6 +36,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 
             if (!in_array($imageExtension, $allowedExtensions)) {
                 $error = "Only Image files (JPG, PNG, GIF, WEBP) are allowed";
+            } elseif ($_FILES['image']['size'] > 1000 * 1024) {
+                // 1000 * 1024 = 1,024,000 bytes = 1000KB
+                $error = "Image size must be less than 1000KB";
             } else {
                 $tempname = $_FILES['image']['tmp_name'];
                 $folder = "../assets/uploadedImages/" . $image;
@@ -236,5 +239,22 @@ Swal.fire({
 <?php } ?>
      <script src="../assets/js/all.min.js"></script>
     <script src="../assets/js/registerParticipant.js?v=<?php echo time(); ?>"></script>
+    <script>
+        // Client-side image size validation
+        document.getElementById('image').addEventListener('change', function() {
+            const file = this.files[0];
+            const maxSize = 1000 * 1024; // 1000KB
+            const errorText = document.getElementById('error-image');
+            
+            if (file && file.size > maxSize) {
+                errorText.textContent = "Image size must be less than 1000KB";
+                errorText.style.display = "block";
+                this.value = ""; // Clear input
+            } else {
+                errorText.textContent = "";
+                errorText.style.display = "none";
+            }
+        });
+    </script>
 </body>
 </html>
