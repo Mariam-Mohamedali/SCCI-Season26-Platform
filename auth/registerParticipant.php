@@ -36,9 +36,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 
             if (!in_array($imageExtension, $allowedExtensions)) {
                 $error = "Only Image files (JPG, PNG, GIF, WEBP) are allowed";
-            } elseif ($_FILES['image']['size'] > 1000 * 1024) {
-                // 1000 * 1024 = 1,024,000 bytes = 1000KB
-                $error = "Image size must be less than 1000KB";
+            } elseif ($_FILES['image']['size'] > 1 * 1024 * 1024) {
+                // 1 * 1024 * 1024 = 1,048,576 bytes = 1MB
+                $error = "Image size must be less than 1MB";
             } else {
                 $tempname = $_FILES['image']['tmp_name'];
                 $folder = "../assets/uploadedImages/" . $image;
@@ -255,16 +255,36 @@ Swal.fire({
         // Client-side image size validation
         document.getElementById('image').addEventListener('change', function() {
             const file = this.files[0];
-            const maxSize = 1000 * 1024; // 1000KB
-            const errorText = document.getElementById('error-image');
-            
+            const maxSize = 1 * 1024 * 1024; // 1MB
+
             if (file && file.size > maxSize) {
-                errorText.textContent = "Image size must be less than 1000KB";
-                errorText.style.display = "block";
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops!',
+                    text: 'Image size must be less than 1MB',
+                    confirmButtonText: 'Try Again',
+                    customClass: {
+                        popup: 'swal-custom-popup',
+                        title: 'swal-custom-title',
+                        htmlContainer: 'swal-custom-text',
+                        confirmButton: 'swal-custom-button'
+                    },
+                    background: 'linear-gradient(to bottom, #fffdf5, #ffe4b5)',
+                    backdrop: 'rgba(0,0,0,0.7)',
+                    showClass: {
+                        popup: 'animate__animated animate__fadeInDown'
+                    },
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp'
+                    },
+                    didOpen: () => {
+                        document.body.classList.add('no-scroll');
+                    },
+                    willClose: () => {
+                        document.body.classList.remove('no-scroll');
+                    }
+                });
                 this.value = ""; // Clear input
-            } else {
-                errorText.textContent = "";
-                errorText.style.display = "none";
             }
         });
     </script>
