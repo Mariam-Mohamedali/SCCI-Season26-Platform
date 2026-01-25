@@ -25,8 +25,8 @@ if (session_status() === PHP_SESSION_NONE) {
 $localhost = "localhost";
 $username = "root";
 $password = "";
-$database = "scci_26";
-// $database = "SCCI";
+// $database = "scci_26";
+$database = "SCCI";
 
 
 
