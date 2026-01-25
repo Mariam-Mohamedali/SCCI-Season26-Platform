@@ -1342,19 +1342,6 @@ if ($workshopSessionId > 0) {
             <p class="gameSubtitle">Cast your quiz, spark curiosity!</p>
           </div>
 
-          <!-- Game Info Cards -->
-          <!-- <div class="gameInfoGrid">
-                  <div class="gameInfoCard rewardCard">
-                      <div class="infoIcon">
-                          <i class="fas fa-gem"></i>
-                      </div>
-                      <div class="infoContent">
-                          <span class="infoLabel">Reward Points</span>
-                          <span class="infoValue">100 Points</span>
-                      </div>
-                  </div>
-              </div> -->
-
           <!-- Motivational Message -->
           <div class="motivationalBox">
             <i class="fas fa-bullseye"></i>
@@ -1475,11 +1462,8 @@ if ($workshopSessionId > 0) {
     unset($_SESSION['err']); ?>
   </script>
   <script src="assets/js/all.min.js" defer></script>
-  <!-- <script src="assets/js/messages.js" defer></script> -->
-  <!-- Quill JS -->
-  <!-- <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script> -->
+  <script src="assets/js/pagination.js" defer></script>
   <script src="assets/js/memberWorkshopPanel.js" defer></script>
-
   <!-- delete confirmation popup -->
   <div class="deleteConfirmPopup" id="deleteConfirmPopup">
     <div class="confirmCard">

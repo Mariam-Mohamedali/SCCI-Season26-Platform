@@ -114,49 +114,51 @@ main {
     animation-delay: 1s;
 }
 
-/* Rotations */
-.paperWrapper:nth-child(1) {
-    transform: rotate(-3deg) translateY(5px);
-}
+/* Rotations - Desktop Only */
+@media (min-width: 769px) {
+    .paperWrapper:nth-child(1) {
+        transform: rotate(-3deg) translateY(5px);
+    }
 
-.paperWrapper:nth-child(2) {
-    transform: rotate(2deg) translateY(-8px);
-}
+    .paperWrapper:nth-child(2) {
+        transform: rotate(2deg) translateY(-8px);
+    }
 
-.paperWrapper:nth-child(3) {
-    transform: rotate(-4deg) translateY(2px);
-}
+    .paperWrapper:nth-child(3) {
+        transform: rotate(-4deg) translateY(2px);
+    }
 
-.paperWrapper:nth-child(4) {
-    transform: rotate(3deg) translateY(-5px);
-}
+    .paperWrapper:nth-child(4) {
+        transform: rotate(3deg) translateY(-5px);
+    }
 
-.paperWrapper:nth-child(5) {
-    transform: rotate(-2deg) translateY(6px);
-}
+    .paperWrapper:nth-child(5) {
+        transform: rotate(-2deg) translateY(6px);
+    }
 
-.bottomRow .paperWrapper:nth-child(1) {
-    transform: rotate(4deg) translateY(-3px);
-}
+    .bottomRow .paperWrapper:nth-child(1) {
+        transform: rotate(4deg) translateY(-3px);
+    }
 
-.bottomRow .paperWrapper:nth-child(2) {
-    transform: rotate(-5deg) translateY(7px);
-}
+    .bottomRow .paperWrapper:nth-child(2) {
+        transform: rotate(-5deg) translateY(7px);
+    }
 
-.bottomRow .paperWrapper:nth-child(3) {
-    transform: rotate(2deg) translateY(-2px);
-}
+    .bottomRow .paperWrapper:nth-child(3) {
+        transform: rotate(2deg) translateY(-2px);
+    }
 
-.bottomRow .paperWrapper:nth-child(4) {
-    transform: rotate(-3deg) translateY(5px);
-}
+    .bottomRow .paperWrapper:nth-child(4) {
+        transform: rotate(-3deg) translateY(5px);
+    }
 
-.bottomRow .paperWrapper:nth-child(5) {
-    transform: rotate(3deg) translateY(-4px);
-}
+    .bottomRow .paperWrapper:nth-child(5) {
+        transform: rotate(3deg) translateY(-4px);
+    }
 
-.bottomRow .paperWrapper:nth-child(6) {
-    transform: rotate(-2deg) translateY(6px);
+    .bottomRow .paperWrapper:nth-child(6) {
+        transform: rotate(-2deg) translateY(6px);
+    }
 }
 
 .paper p {
@@ -649,13 +651,32 @@ footer {
 
 @media (max-width: 768px) {
     .paperContainer {
-        gap: 15px;
+        gap: 10px;
         padding-top: 20px;
         width: 95%;
     }
 
     .paperRow {
-        gap: 15px;
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    /* Reset all rotations and transforms */
+    .paperWrapper,
+    .paperWrapper:nth-child(1),
+    .paperWrapper:nth-child(2),
+    .paperWrapper:nth-child(3),
+    .paperWrapper:nth-child(4),
+    .paperWrapper:nth-child(5),
+    .bottomRow .paperWrapper:nth-child(1),
+    .bottomRow .paperWrapper:nth-child(2),
+    .bottomRow .paperWrapper:nth-child(3),
+    .bottomRow .paperWrapper:nth-child(4),
+    .bottomRow .paperWrapper:nth-child(5),
+    .bottomRow .paperWrapper:nth-child(6) {
+        transform: none !important;
+        margin: 0 !important;
     }
 
     .eventsTitle {
@@ -663,13 +684,14 @@ footer {
     }
 
     .paper {
-        width: 100px;
-        height: 70px;
+        width: 70px;
+        height: 55px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
 
     .paper p {
-        font-size: 10px;
-        padding: 5px 10px;
+        font-size: 8px;
+        padding: 3px 5px;
     }
 
     .bookContainer {
@@ -770,20 +792,85 @@ footer {
 
     .paperRow {
         gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    /* Reset all rotations and transforms */
+    .paperWrapper,
+    .paperWrapper:nth-child(1),
+    .paperWrapper:nth-child(2),
+    .paperWrapper:nth-child(3),
+    .paperWrapper:nth-child(4),
+    .paperWrapper:nth-child(5),
+    .bottomRow .paperWrapper:nth-child(1),
+    .bottomRow .paperWrapper:nth-child(2),
+    .bottomRow .paperWrapper:nth-child(3),
+    .bottomRow .paperWrapper:nth-child(4),
+    .bottomRow .paperWrapper:nth-child(5),
+    .bottomRow .paperWrapper:nth-child(6) {
+        transform: none !important;
+        margin: 0 !important;
     }
 
     .paper {
-        width: 90px;
-        height: 65px;
+        width: 65px;
+        height: 50px;
     }
 
     .paper p {
-        font-size: 10px;
-        padding: 5px 10px;
+        font-size: 7px;
+        padding: 2px 4px;
     }
 
     .topRow {
         margin-top: 18%;
+    }
+}
+
+/* Extra Small Phones (360px and below) */
+@media (max-width: 360px) {
+    .paperContainer {
+        width: 98%;
+        gap: 6px;
+        padding-top: 20px;
+    }
+
+    .paperRow {
+        gap: 5px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    /* Reset all rotations */
+    .paperWrapper,
+    .paperWrapper:nth-child(1),
+    .paperWrapper:nth-child(2),
+    .paperWrapper:nth-child(3),
+    .paperWrapper:nth-child(4),
+    .paperWrapper:nth-child(5),
+    .bottomRow .paperWrapper:nth-child(1),
+    .bottomRow .paperWrapper:nth-child(2),
+    .bottomRow .paperWrapper:nth-child(3),
+    .bottomRow .paperWrapper:nth-child(4),
+    .bottomRow .paperWrapper:nth-child(5),
+    .bottomRow .paperWrapper:nth-child(6) {
+        transform: none !important;
+        margin: 0 !important;
+    }
+
+    .paper {
+        width: 50px;
+        height: 40px;
+    }
+
+    .paper p {
+        font-size: 6px;
+        padding: 2px 3px;
+    }
+
+    .topRow {
+        margin-top: 5%;
     }
 
     .bookSection {
@@ -794,7 +881,10 @@ footer {
     .bookContainer {
         width: 92vw;
     }
+}
 
+/* Continuing 640px media query */
+@media (max-width: 640px) {
     .pageText {
         font-size: 8px;
         top: 87%;
@@ -1675,7 +1765,7 @@ footer {
 }
 
 /* Extra Small Devices (Below 375px) */
-@media (max-width: 374px) {
+@media (max-width: 360px) {
     .paper {
         width: 68px;
         height: 50px;
