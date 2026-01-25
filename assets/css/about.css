@@ -99,7 +99,7 @@ h1 {
   bottom: -10%;
   display: block;
   object-fit: cover;
-  object-position: 77% 20%;
+  object-position: center top;
   height: 100%;
   width: 100%;
 }
