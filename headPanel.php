@@ -29,7 +29,6 @@ if ((int) $crew['role'] !== 5) { // admin = 5
   die("Access denied");
 }
 
-
 ?>
 
 <!DOCTYPE html>

@@ -329,7 +329,10 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.3) !important;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
     padding: 40px 30px !important;
-    position: relative;
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
     overflow: visible !important;
 }
 
