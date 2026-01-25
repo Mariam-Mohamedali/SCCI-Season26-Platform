@@ -98,7 +98,7 @@ Huge appreciation for the entire team — your collaboration made this project p
 | Name | Role | Link |
 | :--- | :--- | :--- |
 | **Mahmoud Allam** | IT Head | [LinkedIn](https://www.linkedin.com/in/mahmoud-alllam) |
-| **Mahmoud Awad** | Frontend + UI/UX | [Portfolio](https://awadcoding.github.io/awad-card/) |
+| **Mahmoud Awad** | Frontend + UI/UX | [LinkedIn]((https://github.com/AwadCoding)) |
 | **Mariam Mohamed** | Frontend + UI/UX | [LinkedIn](https://www.linkedin.com/in/mariam-mohamed127) |
 | **Yasmin Mohamed** | Frontend + UI/UX | [LinkedIn](https://www.linkedin.com/in/yasmin-mohamed-react) |
 | **Jana Haitham** | Frontend + UI/UX | [LinkedIn](https://www.linkedin.com/in/jana-haitham) |
