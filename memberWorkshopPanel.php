@@ -790,7 +790,7 @@ if ($workshopSessionId > 0) {
                   <?php foreach ($participants as $participant): ?>
 
                     <tr>
-                      <td class="tableParticipantName"><?php echo htmlspecialchars($participant['user_name']); ?></td>
+                      <td class="tableParticipantName"><a href="ViewProfile.php?user_id=<?php echo $participant['user_id']; ?>"><?php echo htmlspecialchars($participant['user_name']); ?></a></td>
                       <td>
                         <?php if (isset($attMap[$participant['user_id']])): ?>
                           <span class="attendance-saved-text">Attendance Saved</span>
@@ -913,7 +913,7 @@ if ($workshopSessionId > 0) {
               Status:</span>
             <div class="filterOptions" style="display: flex; gap: 5px;">
               <button type="button" class="filterBtn active" data-group="task" data-value="all">All</button>
-              <button type="button" class="filterBtn" data-group="task" data-value="accepted">Accepted</button>
+              <button type="button" class="filterBtn" data-group="task" data-value="accepted">Submitted</button>
               <button type="button" class="filterBtn" data-group="task" data-value="pending">Pending</button>
             </div>
           </div>
@@ -960,7 +960,7 @@ if ($workshopSessionId > 0) {
                     ?>
                     <tr class="reviewRow" data-attendance="<?= $st ?>"
                       data-task-status="<?= isset($latestByUser[$pid]) ? 'accepted' : 'pending' ?>">
-                      <td class="tableParticipantName"><?php echo htmlspecialchars($p['user_name']); ?></td>
+                      <td class="tableParticipantName"><a href="ViewProfile.php?user_id=<?php echo $p['user_id']; ?>"><?php echo htmlspecialchars($p['user_name']); ?></a></td>
 
                       <!-- attendance -->
                       <td>
@@ -994,7 +994,7 @@ if ($workshopSessionId > 0) {
                               <div class="reviewAttendedLeft"></div>
                               <i class="fa-solid fa-check reviewAttendedSymbol"></i>
                             </div>
-                            <div>Accepted</div>
+                            <div>Submitted</div>
                           </div>
                         <?php else: ?>
                           <!-- task pending -->
