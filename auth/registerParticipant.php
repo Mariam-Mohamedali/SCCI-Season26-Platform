@@ -40,83 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                 $tempname = $_FILES['image']['tmp_name'];
                 $folder = "../assets/uploadedImages/" . $image;
 
-                // Image Compression Logic
-                $uploadPath = "../assets/uploadedImages/" . $image;
-                $compressed = false;
-
-                // Get original image dimensions and type
-                list($width, $height, $type) = getimagesize($tempname);
-                
-                // Load image based on type
-                $src = null;
-                switch ($type) {
-                    case IMAGETYPE_JPEG:
-                        $src = imagecreatefromjpeg($tempname);
-                        break;
-                    case IMAGETYPE_PNG:
-                        $src = imagecreatefrompng($tempname);
-                        break;
-                    case IMAGETYPE_GIF:
-                        $src = imagecreatefromgif($tempname);
-                        break;
-                    case IMAGETYPE_WEBP:
-                        $src = imagecreatefromwebp($tempname);
-                        break;
-                }
-
-                if ($src) {
-                    // Maximum width/height
-                    $maxDim = 1200;
-                    $newWidth = $width;
-                    $newHeight = $height;
-
-                    if ($width > $maxDim || $height > $maxDim) {
-                        $ratio = $width / $height;
-                        if ($width > $height) {
-                            $newWidth = $maxDim;
-                            $newHeight = $maxDim / $ratio;
-                        } else {
-                            $newHeight = $maxDim;
-                            $newWidth = $maxDim * $ratio;
-                        }
-                    }
-
-                    $dst = imagecreatetruecolor($newWidth, $newHeight);
-
-                    // Preserve transparency for PNG/WEBP
-                    if ($type == IMAGETYPE_PNG || $type == IMAGETYPE_WEBP) {
-                        imagecolortransparent($dst, imagecolorallocatealpha($dst, 0, 0, 0, 127));
-                        imagealphablending($dst, false);
-                        imagesavealpha($dst, true);
-                    }
-
-                    imagecopyresampled($dst, $src, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
-
-                    // Save compressed image (always as original type to keep extension matches, or convert to WebP? detailed kept simple for now)
-                    // Saving as original type with compression
-                    switch ($type) {
-                        case IMAGETYPE_JPEG:
-                            $compressed = imagejpeg($dst, $uploadPath, 75); // 75% quality
-                            break;
-                        case IMAGETYPE_PNG:
-                            $compressed = imagepng($dst, $uploadPath, 6); // Compression level 6 (0-9)
-                            break;
-                        case IMAGETYPE_WEBP:
-                            $compressed = imagewebp($dst, $uploadPath, 75);
-                            break;
-                        default:
-                            // Fallback for GIF or others
-                            $compressed = move_uploaded_file($tempname, $uploadPath);
-                    }
-
-                    imagedestroy($src);
-                    imagedestroy($dst);
-                } else {
-                    // Fallback if gd fails or file type not supported by gd
-                    $compressed = move_uploaded_file($tempname, $uploadPath);
-                }
-
-                if ($compressed) {
+                if (move_uploaded_file($tempname, $folder)) {
 
                 $insert_p = "INSERT INTO `users`
                 (`user_id`,`workshop_id`,`user_name`,`email`,`phone`,
@@ -182,7 +106,7 @@ $run_w = mysqli_query($connect, $select_w);
 <body>
 
 <div class="main-content">
-    <form class="form-content" id="form" method="POST" enctype="multipart/form-data" novalidate>
+    <form class="form-content" id="form" action="" method="POST" enctype="multipart/form-data" novalidate>
 
         <img src="../assets/icons/logoSCCI.png" alt="SCCI Logo" class="register-logo">
         <h1 class="register-title">Register</h1>
