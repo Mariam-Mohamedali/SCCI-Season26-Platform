@@ -81,6 +81,50 @@
   width: 100%;
 }
 
+/* Responsive Adjustments for Mini Navbar */
+@media (max-width: 1024px) {
+  .miniNav {
+    height: 6rem;
+    gap: 5%;
+    margin: 40px auto;
+  }
+
+  .miniNav a {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .miniNav {
+    height: 5rem;
+    gap: 3%;
+    margin: 30px auto;
+    width: 95%;
+  }
+
+  .miniNav a {
+    font-size: 13px;
+  }
+
+  /* Adjust SVG scaling if needed, usually width:100% handles it, 
+     but maybe the distinct parts need tweaks. 
+     For now, font size reduction is key. */
+}
+
+@media (max-width: 480px) {
+  .miniNav {
+    height: 4.5rem;
+    gap: 2%;
+    margin: 20px auto;
+    width: 98%;
+  }
+
+  .miniNav a {
+    font-size: 11px;
+    /* letter-spacing: -0.5px; To fit more text */
+  }
+}
+
 .miniNav a.activePanelLine::after {
   left: 0%;
   width: 100%;

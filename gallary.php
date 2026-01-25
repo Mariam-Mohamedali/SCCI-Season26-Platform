@@ -10,24 +10,19 @@ include './includes/config.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SCCI - Gallery</title>
+    <link rel="icon" href="./assets/icons/logoSCCI.png" type="image/png">
+
     <!-- font  -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap" rel="stylesheet">
-    <link rel="icon" href="./assets/icons/logoSCCI.png" type="image/png">
-    <link rel="preload" href="assets/css/root.css" as="style">
     <link rel="stylesheet" href="assets/css/root.css">
     <link rel="stylesheet" href="assets/css/navbar.css">
+    <link rel="stylesheet" href="assets/css/footer.css">
     <link rel="stylesheet" href="assets/css/gallary.css">
-    <link rel="preload" href="assets/css/footer.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="assets/css/footer.css">
-    </noscript>
-    <link rel="preload" href="https://unpkg.com/aos@2.3.1/dist/aos.css" as="style"
-        onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    </noscript>
+    <!-- AOS library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -93,16 +88,15 @@ include './includes/config.php';
         <section class="bookSection" aria-label="Magic Book Interaction" data-aos="fade-up" data-aos-duration="1000">
             <div class="bookContainer">
                 <img src="assets/img/book_bg.png" data-aos="flip-up" data-aos-duration="1500" data-aos-delay="300"
-                    alt="Magic Book" class="bookBg" loading="eager" fetchpriority="high" decoding="async">
+                    alt="Magic Book" class="bookBg" loading="lazy">
                 <figure class="imageFrame left" data-aos="fade-right" data-aos-duration="1200" data-aos-delay="800">
-                    <img id="bookImageLeft" src="assets/img/opening/book1.jpg" alt="Magic Content Left" loading="eager"
-                        decoding="async" fetchpriority="high">
+                    <img id="bookImageLeft" src="assets/img/opening/book1.jpg" alt="Magic Content Left" loading="lazy">
                     <!-- <div class="comingSoonText">Coming</div> -->
                     <div class="flashOverlay"></div>
                 </figure>
                 <figure class="imageFrame right" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="800">
                     <img id="bookImageRight" src="assets/img/opening/book2.jpg" alt="Magic Content Right"
-                        loading="eager" decoding="async" fetchpriority="high">
+                        loading="lazy">
                     <!-- <div class="comingSoonText">Soon</div> -->
                     <div class="flashOverlay"></div>
                 </figure>
@@ -122,24 +116,24 @@ include './includes/config.php';
                 <div class="cardsWrapper">
                     <article class="sliderCard slot0 level2">
                         <!-- JS هيحط صورة Slider هنا -->
-                        <img class="imgPrimary" id="img0" loading="lazy" decoding="async">
-                        <img class="imgSecondary" decoding="async">
+                        <img class="imgPrimary" id="img0" loading="lazy">
+                        <img class="imgSecondary" loading="lazy">
                     </article>
                     <article class="sliderCard slot1 level1">
-                        <img class="imgPrimary" id="img1" loading="lazy" decoding="async">
-                        <img class="imgSecondary" decoding="async">
+                        <img class="imgPrimary" id="img1" loading="lazy">
+                        <img class="imgSecondary" loading="lazy">
                     </article>
                     <article class="sliderCard slot2 active">
-                        <img class="imgPrimary" id="img2" loading="lazy" decoding="async">
-                        <img class="imgSecondary" decoding="async">
+                        <img class="imgPrimary" id="img2" loading="lazy">
+                        <img class="imgSecondary" loading="lazy">
                     </article>
                     <article class="sliderCard slot3 level1">
-                        <img class="imgPrimary" id="img3" loading="lazy" decoding="async">
-                        <img class="imgSecondary" decoding="async">
+                        <img class="imgPrimary" id="img3" loading="lazy">
+                        <img class="imgSecondary" loading="lazy">
                     </article>
                     <article class="sliderCard slot4 level2">
-                        <img class="imgPrimary" id="img4" loading="lazy" decoding="async">
-                        <img class="imgSecondary" decoding="async">
+                        <img class="imgPrimary" id="img4" loading="lazy">
+                        <img class="imgSecondary" loading="lazy">
                     </article>
                 </div>
                 <button class="sliderBtn next" aria-label="Next Slide"></button>
@@ -170,7 +164,7 @@ include './includes/config.php';
         <!-- ================= Lightbox Modal ================= -->
         <div id="lightboxModal" class="lightboxOverlay" aria-hidden="true">
             <span class="lightboxClose">&times;</span>
-            <img id="lightboxImage" class="lightboxImage" src="" alt="Magnified View">
+            <img id="lightboxImage" class="lightboxImage" src="" alt="Magnified View" loading="lazy">
             <button id="lightboxBackBtn" class="lightboxBack" aria-label="Back to Gallery">&larr;</button>
         </div>
 
@@ -191,7 +185,7 @@ include './includes/config.php';
             anchorPlacement: 'top-bottom'
         });
     </script>
-    <script src="assets/js/gallary.js" defer></script>
+    <script src="assets/js/gallary.js?v=<?php echo time(); ?>" defer></script>
 </body>
 
 </html>

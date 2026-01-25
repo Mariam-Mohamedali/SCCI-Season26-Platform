@@ -216,7 +216,7 @@ CREATE TABLE `users` (
   `committee_id` int(11) DEFAULT NULL,
   `user_name` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `phone` int(11) NOT NULL,
+  `phone` varchar(20) NOT NULL,
   `password` varchar(255) NOT NULL,
   `role` tinyint(4) NOT NULL DEFAULT 1,
   `Image` longtext NOT NULL,
@@ -524,7 +524,9 @@ ALTER TABLE `task_submissions`
 ALTER TABLE `users`
   ADD PRIMARY KEY (`user_id`),
   ADD KEY `committee_id` (`committee_id`),
-  ADD KEY `workshop_id` (`workshop_id`);
+  ADD KEY `workshop_id` (`workshop_id`),
+  ADD UNIQUE KEY `idx_email` (`email`),
+  ADD KEY `idx_role_status` (`role`, `status`);
 
 --
 -- Indexes for table `workshops`

@@ -85,8 +85,8 @@ if (isset($_POST['contact'])) {
             </p>
             <a data-aos="zoom-out" data-aos-duration="2000" href="./about.php" class=" btn btn-primary">EXPLORE MORE</a>
         </div>
-        <img data-aos="zoom-in" data-aos-duration="2000" class="aboutBG" loading="lazy" src="./assets/img/paperHome.png" alt="paperHome">
-        <img data-aos="zoom-in" data-aos-duration="2000" class="aboutBGresponsive" loading="lazy" src="./assets/img/paperHomeResponsive.png" alt="paperHomeResponsive">
+        <img loading="lazy" data-aos="zoom-in" data-aos-duration="2000" class="aboutBG" loading="lazy" src="./assets/img/paperHome.png" alt="paperHome">
+        <img loading="lazy" data-aos="zoom-in" data-aos-duration="2000" class="aboutBGresponsive" loading="lazy" src="./assets/img/paperHomeResponsive.png" alt="paperHomeResponsive">
     </section>
 
 
@@ -103,7 +103,7 @@ if (isset($_POST['contact'])) {
 
                 <div class="cardContent">
                     <div class="card2I">
-                        <img data-aos="fade-up" data-aos-duration="3000" src="./assets/img/home/workShopsLogo.jpg" alt="Workshops Logo" loading="lazy">
+                        <img loading="lazy" data-aos="fade-up" data-aos-duration="3000" src="./assets/img/home/workShopsLogo.jpg" alt="Workshops Logo" loading="lazy">
                     </div>
                     <h4 data-aos="zoom-in" data-aos-duration="3000" class="card-title">OUR WORKSHOPS</h4>
 
@@ -121,7 +121,7 @@ if (isset($_POST['contact'])) {
 
                 <div class="cardContent">
                     <div class="card2I">
-                        <img data-aos="fade-up" data-aos-duration="3000" src="./assets/img/home/crewLogo.png" id="crewLogoImage" alt="Crew Logo" loading="lazy">
+                        <img loading="lazy" data-aos="fade-up" data-aos-duration="3000" src="./assets/img/home/crewLogo.png" id="crewLogoImage" alt="Crew Logo" loading="lazy">
                     </div>
                     <h4 data-aos="zoom-in" data-aos-duration="3000" class="card-title">OUR CREW</h4>
 
@@ -192,7 +192,7 @@ if (isset($_POST['contact'])) {
                         <div class="corner-ornament bottom-right"></div>
 
                         <div class="sponsorCardContent">
-                            <img src="./assets/img/sponser/innovation_area.png" class="sponsorLogo" alt="Innovation Area Logo" loading="lazy">
+                            <img loading="lazy" src="./assets/img/sponser/innovation_area.png" class="sponsorLogo" alt="Innovation Area Logo" loading="lazy">
                             <h4 class="sponsorTitle">INNOVATION AREA</h4>
                         </div>
                     </div>
@@ -207,7 +207,7 @@ if (isset($_POST['contact'])) {
                         <div class="corner-ornament bottom-right"></div>
 
                         <div class="sponsorCardContent">
-                            <img src="./assets/img/sponser/puzzle_station.png" class="sponsorLogo" alt="Puzzle Station Logo" loading="lazy">
+                            <img loading="lazy" src="./assets/img/sponser/puzzle_station.png" class="sponsorLogo" alt="Puzzle Station Logo" loading="lazy">
                             <h4 class="sponsorTitle">PUZZLE STATION</h4>
                         </div>
                     </div>
@@ -222,7 +222,7 @@ if (isset($_POST['contact'])) {
                         <div class="corner-ornament bottom-right"></div>
 
                         <div class="sponsorCardContent">
-                            <img src="./assets/img/sponser/rooh_coworking_space.png" class="sponsorLogo" alt="Rooh Logo" loading="lazy">
+                            <img loading="lazy" src="./assets/img/sponser/rooh_coworking_space.png" class="sponsorLogo" alt="Rooh Logo" loading="lazy">
                             <h4 class="sponsorTitle">ROOH CO-WORKING SPACE</h4>
                         </div>
                     </div>
@@ -237,7 +237,7 @@ if (isset($_POST['contact'])) {
                         <div class="corner-ornament bottom-right"></div>
 
                         <div class="sponsorCardContent">
-                            <img src="./assets/img/sponser/youth_scope.png" class="sponsorLogo" alt="Youth Scope Logo" loading="lazy">
+                            <img loading="lazy" src="./assets/img/sponser/youth_scope.png" class="sponsorLogo" alt="Youth Scope Logo" loading="lazy">
                             <h4 class="sponsorTitle">YOUTH SCOPE</h4>
                         </div>
                     </div>
@@ -252,7 +252,7 @@ if (isset($_POST['contact'])) {
                         <div class="corner-ornament bottom-right"></div>
 
                         <div class="sponsorCardContent">
-                            <img src="./assets/img/sponser/red_bull.png" class="sponsorLogo" alt="Red Bull Logo" loading="lazy">
+                            <img loading="lazy" src="./assets/img/sponser/red_bull.png" class="sponsorLogo" alt="Red Bull Logo" loading="lazy">
                             <h4 class="sponsorTitle">RED BULL</h4>
                         </div>
                     </div>
@@ -269,7 +269,7 @@ if (isset($_POST['contact'])) {
                         <div class="corner-ornament bottom-right"></div>
 
                         <div class="sponsorCardContent">
-                            <img src="./assets/img/sponser/innovation_area.png" class="sponsorLogo" alt="Innovation Area Logo" loading="lazy">
+                            <img loading="lazy" src="./assets/img/sponser/innovation_area.png" class="sponsorLogo" alt="Innovation Area Logo" loading="lazy">
                             <h4 class="sponsorTitle">INNOVATION AREA</h4>
                         </div>
                     </div>
@@ -284,7 +284,7 @@ if (isset($_POST['contact'])) {
                         <div class="corner-ornament bottom-right"></div>
 
                         <div class="sponsorCardContent">
-                            <img src="./assets/img/sponser/puzzle_station.png" class="sponsorLogo" alt="Puzzle Station Logo" loading="lazy">
+                            <img loading="lazy" src="./assets/img/sponser/puzzle_station.png" class="sponsorLogo" alt="Puzzle Station Logo" loading="lazy">
                             <h4 class="sponsorTitle">PUZZLE STATION</h4>
                         </div>
                     </div>
@@ -299,7 +299,7 @@ if (isset($_POST['contact'])) {
                         <div class="corner-ornament bottom-right"></div>
 
                         <div class="sponsorCardContent">
-                            <img src="./assets/img/sponser/rooh_coworking_space.png" class="sponsorLogo" alt="Rooh Logo" loading="lazy">
+                            <img loading="lazy" src="./assets/img/sponser/rooh_coworking_space.png" class="sponsorLogo" alt="Rooh Logo" loading="lazy">
                             <h4 class="sponsorTitle">ROOH CO-WORKING SPACE</h4>
                         </div>
                     </div>
@@ -314,7 +314,7 @@ if (isset($_POST['contact'])) {
                         <div class="corner-ornament bottom-right"></div>
 
                         <div class="sponsorCardContent">
-                            <img src="./assets/img/sponser/youth_scope.png" class="sponsorLogo" alt="Youth Scope Logo" loading="lazy">
+                            <img loading="lazy" src="./assets/img/sponser/youth_scope.png" class="sponsorLogo" alt="Youth Scope Logo" loading="lazy">
                             <h4 class="sponsorTitle">YOUTH SCOPE</h4>
                         </div>
                     </div>
@@ -329,7 +329,7 @@ if (isset($_POST['contact'])) {
                         <div class="corner-ornament bottom-right"></div>
 
                         <div class="sponsorCardContent">
-                            <img src="./assets/img/sponser/red_bull.png" class="sponsorLogo" alt="Red Bull Logo" loading="lazy">
+                            <img loading="lazy" src="./assets/img/sponser/red_bull.png" class="sponsorLogo" alt="Red Bull Logo" loading="lazy">
                             <h4 class="sponsorTitle">RED BULL</h4>
                         </div>
                     </div>
@@ -383,7 +383,7 @@ if (isset($_POST['contact'])) {
 
 
             <form class="form-content card" data-aos="fade-left" id="form" method="POST" enctype="multipart/form-data">
-                <img class="homeBird" loading="lazy" src="./assets/img/home/homeBird.png" alt="Decorative bird">
+                <img loading="lazy" class="homeBird" loading="lazy" src="./assets/img/home/homeBird.png" alt="Decorative bird">
 
                 <?php if (isset($_GET['success'])): ?>
                     <div class="success-message">

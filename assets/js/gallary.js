@@ -80,6 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
             DOM.bookRight.src = data.book.right;
             DOM.bookSection.classList.add("bookVisible");
 
+            // Slider & Cards ← التعديل هنا: نملأ السلايدر والكروت مباشرة عند تغيير event
             state.images = data.slider;
             state.currentIndex = 0;
             updateSlider();
@@ -125,20 +126,20 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Lightbox Double Click
-    DOM.cardsContainer.addEventListener("dblclick", (e) => {
-        const img = e.target.closest("img");
-        if (!img) return;
-
-        DOM.lightboxImg.src = img.src;
+    // Lightbox Double Click
+document.addEventListener("dblclick", (e) => {
+    if (e.target.tagName === "IMG" && e.target.src) {
+        DOM.lightboxImg.src = e.target.src;
         toggleModal(DOM.lightboxModal, true);
-    });
+    }
+});
 
-    // Back button in Lightbox
-    const lightboxBackBtn = document.getElementById("lightboxBackBtn");
-    lightboxBackBtn.addEventListener("click", () => {
-        toggleModal(DOM.lightboxModal, false);
-        DOM.lightboxImg.src = "";
-    });
+// Back button in Lightbox
+const lightboxBackBtn = document.getElementById("lightboxBackBtn");
+lightboxBackBtn.addEventListener("click", () => {
+    toggleModal(DOM.lightboxModal, false);
+    DOM.lightboxImg.src = "";
+});
 
     /* ================= UI UPDATES ================= */
     function updateCards(eventKey) {

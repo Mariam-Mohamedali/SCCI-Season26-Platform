@@ -43,7 +43,7 @@ include './includes/config.php';
         <div class="hero">
             <div class="heroBackground">
                 <picture>
-                    <img src="./assets/img/heroImage.png" alt="Hero Image" loading="lazy">
+                    <img loading="lazy" src="./assets/img/heroImage.png" alt="Hero Image" loading="lazy">
                 </picture>
             </div>
 
@@ -68,35 +68,7 @@ include './includes/config.php';
         </div>
     </section>
 
-    <!-- <section class="aboutSection">
-    <div class="aboutComponents">
 
-        <div class="aboutBackground">
-            <div class="card-container">
-
-                <div class="cardInner">
-
-                    
-                    <div class="aboutContent">
-
-                        <div class="titleWrapper">
-                            <hr>
-                            <h2 class="aboutTitle text-primary">WHO ARE WE?</h2>
-                            <hr>
-                        </div>
-
-                        <p class="text-secondary aboutParagraph">
-                            SCCI is an abbreviation for Student's Conference for Communication and Information,
-                            which helps you in bringing the gap between the technical life and the practical life
-                            in the marketplace. You can know more about SCCI in this page.
-                        </p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</section> -->
 
     <div class="title2Cards" data-aos="fade-up" data-aos-duration="1000">
         <div class="titleWrapper2">
@@ -263,7 +235,7 @@ include './includes/config.php';
                 foreach ($images as $index => $image) {
                     $imageName = basename($image);
                     $altText = "Crew Photo #" . ($index + 1);
-                    echo '<img src="' . htmlspecialchars($image) . '" class="crewCard" alt="' . htmlspecialchars($altText) . '" loading="lazy">' . "\n                ";
+                    echo '<img loading="lazy" src="' . htmlspecialchars($image) . '" class="crewCard" alt="' . htmlspecialchars($altText) . '" loading="lazy">' . "\n                ";
                 }
                 ?>
             </div>

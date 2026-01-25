@@ -1,0 +1,118 @@
+# ----------------------------------------------------------------------
+# Security Enhancements
+# ----------------------------------------------------------------------
+
+# 1. Disable Directory Browsing
+# Prevents visitors from seeing a list of files if an index file is missing.
+Options -Indexes
+
+# 2. Protect Hidden Files (dotfiles)
+# Blocks access to .git, .vscode, .env, etc.
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+
+# 3. Protect Sensitive Configuration Files
+# Prevent direct access to config.php and SQL dumps
+<FilesMatch "^(config\.php|scci_26\.sql|composer\.json|package\.json)">
+   Require all denied 
+</FilesMatch>
+
+# 4. Protect Internal Directories
+# Explicitly block public access to sensitive folders
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^(includes|database|logs)/ - [F,L]
+</IfModule>
+
+# 5. Security Headers
+<IfModule mod_headers.c>
+    # Protect against XSS attacks
+    Header set X-XSS-Protection "1; mode=block"
+    # Prevent MIME-sniffing
+    Header set X-Content-Type-Options "nosniff"
+    # Prevent clickjacking (optional, uncomment if you don't use iframes)
+    # Header set X-Frame-Options "SAMEORIGIN"
+</IfModule>
+
+# ----------------------------------------------------------------------
+# URL Rewriting & HTTPS
+# ----------------------------------------------------------------------
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # 1. Force HTTPS
+    # Redirects all traffic to https://
+    RewriteCond %{HTTPS} !=on
+    RewriteCond %{HTTP:X-Forwarded-Proto} !https
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    
+    # 2. Remove .php Extension
+    # Allows accessing "about" instead of "about.php"
+    
+    # Check if the request is not a directory
+    RewriteCond %{REQUEST_FILENAME} !-d
+    # Check if the request with .php extension exists
+    RewriteCond %{REQUEST_FILENAME}.php -f
+    # Rewrite the URL internally (keep the clean URL in browser)
+    RewriteRule ^([a-z0-9-_]+)/?$ $1.php [L,NC]
+</IfModule>
+
+
+# ----------------------------------------------------------------------
+# Performance
+# ----------------------------------------------------------------------
+
+# Enable Gzip Compression if available
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript application/json
+    AddOutputFilterByType DEFLATE image/svg+xml image/x-icon
+</IfModule>
+
+# Browser Caching (Speed up repeat visits)
+<IfModule mod_expires.c>
+    ExpiresActive On
+    
+    # Images
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
+
+    # CSS, JS
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType text/javascript "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+
+    # Fonts
+    ExpiresByType application/font-woff "access plus 1 year"
+    ExpiresByType application/font-woff2 "access plus 1 year"
+    ExpiresByType application/vnd.ms-fontobject "access plus 1 year"
+    ExpiresByType font/ttf "access plus 1 year"
+    ExpiresByType font/otf "access plus 1 year"
+
+    # HTML (Keep low or 0 to ensure updates are seen)
+    ExpiresByType text/html "access plus 0 seconds"
+</IfModule>
+
+# Cache-Control Headers (For better control)
+<IfModule mod_headers.c>
+    # 1 Month for static assets
+    <FilesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|webp|js|css|swf)$">
+        Header set Cache-Control "max-age=2592000, public"
+    </FilesMatch>
+    
+    # 1 Year for fonts and images that rarely change
+    <FilesMatch "\.(woff|woff2|ttf|svg)$">
+        Header set Cache-Control "max-age=31536000, public"
+    </FilesMatch>
+    
+    # Disable cache for specific scripts if needed
+    <FilesMatch "\.(pl|php|cgi|spl|scgi|fcgi)$">
+        Header unset Cache-Control
+    </FilesMatch>
+</IfModule>

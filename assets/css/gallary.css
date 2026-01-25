@@ -1,12 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap");
 @import url(root.css);
 
-
+body {
+    filter: none;
+}
 
 main {
     width: 100%;
     flex-direction: column;
     align-items: center;
-    flex: 1
+    flex: 1;
 }
 
 .paperContainer {
@@ -17,7 +20,7 @@ main {
     width: 90%;
     margin: 0 auto;
     justify-content: center;
-    padding-top: 50px
+    padding-top: 50px;
 }
 
 .paperRow {
@@ -26,15 +29,15 @@ main {
     gap: 20px;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap
+    flex-wrap: wrap;
 }
 
 .topRow {
-    margin-top: 5%
+    margin-top: 5%;
 }
 
 .paperWrapper {
-    position: relative
+    position: relative;
 }
 
 .paper {
@@ -44,7 +47,9 @@ main {
     background: radial-gradient(circle, #e8dcb5 20%, #d8c090 80%, #b08d55 100%);
     border: 1px solid #8b4513;
     border-radius: 3px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, .3), 0 -4px 6px rgba(0, 0, 0, .3);
+    box-shadow:
+        0 4px 6px rgba(0, 0, 0, 0.3),
+        0 -4px 6px rgba(0, 0, 0, 0.3);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -52,146 +57,185 @@ main {
     opacity: 0;
     transform: scaleX(0);
     transform-origin: center;
-    animation: openPaper .15s forwards ease-out;
+    animation: openPaper 0.15s forwards ease-out;
+    /* Reduced from 0.3s */
     text-decoration: none;
     cursor: pointer;
     color: inherit;
-    will-change: transform, opacity
 }
 
 .paper:hover {
     transform: scale(1.05);
+    transition: transform 0.2s ease;
+}
 
+/* Animation Delays - Reduced steps to 0.1s */
+.paperContainer .paperWrapper:nth-child(1) .paper {
+    animation-delay: 0s;
+}
+
+.paperContainer .paperWrapper:nth-child(2) .paper {
+    animation-delay: 0.1s;
+}
+
+.paperContainer .paperWrapper:nth-child(3) .paper {
+    animation-delay: 0.2s;
+}
+
+.paperContainer .paperWrapper:nth-child(4) .paper {
+    animation-delay: 0.3s;
+}
+
+.paperContainer .paperWrapper:nth-child(5) .paper {
+    animation-delay: 0.4s;
+}
+
+.bottomRow .paperWrapper:nth-child(1) .paper {
+    animation-delay: 0.5s;
+}
+
+.bottomRow .paperWrapper:nth-child(2) .paper {
+    animation-delay: 0.6s;
+}
+
+.bottomRow .paperWrapper:nth-child(3) .paper {
+    animation-delay: 0.7s;
+}
+
+.bottomRow .paperWrapper:nth-child(4) .paper {
+    animation-delay: 0.8s;
+}
+
+.bottomRow .paperWrapper:nth-child(5) .paper {
+    animation-delay: 0.9s;
+}
+
+.bottomRow .paperWrapper:nth-child(6) .paper {
+    animation-delay: 1s;
+}
+
+/* Rotations */
+.paperWrapper:nth-child(1) {
+    transform: rotate(-3deg) translateY(5px);
+}
+
+.paperWrapper:nth-child(2) {
+    transform: rotate(2deg) translateY(-8px);
+}
+
+.paperWrapper:nth-child(3) {
+    transform: rotate(-4deg) translateY(2px);
+}
+
+.paperWrapper:nth-child(4) {
+    transform: rotate(3deg) translateY(-5px);
+}
+
+.paperWrapper:nth-child(5) {
+    transform: rotate(-2deg) translateY(6px);
+}
+
+.bottomRow .paperWrapper:nth-child(1) {
+    transform: rotate(4deg) translateY(-3px);
+}
+
+.bottomRow .paperWrapper:nth-child(2) {
+    transform: rotate(-5deg) translateY(7px);
+}
+
+.bottomRow .paperWrapper:nth-child(3) {
+    transform: rotate(2deg) translateY(-2px);
+}
+
+.bottomRow .paperWrapper:nth-child(4) {
+    transform: rotate(-3deg) translateY(5px);
+}
+
+.bottomRow .paperWrapper:nth-child(5) {
+    transform: rotate(3deg) translateY(-4px);
+}
+
+.bottomRow .paperWrapper:nth-child(6) {
+    transform: rotate(-2deg) translateY(6px);
 }
 
 .paper p {
     font-size: var(--fs-md);
-    font-weight: 700;
+    font-weight: bold;
     color: var(--color-primary-dark);
     margin: 0;
     padding: 15px 25px;
     opacity: 0;
-    animation: fadeInText .2s forwards;
-    animation-delay: inherit
+    animation: fadeInText 0.2s forwards;
+    animation-delay: inherit;
 }
 
-.paperContainer .paperWrapper:nth-child(1) .paper {
-    animation-delay: 0s
+@keyframes openPaper {
+    0% {
+        opacity: 0;
+        transform: scaleX(0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scaleX(1);
+    }
 }
 
-.paperContainer .paperWrapper:nth-child(2) .paper {
-    animation-delay: .1s
+@keyframes fadeInText {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
-.paperContainer .paperWrapper:nth-child(3) .paper {
-    animation-delay: .2s
-}
-
-.paperContainer .paperWrapper:nth-child(4) .paper {
-    animation-delay: .3s
-}
-
-.paperContainer .paperWrapper:nth-child(5) .paper {
-    animation-delay: .4s
-}
-
-.bottomRow .paperWrapper:nth-child(1) .paper {
-    animation-delay: .5s
-}
-
-.bottomRow .paperWrapper:nth-child(2) .paper {
-    animation-delay: .6s
-}
-
-.bottomRow .paperWrapper:nth-child(3) .paper {
-    animation-delay: .7s
-}
-
-.bottomRow .paperWrapper:nth-child(4) .paper {
-    animation-delay: .8s
-}
-
-.bottomRow .paperWrapper:nth-child(5) .paper {
-    animation-delay: .9s
-}
-
-.bottomRow .paperWrapper:nth-child(6) .paper {
-    animation-delay: 1s
-}
-
-.paperWrapper:nth-child(1) {
-    transform: rotate(-3deg) translateY(5px)
-}
-
-.paperWrapper:nth-child(2) {
-    transform: rotate(2deg) translateY(-8px)
-}
-
-.paperWrapper:nth-child(3) {
-    transform: rotate(-4deg) translateY(2px)
-}
-
-.paperWrapper:nth-child(4) {
-    transform: rotate(3deg) translateY(-5px)
-}
-
-.paperWrapper:nth-child(5) {
-    transform: rotate(-2deg) translateY(6px)
-}
-
-.bottomRow .paperWrapper:nth-child(1) {
-    transform: rotate(4deg) translateY(-3px)
-}
-
-.bottomRow .paperWrapper:nth-child(2) {
-    transform: rotate(-5deg) translateY(7px)
-}
-
-.bottomRow .paperWrapper:nth-child(3) {
-    transform: rotate(2deg) translateY(-2px)
-}
-
-.bottomRow .paperWrapper:nth-child(4) {
-    transform: rotate(-3deg) translateY(5px)
-}
-
-.bottomRow .paperWrapper:nth-child(5) {
-    transform: rotate(3deg) translateY(-4px)
-}
-
-.bottomRow .paperWrapper:nth-child(6) {
-    transform: rotate(-2deg) translateY(6px)
-}
-
+/* ================ Book Section ================*/
 .bookSection {
     margin-top: 100px;
     display: flex;
     justify-content: center;
     padding-bottom: 50px;
     opacity: 0;
+    /* Hidden by default */
     pointer-events: none;
-    transition: opacity 1s ease-out, transform 1s ease-out;
+    transition:
+        opacity 1s ease-out,
+        transform 1s ease-out;
     transform: translateY(20px);
-    will-change: opacity, transform
 }
 
 .bookSection.bookVisible {
     opacity: 1;
     pointer-events: auto;
-    transform: translateY(0)
+    transform: translateY(0);
+}
+
+@keyframes fadeInBook {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .bookContainer {
     position: relative;
     width: 65vw;
-    max-width: 1400px
+    max-width: 1400px;
 }
 
 .bookBg {
     width: 100%;
     display: block;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, .4);
-    border-radius: 5px
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+    border-radius: 5px;
 }
 
 .imageFrame {
@@ -200,17 +244,18 @@ main {
     width: 35%;
     height: 70%;
     overflow: hidden;
-    transform: rotate(0);
-    margin: 0
+    transform: rotate(0deg);
+    margin: 0;
+    /* Reset default figure margin */
+}
+
+.imageFrame.right {
+    left: 58%;
 }
 
 .imageFrame.left {
     left: 12%;
-    width: 33%
-}
-
-.imageFrame.right {
-    left: 58%
+    width: 33%;
 }
 
 #bookImageLeft,
@@ -218,7 +263,7 @@ main {
     width: 93%;
     height: 99%;
     object-fit: cover;
-    border-radius: 3%
+    border-radius: 3%;
 }
 
 .flashOverlay {
@@ -227,16 +272,64 @@ main {
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle, #fff 0%, rgba(255, 215, 0, .6) 40%, rgba(255, 255, 255, 0) 70%);
+    background: radial-gradient(circle,
+            rgba(255, 255, 255, 1) 0%,
+            rgba(255, 215, 0, 0.6) 40%,
+            rgba(255, 255, 255, 0) 70%);
     opacity: 0;
     pointer-events: none;
-    mix-blend-mode: hard-light
+    mix-blend-mode: hard-light;
 }
 
 .flashActive {
-    animation: flashGlow .5s ease-out forwards
+    animation: flashGlow 0.5s ease-out forwards;
 }
 
+@keyframes flashGlow {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.5);
+        filter: brightness(2.5);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(1);
+    }
+}
+
+.pageText {
+    position: absolute;
+    top: 90%;
+    /* Adjusted down per user request */
+    width: 30%;
+    /* Slightly narrower to fit well */
+    text-align: center;
+    font-family: var(--font-family);
+    font-size: var(--fs-md);
+    font-weight: bold;
+    color: #000000;
+    pointer-events: none;
+    z-index: 100;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+    /* Glow for visibility */
+}
+
+.pageText.textLeft {
+    left: 12%;
+}
+
+.pageText.textRight {
+    left: 58%;
+    width: 35%;
+}
+
+/* ================ Slider Section================ */
 .eventsSection {
     width: 100%;
     display: flex;
@@ -247,12 +340,13 @@ main {
     opacity: 0;
     pointer-events: none;
     margin-top: 90px;
-    transition: opacity 1.5s ease
+    /* Added spacing to show text defined at top: 150% */
+    transition: opacity 1.5s ease;
 }
 
 .eventsSection.eventsVisible {
     opacity: 1;
-    pointer-events: auto
+    pointer-events: auto;
 }
 
 .eventsHeader {
@@ -261,7 +355,7 @@ main {
     justify-content: center;
     width: 80%;
     margin-bottom: 40px;
-    gap: 20px
+    gap: 20px;
 }
 
 .eventsTitle {
@@ -269,12 +363,13 @@ main {
     color: var(--color-primary);
     font-size: 64px;
     margin-bottom: 0;
+    /* Removed bottom margin as header handles spacing */
     text-transform: none;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, .1);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     white-space: nowrap;
     display: flex;
     align-items: center;
-    gap: 20px
+    gap: 20px;
 }
 
 .eventsTitle::before,
@@ -286,21 +381,21 @@ main {
     background-color: var(--body-bg);
     transform: rotate(45deg);
     flex-shrink: 0;
-    box-shadow: 0 0 8px rgba(197, 37, 37, .4)
+    box-shadow: 0 0 8px rgba(197, 37, 37, 0.4);
 }
 
 .dividerLine {
     flex-grow: 1;
     height: 2px;
-    border-radius: 2px
+    border-radius: 2px;
 }
 
 .dividerLine.left {
-    background: linear-gradient(90deg, transparent, var(--color-primary))
+    background: linear-gradient(90deg, transparent, var(--color-primary));
 }
 
 .dividerLine.right {
-    background: linear-gradient(90deg, var(--color-primary), transparent)
+    background: linear-gradient(90deg, var(--color-primary), transparent);
 }
 
 .sliderContainer {
@@ -311,7 +406,7 @@ main {
     width: 100%;
     max-width: none;
     position: relative;
-    padding: 0
+    padding: 0;
 }
 
 .cardsWrapper {
@@ -321,7 +416,7 @@ main {
     gap: 20px;
     width: auto;
     max-width: 100%;
-    padding: 50px 0
+    padding: 50px 0;
 }
 
 .sliderCard {
@@ -329,19 +424,23 @@ main {
     height: 400px;
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, .3);
-    transform: scale(.85);
-    background: rgba(255, 255, 255, .1);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    transform: scale(0.85);
+    background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, .15);
-    cursor: zoom-in;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    cursor: pointer;
     flex-shrink: 0;
     opacity: 1;
     position: relative;
-    filter: brightness(.8);
-    transition: width .6s cubic-bezier(.4, 0, .2, 1), transform .6s cubic-bezier(.4, 0, .2, 1), filter .6s ease, box-shadow .6s ease;
-    will-change: width, transform
+    filter: brightness(0.8);
+    cursor: zoom-in;
+    transition:
+        width 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+        filter 0.6s ease,
+        box-shadow 0.6s ease;
 }
 
 .sliderCard img {
@@ -352,13 +451,15 @@ main {
     height: 100%;
     object-fit: cover;
     object-position: center;
-    transition: transform .6s cubic-bezier(.4, 0, .2, 1), opacity .6s cubic-bezier(.4, 0, .2, 1)
+    transition:
+        transform 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .imgPrimary {
     z-index: 2;
     transform: translateX(0);
-    opacity: 1
+    opacity: 1;
 }
 
 .imgSecondary {
@@ -366,30 +467,31 @@ main {
     transform: translateX(100%);
     opacity: 0;
     display: block;
-    pointer-events: none
+    /* Always block but transparent when not in use */
+    pointer-events: none;
 }
 
 .sliderCard.active {
     width: 400px;
     transform: scale(1);
     z-index: 10;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, .5);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
     opacity: 1;
-    filter: brightness(1)
+    filter: brightness(1);
 }
 
 .sliderCard.level1 {
     width: 180px;
-    transform: scale(.92);
+    transform: scale(0.92);
     z-index: 5;
-    filter: brightness(.9)
+    filter: brightness(0.9);
 }
 
 .sliderCard.level2 {
     width: 70px;
-    transform: scale(.85);
+    transform: scale(0.85);
     z-index: 1;
-    filter: brightness(.8)
+    filter: brightness(0.8);
 }
 
 .sliderCard.level3 {
@@ -397,12 +499,11 @@ main {
     pointer-events: none;
     width: 0;
     margin: 0;
-    padding: 0
+    padding: 0;
 }
 
 .sliderCard:hover {
-    transform: scale(1.05);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    filter: brightness(1.1);
 }
 
 .sliderBtn {
@@ -411,50 +512,65 @@ main {
     width: 0;
     height: 0;
     cursor: pointer;
-    transition: transform .2s;
+    transition: transform 0.2s;
     user-select: none;
     padding: 0;
-    border-top: 15px solid transparent;
-    border-bottom: 15px solid transparent;
-    z-index: 50;
-    position: relative
 }
 
 .sliderBtn.prev {
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
     border-right: 25px solid #8b0000;
-    margin-right: 15px
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: none;
+    bottom: auto;
+    z-index: 50;
+    margin-right: 15px;
 }
 
 .sliderBtn.next {
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
     border-left: 25px solid #8b0000;
-    margin-left: 15px
+    position: relative;
+    right: auto;
+    top: auto;
+    transform: none;
+    bottom: auto;
+    z-index: 50;
+    margin-left: 15px;
 }
 
 .sliderBtn:hover {
     transform: scale(1.2);
-    filter: brightness(1.2)
+    filter: brightness(1.2);
 }
 
 .sliderBtn:active {
-    transform: scale(.9)
+    transform: scale(0.9);
 }
 
+/* =======================Polaroid Gallery================= */
 #cardsDivider {
     opacity: 0;
-    transition: opacity 1.5s ease
+    transition: opacity 1.5s ease;
 }
 
 #cardsDivider.visible {
-    opacity: .9
+    opacity: 0.9;
 }
 
 .polaroidGallery {
     width: 100%;
-    background: none;
+    /* extra space at the bottom instead of negative margin */
+    background: transparent;
     display: flex;
     justify-content: center;
     pointer-events: none;
-
+    position: relative;
+    z-index: 1;
 }
 
 .polaroidContainer {
@@ -467,50 +583,281 @@ main {
     max-width: 1400px;
     padding: 20px;
     pointer-events: auto;
+    position: relative;
+    z-index: 0;
+}
 
+footer {
+    position: relative;
+    z-index: 100;
+    bottom: 40rem;
 }
 
 .polaroidItem {
     position: relative;
     width: 240px;
     height: 300px;
-    background-color: #fff;
-    border: 1px solid #fff;
+    background-color: #ffffff;
+    border: 1px solid #ffffff;
     padding: 8px 8px 45px 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, .3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     border-radius: 2px;
+    transition:
+        transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        box-shadow 0.3s ease,
+        z-index 0s,
+        filter 0.3s ease;
     transform: rotate(calc(var(--rotation) * 2.5));
     cursor: zoom-in;
     flex-shrink: 0;
     z-index: 1;
     margin: 0;
-    filter: opacity(0.7);
+    filter: blur(4px);
     overflow: hidden;
-    transition: transform .4s cubic-bezier(.175, .885, .32, 1.275), box-shadow .3s ease, z-index 0s, filter .3s ease;
-    will-change: transform, filter
+    /* bottom: -250px; */
+    /* <<< add this */
 }
 
 .polaroidItem img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border: 1px solid #eee
+    border: 1px solid #eee;
 }
 
-.polaroidItem:hover {
-    transform: rotate(var(--rotation)) scale(1.05);
-    z-index: 200;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, .5);
-    filter: blur(0)
+@media (min-width: 769px) {
+    .polaroidItem:hover {
+        transform: rotate(var(--rotation)) scale(1.05);
+        z-index: 200;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        transition:
+            transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+            box-shadow 0.3s ease,
+            z-index 0s,
+            filter 0.3s ease;
+        filter: blur(0);
+    }
+
+    footer {
+        width: 100%;
+        margin-top: 0;
+        /* Override auto margin if needed */
+        /* spacing */
+        z-index: 10;
+    }
 }
 
+@media (max-width: 768px) {
+    .paperContainer {
+        gap: 15px;
+        padding-top: 20px;
+        width: 95%;
+    }
+
+    .paperRow {
+        gap: 15px;
+    }
+
+    .eventsTitle {
+        font-size: 30px;
+    }
+
+    .paper {
+        width: 100px;
+        height: 70px;
+    }
+
+    .paper p {
+        font-size: 10px;
+        padding: 5px 10px;
+    }
+
+    .bookContainer {
+        width: 95vw;
+    }
+
+    .bookSection {
+        margin-top: 50px;
+        padding-bottom: 30px;
+    }
+
+    .pageText {
+        font-size: 10px;
+        top: 88%;
+        width: 35%;
+    }
+
+    .eventsSection {
+        margin-top: 50px;
+        padding-bottom: 50px;
+    }
+
+    .eventsHeader {
+        width: 90%;
+        margin-bottom: 20px;
+    }
+
+    .cardsWrapper {
+        gap: 10px;
+        width: 100%;
+        padding: 30px 0;
+    }
+
+    .sliderCard {
+        height: 45vh;
+        transition:
+            width 0.3s ease,
+            transform 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    .sliderCard.slot0,
+    .sliderCard.slot4 {
+        display: none;
+    }
+
+    .sliderCard.slot1,
+    .sliderCard.slot3 {
+        width: 15vw;
+        filter: brightness(0.5);
+        transform: scale(0.9);
+        z-index: 5;
+    }
+
+    .sliderCard.slot2 {
+        width: 65vw;
+        filter: brightness(1);
+        transform: scale(1);
+        z-index: 10;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    }
+
+    .polaroidGallery {
+        padding: 50px 0 100px;
+    }
+
+    .polaroidContainer {
+        flex-wrap: wrap;
+        overflow: visible;
+        justify-content: center;
+        gap: 20px;
+        padding: 40px 10px 100px;
+        height: auto;
+    }
+
+    .polaroidItem {
+        width: 42%;
+        max-width: 180px;
+        height: auto;
+        aspect-ratio: 3/4;
+        margin: 10px 0;
+        filter: none;
+    }
+
+    footer {
+        bottom: 0;
+        margin-top: 0;
+    }
+}
+
+/* Mobile Tablets & Large Phones (481px - 640px) */
+@media (max-width: 640px) {
+    .paperContainer {
+        width: 95%;
+        gap: 12px;
+        padding-top: 25px;
+    }
+
+    .paperRow {
+        gap: 10px;
+    }
+
+    .paper {
+        width: 90px;
+        height: 65px;
+    }
+
+    .paper p {
+        font-size: 10px;
+        padding: 5px 10px;
+    }
+
+    .topRow {
+        margin-top: 18%;
+    }
+
+    .bookSection {
+        margin-top: 50px;
+        padding-bottom: 25px;
+    }
+
+    .bookContainer {
+        width: 92vw;
+    }
+
+    .pageText {
+        font-size: 8px;
+        top: 87%;
+    }
+
+    .eventsTitle {
+        font-size: 28px;
+    }
+
+    .eventsHeader {
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .sliderCard {
+        height: 38vh;
+    }
+
+    .sliderCard.slot0,
+    .sliderCard.slot4 {
+        display: none;
+    }
+
+    .sliderCard.slot1,
+    .sliderCard.slot3 {
+        width: 15vw;
+        filter: brightness(0.5);
+        transform: scale(0.9);
+    }
+
+    .sliderCard.slot2 {
+        width: 62vw;
+    }
+
+    /* Removed redundant sliderBtn overrides */
+
+    .polaroidGallery {
+        padding: 50px 0 100px;
+    }
+
+    .polaroidContainer {
+        gap: 18px;
+        padding: 25px 10px 70px;
+    }
+
+    .polaroidItem {
+        width: 44%;
+        max-width: 160px;
+    }
+
+    .modalTitle {
+        font-size: 2.8rem;
+    }
+}
+
+/* ================= Lightbox Modal ================= */
 .lightboxOverlay {
     position: fixed !important;
     top: 0 !important;
     left: 0 !important;
     width: 100vw !important;
     height: 100vh !important;
-    background: rgba(0, 0, 0, .75);
+    background: rgba(0, 0, 0, 0.75);
     backdrop-filter: blur(10px);
     display: flex;
     flex-direction: column;
@@ -519,16 +866,18 @@ main {
     z-index: 9999 !important;
     opacity: 0;
     visibility: hidden;
-    transition: opacity .3s ease, visibility .3s ease;
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
     cursor: zoom-out;
     margin: 0;
     padding: 0;
-    overflow: auto
+    overflow: auto;
 }
 
 .lightboxOverlay.active {
     opacity: 1 !important;
-    visibility: visible !important
+    visibility: visible !important;
 }
 
 .lightboxImage {
@@ -537,23 +886,50 @@ main {
     width: auto;
     height: auto;
     object-fit: contain;
-    background: none;
+    background: transparent;
     border-radius: 8px;
-    filter: drop-shadow(0 10px 30px rgba(0, 0, 0, .5));
-    transform: scale(.9);
-    transition: transform .3s ease;
+    filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.5));
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
     cursor: zoom-out;
     position: relative;
     z-index: 10000;
-    margin: auto
+    margin: auto;
 }
 
 .lightboxOverlay.active .lightboxImage {
-    transform: scale(1)
+    transform: scale(1);
 }
 
 .lightboxClose {
-    display: none !important
+    display: none !important;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: var(--color-white);
+    font-family: "Irish Grover", cursive;
+    font-size: 2rem;
+    font-weight: normal;
+    cursor: pointer;
+    z-index: 10001 !important;
+    transition: all 0.3s ease;
+    line-height: 1;
+    background: var(--color-primary);
+    border: 3px solid var(--color-white);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.lightboxClose:hover {
+    background: var(--color-primary-dark);
+    transform: scale(1.15) rotate(90deg);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
+    border-color: var(--color-primary);
 }
 
 .lightboxBack {
@@ -563,22 +939,24 @@ main {
     background: var(--color-primary-dark);
     color: var(--color-white);
     cursor: pointer;
-    transition: all .3s ease;
+    transition: all 0.3s ease;
     border-radius: 50%;
     width: 40px;
     height: 40px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, .5);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
     padding-bottom: 5px;
-    border-color: var(--color-primary)
+    border-color: var(--color-primary);
+    /* Adjust for arrow character alignment */
 }
 
+/* ================= Coming Soon Modal ================= */
 .modalOverlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, .7);
+    background: rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(10px);
     display: flex;
     justify-content: center;
@@ -586,33 +964,36 @@ main {
     z-index: 1000;
     opacity: 0;
     visibility: hidden;
-    transition: opacity .3s ease, visibility .3s ease
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
 }
 
 .modalOverlay.active {
     opacity: 1;
-    visibility: visible
+    visibility: visible;
 }
 
 .modalContent {
     background: radial-gradient(circle at top center, #fffdf5 0%, #ffe4b5 100%);
     padding: 50px 40px;
     border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, .5);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, .3);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
     text-align: center;
-    transform: scale(.8);
-    transition: transform .3s cubic-bezier(.34, 1.56, .64, 1);
+    transform: scale(0.8);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     max-width: 90%;
     width: 420px;
     position: relative;
     display: flex;
     flex-direction: column;
-    align-items: center
+    align-items: center;
+    /* overflow: visible; -- Important for stars */
 }
 
 .modalOverlay.active .modalContent {
-    transform: scale(1)
+    transform: scale(1);
 }
 
 .modalTitle {
@@ -622,176 +1003,768 @@ main {
     margin: 0;
     text-transform: uppercase;
     letter-spacing: 3px;
-    text-shadow: none
+    text-shadow: none;
 }
 
+/* Divider Adjustment for Modal */
 .modalContent .sectionDivider {
     margin: 10px auto 20px;
     width: 80%;
-    opacity: .8
+    opacity: 0.8;
 }
 
+/* coming soon modal */
 .modalText {
     font-family: "Irish Grover", cursive;
     color: #8b4513;
     font-size: 15px;
     margin-bottom: 5px;
     text-align: center;
-    opacity: .9
+    opacity: 0.9;
 }
 
 #closeModalBtn {
     background: var(--color-primary-dark);
-    color: #fff
+    color: white;
 }
 
-@keyframes openPaper {
-    0% {
-        opacity: 0;
-        transform: scaleX(0)
-    }
+/* ===============================================
+   RESPONSIVE BREAKPOINTS - iPad & Mobile
+=============================================== */
 
-    100% {
-        opacity: 1;
-        transform: scaleX(1)
-    }
-}
-
-@keyframes fadeInText {
-    0% {
-        opacity: 0
-    }
-
-    100% {
-        opacity: 1
-    }
-}
-
-@keyframes flashGlow {
-    0% {
-        opacity: 0;
-        transform: scale(.8)
-    }
-
-    50% {
-        opacity: 1;
-        transform: scale(1.5);
-        filter: brightness(2.5)
-    }
-
-    100% {
-        opacity: 0;
-        transform: scale(1)
-    }
-}
-
-@media (max-width:1024px) {
+/* iPad Pro 12.9" (1024px - 1366px) */
+@media (min-width: 1024px) and (max-width: 1366px) {
     .paperContainer {
-        width: 88%;
-        gap: 25px;
-        padding-top: 40px
-    }
-
-    .paperRow {
-        gap: 18px
+        width: 85%;
+        gap: 35px;
     }
 
     .paper {
-        width: 120px;
-        height: 85px
+        width: 130px;
+        height: 95px;
     }
 
     .paper p {
-        font-size: 13px;
-        padding: 10px 18px
-    }
-
-    .topRow {
-        margin-top: 8%
+        font-size: 14px;
+        padding: 12px 20px;
     }
 
     .bookContainer {
-        width: 80vw
+        width: 75vw;
     }
 
-    .bookSection {
-        margin-top: 80px;
-        padding-bottom: 40px
-    }
-
-    .eventsSection {
-        margin-top: 70px;
-        padding-bottom: 80px
+    .pageText {
+        font-size: 12px;
     }
 
     .eventsTitle {
-        font-size: 48px
-    }
-
-    .eventsHeader {
-        width: 85%;
-        margin-bottom: 35px;
-        gap: 18px
-    }
-
-    .cardsWrapper {
-        gap: 15px;
-        padding: 40px 0
+        font-size: 52px;
     }
 
     .sliderCard {
-        height: 360px
+        height: 380px;
     }
 
     .sliderCard.active {
-        width: 350px
+        width: 350px;
     }
 
     .sliderCard.level1 {
-        width: 150px
-    }
-
-    .sliderCard.level2 {
-        width: 60px
-    }
-
-    .polaroidGallery {
-        padding: 80px 0 180px
-    }
-
-    .polaroidContainer {
-        gap: 35px;
-        padding: 20px 15px
+        width: 150px;
     }
 
     .polaroidItem {
         width: 220px;
         height: 280px;
+    }
 
+    footer {
+        bottom: 35rem;
     }
 }
 
-@media (max-width: 768px) {
-    .sliderContainer {
-        flex-direction: column;
-        align-items: center;
+/* iPad Pro 11" & iPad Air (820px - 1023px) */
+@media (min-width: 820px) and (max-width: 1023px) {
+    .paperContainer {
+        width: 88%;
+        gap: 25px;
+        padding-top: 40px;
     }
 
-    .sliderBtn.prev,
-    .sliderBtn.next {
-        position: static;
-        margin: 10px 5px 0 5px;
-        width: 40px;
-        height: 40px;
-        border-top: 0;
-        border-bottom: 0;
+    .paperRow {
+        gap: 18px;
+    }
+
+    .paper {
+        width: 120px;
+        height: 85px;
+    }
+
+    .paper p {
+        font-size: 13px;
+        padding: 10px 18px;
+    }
+
+    .topRow {
+        margin-top: 8%;
+    }
+
+    .bookContainer {
+        width: 80vw;
+    }
+
+    .bookSection {
+        margin-top: 80px;
+        padding-bottom: 40px;
+    }
+
+    .pageText {
+        font-size: 11px;
+        top: 89%;
+    }
+
+    .eventsSection {
+        margin-top: 70px;
+        padding-bottom: 80px;
+    }
+
+    .eventsTitle {
+        font-size: 44px;
+    }
+
+    .eventsHeader {
+        width: 85%;
+        margin-bottom: 35px;
+        gap: 18px;
+    }
+
+    .cardsWrapper {
+        gap: 15px;
+        padding: 40px 0;
+    }
+
+    .sliderCard {
+        height: 360px;
+    }
+
+    .sliderCard.active {
+        width: 320px;
+    }
+
+    .sliderCard.level1 {
+        width: 140px;
+    }
+
+    .sliderCard.level2 {
+        width: 60px;
     }
 
     .sliderBtn.prev {
-        border-right: 15px solid #8b0000;
+        position: absolute;
+        left: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        margin: 0;
     }
 
     .sliderBtn.next {
-        border-left: 15px solid #8b0000;
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        margin: 0;
+    }
+
+    /* Removed redundant sliderBtn overrides */
+
+    .polaroidGallery {
+        padding: 80px 0 180px;
+    }
+
+    .polaroidContainer {
+        gap: 35px;
+        padding: 20px 15px;
+    }
+
+    .polaroidItem {
+        width: 200px;
+        height: 260px;
+        filter: blur(3px);
+    }
+
+    footer {
+        bottom: 32rem;
+    }
+}
+
+/* Standard iPad (768px - 819px) */
+@media (min-width: 768px) and (max-width: 819px) {
+    .paperContainer {
+        width: 90%;
+        gap: 20px;
+        padding-top: 35px;
+    }
+
+    .paperRow {
+        gap: 15px;
+    }
+
+    .paper {
+        width: 110px;
+        height: 80px;
+    }
+
+    .paper p {
+        font-size: 12px;
+        padding: 8px 15px;
+    }
+
+    .topRow {
+        margin-top: 10%;
+    }
+
+    .bookContainer {
+        width: 85vw;
+    }
+
+    .bookSection {
+        margin-top: 70px;
+        padding-bottom: 35px;
+    }
+
+    .pageText {
+        font-size: 10px;
+        top: 88%;
+    }
+
+    .eventsSection {
+        margin-top: 60px;
+        padding-bottom: 70px;
+    }
+
+    .eventsTitle {
+        font-size: 38px;
+    }
+
+    .eventsHeader {
+        width: 88%;
+        margin-bottom: 30px;
+        gap: 15px;
+    }
+
+    .cardsWrapper {
+        gap: 12px;
+        padding: 35px 0;
+    }
+
+    .sliderCard {
+        height: 340px;
+    }
+
+    .sliderCard.active {
+        width: 280px;
+    }
+
+    .sliderCard.level1 {
+        width: 120px;
+    }
+
+    .sliderCard.level2 {
+        width: 55px;
+    }
+
+    .sliderBtn.prev {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        margin: 0;
+    }
+
+    .sliderBtn.next {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        margin: 0;
+    }
+
+    /* Removed redundant sliderBtn overrides */
+
+    .polaroidGallery {
+        padding: 70px 0 160px;
+    }
+
+    .polaroidContainer {
+        gap: 30px;
+        padding: 15px 10px;
+    }
+
+    .polaroidItem {
+        width: 180px;
+        height: 240px;
+        filter: blur(3px);
+    }
+
+    .polaroidItem:hover {
+        transform: rotate(var(--rotation)) scale(1.05);
+    }
+
+    footer {
+        bottom: 28rem;
+    }
+}
+
+/* Mobile Landscape & Small Tablets (641px - 767px) */
+@media (max-width: 767px) and (min-width: 641px) {
+    .paperContainer {
+        gap: 18px;
+        padding-top: 30px;
+        width: 92%;
+    }
+
+    .paperRow {
+        gap: 12px;
+    }
+
+    .paper {
+        width: 100px;
+        height: 72px;
+    }
+
+    .paper p {
+        font-size: 11px;
+        padding: 6px 12px;
+    }
+
+    .topRow {
+        margin-top: 12%;
+    }
+
+    .bookContainer {
+        width: 90vw;
+    }
+
+    .bookSection {
+        margin-top: 60px;
+        padding-bottom: 30px;
+    }
+
+    .pageText {
+        font-size: 9px;
+        top: 88%;
+        width: 35%;
+    }
+
+    .eventsSection {
+        margin-top: 50px;
+        padding-bottom: 60px;
+    }
+
+    .eventsTitle {
+        font-size: 32px;
+    }
+
+    .eventsHeader {
+        width: 90%;
+        margin-bottom: 25px;
+        gap: 12px;
+    }
+
+    .cardsWrapper {
+        gap: 10px;
+        padding: 30px 0;
+    }
+
+    .sliderCard {
+        height: 320px;
+    }
+
+    .sliderCard.slot0,
+    .sliderCard.slot4 {
+        display: none;
+    }
+
+    .sliderCard.slot1,
+    .sliderCard.slot3 {
+        width: 18vw;
+        filter: brightness(0.6);
+        transform: scale(0.9);
+    }
+
+    .sliderCard.slot2 {
+        width: 55vw;
+        filter: brightness(1);
+        transform: scale(1);
+    }
+
+    .polaroidGallery {
+        padding: 60px 0 120px;
+    }
+
+    .polaroidContainer {
+        flex-wrap: wrap;
+        gap: 20px;
+        padding: 30px 15px 80px;
+    }
+
+    .polaroidItem {
+        width: 42%;
+        max-width: 170px;
+        height: auto;
+        aspect-ratio: 3/4;
+        margin: 8px 0;
+        filter: none;
+    }
+
+    footer {
+        bottom: 0;
+        margin-top: 0;
+    }
+}
+
+/* Mobile Tablets & Large Phones (481px - 640px) */
+@media (max-width: 640px) {
+    .paperContainer {
+        width: 95%;
+        gap: 12px;
+        padding-top: 25px;
+    }
+
+    .paperRow {
+        gap: 10px;
+    }
+
+    .paper {
+        width: 90px;
+        height: 65px;
+    }
+
+    .paper p {
+        font-size: 10px;
+        padding: 5px 10px;
+    }
+
+    .topRow {
+        margin-top: 18%;
+    }
+
+    .bookSection {
+        margin-top: 50px;
+        padding-bottom: 25px;
+    }
+
+    .bookContainer {
+        width: 92vw;
+    }
+
+    .pageText {
+        font-size: 8px;
+        top: 87%;
+    }
+
+    .eventsTitle {
+        font-size: 28px;
+    }
+
+    .eventsHeader {
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .sliderCard {
+        height: 38vh;
+    }
+
+    .sliderCard.slot0,
+    .sliderCard.slot4 {
+        display: none;
+    }
+
+    .sliderCard.slot1,
+    .sliderCard.slot3 {
+        width: 15vw;
+        filter: brightness(0.5);
+        transform: scale(0.9);
+    }
+
+    .sliderCard.slot2 {
+        width: 62vw;
+    }
+
+    .sliderBtn.prev {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        margin: 0;
+    }
+
+    .sliderBtn.next {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        margin: 0;
+    }
+
+    /* Removed redundant sliderBtn overrides */
+
+    .polaroidGallery {
+        padding: 50px 0 100px;
+    }
+
+    .polaroidContainer {
+        gap: 18px;
+        padding: 25px 10px 70px;
+    }
+
+    .polaroidItem {
+        width: 44%;
+        max-width: 160px;
+    }
+
+    .modalTitle {
+        font-size: 2.8rem;
+    }
+}
+
+/* Standard Mobile (Below 480px) */
+@media (max-width: 480px) {
+    .paperContainer {
+        width: 98%;
+        gap: 10px;
+        padding-top: 20px;
+    }
+
+    .paperRow {
+        gap: 8px;
+    }
+
+    .paper {
+        width: 60px;
+        height: 40px;
+    }
+
+    .paper p {
+        font-size: 7px;
+        padding: 2px 4px;
+    }
+
+    .topRow {
+        margin-top: 22%;
+    }
+
+    .bookSection {
+        margin-top: 40px;
+        padding-bottom: 20px;
+    }
+
+    .bookContainer {
+        width: 95vw;
+    }
+
+    .pageText {
+        font-size: 7px;
+        top: 88%;
+    }
+
+    .eventsSection {
+        margin-top: 40px;
+        padding-bottom: 50px;
+    }
+
+    .eventsTitle {
+        font-size: 24px;
+    }
+
+    .eventsHeader {
+        width: 92%;
+        gap: 8px;
+        margin-bottom: 18px;
+    }
+
+    .eventsTitle::before,
+    .eventsTitle::after {
+        width: 10px;
+        height: 10px;
+    }
+
+    .cardsWrapper {
+        padding: 25px 0;
+    }
+
+    .sliderCard {
+        height: 36vh;
+    }
+
+    .sliderCard.slot0,
+    .sliderCard.slot4 {
+        display: none;
+    }
+
+    .sliderCard.slot1,
+    .sliderCard.slot3 {
+        width: 16vw;
+    }
+
+    .sliderCard.slot2 {
+        width: 68vw;
+    }
+
+    .sliderBtn.prev {
+        position: absolute;
+        left: 5px;
+        top: 50%;
+        transform: translateY(-50%);
+        margin: 0;
+    }
+
+    .sliderBtn.next {
+        position: absolute;
+        right: 5px;
+        top: 50%;
+        transform: translateY(-50%);
+        margin: 0;
+    }
+
+    /* Removed redundant sliderBtn overrides */
+
+
+
+    .polaroidGallery {
+        padding: 40px 0 80px;
+    }
+
+    .polaroidContainer {
+        gap: 15px;
+        padding: 20px 8px 60px;
+    }
+
+    .polaroidItem {
+        width: 46%;
+        max-width: 145px;
+    }
+
+    .modalContent {
+        padding: 35px 25px;
+        width: 88%;
+    }
+
+    .modalTitle {
+        font-size: 2.2rem;
+        letter-spacing: 2px;
+    }
+
+    .modalText {
+        font-size: 13px;
+    }
+
+    .lightboxClose {
+        width: 45px;
+        height: 45px;
+        font-size: 1.6rem;
+        top: 15px;
+        right: 15px;
+    }
+
+    .lightboxImage {
+        max-width: 90vw;
+        max-height: 80vh;
+    }
+}
+
+/* Extra Small Devices (Below 375px) */
+@media (max-width: 374px) {
+    .paper {
+        width: 68px;
+        height: 50px;
+    }
+
+    .paper p {
+        font-size: 8px;
+        padding: 3px 6px;
+    }
+
+    .topRow {
+        margin-top: 25%;
+    }
+
+    .eventsTitle {
+        font-size: 20px;
+    }
+
+    .sliderCard {
+        height: 32vh;
+    }
+
+    .sliderCard.slot2 {
+        width: 72vw;
+    }
+
+    .polaroidItem {
+        width: 48%;
+        max-width: 130px;
+    }
+
+    .modalTitle {
+        font-size: 1.8rem;
+    }
+}
+
+/* ===============================================
+   FOOTER FIX - Remove Gap Under Footer
+=============================================== */
+
+/* Desktop - Footer overlaps polaroid gallery */
+@media (min-width: 769px) {
+    footer {
+        position: relative;
+        bottom: 0;
+        margin-bottom: 0;
+        z-index: 100;
+        width: 100%;
+    }
+
+    .polaroidGallery {
+        padding-bottom: 15rem;
+        margin-bottom: 0;
+    }
+
+    body {
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    main {
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+}
+
+/* Tablet and Mobile - Footer flows normally */
+@media (max-width: 768px) {
+    footer {
+        position: relative;
+        bottom: 0;
+        margin-top: 0;
+        margin-bottom: 0;
+        z-index: 100;
+        width: 100%;
+    }
+
+    .polaroidGallery {
+        padding-bottom: 100px;
+        margin-bottom: 0;
+    }
+
+    body {
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    main {
+        margin-bottom: 0;
+        padding-bottom: 0;
     }
 }

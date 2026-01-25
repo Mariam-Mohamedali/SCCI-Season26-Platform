@@ -91,12 +91,12 @@ if ($result) {
             <div class="flipCard " data-aos="flip">
                 <div class="flipInner">
                     <div class="flipSide flipFront">
-                        <img src="./assets/img/crew/backCardCrew.png" loading="lazy" alt="backCard" />
+                        <img loading="lazy" src="./assets/img/crew/backCardCrew.png" loading="lazy" alt="backCard" />
                     </div>
                     <div class="flipSide flipBack" data-title="PRESIDENT">
                          <div class="backCard">
                                     <div class="memberImageContainer">
-                                        <img src="./assets/uploadedImages/SCCI Board/Mohamed Ali.jpg" loading="lazy" alt="Mohamed Ali" class="memberImage" />
+                                        <img loading="lazy" src="./assets/uploadedImages/SCCI Board/Mohamed Ali.jpg" loading="lazy" alt="Mohamed Ali" class="memberImage" />
                                     </div>
                                     <div class="memberName">
                                         <h3>Mohamed Ali</h3>
@@ -137,13 +137,13 @@ if ($result) {
                 <div class="flipCard  " data-aos="flip">
                     <div class="flipInner  ">
                         <div class="flipSide  flipFront">
-                            <img src="./assets/img/crew/backCardCrew.png" loading="lazy" alt="backCard" />
+                            <img loading="lazy" src="./assets/img/crew/backCardCrew.png" loading="lazy" alt="backCard" />
                         </div>
                         <div class="flipSide flipBack" data-title="TECHNICAL">
                             <div class="backCard">
 
                                     <div class="memberImageContainer">
-                                        <img src="./assets/uploadedImages/SCCI Board/Marwan Wael.jpg" loading="lazy" alt="Marwan Wael" class="memberImage" />
+                                        <img loading="lazy" src="./assets/uploadedImages/SCCI Board/Marwan Wael.jpg" loading="lazy" alt="Marwan Wael" class="memberImage" />
                                     </div>
                                     <div class="memberName">
                                         <h3>Marwan Wael</h3>
@@ -163,13 +163,13 @@ if ($result) {
                 <div class="flipCard" data-aos="flip">
                     <div class="flipInner">
                         <div class="flipSide flipFront">
-                            <img src="./assets/img/crew/backCardCrew.png" alt="backCard" />
+                            <img loading="lazy" src="./assets/img/crew/backCardCrew.png" alt="backCard" />
                         </div>
                         <div class="flipSide flipBack" data-title="ACADEMIC">
                             <div class="backCard">
 
                                     <div class="memberImageContainer">
-                                        <img src="./assets/uploadedImages/SCCI Board/Mohamed Ahmed.jpg" alt="Mohamed Ahmed" class="memberImage" />
+                                        <img loading="lazy" src="./assets/uploadedImages/SCCI Board/Mohamed Ahmed.jpg" alt="Mohamed Ahmed" class="memberImage" />
                                     </div>
                                     <div class="memberName">
                                         <h3>Mohamed Ahmed</h3>
@@ -188,13 +188,13 @@ if ($result) {
                 <div class="flipCard" data-aos="flip">
                     <div class="flipInner">
                         <div class="flipSide flipFront">
-                            <img src="./assets/img/crew/backCardCrew.png" alt="backCard" />
+                            <img loading="lazy" src="./assets/img/crew/backCardCrew.png" alt="backCard" />
                         </div>
                         <div class="flipSide flipBack" data-title="HR">
                             <div class="backCard">
 
                                     <div class="memberImageContainer">
-                                        <img src="./assets/uploadedImages/SCCI Board/Alaa Aboelazm.jpg" alt="Alaa Aboelazm" class="memberImage" />
+                                        <img loading="lazy" src="./assets/uploadedImages/SCCI Board/Alaa Aboelazm.jpg" alt="Alaa Aboelazm" class="memberImage" />
                                     </div>
                                     <div class="memberName">
                                         <h3>Alaa Aboelazm</h3>
@@ -214,12 +214,12 @@ if ($result) {
                     
                     <div class="flipInner">
                         <div class="flipSide flipFront">
-                            <img src="./assets/img/crew/backCardCrew.png" loading="lazy">
+                            <img loading="lazy" src="./assets/img/crew/backCardCrew.png" loading="lazy">
                         </div>
                         <div class="flipSide flipBack" data-title="ER">
                             <div class="backCard">
                                     <div class="memberImageContainer">
-                                        <img src="./assets/uploadedImages/SCCI Board/Mohamed Hesham.jpg" alt="Mohamed Hesham" class="memberImage" />
+                                        <img loading="lazy" src="./assets/uploadedImages/SCCI Board/Mohamed Hesham.jpg" alt="Mohamed Hesham" class="memberImage" />
                                     </div>
                                     <div class="memberName">
                                         <h3>Mohamed Hesham</h3>
