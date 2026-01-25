@@ -263,8 +263,23 @@ $run_w = mysqli_query($connect, $select_w);
 <script>
 Swal.fire({
     icon: 'error',
-    title: 'Error',
-    text: '<?php echo $error; ?>'
+    title: 'Oops!',
+    text: '<?php echo $error; ?>',
+    confirmButtonText: 'Try Again',
+    customClass: {
+        popup: 'swal-custom-popup',
+        title: 'swal-custom-title',
+        htmlContainer: 'swal-custom-text',
+        confirmButton: 'swal-custom-button'
+    },
+    background: 'linear-gradient(to bottom, #fffdf5, #ffe4b5)',
+    backdrop: 'rgba(0,0,0,0.7)',
+    showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+    },
+    hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+    }
 });
 </script>
 <?php } ?>
@@ -273,10 +288,23 @@ Swal.fire({
 <script>
 Swal.fire({
     icon: 'success',
-    title: 'Success',
+    title: 'Welcome!',
     text: '<?php echo $success; ?>',
-    timer: 2000,
-    showConfirmButton: false
+    timer: 2500,
+    showConfirmButton: false,
+    customClass: {
+        popup: 'swal-custom-popup',
+        title: 'swal-custom-title',
+        htmlContainer: 'swal-custom-text'
+    },
+    background: 'linear-gradient(to bottom, #fffdf5, #ffe4b5)',
+    backdrop: 'rgba(0,0,0,0.7)',
+    showClass: {
+        popup: 'animate__animated animate__zoomIn'
+    },
+    hideClass: {
+        popup: 'animate__animated animate__zoomOut'
+    }
 }).then(() => {
     window.location.href = 'login.php';
 });
