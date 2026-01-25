@@ -38,16 +38,30 @@
 
 ```bash
 SCCI-Season26-Platform/
-├── assets/             # CSS, JS, Images, Fonts
-├── auth/               # Login & Authentication scripts
-├── database/           # SQL scripts & DB config
-├── includes/           # Reusable PHP components (Nav, Footer, DB Config)
-├── uploads/            # User uploaded files (Tasks, Materials)
-├── home.php            # Landing Page
+├── assets/                 # CSS, JS, Images, Fonts
+├── auth/                   # Login & Authentication scripts
+├── database/               # SQL scripts & DB config
+├── docs/                   # Documentation files
+├── includes/               # Reusable PHP components (Nav, Footer, DB Config)
+├── logs/                   # System logs
+├── uploads/                # User uploaded files (Tasks, Materials)
+├── about.php               # About Us page
+├── contactPanel.php        # Contact form handling
+├── crew.php                # High Board/Heads listing
+├── crewDetails.php         # Detailed view of crew members
+├── gallary.php             # Photo gallery
+├── headPanel.php           # Heads Dashboard
+├── home.php                # Landing Page
+├── index.php               # Entry point
+├── itPanel.php             # IT Control Panel
 ├── memberWorkshopPanel.php # Dashboard for members/instructors
 ├── participantWorkshopPanel.php # Dashboard for participants
-├── crew.php            # Crew/Team listing
-└── README.md           # Project Documentation
+├── profile.php             # User profile settings
+├── sub_crew.php            # Committee members listing
+├── ViewProfile.php         # Public profile view
+├── workshops.php           # Workshops listing
+├── workshopsDetails.php    # Workshop details
+└── README.md               # Project Documentation
 ```
 
 ## 🛠️ Installation & Setup
@@ -77,7 +91,26 @@ Contributions are welcome! If you're part of the **IT Crew**, please follow thes
 3.  Commit your changes with clear messages.
 4.  Push to the repo and request a review if needed.
 
-## 📞 Contact
+## � IT Team (SCCI'26)
+
+Huge appreciation for the entire team — your collaboration made this project possible:
+
+| Name | Role | Link |
+| :--- | :--- | :--- |
+| **Mahmoud Allam** | IT Head | [LinkedIn](https://www.linkedin.com/in/mahmoud-alllam) |
+| **Mahmoud Awad** | Frontend + UI/UX | [LinkedIn]((https://github.com/AwadCoding)) |
+| **Mariam Mohamed** | Frontend + UI/UX | [LinkedIn](https://www.linkedin.com/in/mariam-mohamed127) |
+| **Yasmin Mohamed** | Frontend + UI/UX | [LinkedIn](https://www.linkedin.com/in/yasmin-mohamed-react) |
+| **Jana Haitham** | Frontend + UI/UX | [LinkedIn](https://www.linkedin.com/in/jana-haitham) |
+| **Nada Ashraf** | Frontend + UI/UX | [LinkedIn](https://www.linkedin.com/in/nada-ashraf-n8) |
+| **Omar Raslan** | Frontend + UI/UX | [LinkedIn](https://www.linkedin.com/in/omar--raslan) |
+| **Abdelrahman Rassmy** | Frontend + UI/UX | [LinkedIn](https://www.linkedin.com/in/abdelrahman-rassmy-057153346) |
+| **Hazem Mohamed** | Backend + UI/UX | [LinkedIn](https://www.linkedin.com/in/hazem-mohamed-3b994a251) |
+| **Mohamed Radwan** | Backend | [LinkedIn](http://linkedin.com/in/mohamed-radwan-876602242/) |
+| **Ahmed Hany** | Frontend + UI/UX | |
+| **Ahmed Gamal** | Backend | |
+
+## �📞 Contact
 
 **SCCI** - Seek The Peak
 📍 Dokki, Cairo, Egypt

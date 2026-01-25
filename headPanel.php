@@ -264,7 +264,7 @@ if ((int) $crew['role'] !== 5) { // admin = 5
                                         <form method="post" style="display:inline;" id="blockFormParticipants<?= $row['user_id'] ?>">
                                             <input type="hidden" name="block_user_id" value="<?= $row['user_id'] ?>">
                                             <input type="hidden" name="section" value="participants">
-                                            <button type="button" class="btn-primary blockBtn" data-form-id="blockFormParticipants<?= $row['user_id'] ?>">Block</button>
+                                            <button type="button" class="btn btn-primary blockBtn" data-form-id="blockFormParticipants<?= $row['user_id'] ?>">Block</button>
                                         </form>
                                     </div>
                                 <?php else: ?>
@@ -311,7 +311,7 @@ if ((int) $crew['role'] !== 5) { // admin = 5
                                         <form method="post" style="display:inline;" id="blockFormMembers<?= $row['user_id'] ?>">
                                             <input type="hidden" name="block_user_id" value="<?= $row['user_id'] ?>">
                                             <input type="hidden" name="section" value="members">
-                                            <button type="button" class="btn-primary blockBtn" data-form-id="blockFormMembers<?= $row['user_id'] ?>">Block</button>
+                                            <button type="button" class="btn btn-primary blockBtn" data-form-id="blockFormMembers<?= $row['user_id'] ?>">Block</button>
                                         </form>
                                     </div>
                                 <?php else: ?>
