@@ -652,6 +652,29 @@ if ($workshopSessionId > 0) {
 
   $tasks = $stT->get_result()->fetch_all(MYSQLI_ASSOC);
 }
+// delete attendace
+
+if (isset($_POST['resetAttendance'])) {
+    // Get the user_id from POST
+    $user_id = intval($_POST['user_id']); // intval for safety
+
+    // Build the query
+    $deleteAttendance = "DELETE FROM attendance WHERE user_id = $user_id";
+
+    // Run the query (connection first, then query)
+    $runDeleteAttendance = mysqli_query($connect, $deleteAttendance);
+
+    if ($runDeleteAttendance) {
+        // Redirect if successful
+        redirectPanel($selectedSessionId, $currentTab, 'msg', 'Attendance saved');
+        exit;
+    } else {
+        echo "Error deleting attendance: " . mysqli_error($connect);
+    }
+}
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -840,7 +863,13 @@ if ($workshopSessionId > 0) {
                       <td class="tableParticipantName"><a href="ViewProfile.php?user_id=<?php echo $participant['user_id']; ?>"><?php echo htmlspecialchars($participant['user_name']); ?></a></td>
                       <td>
                         <?php if (isset($attMap[$participant['user_id']])): ?>
-                          <span class="attendance-saved-text">Attendance Saved</span>
+                          <div class="attendanceInfo">
+                            <span class="attendance-saved-text">Attendance Saved</span>
+                            <form action="" method="POST">
+                            <input type="hidden" name="user_id" value="<?php echo $participant['user_id']; ?>">
+                            <button class="resetAttendance" type="submit" name="resetAttendance"><i class="fa-solid fa-arrow-rotate-left" ></i> Reset Attendance</button>
+                          </form>
+                          </div>
                         <?php else: ?>
                           <form method="POST" class="attendanceForm">
                             <input type="hidden" name="action" value="mark_attendance">
@@ -885,10 +914,16 @@ if ($workshopSessionId > 0) {
                         ?>
 
                         <?php if ($submissionId > 0): ?>
-                          <button data-popup="feedbackModal" data-submission-id="<?= (int) $submissionId ?>"
-                            class="evaluateFeedback btn-primary" type="button" <?php echo $hasFeedback ? 'disabled' : ''; ?>>
-                            <?php echo $hasFeedback ? 'Feedback Added' : 'Add Feedback'; ?>
-                          </button>
+                         <?php if ($hasFeedback): ?>
+                            <button class="feedbackAdded" type="button" disabled>
+                              <i class="fas fa-check-circle"></i> Feedback Added
+                            </button>
+                          <?php else: ?>
+                            <button data-popup="feedbackModal" data-submission-id="<?= (int) $submissionId ?>"
+                              class="evaluateFeedback" type="button">
+                              <i class="fas fa-comment-medical"></i> Add Feedback
+                            </button>
+                          <?php endif; ?>
                         <?php else: ?>
                           <span class="no-submission-text">No submission</span>
                         <?php endif; ?>
@@ -1564,10 +1599,6 @@ if ($workshopSessionId > 0) {
       </div>
     </div>
   </div>
-
-    <div class="scrollTopBtn" id="scrollTopBtn">
-        &#8593;
-    </div>
 
 </body>
 
