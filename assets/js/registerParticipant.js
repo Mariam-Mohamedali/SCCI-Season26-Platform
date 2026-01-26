@@ -1,3 +1,15 @@
+// Update file name display when file is selected
+const imageInput = document.getElementById('image');
+if (imageInput) {
+    imageInput.addEventListener('change', function () {
+        const fileName = this.files[0] ? this.files[0].name : 'No file chosen';
+        const fileNameDisplay = document.getElementById('fileName');
+        if (fileNameDisplay) {
+            fileNameDisplay.textContent = fileName;
+        }
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('form');
 

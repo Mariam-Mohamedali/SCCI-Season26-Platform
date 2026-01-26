@@ -237,10 +237,7 @@ if ($result) {
     <!-- Overlay for Blur Effect -->
     <div class="pageOverlay" onclick="closeModal()"></div>
 
-    <!-- Scroll Top Button -->
-    <div class="scrollTopBtn" id="scrollTopBtn">
-        &#8593;
-    </div>
+
 
     <!-- Modal Container -->
     <div id="crewModal" class="crewModal">

@@ -53,3 +53,8 @@
     </p>
   </div>
 </footer>
+
+<!-- Scroll to Top Button - Outside footer for fixed positioning -->
+<div class="scrollTopBtn" id="scrollTopBtn">
+  &#8593;
+</div>

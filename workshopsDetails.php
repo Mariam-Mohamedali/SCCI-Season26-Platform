@@ -178,9 +178,7 @@ if (isset($_GET['category_id'])) {
     </main>
 
     <!-- Scroll to Top Button -->
-    <div class="scrollTopBtn" id="scrollTopBtn">
-        <i class="fas fa-arrow-up"></i>
-    </div>
+
     <!-- Scripts -->
     <script src="assets/js/all.min.js" defer></script>
     <script src="assets/js/workshops.js" defer></script>

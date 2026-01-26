@@ -1479,6 +1479,10 @@ if ($workshopSessionId > 0) {
     </div>
   </div>
 
+    <div class="scrollTopBtn" id="scrollTopBtn">
+        &#8593;
+    </div>
+
 </body>
 
 </html>

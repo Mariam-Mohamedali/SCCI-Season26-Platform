@@ -1,31 +1,27 @@
 
+
 // Scroll To Top Functionality
-const scrollTopBtn = document.getElementById('scrollTopBtn');
+document.addEventListener('DOMContentLoaded', () => {
+  const scrollTopBtn = document.getElementById('scrollTopBtn');
 
-if (scrollTopBtn) {
-  // Get the first section to determine when to show the button
-  const firstSection = document.querySelector('.workshopsHero');
-
-  window.addEventListener('scroll', () => {
-    if (firstSection) {
-      const firstSectionHeight = firstSection.offsetHeight;
-
-
-      if (window.pageYOffset > firstSectionHeight) {
+  if (scrollTopBtn) {
+    // Show button after scrolling down 300px
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
         scrollTopBtn.classList.add('show');
       } else {
         scrollTopBtn.classList.remove('show');
       }
-    }
-  });
-
-  scrollTopBtn.addEventListener('click', () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
     });
-  });
-}
+
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }
+});
 
 // =============================================== NAVBAR HIDE/SHOW ON SCROLL ===============================================
 // Hide navbar when scrolling down, show when scrolling up

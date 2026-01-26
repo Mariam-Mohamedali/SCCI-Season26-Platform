@@ -164,6 +164,7 @@ $rowCountUsers = mysqli_num_rows($usersResult);
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet" />
     <!-- css -->
+    <link rel="stylesheet" href="./assets/css/root.css">
     <link rel="stylesheet" href="./assets/css/itPanel.css">
     <link rel="stylesheet" href="./assets/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -298,6 +299,10 @@ $rowCountUsers = mysqli_num_rows($usersResult);
             // Pagination setup is now handled inside itPanel.js automatically or via explicit call if needed
         });
     </script>
+    <div class="scrollTopBtn" id="scrollTopBtn">
+        &#8593;
+    </div>
+
 </body>
 
 </html>

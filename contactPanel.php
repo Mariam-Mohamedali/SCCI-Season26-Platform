@@ -42,6 +42,7 @@ if (!in_array($_SESSION['role'], [4, 5])) {
       rel="stylesheet"
     />
     <!-- css -->
+    <link rel="stylesheet" href="./assets/css/root.css">
     <link rel="stylesheet" href="./assets/css/contactPanel.css">
     <link rel="stylesheet" href="./assets/css/all.min.css">
     <!-- aos -->
@@ -110,6 +111,10 @@ if (!in_array($_SESSION['role'], [4, 5])) {
             setupPagination('contactTableScroll', 'contactPagination');
         });
     </script>
+    <div class="scrollTopBtn" id="scrollTopBtn">
+        &#8593;
+    </div>
+
 </body>
 
 </html>

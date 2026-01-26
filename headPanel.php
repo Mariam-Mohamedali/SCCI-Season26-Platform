@@ -53,6 +53,7 @@ if ((int) $crew['role'] !== 5) { // admin = 5
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet" />
     <!-- css -->
+    <link rel="stylesheet" href="./assets/css/root.css">
     <link rel="stylesheet" href="./assets/css/headPanel.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
@@ -346,6 +347,10 @@ if ((int) $crew['role'] !== 5) { // admin = 5
     
     <script src="./assets/js/all.min.js"></script>
     <script src="./assets/js/headPanel.js?v=<?= time() ?>"></script>
+    <div class="scrollTopBtn" id="scrollTopBtn">
+        &#8593;
+    </div>
+
 </body>
 
 </html>

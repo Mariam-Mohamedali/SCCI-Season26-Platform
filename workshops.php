@@ -120,15 +120,12 @@ include './includes/config.php';
             </div>
         </section>
 
-        <!-- Scroll To Top -->
-        <div class="scrollTopBtn" id="scrollTopBtn">
-            <i class="fa-solid fa-arrow-up"></i>
-        </div>
+        
 
 
 
     </main>
-
+    
     <?php include 'includes/footer.php'; ?>
 
     <!-- Scripts -->

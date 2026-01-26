@@ -174,11 +174,21 @@ $run_w = mysqli_query($connect, $select_w);
 
         <div class="input-group">
             <label>Image</label>
-            <input type="file" name="image" id="image" accept="image/*" required>
+            <div class="file-upload-wrapper">
+                <input type="file" name="image" id="image" accept="image/*" required style="display: none;">
+                <label for="image" class="file-upload-label" id="fileLabel">
+                    <span class="file-upload-btn">Choose File</span>
+                    <span class="file-upload-text" id="fileName">No file chosen</span>
+                </label>
+            </div>
             <div class="error-text" id="error-image"></div>
         </div>
 
         <button type="submit" name="submit" class="submit-btn">Register</button>
+
+        <div class="login-link">
+            Already have an account? <a href="login.php">Login here</a>
+        </div>
 
     </form>
 </div>

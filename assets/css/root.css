@@ -182,7 +182,7 @@ body {
       #f4eade 40%,
       #ead3bd 70%,
       #f4e4b1 100%);
-  filter: brightness(1.1);
+  /* filter: brightness(1.1); - Removed: breaks position:fixed */
   line-height: var(--lh-normal);
   overflow-x: hidden;
   transition: background-color var(--transition-normal), color var(--transition-normal);
@@ -1352,5 +1352,61 @@ Back Button
     font-size: 1rem;
     top: 70px;
     left: 10px;
+  }
+}
+
+/* ===============================================================================
+   ⬆️ SCROLL TOP BUTTON
+   =============================================================================== */
+
+/* Scroll Top Button */
+.scrollTopBtn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background-color: var(--color-primary);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 100;
+}
+
+.scrollTopBtn.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.scrollTopBtn:hover {
+  background-color: var(--color-primary-dark);
+  transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .scrollTopBtn {
+    width: 45px;
+    height: 45px;
+    font-size: 2rem;
+    bottom: 20px;
+    right: 20px;
+  }
+}
+
+@media (max-width: 575px) {
+  .scrollTopBtn {
+    width: 40px;
+    height: 40px;
+    font-size: 1.8rem;
+    bottom: 15px;
+    right: 15px;
   }
 }
