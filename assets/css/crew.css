@@ -1,6 +1,5 @@
 /* ===== Layout & Typography ===== */
 body {
-
   padding-top: calc(8vh + 3rem);
 }
 
@@ -55,7 +54,7 @@ body {
 
 /* Paper texture effect */
 .jobDescriptionCard::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 4px;
   border: 1px solid rgba(139, 101, 62, 0.2);
@@ -67,7 +66,11 @@ body {
 /* Card Header - Red Banner */
 .jobCardHeader {
   width: 100%;
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-primary-hover) 100%
+  );
   padding: var(--space-5) var(--space-6);
   clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
   box-shadow: 0 8px 30px rgba(197, 37, 37, 0.6);
@@ -76,7 +79,6 @@ body {
 }
 
 .jobCardTitle {
-  font-family: 'Irish Grover', cursive;
   font-size: var(--fs-2xl);
   font-weight: 900;
   color: var(--color-parchment);
@@ -95,7 +97,7 @@ body {
   position: relative;
   z-index: 1;
 }
-.jobCardContent span{
+.jobCardContent span {
   color: var(--color-secondary-dark);
 }
 
@@ -161,7 +163,6 @@ body {
 }
 
 @media (min-width: 992px) {
-
   .cards-grid,
   .cardsGrid {
     grid-template-columns: repeat(2, 1fr) !important;
@@ -286,11 +287,14 @@ body {
   left: 0;
   width: 100%;
   height: 85px;
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-primary-hover) 100%
+  );
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Irish Grover', cursive;
   font-size: var(--fs-xl);
   font-weight: 900;
   color: var(--color-parchment);
@@ -306,7 +310,7 @@ body {
 
 /* Decorative Stars in Corners */
 .flipBack::after {
-  content: '✦';
+  content: "✦";
   position: absolute;
   bottom: 20px;
   right: 20px;
@@ -319,7 +323,7 @@ body {
 
 /* Top Left Star */
 .flipBack .backCard::before {
-  content: '✦';
+  content: "✦";
   position: absolute;
   top: 100px;
   left: 20px;
@@ -332,7 +336,6 @@ body {
 }
 
 @keyframes star {
-
   0%,
   100% {
     opacity: 0.3;
@@ -371,7 +374,11 @@ body {
   aspect-ratio: 2/3;
   border-radius: 25px;
   padding: 6px;
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-secondary) 100%
+  );
   box-shadow:
     0 15px 50px rgba(0, 0, 0, 0.5),
     0 0 80px rgba(224, 192, 143, 0.3),
@@ -382,7 +389,7 @@ body {
 
 /* Outer Gold Border for Photo Frame */
 .flipBack .memberImageContainer::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -12px;
   left: -12px;
@@ -396,10 +403,14 @@ body {
 
 /* Inner Photo Container */
 .flipBack .memberImageContainer::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 6px;
-  background: linear-gradient(135deg, var(--color-secondary), var(--color-secondary-lighter));
+  background: linear-gradient(
+    135deg,
+    var(--color-secondary),
+    var(--color-secondary-lighter)
+  );
   border-radius: 20px;
   z-index: -1;
 }
@@ -430,7 +441,6 @@ body {
 
 .flipBack .memberName h3,
 .flipBack .memberName h5 {
-  font-family: 'Irish Grover', cursive;
   font-size: var(--fs-lg);
   color: var(--color-parchment);
   text-shadow:
@@ -444,7 +454,7 @@ body {
 /* Decorative Line Under Name */
 .flipBack .memberName::before,
 .flipBack .memberName::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -15px;
   width: 35%;
@@ -463,7 +473,7 @@ body {
 
 /* Center Star Decoration */
 .flipBack .memberName::after {
-  content: '✦';
+  content: "✦";
   position: absolute;
   bottom: -25px;
   left: 50%;
@@ -479,7 +489,7 @@ body {
 
 /* Bottom Right Star Group */
 .flipBack .backCard::after {
-  content: '✦ ✦';
+  content: "✦ ✦";
   position: absolute;
   bottom: 15px;
   right: 20px;
@@ -568,7 +578,11 @@ body {
   position: absolute;
   top: 20px;
   right: 30px;
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  background: linear-gradient(
+    135deg,
+    var(--color-primary),
+    var(--color-secondary)
+  );
   border: 2px solid var(--color-parchment);
   color: var(--color-white);
   font-size: 2.5rem;
@@ -583,7 +597,6 @@ body {
   justify-content: center;
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(224, 192, 143, 0.4);
-  font-family: Arial, sans-serif;
   line-height: 1;
   padding: 0;
 }
@@ -591,7 +604,11 @@ body {
 .modalCloseBtn:hover {
   transform: rotate(90deg) scale(1.1);
   box-shadow: 0 6px 25px rgba(224, 192, 143, 0.6);
-  background: linear-gradient(135deg, var(--color-secondary), var(--color-primary));
+  background: linear-gradient(
+    135deg,
+    var(--color-secondary),
+    var(--color-primary)
+  );
 }
 
 .modalCloseBtn:active {
@@ -607,8 +624,8 @@ body {
   font-size: var(--fs-2xl);
 }
 
-.crew-modal>.modal-content>.flipCard,
-.crewModal>.modalContent>.flipCard {
+.crew-modal > .modal-content > .flipCard,
+.crewModal > .modalContent > .flipCard {
   pointer-events: auto;
   cursor: pointer;
   margin-bottom: 0;
@@ -682,7 +699,7 @@ body {
 .sm-card,
 .smCard {
   width: 100%;
-  aspect-ratio: 2/3;
+  aspect-ratio: 3/5;
   cursor: pointer;
   transition: transform 0.2s;
   min-width: 200px;
@@ -734,7 +751,6 @@ body {
 
 /* ===== Mobile Responsive ===== */
 @media (max-width: 768px) {
-
   .sub-crew-grid,
   .subCrewGrid,
   .crew-modal .sub-crew-grid,
@@ -779,6 +795,12 @@ body {
     font-size: var(--fs-sm);
     line-height: 1.6;
   }
+
+  /* card responsive */
+  .flipBack .memberName h3,
+  .flipBack .memberName h5 {
+    font-size: var(--fs-md);
+  }
 }
 
 @media (max-width: 480px) {
@@ -806,6 +828,18 @@ body {
   .jobCardContent p {
     font-size: var(--fs-xs);
     line-height: 1.5;
+  }
+
+  .flipBack .memberName::before {
+    width: 0%;
+  }
+}
+
+@media (max-width: 360px) {
+  /* card responsive */
+  .flipBack .memberName h3,
+  .flipBack .memberName h5 {
+    font-size: var(--fs-sm);
   }
 }
 
@@ -835,7 +869,11 @@ body {
   color: var(--color-white);
   width: 50px;
   height: 50px;
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-primary-hover) 100%
+  );
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -853,7 +891,6 @@ body {
 }
 
 .scroll-text {
-  font-family: 'Irish Grover', cursive;
   font-size: 1.1rem;
   color: var(--color-parchment);
   font-weight: bold;
@@ -867,7 +904,6 @@ body {
 }
 
 @keyframes bounceArrow {
-
   0%,
   100% {
     transform: translateY(0);
