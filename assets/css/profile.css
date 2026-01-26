@@ -237,6 +237,33 @@
   font-family: inherit;
 }
 
+.passwordGroup {
+    position: relative;
+    width: 100%;
+}
+.passwordWrapper {
+  position: relative;
+  width: 100%;
+}
+.passwordWrapper input {
+  padding-right: 45px; 
+}
+
+.toggle-password-btn {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #777;
+  font-size: 1.1rem;
+}
+
+.toggle-password-btn:hover {
+  color: var(--color-primary);
+}
+ 
+
 /* ---------------------------------------------------------------------------
    Info Papers
 --------------------------------------------------------------------------- */
