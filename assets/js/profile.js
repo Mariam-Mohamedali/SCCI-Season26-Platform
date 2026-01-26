@@ -90,3 +90,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
+document.querySelectorAll('.toggle-password-btn').forEach(btn => {
+  btn.addEventListener('click', function () {
+    const input = this.previousElementSibling;
+
+    const type = input.type === 'password' ? 'text' : 'password';
+    input.type = type;
+
+    this.innerHTML =
+      type === 'text'
+        ? '<i class="fas fa-eye"></i>'
+        : '<i class="fas fa-eye-slash"></i>';
+  });
+});
