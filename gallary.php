@@ -186,6 +186,7 @@ include './includes/config.php';
         });
     </script>
     <script src="assets/js/gallary.js?v=<?php echo time(); ?>" defer></script>
+    <script src="assets/js/gallary-optimization.js" defer></script>
 </body>
 
 </html>
