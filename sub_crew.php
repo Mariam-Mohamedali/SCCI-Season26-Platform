@@ -285,7 +285,7 @@ if ($group === 'technical') {
                     </div>
                 </div>
             </div>
-
+            <hr>
             <!-- Sub Cards Container -->
             <div class="subCrewGrid activeGrid">
                 <!-- 1. BD -->
