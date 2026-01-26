@@ -1,4 +1,5 @@
 <?php
+ob_start(); // Start output buffering to prevent "headers already sent" errors
 include './includes/config.php';
 
 if (!isset($_SESSION['user_id'])) { 

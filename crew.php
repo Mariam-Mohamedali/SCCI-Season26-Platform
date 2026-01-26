@@ -134,51 +134,51 @@ if ($result) {
 
             <div class="boardItem" data-aos="fade-up" data-aos-delay="200">
                 <a href="sub_crew.php?group=technical" class="memberCardLink">
-                <div class="flipCard  " data-aos="flip">
-                    <div class="flipInner  ">
-                        <div class="flipSide  flipFront">
-                            <img loading="lazy" src="./assets/img/crew/backCardCrew.png" loading="lazy" alt="backCard" />
-                        </div>
-                        <div class="flipSide flipBack" data-title="TECHNICAL">
-                            <div class="backCard">
-
-                                    <div class="memberImageContainer">
-                                        <img loading="lazy" src="./assets/uploadedImages/SCCI Board/Marwan Wael.jpg" loading="lazy" alt="Marwan Wael" class="memberImage" />
-                                    </div>
-                                    <div class="memberName">
-                                        <h3>Marwan Wael</h3>
-                                    </div>
-                                   
-                                </div>
+                    <div class="flipCard" data-aos="flip">
+                        <div class="flipInner  ">
+                            <div class="flipSide  flipFront">
+                                <img loading="lazy" src="./assets/img/crew/backCardCrew.png" loading="lazy" alt="backCard" />
                             </div>
+                            <div class="flipSide flipBack" data-title="TECHNICAL">
+                                <div class="backCard">
+
+                                        <div class="memberImageContainer">
+                                            <img loading="lazy" src="./assets/uploadedImages/SCCI Board/Marwan Wael.jpg" loading="lazy" alt="Marwan Wael" class="memberImage" />
+                                        </div>
+                                        <div class="memberName">
+                                            <h3>Marwan Wael</h3>
+                                        </div>
+                                    
+                                    </div>
+                                </div>
+                        </div>
+                        
                     </div>
-                     
-                </div>
                 </a>
                 <a href="sub_crew.php?group=technical" class="btn btn-primary ">Discover More</a>
             </div>
 
             <div class="boardItem" data-aos="fade-up" data-aos-delay="200">
                 <a href="crewDetails.php?committee_id=3" class="memberCardLink">
-                <div class="flipCard" data-aos="flip">
-                    <div class="flipInner">
-                        <div class="flipSide flipFront">
-                            <img loading="lazy" src="./assets/img/crew/backCardCrew.png" alt="backCard" />
-                        </div>
-                        <div class="flipSide flipBack" data-title="ACADEMIC">
-                            <div class="backCard">
+                    <div class="flipCard" data-aos="flip">
+                        <div class="flipInner">
+                            <div class="flipSide flipFront">
+                                <img loading="lazy" src="./assets/img/crew/backCardCrew.png" alt="backCard" />
+                            </div>
+                            <div class="flipSide flipBack" data-title="ACADEMIC">
+                                <div class="backCard">
 
-                                    <div class="memberImageContainer">
-                                        <img loading="lazy" src="./assets/uploadedImages/SCCI Board/Mohamed Ahmed.jpg" alt="Mohamed Ahmed" class="memberImage" />
-                                    </div>
-                                    <div class="memberName">
-                                        <h3>Mohamed Ahmed</h3>
-                                    </div>
+                                        <div class="memberImageContainer">
+                                            <img loading="lazy" src="./assets/uploadedImages/SCCI Board/Mohamed Ahmed.jpg" alt="Mohamed Ahmed" class="memberImage" />
+                                        </div>
+                                        <div class="memberName">
+                                            <h3>Mohamed Ahmed</h3>
+                                        </div>
 
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 </a>
                 <a href="crewDetails.php?committee_id=3" class="btn btn-primary ">Know Us !</a>
             </div>

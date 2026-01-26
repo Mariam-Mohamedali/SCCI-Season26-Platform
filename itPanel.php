@@ -2,6 +2,12 @@
 
 include "./includes/config.php";
 
+// Check if session exists first
+if (!isset($_SESSION['user_id'])) {
+  header("Location:./auth/login.php");
+  exit;
+}
+
 $crewId = (int) $_SESSION['user_id'];
 
 $stmt = $connect->prepare("SELECT workshop_id, role FROM users WHERE user_id = ? AND status = 1");

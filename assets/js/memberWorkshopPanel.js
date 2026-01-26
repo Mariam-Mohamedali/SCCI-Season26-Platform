@@ -292,7 +292,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // ✅ CHANGE: allowed extensions list (minimal)
   const MAX_FILE_SIZE = 20 * 1024 * 1024; // 20 MB
 
-  const ALLOWED_EXT = ["pdf", "doc", "docx", "png", "jpg", "jpeg", "zip"];
+  const ALLOWED_EXT = ["pdf", "doc", "docx", "png", "jpg", "jpeg", "zip", "ppt", "pptx", "xls", "xlsx", "csv", "txt", "rar"];
 
   document.querySelectorAll(".fileUpload").forEach((container) => {
     const fileInput = container.querySelector("input[type='file']");
@@ -390,6 +390,59 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // ✅ Mutual Exclusivity: File OR URL (not both)
+  document.querySelectorAll("form.validForm").forEach((form) => {
+    const fileInput = form.querySelector("input[type='file']");
+    const urlInput = form.querySelector("input[name='task_url']") || form.querySelector("input[name='material_url']");
+    const uploadBtn = form.querySelector(".uploadBtn") || form.querySelector("label[for='material_file']");
+    const uploadContainer = form.querySelector(".uploadContainer");
+
+    if (!fileInput || !urlInput) return;
+
+    // If typing in URL field -> clear and disable file input
+    urlInput.addEventListener("input", function () {
+      if (this.value.trim() !== "") {
+        fileInput.value = "";
+        // Reset file UI if exists
+        const fileState = form.querySelector(".uploadText");
+        const fileInfo = form.querySelector(".fileUploadInfo");
+        if (fileState) fileState.textContent = "File upload disabled (URL provided)";
+        if (fileInfo) fileInfo.style.display = "none";
+        if (uploadContainer) uploadContainer.style.opacity = "0.5";
+        if (uploadBtn) uploadBtn.style.pointerEvents = "none";
+      } else {
+        const fileState = form.querySelector(".uploadText");
+        if (fileState) fileState.textContent = "Drag and drop or click to browse";
+        if (uploadContainer) uploadContainer.style.opacity = "1";
+        if (uploadBtn) uploadBtn.style.pointerEvents = "auto";
+      }
+    });
+
+    // If selecting file -> clear and disable URL input
+    fileInput.addEventListener("change", function () {
+      if (this.files.length > 0) {
+        urlInput.value = "";
+        urlInput.placeholder = "URL disabled (File selected)";
+        urlInput.style.backgroundColor = "#f0f0f0";
+        urlInput.readOnly = true;
+      } else {
+        urlInput.placeholder = "https://example.com/...";
+        urlInput.style.backgroundColor = "";
+        urlInput.readOnly = false;
+      }
+    });
+
+    // Reset button in your existing code for files should also re-enable URL
+    const removeBtn = form.querySelector(".removeUpload");
+    if (removeBtn) {
+      removeBtn.addEventListener("click", () => {
+        urlInput.placeholder = "https://example.com/...";
+        urlInput.style.backgroundColor = "";
+        urlInput.readOnly = false;
+      });
+    }
+  });
+
   // Drag & Drop support
   document.querySelectorAll(".fileUpload").forEach((container) => {
     const fileInput = container.querySelector("input[type='file']");
@@ -463,13 +516,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // file input validation (works for both forms)
       const fileInput = form.querySelector("input[type='file']");
+      const urlInput = form.querySelector("input[name='task_url']") || form.querySelector("input[name='material_url']");
+      const urlVal = urlInput ? urlInput.value.trim() : "";
 
       if (fileMessage) fileMessage.textContent = "";
 
-      if (fileInput && fileInput.files.length === 0) {
+      if (fileInput && fileInput.files.length === 0 && !urlVal) {
         isValid = false;
         if (fileMessage) {
-          fileMessage.textContent = "Please upload a file.";
+          fileMessage.textContent = "Please upload a file or provide a URL.";
           fileMessage.style.color = "red";
           fileMessage.style.fontSize = "12px";
         }

@@ -4,24 +4,52 @@ include('../includes/config.php');
 $error = "";
 $success = "";
 
+// ✅ Password Validation Function
+function validatePassword($password) {
+    $errors = [];
+    
+    // Check minimum length
+    if (strlen($password) < 8) {
+    }
+    
+    // Check for uppercase letter
+    if (!preg_match('/[A-Z]/', $password)) {
+    }
+    
+    // Check for lowercase letter
+    if (!preg_match('/[a-z]/', $password)) {
+    }
+    
+    // Check for special character
+    if (!preg_match('/[!@#$%^&*(),.?":{}|<>]/', $password)) {
+    }
+    
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 
     $name  = mysqli_real_escape_string($connect, $_POST['name']);
     $email = mysqli_real_escape_string($connect, $_POST['email']);
     $phone = mysqli_real_escape_string($connect, $_POST['phone']);
     $password = $_POST['password'];
-    $passwordhashing = password_hash($password, PASSWORD_DEFAULT);
     $workshop = mysqli_real_escape_string($connect, $_POST['workshop']);
 
     // Check duplicate email or phone
     $select = "SELECT * FROM `users` WHERE `email`='$email' OR `phone`='$phone'";
     $run_select = mysqli_query($connect, $select);
 
+    // ✅ Validate password strength
+    $passwordErrors = validatePassword($password);
+    
     if (mysqli_num_rows($run_select) > 0) {
         $error = "Email or Phone already exists";
+    } elseif (!empty($passwordErrors)) {
+        $error = "Password must contain " . implode(", ", $passwordErrors);
     } elseif ($password != $_POST['cpassword']) {
         $error = "Passwords do not match";
     } else {
+        // Hash password only after validation
+        $passwordhashing = password_hash($password, PASSWORD_DEFAULT);
 
         // Image validation
         if (empty($_FILES['image']['name'])) {
@@ -146,7 +174,8 @@ $run_w = mysqli_query($connect, $select_w);
                 </span>
             </div>
             <div class="error-text" id="error-password"></div>
-        </div>
+            <!-- ✅ Password Strength Indicator -->
+            
 
         <div class="input-group password-group">
             <label>Confirm Password</label>
@@ -261,6 +290,7 @@ Swal.fire({
 <?php } ?>
      <script src="../assets/js/all.min.js"></script>
     <script src="../assets/js/registerParticipant.js?v=<?php echo time(); ?>"></script>
+    <script src="../assets/js/password-strength-indicator.js"></script>
     <script>
         // Client-side image size validation
         document.getElementById('image').addEventListener('change', function() {

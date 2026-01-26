@@ -114,15 +114,40 @@ document.addEventListener('DOMContentLoaded', () => {
             clearError(phoneInput, errorPhone);
         }
 
-        // Password Validation
-        if (passwordInput.value.length === 0) {
+        // ✅ Strong Password Validation
+        const password = passwordInput.value;
+        const passwordErrors = [];
+
+        if (password.length === 0) {
             showError(passwordInput, errorPassword, 'Password is required');
             valid = false;
-        } else if (passwordInput.value.length < 6) {
-            showError(passwordInput, errorPassword, 'Password must be at least 6 characters');
-            valid = false;
         } else {
-            clearError(passwordInput, errorPassword);
+            // Check minimum length
+            if (password.length < 8) {
+                passwordErrors.push('at least 8 characters');
+            }
+
+            // Check for uppercase letter
+            if (!/[A-Z]/.test(password)) {
+                passwordErrors.push('one uppercase letter');
+            }
+
+            // Check for lowercase letter
+            if (!/[a-z]/.test(password)) {
+                passwordErrors.push('one lowercase letter');
+            }
+
+            // Check for special character
+            if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+                passwordErrors.push('one special character');
+            }
+
+            if (passwordErrors.length > 0) {
+                showError(passwordInput, errorPassword, 'Password must contain ' + passwordErrors.join(', '));
+                valid = false;
+            } else {
+                clearError(passwordInput, errorPassword);
+            }
         }
 
         // Confirm Password Validation
@@ -143,6 +168,53 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             clearError(workshopSelect, errorWorkshop);
         }
+// ✅ Password Strength Indicator - Add this at the end of registerParticipant.js
+
+// Show password requirements when user focuses on password field
+passwordInput.addEventListener('focus', function () {
+    document.getElementById('passwordRequirements').style.display = 'block';
+});
+
+// Real-time password strength checking
+passwordInput.addEventListener('input', function () {
+    const password = this.value;
+
+    // Check each requirement
+    const hasLength = password.length >= 8;
+    const hasUppercase = /[A-Z]/.test(password);
+    const hasLowercase = /[a-z]/.test(password);
+    const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+    // Update visual indicators
+    updateRequirement('req-length', hasLength);
+    updateRequirement('req-uppercase', hasUppercase);
+    updateRequirement('req-lowercase', hasLowercase);
+    updateRequirement('req-special', hasSpecial);
+});
+
+// Helper function to update requirement status
+function updateRequirement(elementId, isMet) {
+    const element = document.getElementById(elementId);
+    const icon = element.querySelector('i');
+
+    if (isMet) {
+        element.style.color = '#4CAF50'; // Green
+        icon.className = 'fas fa-check-circle';
+        icon.style.fontSize = '12px';
+    } else {
+        element.style.color = '#999'; // Gray
+        icon.className = 'fas fa-circle';
+        icon.style.fontSize = '6px';
+    }
+}
+
+// Hide requirements when user leaves password field (optional)
+passwordInput.addEventListener('blur', function () {
+    // Keep it visible if password is not empty
+    if (this.value.length === 0) {
+        document.getElementById('passwordRequirements').style.display = 'none';
+    }
+});
 
         // Image Validation
         if (imageInput.files.length === 0) {

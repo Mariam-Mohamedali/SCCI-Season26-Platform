@@ -7,21 +7,22 @@ $page_title = 'Crew Details';
 if (isset($_GET['committee_id'])) {
     $committee_id = $_GET['committee_id'];
 
-    // Fetch committee details
-    $select_committee = "SELECT committe_name, head_id, committee_description, committee_member,missoin
-                     FROM committees
-                     WHERE committee_id = '$committee_id'";
-    $run_committee = mysqli_query($connect, $select_committee);
-    $committee = mysqli_fetch_assoc($run_committee);
-
-    // Fetch head details
-    $head_id = $committee['head_id'];
-    $select_head = "SELECT user_id, user_name, image
-                FROM users
-                WHERE user_id = '$head_id'";
-    $run_head = mysqli_query($connect, $select_head);
-    $head = mysqli_fetch_assoc($run_head);
-
+   $query = "
+SELECT 
+    c.committe_name, c.committee_description, c.committee_member, c.missoin,
+    h.user_id as head_id, h.user_name as head_name, h.image as head_image,
+    u.user_id, u.user_name, u.image, w.workshop_name
+FROM committees c
+LEFT JOIN users h ON c.head_id = h.user_id
+LEFT JOIN users u ON u.committee_id = c.committee_id AND u.status = 1 AND u.user_id != c.head_id
+LEFT JOIN workshops w ON u.workshop_id = w.workshop_id
+WHERE c.committee_id = ?
+";
+    $stmt = $connect->prepare($query);
+    $stmt->bind_param("i", $committee_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $committee = $result->fetch_assoc();    
     // Set title to "Head [Committee Name]"
     $page_title = 'Head ' . $committee['committe_name'];
 }
@@ -188,7 +189,7 @@ if (isset($_GET['committee_id'])) {
                             </div>
 
                             <div class="flipSide flipBack"
-                                data-title="<?= strtoupper(htmlspecialchars($member['workshop_name'])) ?>">
+                                data-title="<?= strtoupper(htmlspecialchars($member['workshop_name'] ?? '')) ?>">
                                 <div class="backCard">
                                     <div class="memberInfo">
                                         <div class="memberImageContainer">

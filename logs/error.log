@@ -1,2 +1,4 @@
 [25-Jan-2026 01:23:10 Africa/Cairo] Success: Manual test log entry works!
 [25-Jan-2026 01:23:10 Africa/Cairo] PHP Warning:  Undefined variable $undefined_variable in C:\xampp\htdocs\SCCI-Season26-Platform\test_log.php on line 9
+[26-Jan-2026 05:10:48 Africa/Cairo] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\SCCI-Season26-Platform\ViewProfile.php on line 236
+[26-Jan-2026 05:10:48 Africa/Cairo] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\SCCI-Season26-Platform\ViewProfile.php on line 242

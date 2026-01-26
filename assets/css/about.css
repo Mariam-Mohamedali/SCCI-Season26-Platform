@@ -175,9 +175,9 @@ h1 {
 @media (max-width: 600px) {
   .hero {
     height: auto;
-    min-height: 50vh;
+    /* min-height: 50vh; */
     /* Minimum height to ensure content is visible */
-    padding-top: 100px;
+    padding-top: 70px;
     align-items: flex-start;
   }
 
@@ -211,7 +211,7 @@ h1 {
 @media (max-width: 400px) {
   .hero {
     height: auto;
-    min-height: 40vh;
+    min-height: 33vh;
   }
 
   .heroBackground picture {

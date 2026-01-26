@@ -87,8 +87,8 @@ if ($group === 'technical') {
         
         <?php if ($group === 'technical'): ?>
             <!-- Back Button -->
-            <a href="crew.php" class="btn btn-primary backToCrewBtn" data-aos="fade-right">
-                <i class="fas fa-arrow-left"></i> Back to Crew
+            <a href="crew.php" class="backBtn backToCrewBtn" data-aos="fade-right">
+                <i class="fas fa-arrow-left"></i>
             </a>
 
             <h1 class="mainTitle" data-aos="zoom-in">Technical</h1>
@@ -99,7 +99,7 @@ if ($group === 'technical') {
                 <!-- Main Board Member -->
                 <div class="mainBoardMember" data-aos="fade-up" data-aos-delay="200">
                     <a href="ViewProfile.php?user_id=<?= $crew_ids['Marwan Wael'] ?? '#' ?>" class="memberCardLink">
-                    <div class="flipCard" data-aos="flip">
+                    <div class="flipCard smCard" data-aos="flip">
                         <div class="flipInner">
                             <div class="flipSide flipFront">
                                 <img src="./assets/img/crew/backCardCrew.png" loading="lazy" alt="backCard" />
@@ -135,6 +135,7 @@ if ($group === 'technical') {
                     </div>
                 </div>
             </div>
+            <hr>
 
             <!-- Sub Cards Container -->
             <div class="subCrewGrid activeGrid">
@@ -227,6 +228,7 @@ if ($group === 'technical') {
                     </a>
                     <a href="crewDetails.php?committee_id=5" class="btn btn-primary">Know Us !</a>
                 </div>
+                
             </div>
 
 
@@ -280,6 +282,7 @@ if ($group === 'technical') {
                     </div>
                 </div>
             </div>
+            <hr>
 
             <!-- Sub Cards Container -->
             <div class="subCrewGrid activeGrid">

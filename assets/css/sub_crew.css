@@ -131,11 +131,14 @@
 }
 
 /* Back Button Styling */
+.backBtn{
+    transition: 0.3s ease !important;
+}
+
 .backToCrewBtn {
     display: inline-flex;
     align-items: center;
-    gap: var(--space-2);
-    margin-bottom: var(--space-4);
+    margin: var(--space-4) 0;
     transition: transform 0.3s ease;
 }
 

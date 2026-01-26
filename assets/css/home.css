@@ -57,7 +57,7 @@
   padding: 3rem 2.5rem;
 }
 
-.heroTextResponsive{
+.heroTextResponsive {
   display: none;
 }
 
@@ -426,7 +426,7 @@ body.red-theme .decorative-element {
   margin-bottom: 1rem;
 }
 
-.statIcon + h4 + h4 {
+.statIcon+h4+h4 {
   color: var(--color-primary-dark);
 }
 
@@ -615,13 +615,11 @@ body.red-theme .decorative-element {
   min-height: 500px;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(
-    135deg,
-    rgba(247, 234, 191, 0.95) 0%,
-    rgba(244, 234, 222, 0.92) 30%,
-    rgba(234, 211, 189, 0.95) 60%,
-    rgba(244, 228, 177, 0.95) 100%
-  );
+  background: linear-gradient(135deg,
+      rgba(247, 234, 191, 0.95) 0%,
+      rgba(244, 234, 222, 0.92) 30%,
+      rgba(234, 211, 189, 0.95) 60%,
+      rgba(244, 228, 177, 0.95) 100%);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border-radius: 12px;
@@ -738,6 +736,7 @@ body.red-theme .decorative-element {
 }
 
 @keyframes pulse {
+
   0%,
   100% {
     transform: scale(1);
@@ -760,12 +759,10 @@ body.red-theme .decorative-element {
 .contactDivider {
   width: 80%;
   height: 2px;
-  background: linear-gradient(
-    to right,
-    transparent,
-    var(--color-primary),
-    transparent
-  );
+  background: linear-gradient(to right,
+      transparent,
+      var(--color-primary),
+      transparent);
   border: none;
   margin: 0.5rem 0;
 }
@@ -826,13 +823,11 @@ body.red-theme .decorative-element {
   height: auto;
   min-height: 500px;
   padding: 2.5rem 2.5rem;
-  background: linear-gradient(
-    135deg,
-    rgba(247, 234, 191, 0.95) 0%,
-    rgba(244, 234, 222, 0.92) 30%,
-    rgba(234, 211, 189, 0.95) 60%,
-    rgba(244, 228, 177, 0.95) 100%
-  ) !important;
+  background: linear-gradient(135deg,
+      rgba(247, 234, 191, 0.95) 0%,
+      rgba(244, 234, 222, 0.92) 30%,
+      rgba(234, 211, 189, 0.95) 60%,
+      rgba(244, 228, 177, 0.95) 100%) !important;
   border-radius: 12px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
   border: 2px solid var(--color-primary);
@@ -1152,11 +1147,11 @@ body.red-theme .decorative-element {
     transform: translate(-50%);
   }
 
-  .heroText{
+  .heroText {
     display: none;
   }
-  
-  .heroTextResponsive{
+
+  .heroTextResponsive {
     display: block;
     color: var(--color-white);
   }
@@ -1490,5 +1485,13 @@ body.red-theme .decorative-element {
     width: 80px;
     top: -35px;
     right: -10px;
+  }
+
+  .btn::before {
+    left: 1px
+  }
+
+  .btn::after {
+    right: 1px
   }
 }

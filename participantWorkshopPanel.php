@@ -540,7 +540,11 @@ function renderStars($rating)
                                         <div class="resourceInfo">
                                             <i class="fas fa-file-alt"></i>
                                             <?php if (!empty($task['task_file'])): ?>
-                                                <a href="<?= htmlspecialchars($task['task_file']); ?>" target="_blank">Download</a>
+                                                <?php if (filter_var($task['task_file'], FILTER_VALIDATE_URL)): ?>
+                                                    <a href="<?= htmlspecialchars($task['task_file']); ?>" target="_blank"><i class="fas fa-link"></i> Open URL</a>
+                                                <?php else: ?>
+                                                    <a href="<?= htmlspecialchars($task['task_file']); ?>" target="_blank"><i class="fas fa-download"></i> Download</a>
+                                                <?php endif; ?>
                                             <?php else: ?>
                                                 —
                                             <?php endif; ?>
@@ -649,8 +653,13 @@ function renderStars($rating)
                                                 onclick="deleteSubmission(<?= (int) $task['submission_id'] ?>)">Delete
                                                 Submission</button>
                                         <?php elseif (!empty($task['task_file'])): ?>
-                                            <a href="<?= htmlspecialchars($task['task_file']) ?>" target="_blank"
-                                                class="downloadFileBtn"><i class="fa-solid fa-file-download"></i> Task Resource</a>
+                                            <?php if (filter_var($task['task_file'], FILTER_VALIDATE_URL)): ?>
+                                                <a href="<?= htmlspecialchars($task['task_file']) ?>" target="_blank"
+                                                    class="downloadFileBtn"><i class="fa-solid fa-link"></i> Open URL</a>
+                                            <?php else: ?>
+                                                <a href="<?= htmlspecialchars($task['task_file']) ?>" target="_blank"
+                                                    class="downloadFileBtn"><i class="fa-solid fa-file-download"></i> Task Resource</a>
+                                            <?php endif; ?>
                                         <?php endif; ?>
                                     </div>
                                 </article>
@@ -763,11 +772,19 @@ function renderStars($rating)
                                             <div class="materialItem">
                                                 <i class="fas fa-file-alt materialIcon"></i>
                                                 <span class="materialName"><?= htmlspecialchars($tm['material_title']) ?></span>
-                                                <a href="<?= htmlspecialchars($tm['file_path']) ?>" class="materialDownloadBtn"
-                                                    target="_blank" download>
-                                                    <i class="fas fa-download"></i>
-                                                    Download
-                                                </a>
+                                                <?php if (filter_var($tm['file_path'], FILTER_VALIDATE_URL)): ?>
+                                                    <a href="<?= htmlspecialchars($tm['file_path']) ?>" class="materialDownloadBtn"
+                                                        target="_blank">
+                                                        <i class="fas fa-link"></i>
+                                                        Open URL
+                                                    </a>
+                                                <?php else: ?>
+                                                    <a href="<?= htmlspecialchars($tm['file_path']) ?>" class="materialDownloadBtn"
+                                                        target="_blank" download>
+                                                        <i class="fas fa-download"></i>
+                                                        Download
+                                                    </a>
+                                                <?php endif; ?>
                                             </div>
                                         <?php endforeach; ?>
                                     <?php endif; ?>
@@ -788,11 +805,19 @@ function renderStars($rating)
                                             <div class="materialItem">
                                                 <i class="fas fa-file-alt materialIcon"></i>
                                                 <span class="materialName"><?= htmlspecialchars($sm['material_title']) ?></span>
-                                                <a href="<?= htmlspecialchars($sm['file_path']) ?>" class="materialDownloadBtn"
-                                                    target="_blank" download>
-                                                    <i class="fas fa-download"></i>
-                                                    Download
-                                                </a>
+                                                <?php if (filter_var($sm['file_path'], FILTER_VALIDATE_URL)): ?>
+                                                    <a href="<?= htmlspecialchars($sm['file_path']) ?>" class="materialDownloadBtn"
+                                                        target="_blank">
+                                                        <i class="fas fa-link"></i>
+                                                        Open URL
+                                                    </a>
+                                                <?php else: ?>
+                                                    <a href="<?= htmlspecialchars($sm['file_path']) ?>" class="materialDownloadBtn"
+                                                        target="_blank" download>
+                                                        <i class="fas fa-download"></i>
+                                                        Download
+                                                    </a>
+                                                <?php endif; ?>
                                             </div>
                                         <?php endforeach; ?>
                                     <?php endif; ?>

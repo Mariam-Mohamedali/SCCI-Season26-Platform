@@ -2,7 +2,7 @@
 
 include "./includes/config.php";
 if (isset($_POST['contact'])) {
-
+if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['message'])) {
     $name = mysqli_real_escape_string($connect, $_POST['name']);
     $email = mysqli_real_escape_string($connect, $_POST['email']);
     $message = mysqli_real_escape_string($connect, $_POST['message']);
@@ -14,6 +14,7 @@ if (isset($_POST['contact'])) {
         header("Location: home.php?success=1#contact");
         exit;
     }
+}
 }
 ?>
 

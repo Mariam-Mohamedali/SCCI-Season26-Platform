@@ -311,24 +311,34 @@ include('./includes/nav.php');
               placeholder="Enter your phone" >
           </div>
 
-          <div class="input-group">
+          <div class="input-group passwordGroup">
             <label for="password">Password (leave blank to keep current)</label>
-            <input type="password" name="password" id="password" placeholder="Enter new password (optional)">
+            <div class="passwordWrapper">              
+              <input class="passwordInput" type="password" name="password" id="password" placeholder="Enter new password (optional)">
+              <span class="toggle-password-btn" id="togglePasswordBtn">
+                  <i class="fas fa-eye-slash"></i>
+              </span>
+            </div>
+
           </div>
 
           <div class="input-group">
             <label for="confirm_password">Confirm Password</label>
-            <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm new password">
-    
+            <div class="passwordWrapper">
+              <input class="passwordInput" type="password" name="confirm_password" id="confirm_password" placeholder="Confirm new password">
+              <span class="toggle-password-btn" id="togglePasswordBtn">
+                  <i class="fas fa-eye-slash"></i>
+              </span>
+            </div>
             <div class="input-group">
             <label for="githup">GitHub</label>
-            <input type="text" name="githup" id="githup" value="<?php echo htmlspecialchars($user['githup']); ?>"
+            <input type="text" name="githup" id="githup" value="<?php echo htmlspecialchars($user['githup'] ?? ''); ?>"
               placeholder="Enter your GitHub">
           </div>
 
           <div class="input-group">
             <label for="linkedin">LinkedIn</label>
-            <input type="text" name="linkedin" id="linkedin" value="<?php echo htmlspecialchars($user['linkedin']); ?>"
+            <input type="text" name="linkedin" id="linkedin" value="<?php echo htmlspecialchars($user['linkedin'] ?? ''); ?>"
               placeholder="Enter your LinkedIn">
           </div>
 

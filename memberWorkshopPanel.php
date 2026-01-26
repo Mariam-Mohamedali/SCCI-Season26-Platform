@@ -374,6 +374,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'add_t
   $taskName = trim($_POST['taskName'] ?? '');
   $taskDeadline = $_POST['taskDeadline'] ?? '';
   $taskBio = trim($_POST['taskBio'] ?? '');
+  $taskUrl = trim($_POST['task_url'] ?? ''); // ✅ NEW: URL field
 
   if ($taskName === '' || $taskDeadline === '' || $taskBio === '') {
     header("Location: memberWorkshopPanel.php?session_id=$selectedSessionId&tab=$currentTab&err=Please fill all fields");
@@ -395,10 +396,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'add_t
   }
   $chk->close();
 
-  // upload file (optional)
+  // ✅ NEW: Handle file OR URL (Strict: Only one allowed)
   $taskFilePath = null;
+  $hasFile = !empty($_FILES['task_file']['name']);
+  $hasUrl = !empty($taskUrl);
 
-  if (!empty($_FILES['task_file']['name'])) {
+  if ($hasFile && $hasUrl) {
+    header("Location: memberWorkshopPanel.php?session_id=$selectedSessionId&tab=addTask&err=Please provide either a file OR a URL, not both.");
+    exit;
+  }
+  
+  if (!$hasFile && !$hasUrl) {
+    header("Location: memberWorkshopPanel.php?session_id=$selectedSessionId&tab=addTask&err=Please provide a file or a URL.");
+    exit;
+  }
+
+  // Check if URL is provided
+  if ($hasUrl) {
+    // Validate URL format
+    if (!filter_var($taskUrl, FILTER_VALIDATE_URL)) {
+      header("Location: memberWorkshopPanel.php?session_id=$selectedSessionId&tab=addTask&err=Invalid URL format");
+      exit;
+    }
+    $taskFilePath = $taskUrl; // Store URL in task_file column
+  }
+  // Otherwise check for file upload
+  elseif ($hasFile) {
 
     if ($_FILES['task_file']['error'] !== UPLOAD_ERR_OK) {
       header("Location: memberWorkshopPanel.php?session_id=$selectedSessionId&tab=addTask&err=File upload error");
@@ -410,7 +433,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'add_t
       exit;
     }
 
-    $allowed = ['pdf', 'doc', 'docx', 'png', 'jpg', 'jpeg', 'zip'];
+  $allowed = ['pdf', 'doc', 'docx', 'ppt', 'pptx', 'zip', 'rar', 'png', 'jpg', 'jpeg','xls','xlsx','csv','txt'];
     $ext = strtolower(pathinfo($_FILES['task_file']['name'], PATHINFO_EXTENSION));
 
     if (!in_array($ext, $allowed, true)) {
@@ -463,43 +486,67 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'add_m
 
   $materialTitle = trim($_POST['material_title'] ?? '');
   $materialType = $_POST['material_type'] ?? '';
+  $materialUrl = trim($_POST['material_url'] ?? ''); // ✅ NEW: URL field
 
   if ($materialTitle === '' || !in_array($materialType, ['technical', 'soft'], true)) {
     header("Location: memberWorkshopPanel.php?session_id=$selectedSessionId&tab=$currentTab&err=Please enter title and choose a valid type");
     exit;
   }
 
-  if (!isset($_FILES['material_file']) || $_FILES['material_file']['error'] !== UPLOAD_ERR_OK) {
-    header("Location: memberWorkshopPanel.php?session_id=$selectedSessionId&tab=$currentTab&err=File upload error");
+  // ✅ NEW: Handle file OR URL (Strict: Only one allowed)
+  $dbPath = null;
+  $hasFile = (isset($_FILES['material_file']) && $_FILES['material_file']['error'] === UPLOAD_ERR_OK && !empty($_FILES['material_file']['name']));
+  $hasUrl = !empty($materialUrl);
+
+  if ($hasFile && $hasUrl) {
+    header("Location: memberWorkshopPanel.php?session_id=$selectedSessionId&tab=addMaterial&err=Please provide either a file OR a URL, not both.");
     exit;
   }
 
-  if ($_FILES['material_file']['size'] > 20 * 1024 * 1024) {
-    header("Location: memberWorkshopPanel.php?session_id=$selectedSessionId&tab=$currentTab&err=File too large (max 20MB)");
+  // Check if URL is provided
+  if ($hasUrl) {
+    // Validate URL format
+    if (!filter_var($materialUrl, FILTER_VALIDATE_URL)) {
+      header("Location: memberWorkshopPanel.php?session_id=$selectedSessionId&tab=addMaterial&err=Invalid URL format");
+      exit;
+    }
+    $dbPath = $materialUrl; // Store URL in file_path column
+  }
+  // Otherwise check for file upload
+  elseif ($hasFile) {
+
+    if ($_FILES['material_file']['size'] > 20 * 1024 * 1024) {
+      header("Location: memberWorkshopPanel.php?session_id=$selectedSessionId&tab=$currentTab&err=File too large (max 20MB)");
+      exit;
+    }
+
+    $allowed = ['pdf', 'doc', 'docx', 'ppt', 'pptx', 'zip', 'rar', 'png', 'jpg', 'jpeg','xls','xlsx','csv','txt'];
+    $ext = strtolower(pathinfo($_FILES['material_file']['name'], PATHINFO_EXTENSION));
+
+    if (!in_array($ext, $allowed, true)) {
+      header("Location: memberWorkshopPanel.php?session_id=$selectedSessionId&tab=$currentTab&err=Invalid file type");
+      exit;
+    }
+
+    $uploadDir = __DIR__ . "/uploads/materials";
+    if (!is_dir($uploadDir))
+      mkdir($uploadDir, 0777, true);
+
+    $newName = "mat_" . time() . "_" . bin2hex(random_bytes(4)) . "." . $ext;
+    $dest = $uploadDir . "/" . $newName;
+
+    if (!move_uploaded_file($_FILES['material_file']['tmp_name'], $dest)) {
+      redirectPanel($selectedSessionId, 'addMaterial', 'err', 'File upload error');
+      exit;
+    }
+
+    $dbPath = "uploads/materials/" . $newName;
+  }
+  else {
+    // Neither URL nor file provided
+    header("Location: memberWorkshopPanel.php?session_id=$selectedSessionId&tab=addMaterial&err=Please provide either a file or URL");
     exit;
   }
-
-  $allowed = ['pdf', 'doc', 'docx', 'ppt', 'pptx', 'zip', 'rar', 'png', 'jpg', 'jpeg'];
-  $ext = strtolower(pathinfo($_FILES['material_file']['name'], PATHINFO_EXTENSION));
-
-  if (!in_array($ext, $allowed, true)) {
-    header("Location: memberWorkshopPanel.php?session_id=$selectedSessionId&tab=$currentTab&err=Invalid file type");
-    exit;
-  }
-
-  $uploadDir = __DIR__ . "/uploads/materials";
-  if (!is_dir($uploadDir))
-    mkdir($uploadDir, 0777, true);
-
-  $newName = "mat_" . time() . "_" . bin2hex(random_bytes(4)) . "." . $ext;
-  $dest = $uploadDir . "/" . $newName;
-
-  if (!move_uploaded_file($_FILES['material_file']['tmp_name'], $dest)) {
-    redirectPanel($selectedSessionId, 'addMaterial', 'err', 'File upload error');
-    exit;
-  }
-
-  $dbPath = "uploads/materials/" . $newName;
 
   $st = $connect->prepare("
     INSERT INTO session_materials (workshop_session_id, material_type, material_title, file_path, uploaded_by)
@@ -1099,28 +1146,37 @@ if ($workshopSessionId > 0) {
 
           </div>
 
-          <!-- upload task file -->
-          <div class="fileUpload">
-            <div class="formLabel">Upload File:</div>
-            <div class="uploadContainer">
-              <label class="formLabel uploadLabel">
-                <div class="uploadIcon"></div>
-              </label>
-              <p class="uploadText">Drag and drop or click to browse</p>
+          <!-- upload task file OR URL -->
+          <div class="sideInputs">
+            <div class="fileUpload" style="flex: 1;">
+              <div class="formLabel">Upload File:</div>
+              <div class="uploadContainer">
+                <label class="formLabel uploadLabel">
+                  <div class="uploadIcon"></div>
+                </label>
+                <p class="uploadText">Drag and drop or click to browse</p>
 
-              <input id="taskUpload" type="file" name="task_file" class="taskFileInput" style="display:none;">
+                <input id="taskUpload" type="file" name="task_file" class="taskFileInput" style="display:none;">
 
-              <!-- Shows uploaded file name -->
-              <div class="fileUploadInfo">
-                <p class="fileUploadedName" style="display:none;"></p>
-                <button type="button" class="removeUpload" style="display:none;">X</button>
+                <!-- Shows uploaded file name -->
+                <div class="fileUploadInfo">
+                  <p class="fileUploadedName" style="display:none;"></p>
+                  <button type="button" class="removeUpload" style="display:none;">X</button>
+                </div>
+
+                <p class="fileMessage"></p>
+                <p class="dragMessage" style="display: none;"><i class="fa-solid fa-file"></i>Drag the task file here!</p>
+
+                <label for="taskUpload" class="btn btn-secondary btn-sm uploadBtn">Upload File</label>
               </div>
+            </div>
 
-              <p class="fileMessage"></p>
-              <p class="dragMessage" style="display: none;"><i class="fa-solid fa-file"></i>Drag the task file here!</p>
-
-              <label for="taskUpload" class="btn btn-secondary btn-sm uploadBtn">Upload File</label>
-
+            <div class="inputsBox" style="flex: 1; padding: 20px; border: 2px dashed #ddd; border-radius: 12px; display: flex; flex-direction: column; justify-content: center;">
+              <div class="groupInputs columnGroup">
+                <label class="formLabel" for="task_url">OR Paste URL Link:</label>
+                <input class="textInput" type="url" name="task_url" id="task_url" placeholder="https://example.com/file">
+              </div>
+              <p style="font-size: 10px; color: #777; margin-top: 5px;">* If you provide a URL, the file upload will be ignored.</p>
             </div>
           </div>
 
@@ -1153,8 +1209,13 @@ if ($workshopSessionId > 0) {
                 </div>
                 <div class="materialActions">
                   <?php if (!empty($task['task_file'])): ?>
-                    <a href="<?= htmlspecialchars($task['task_file']) ?>" target="_blank" class="downloadFileBtn"><i
-                        class="fa-solid fa-download"></i> Download</a>
+                    <?php if (filter_var($task['task_file'], FILTER_VALIDATE_URL)): ?>
+                      <a href="<?= htmlspecialchars($task['task_file']) ?>" target="_blank" class="downloadFileBtn"><i
+                          class="fa-solid fa-link"></i> Open Link</a>
+                    <?php else: ?>
+                      <a href="<?= htmlspecialchars($task['task_file']) ?>" target="_blank" class="downloadFileBtn"><i
+                          class="fa-solid fa-download"></i> Download</a>
+                    <?php endif; ?>
                   <?php endif; ?>
                   <button class="deleteMaterialButton" onclick="deleteTask(<?= (int) $task['task_id'] ?>)">Delete</button>
                 </div>
@@ -1218,27 +1279,36 @@ if ($workshopSessionId > 0) {
             </div>
           </div>
 
-          <!-- upload material file -->
-          <div class="fileUpload">
-            <div class="formLabel">Upload File:</div>
+          <!-- upload material file OR URL -->
+          <div class="sideInputs">
+            <div class="fileUpload" style="flex: 1;">
+              <div class="formLabel">Upload File:</div>
+              <div class="uploadContainer">
+                <label class="formLabel uploadLabel">
+                  <div class="uploadIcon"></div>
+                  <p class="uploadText">Drag and drop or click to browse</p>
+                </label>
 
-            <div class="uploadContainer">
-              <label class="formLabel uploadLabel">
-                <div class="uploadIcon"></div>
-                <p class="uploadText">Drag and drop or click to browse</p>
-              </label>
+                <input type="file" name="material_file" id="material_file" class="taskFileInput" style="display:none;">
 
-              <input type="file" name="material_file" id="material_file" class="taskFileInput" style="display:none;">
+                <!-- Shows uploaded file name -->
+                <div class="fileUploadInfo">
+                  <p class="fileUploadedName" id="materialFileName" style="display:none;"></p>
+                  <button type="button" class="removeUpload" style="display:none;">X</button>
+                </div>
+                <p class="fileMessage" id="materialFileMsg"></p>
+                <p class="dragMessage" style="display: none;"><i class="fa-solid fa-file"></i>Drag the material here!</p>
 
-              <!-- Shows uploaded file name -->
-              <div class="fileUploadInfo">
-                <p class="fileUploadedName" id="materialFileName" style="display:none;"></p>
-                <button type="button" class="removeUpload" style="display:none;">X</button>
+                <label class="btn btn-secondary btn-sm" for="material_file">Upload File</label>
               </div>
-              <p class="fileMessage" id="materialFileMsg"></p>
-              <p class="dragMessage" style="display: none;"><i class="fa-solid fa-file"></i>Drag the material here!</p>
+            </div>
 
-              <label class="btn btn-secondary btn-sm" for="material_file">Upload File</label>
+            <div class="inputsBox" style="flex: 1; padding: 20px; border: 2px dashed #ddd; border-radius: 12px; display: flex; flex-direction: column; justify-content: center;">
+              <div class="formGroup">
+                <label class="formLabel" for="material_url">OR Paste URL Link:</label>
+                <input class="textInput" type="url" name="material_url" id="material_url" placeholder="https://example.com/material">
+              </div>
+              <p style="font-size: 10px; color: #777; margin-top: 5px;">* If you provide a URL, the file upload will be ignored.</p>
             </div>
           </div>
 
@@ -1277,8 +1347,13 @@ if ($workshopSessionId > 0) {
                       </div>
 
                       <div class="materialActions">
-                        <a href="<?= htmlspecialchars($material['file_path']) ?>" target="_blank" class="downloadFileBtn"><i
-                            class="fa-solid fa-download"></i> Download</a>
+                        <?php if (filter_var($material['file_path'], FILTER_VALIDATE_URL)): ?>
+                          <a href="<?= htmlspecialchars($material['file_path']) ?>" target="_blank" class="downloadFileBtn"><i
+                              class="fa-solid fa-link"></i> Open Link</a>
+                        <?php else: ?>
+                          <a href="<?= htmlspecialchars($material['file_path']) ?>" target="_blank" class="downloadFileBtn"><i
+                              class="fa-solid fa-download"></i> Download</a>
+                        <?php endif; ?>
                         <button class="deleteMaterialButton"
                           onclick="deleteMaterial(<?= (int) $material['material_id'] ?>)">Delete</button>
                       </div>
@@ -1299,8 +1374,13 @@ if ($workshopSessionId > 0) {
                         </span>
                       </div>
                       <div class="materialActions">
-                        <a href="<?= htmlspecialchars($material['file_path']) ?>" target="_blank" class="downloadFileBtn"><i
-                            class="fa-solid fa-download"></i> Download</a>
+                        <?php if (filter_var($material['file_path'], FILTER_VALIDATE_URL)): ?>
+                          <a href="<?= htmlspecialchars($material['file_path']) ?>" target="_blank" class="downloadFileBtn"><i
+                              class="fa-solid fa-link"></i> Open Link</a>
+                        <?php else: ?>
+                          <a href="<?= htmlspecialchars($material['file_path']) ?>" target="_blank" class="downloadFileBtn"><i
+                              class="fa-solid fa-download"></i> Download</a>
+                        <?php endif; ?>
                         <button class="deleteMaterialButton"
                           onclick="deleteMaterial(<?= (int) $material['material_id'] ?>)">Delete</button>
                       </div>
@@ -1443,11 +1523,17 @@ if ($workshopSessionId > 0) {
       const finalMsg = sessionMsg || urlMsg;
       const finalErr = sessionErr || urlErr;
 
-      const popup = document.querySelector(".submitPopup");
-      if (popup && (finalMsg || finalErr)) {
-        if (typeof window.displayCustomPopup === 'function') {
-          window.displayCustomPopup(finalMsg || finalErr, !!finalErr);
-        }
+      // ✅ Use SweetAlert2 for better UI
+      if (finalMsg || finalErr) {
+        Swal.fire({
+          icon: finalErr ? 'error' : 'success',
+          title: finalErr ? 'Error!' : 'Success!',
+          text: finalMsg || finalErr,
+          confirmButtonText: 'OK',
+          confirmButtonColor: finalErr ? '#d33' : '#3085d6',
+          timer: finalErr ? undefined : 3000,
+          timerProgressBar: !finalErr
+        });
 
         // Clear URL parameters
         if (urlMsg || urlErr) {

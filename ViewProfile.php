@@ -233,13 +233,13 @@ if (isset($user['role']) && $user['role'] == 4 or $user['role'] == 5) {
 
           <div class="input-group">
             <label for="githup">GitHub</label>
-            <input type="text" name="githup" id="githup" value="<?php echo htmlspecialchars($user['githup']); ?>"
+            <input type="text" name="githup" id="githup" value="<?php echo htmlspecialchars($user['githup'] ?? ''); ?>"
               placeholder="Enter your GitHub" required>
           </div>
 
           <div class="input-group">
             <label for="linkedin">LinkedIn</label>
-            <input type="text" name="linkedin" id="linkedin" value="<?php echo htmlspecialchars($user['linkedin']); ?>"
+            <input type="text" name="linkedin" id="linkedin" value="<?php echo htmlspecialchars($user['linkedin'] ?? ''); ?>"
               placeholder="Enter your LinkedIn" required>
           </div>
 
@@ -249,16 +249,7 @@ if (isset($user['role']) && $user['role'] == 4 or $user['role'] == 5) {
       </div>
     </form>
   </section>
-
-
-
-
-
-
-
-  <!-- History Section -->
-
-
+  
   </main>
   <?php include './includes/footer.php'; ?>
 
