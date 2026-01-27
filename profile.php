@@ -1,12 +1,10 @@
 <?php
-
 include './includes/config.php';
 // Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
-    header("Location: /SCCI-Season26-Platform/auth/login.php");
+    header("Location:auth/login.php");
     exit();
 }
-
 $user_id = $_SESSION['user_id'];
 $success_message = '';
 $error_message = '';
@@ -14,7 +12,7 @@ $error_message = '';
 // Handle logout
 if (isset($_POST['logout'])) {
     session_destroy();
-    header("Location: /SCCI-Season26-Platform/auth/login.php");
+    header("Location: auth/login.php");
     exit();
 }
 
@@ -33,7 +31,7 @@ $user = mysqli_fetch_assoc($run_user);
 // Check if user exists
 if (!$user) {
     session_destroy();
-    header("Location: /SCCI-Season26-Platform/auth/login.php");
+    header("Location: auth/login.php");
     exit();
 }
 
@@ -282,7 +280,6 @@ include('./includes/nav.php');
     </article>
   </section>
 
-
   <!-- Edit Profile Popup -->
   <section class="editProfileSection">
     <form method="POST" action="">
@@ -350,16 +347,6 @@ include('./includes/nav.php');
       </div>
     </form>
   </section>
-
-
-
-
-
-
-
-  <!-- History Section -->
-
-  
   </main>
   <?php include './includes/footer.php'; ?>
 

@@ -796,7 +796,7 @@ if (isset($_POST['resetAttendance'])) {
       <a data-page="review" class="">review</a>
       <a data-page="addTask" class="">add task</a>
       <a data-page="addMaterial" class="">add materials</a>
-      <a data-page="quiz" class="">quiz</a>
+      <a data-page="quiz" class="">ACTIVITY TIME</a>
     </div>
 
     <!-- EVALUATE --------------------------------------------------------------------------- -->
@@ -1454,13 +1454,13 @@ if (isset($_POST['resetAttendance'])) {
               <i class="fas fa-fire bannerIcon"></i>
             </div>
             <h3 class="gameTitle">🎮 Weekly Challenge Game!</h3>
-            <p class="gameSubtitle">Cast your quiz, spark curiosity!</p>
+            <p class="gameSubtitle">Cast your ACTIVITY TIME, spark curiosity!</p>
           </div>
 
           <!-- Motivational Message -->
           <div class="motivationalBox">
             <i class="fas fa-bullseye"></i>
-            <p>Create quizzes that challenge, inspire, and leave a lasting impact. 🚀</p>
+            <p>Create ACTIVITY TIME that challenge, inspire, and leave a lasting impact. 🚀</p>
           </div>
 
           <!-- Play Button -->
@@ -1472,18 +1472,6 @@ if (isset($_POST['resetAttendance'])) {
               <i class="fas fa-arrow-right"></i>
             </a>
           </div>
-
-          <!-- Stats Preview -->
-          <!-- <div class="statsPreview">
-                  <div class="statItem">
-                      <i class="fas fa-users"></i>
-                      <span>300 Players</span>
-                  </div>
-                  <div class="statItem">
-                      <i class="fas fa-crown"></i>
-                      <span>Top Score: 98/100</span>
-                  </div>
-              </div> -->
         </div>
       </article>
     </section>

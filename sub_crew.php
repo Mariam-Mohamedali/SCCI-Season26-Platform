@@ -1,6 +1,10 @@
 <?php
 include './includes/config.php';
-
+// منع الدخول المباشر عن طريق الرابط
+if (!isset($_SERVER['HTTP_REFERER']) || strpos($_SERVER['HTTP_REFERER'], $_SERVER['HTTP_HOST']) === false) {
+    header("Location: home.php"); // حوله لصفحة الرئيسية أو أي صفحة تانية
+    exit();
+}
 // Define names to fetch
 $target_names = [
     'Marwan Wael',
@@ -162,28 +166,28 @@ if ($group === 'technical') {
                     </a>
                     <a href="crewDetails.php?committee_id=6" class="btn btn-primary">Know Us !</a>
                 </div>
-
-                <!-- 2. DD -->
-                <div class="subCard" data-aos="fade-up" data-aos-delay="400">
-                    <a href="crewDetails.php?committee_id=7" class="memberCardLink">
-                    <div class="flipCard smCard card2" data-aos="flip">
+                <!-- 2. SMM -->
+                <div class="subCard" data-aos="fade-up" data-aos-delay="600">
+                    <a href="crewDetails.php?committee_id=5" class="memberCardLink">
+                    <div class="flipCard smCard card4" data-aos="flip">
                         <div class="flipInner">
                             <div class="flipSide flipFront"><img src="./assets/img/crew/backCardCrew.png" loading="lazy" alt="backCard" /></div>
-                            <div class="flipSide flipBack" data-title="DD">
+                            <div class="flipSide flipBack" data-title="SMM">
                                 <div class="backCard">
                                     <div class="memberImageContainer">
-                                        <img src="./assets/uploadedImages/SCCI Board/Mohamed El Hossiny.jpg" alt="Mohamed El Hossiny" class="memberImage" />
+                                        <img src="./assets/uploadedImages/SCCI Board/Nour Mohamed.jpg" alt="Nour Mohamed" class="memberImage" />
                                     </div>
                                     <div class="memberName">
-                                        <h3>Mohamed El Hossiny</h3>
+                                        <h3>Nour Mohamed</h3>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     </a>
-                    <a href="crewDetails.php?committee_id=7" class="btn btn-primary">Know Us !</a>
-                </div>
+                    <a href="crewDetails.php?committee_id=5" class="btn btn-primary">Know Us !</a>
+                </div> 
+               
 
                 <!-- 3. MP -->
                 <div class="subCard" data-aos="fade-up" data-aos-delay="500">
@@ -206,28 +210,28 @@ if ($group === 'technical') {
                     </a>
                     <a href="crewDetails.php?committee_id=10" class="btn btn-primary">Know Us !</a>
                 </div>
-
-                <!-- 4. SMM -->
-                <div class="subCard" data-aos="fade-up" data-aos-delay="600">
-                    <a href="crewDetails.php?committee_id=5" class="memberCardLink">
-                    <div class="flipCard smCard card4" data-aos="flip">
+             <!-- 4. DD -->
+                 <div class="subCard" data-aos="fade-up" data-aos-delay="400">
+                    <a href="crewDetails.php?committee_id=7" class="memberCardLink">
+                    <div class="flipCard smCard card2" data-aos="flip">
                         <div class="flipInner">
                             <div class="flipSide flipFront"><img src="./assets/img/crew/backCardCrew.png" loading="lazy" alt="backCard" /></div>
-                            <div class="flipSide flipBack" data-title="SMM">
+                            <div class="flipSide flipBack" data-title="DD">
                                 <div class="backCard">
                                     <div class="memberImageContainer">
-                                        <img src="./assets/uploadedImages/SCCI Board/Nour Mohamed.jpg" alt="Nour Mohamed" class="memberImage" />
+                                        <img src="./assets/uploadedImages/SCCI Board/Mohamed El Hossiny.jpg" alt="Mohamed El Hossiny" class="memberImage" />
                                     </div>
                                     <div class="memberName">
-                                        <h3>Nour Mohamed</h3>
+                                        <h3>Mohamed El Hossiny</h3>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     </a>
-                    <a href="crewDetails.php?committee_id=5" class="btn btn-primary">Know Us !</a>
-                </div>
+                    <a href="crewDetails.php?committee_id=7" class="btn btn-primary">Know Us !</a>
+                </div> 
+             
                 
             </div>
 

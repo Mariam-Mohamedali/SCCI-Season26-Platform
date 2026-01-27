@@ -1,5 +1,10 @@
 <?php
 include "./includes/config.php";
+// منع الدخول المباشر عن طريق الرابط
+if (!isset($_SERVER['HTTP_REFERER']) || strpos($_SERVER['HTTP_REFERER'], $_SERVER['HTTP_HOST']) === false) {
+    header("Location: home.php"); // حوله لصفحة الرئيسية أو أي صفحة تانية
+    exit();
+}
 if (isset($_GET['category_id'])) {
     $workshop_id = $_GET['category_id'];
     $select_workshop = "SELECT * FROM `workshops` WHERE `workshop_id` = '$workshop_id'";

@@ -82,20 +82,6 @@ function saveFeedback() {
 
     console.log('Feedback Data:', feedbackData);
 
-    // TODO: Send to backend via AJAX/Fetch
-    // Example:
-    // fetch('api/saveFeedback.php', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify(feedbackData)
-    // })
-    // .then(response => response.json())
-    // .then(data => {
-    //   if (data.success) {
-    //     alert('Feedback saved successfully!');
-    //     closeFeedbackModal();
-    //   }
-    // });
 
     // For now, just show success message
     const successMsg = 'Feedback saved successfully! Session: ' + feedbackData.sessionName + ' Rating: ' + feedbackData.rating + ' stars';
