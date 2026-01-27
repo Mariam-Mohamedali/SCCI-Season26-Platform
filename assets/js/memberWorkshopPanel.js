@@ -215,14 +215,154 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* =========================================================
-     5) ATTENDANCE AUTO SUBMIT
+     5) ATTENDANCE AUTO SUBMIT (AJAX)
   ========================================================= */
+
+  // A helper to get dynamic parameters from URL (needed for UI reconstruction)
+  function getUrlParam(name) {
+    return new URLSearchParams(window.location.search).get(name) || "";
+  }
+
+  // Sync Review Tab without refresh
+  function syncReviewTab(userId, status) {
+    const row = document.querySelector(`.reviewRow[data-user-id="${userId}"]`);
+    if (!row) return;
+
+    // Update data attribute (for filters)
+    row.dataset.attendance = status;
+
+    // Find the attendance cell (usually second column)
+    const cell = row.cells[1];
+    if (!cell) return;
+
+    if (status === 'present') {
+      cell.innerHTML = `
+        <div class="reviewAttended">
+          <div class="reviewAttendBox">
+            <div class="reviewAttendedSymbol">✓</div>
+          </div>
+          Attended
+        </div>
+      `;
+    } else {
+      cell.innerHTML = `
+        <div class="reviewAbsent">
+          <div class="reviewAttendBox">
+            <div class="reviewAttendedSymbol">✗</div>
+          </div>
+          Absent
+        </div>
+      `;
+    }
+  }
+
+  // 1. Mark Attendance AJAX
   document.addEventListener("change", (e) => {
     const input = e.target;
     if (input && input.type === "radio" && input.name === "status") {
       const form = input.closest("form");
-      if (form) form.submit();
+      if (!form || !form.classList.contains("attendanceForm")) return;
+
+      const formData = new FormData(form);
+      formData.append("ajax", "1");
+
+      const participantId = formData.get("participant_id");
+      const status = formData.get("status");
+
+      fetch("memberWorkshopPanel.php", {
+        method: "POST",
+        body: formData
+      })
+        .then(r => r.json())
+        .then(data => {
+          if (data.status === "success") {
+            // Sync Review Tab
+            syncReviewTab(participantId, status);
+            // Success Feedback
+            if (typeof Swal !== 'undefined') {
+              Swal.fire({
+                icon: 'success',
+                title: 'Saved!',
+                timer: 1000,
+                showConfirmButton: false
+              });
+            }
+
+            // Reconstruct the "Attendance Saved" state in the cell
+            const container = form.parentElement;
+            container.innerHTML = `
+            <div class="attendanceInfo">
+              <span class="attendance-saved-text">Attendance Saved</span>
+              <form action="" method="POST" class="attendanceResetForm">
+                <input type="hidden" name="user_id" value="${participantId}">
+                <button class="resetAttendance" type="submit" name="resetAttendance"><i class="fa-solid fa-arrow-rotate-left"></i> Reset Attendance</button>
+              </form>
+            </div>
+          `;
+          }
+        })
+        .catch(console.error);
     }
+  });
+
+  // 2. Reset Attendance AJAX
+  document.addEventListener("click", (e) => {
+    const resetBtn = e.target.closest(".resetAttendance");
+    if (!resetBtn) return;
+
+    const form = resetBtn.closest("form");
+    if (!form) return;
+
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    formData.append("ajax", "1");
+    // Ensure the key exists even if button name is used by PHP
+    formData.append("resetAttendance", "1");
+
+    const userId = formData.get("user_id");
+    const sid = getUrlParam("session_id");
+    const tab = getUrlParam("tab") || "evaluate";
+
+    fetch("memberWorkshopPanel.php", {
+      method: "POST",
+      body: formData
+    })
+      .then(r => r.json())
+      .then(data => {
+        if (data.status === "success") {
+          // Sync Review Tab (reset to absent)
+          syncReviewTab(userId, 'absent');
+          // Reconstruct the radio buttons form
+          const cell = form.closest("td") || form.parentElement.parentElement;
+          cell.innerHTML = `
+          <form method="POST" class="attendanceForm">
+            <input type="hidden" name="action" value="mark_attendance">
+            <input type="hidden" name="participant_id" value="${userId}">
+            <input type="hidden" name="tab" value="${tab}">
+            <input type="hidden" name="session_id" value="${sid}">
+            <div class="evaluateTaskRow">
+              <label class="radioOption">
+                <input type="radio" name="status" value="present" />
+                <div class="evaluateAttendanceCircle evaluateCheckTask">
+                  <i class="fa-solid fa-check"></i>
+                </div>
+              </label>
+
+              <label class="radioOption">
+                <input type="radio" name="status" value="absent" />
+                <div class="evaluateAttendanceCircle evaluateXtask">
+                  <i class="fa-solid fa-x"></i>
+                </div>
+              </label>
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm attendanceSubmit"
+              style="display: none;">Save</button>
+          </form>
+        `;
+        }
+      })
+      .catch(console.error);
   });
 
   /* =========================================================

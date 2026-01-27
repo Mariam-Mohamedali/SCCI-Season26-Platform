@@ -217,6 +217,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'mark_
   $stmtAtt->bind_param("iiisi", $workshopId, $selectedSessionId, $participantId, $status, $crewId);
   $stmtAtt->execute();
 
+  if (isset($_POST['ajax'])) {
+      echo json_encode(['status' => 'success']);
+      exit;
+  }
+
   redirectPanel($selectedSessionId, $currentTab, 'msg', 'Attendance saved');
   exit;
 }
@@ -665,6 +670,11 @@ if (isset($_POST['resetAttendance'])) {
     $runDeleteAttendance = mysqli_query($connect, $deleteAttendance);
 
     if ($runDeleteAttendance) {
+        // Handle AJAX
+        if (isset($_POST['ajax'])) {
+            echo json_encode(['status' => 'success']);
+            exit;
+        }
         // Redirect if successful
         redirectPanel($selectedSessionId, $currentTab, 'msg', 'Attendance saved');
         exit;
@@ -1040,7 +1050,7 @@ if (isset($_POST['resetAttendance'])) {
                     $text = $latestByUser[$pid]['feedback_text'] ?? null;
                     $given = $latestByUser[$pid]['user_name'] ?? null;
                     ?>
-                    <tr class="reviewRow" data-attendance="<?= $st ?>"
+                    <tr class="reviewRow" data-user-id="<?= $pid ?>" data-attendance="<?= $st ?>"
                       data-task-status="<?= isset($latestByUser[$pid]) ? 'accepted' : 'pending' ?>">
                       <td class="tableParticipantName"><a href="ViewProfile.php?user_id=<?php echo $p['user_id']; ?>"><?php echo htmlspecialchars($p['user_name']); ?></a></td>
 

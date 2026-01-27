@@ -854,19 +854,6 @@ function renderStars($rating)
                             <p class="gameSubtitle">Test your knowledge and compete for the highest score!</p>
                         </div>
 
-                        <!-- Game Info Cards -->
-                        <!-- <div class="gameInfoGrid">
-                            <div class="gameInfoCard rewardCard">
-                                <div class="infoIcon">
-                                    <i class="fas fa-gem"></i>
-                                </div>
-                                <div class="infoContent">
-                                    <span class="infoLabel">Reward Points</span>
-                                    <span class="infoValue">100 Points</span>
-                                </div>
-                            </div>
-                        </div> -->
-
                         <!-- Motivational Message -->
                         <div class="motivationalBox">
                             <i class="fas fa-bullseye"></i>
