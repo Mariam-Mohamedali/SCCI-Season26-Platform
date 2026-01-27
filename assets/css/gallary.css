@@ -945,24 +945,27 @@ footer {
     position: fixed !important;
     top: 0 !important;
     left: 0 !important;
-    width: 100vw !important;
-    height: 100vh !important;
-    background: rgba(0, 0, 0, 0.75);
-    backdrop-filter: blur(10px);
+    width: 100% !important;
+    height: 100% !important;
+    inset: 0 !important;
+    /* Ensure full coverage */
+    background: rgba(0, 0, 0, 0.85);
+    /* Lighter background as requested */
+    backdrop-filter: blur(5px);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 9999 !important;
+    z-index: 2147483647 !important;
+    /* Proper Max Z-Index */
     opacity: 0;
     visibility: hidden;
-    transition:
-        opacity 0.3s ease,
-        visibility 0.3s ease;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
     cursor: zoom-out;
     margin: 0;
     padding: 0;
-    overflow: auto;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 .lightboxOverlay.active {
@@ -971,20 +974,24 @@ footer {
 }
 
 .lightboxImage {
-    max-width: 85vw;
-    max-height: 85vh;
+    max-width: 100%;
+    max-height: 100%;
     width: auto;
     height: auto;
     object-fit: contain;
     background: transparent;
-    border-radius: 8px;
+    border-radius: 4px;
+    /* Slight radius */
     filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.5));
-    transform: scale(0.9);
+    transform: scale(0.95);
     transition: transform 0.3s ease;
-    cursor: zoom-out;
+    cursor: default;
     position: relative;
     z-index: 10000;
     margin: auto;
+    padding: 10px;
+    /* Internal padding so it doesn't touch edges */
+    box-sizing: border-box;
 }
 
 .lightboxOverlay.active .lightboxImage {
@@ -1856,5 +1863,46 @@ footer {
     main {
         margin-bottom: 0;
         padding-bottom: 0;
+    }
+}
+
+/* Force Mobile Lightbox Fullscreen & Centering */
+@media (max-width: 600px) {
+    .lightboxOverlay {
+        padding: 0 !important;
+        background: rgba(0, 0, 0, 0.9) !important;
+        /* Lighter mobile background */
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    .lightboxImage {
+        max-width: 100% !important;
+        max-height: 100% !important;
+        width: 100% !important;
+        /* Force width to fill */
+        height: auto !important;
+        object-fit: contain !important;
+        padding: 10px !important;
+        margin: 0 !important;
+        transform: none !important;
+        /* Disable scale effect on mobile for performance/centering */
+    }
+
+    .lightboxClose {
+        top: 20px !important;
+        right: 20px !important;
+        width: 40px !important;
+        height: 40px !important;
+        font-size: 1.5rem !important;
+        background: rgba(197, 37, 37, 0.9) !important;
+    }
+
+    .lightboxBack {
+        top: 20px !important;
+        left: 20px !important;
+        width: 40px !important;
+        height: 40px !important;
+        font-size: 1.2rem !important;
     }
 }
