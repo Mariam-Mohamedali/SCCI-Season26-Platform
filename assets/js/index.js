@@ -29,50 +29,28 @@ const header = document.querySelector("header");
 
 if (header) {
   let lastScrollTop = 0;
-  let scrollTimeout;
-  const scrollThreshold = 10; // Minimum scroll distance to trigger hide/show
-  const hideDelay = 100; // Delay before hiding navbar (ms)
 
   window.addEventListener("scroll", () => {
-    // Clear previous timeout
-    clearTimeout(scrollTimeout);
+    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
 
-    // Use requestAnimationFrame for smoother performance
-    requestAnimationFrame(() => {
-      const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+    // If at the top, always show navbar
+    if (currentScroll <= 0) {
+      header.classList.remove("navbar-hidden");
+      lastScrollTop = currentScroll;
+      return;
+    }
 
-      // Add glassmorphism effect after scrolling
-      if (currentScroll > 50) {
-        header.classList.add("scrolled");
-      } else {
-        header.classList.remove("scrolled");
-      }
+    // Scrolling down - hide navbar
+    if (currentScroll > lastScrollTop && currentScroll > 100) {
+      header.classList.add("navbar-hidden");
+    }
+    // Scrolling up - show navbar
+    else if (currentScroll < lastScrollTop) {
+      header.classList.remove("navbar-hidden");
+    }
 
-      // Calculate scroll difference
-      const scrollDifference = Math.abs(currentScroll - lastScrollTop);
-
-      // Only proceed if scroll difference is significant enough
-      if (scrollDifference > scrollThreshold) {
-        if (currentScroll > lastScrollTop && currentScroll > 100) {
-          // Scrolling DOWN - hide navbar with slight delay
-          scrollTimeout = setTimeout(() => {
-            header.classList.add("navbar-hidden");
-          }, hideDelay);
-        } else if (currentScroll < lastScrollTop) {
-          // Scrolling UP - show navbar immediately
-          header.classList.remove("navbar-hidden");
-        }
-
-        // Update last scroll position
-        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
-      }
-
-      // Always show navbar when at the very top
-      if (currentScroll <= 10) {
-        header.classList.remove("navbar-hidden");
-      }
-    });
-  }, { passive: true }); // Use passive for better scroll performance
+    lastScrollTop = currentScroll;
+  }, { passive: true });
 }
 
 // =============================================== NAVBAR ===============================================
