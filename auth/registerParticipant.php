@@ -117,16 +117,24 @@ $run_w = mysqli_query($connect, $select_w);
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- favicon -->
     <link rel="icon" type="image/x-icon" href="../assets/icons/logoSCCI.png" />
-    <meta property="og:image" content="../assets/images/seo/registerParticipant.png" />
-    <meta property="og:title" content="SCCI`26" />
-    <meta
-      property="og:description"
-      content="SCCI is the university's premier student community, uniting creative minds to build the future of tech, media, business, and entrepreneurship."  
-    />
-    <meta
-      name="keywords"
-      content="SCCI, Student Community, Creative Minds, Tech, Media, Business, Entrepreneurship, University, Community, College"
-    />
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://scci.cu.edu.eg/" />
+    <meta property="og:title" content="SCCI`26 - Register" />
+    <meta property="og:description" content="Create your account on the SCCI Platform to join the community, access the system, and register for workshops." />
+    <meta property="og:image" content="../assets/img/seo/registerParticipant.png" />
+    <meta property="og:site_name" content="SCCI Season 26" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://scci.cu.edu.eg/" />
+    <meta name="twitter:title" content="SCCI`26 - Register" />
+    <meta name="twitter:description" content="Create your account on the SCCI Platform to join the community, access the system, and register for workshops." />
+    <meta name="twitter:image" content="../assets/img/seo/registerParticipant.png" />
+
+    <meta name="keywords" content="SCCI, Student Community, Creative Minds, Tech, Media, Business, Entrepreneurship, University, Community, College" />
+    <meta name="author" content="SCCI IT Committee" />
+    
     <!-- google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
