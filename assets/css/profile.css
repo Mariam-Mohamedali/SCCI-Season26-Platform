@@ -1,6 +1,10 @@
-/* ---------------------------------------------------------------------------
-   Cover
---------------------------------------------------------------------------- */
+@import url("root.css");
+
+/* Prevent scroll when popup is open */
+body.no-scroll {
+  overflow: hidden !important;
+}
+
 .profileCover {
   width: 100%;
   height: clamp(180px, 35vw, 300px);
@@ -238,15 +242,17 @@
 }
 
 .passwordGroup {
-    position: relative;
-    width: 100%;
+  position: relative;
+  width: 100%;
 }
+
 .passwordWrapper {
   position: relative;
   width: 100%;
 }
+
 .passwordWrapper input {
-  padding-right: 45px; 
+  padding-right: 45px;
 }
 
 .toggle-password-btn {
@@ -262,7 +268,7 @@
 .toggle-password-btn:hover {
   color: var(--color-primary);
 }
- 
+
 
 /* ---------------------------------------------------------------------------
    Info Papers
@@ -694,7 +700,7 @@
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(197, 37, 37, 0.4);
 
-  
+
 }
 
 .saveProfile {
@@ -715,7 +721,7 @@
 }
 
 .saveProfile:hover {
-  
+
   box-shadow: 0 4px 12px rgba(0, 0, 91, 0.3);
   transform: translateY(-2px);
 }
@@ -738,4 +744,49 @@
   .input-group input {
     padding: 10px 14px;
   }
+}
+
+/* Validation Styles */
+.error-msg {
+  display: none;
+  color: #ff3b3b;
+  font-size: 0.8rem;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+input.invalid {
+  border-color: #ff3b3b !important;
+  background: #fff8f8 !important;
+}
+
+.password-requirements {
+  background: rgba(255, 255, 255, 0.5);
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin-top: 10px;
+  border-left: 3px solid var(--color-primary);
+}
+
+.password-requirements p {
+  margin: 5px 0;
+  font-size: 0.85rem;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.3s ease;
+}
+
+.password-requirements p i {
+  font-size: 0.6rem;
+}
+
+.saveProfile:disabled {
+  background: #ccc !important;
+  border-color: #ccc !important;
+  color: #888 !important;
+  cursor: not-allowed !important;
+  box-shadow: none !important;
+  transform: none !important;
 }

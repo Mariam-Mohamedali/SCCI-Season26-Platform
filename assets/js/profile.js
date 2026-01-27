@@ -1,105 +1,131 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // === Settings Menu Logic ===
   const settingsIcon = document.querySelector('.settingsIcon');
   const settingsMenu = document.querySelector('.settingsMenu');
 
-  if (!settingsIcon || !settingsMenu) return;
+  if (settingsIcon && settingsMenu) {
+    let isOpen = false;
+    const animationDuration = 450;
 
-  let isOpen = false;
-  const animationDuration = 450; // نفس مدة الـ CSS
-
-  const openMenu = (e) => {
-    e.stopPropagation();
-    if (isOpen) return;
-
-
-    settingsMenu.classList.remove('closing');
-    settingsMenu.classList.add('opening');
-    isOpen = true;
-  };
-
-  const closeMenu = () => {
-    if (!isOpen) return;
-
-    settingsMenu.classList.remove('opening');
-    settingsMenu.classList.add('closing');
-
-    setTimeout(() => {
+    const openMenu = (e) => {
+      e.stopPropagation();
+      if (isOpen) return;
       settingsMenu.classList.remove('closing');
-      isOpen = false;
-    }, animationDuration);
-  };
+      settingsMenu.classList.add('opening');
+      isOpen = true;
+    };
 
-  settingsIcon.addEventListener('click', (e) => {
-    isOpen ? closeMenu() : openMenu(e);
-  });
+    const closeMenu = () => {
+      if (!isOpen) return;
+      settingsMenu.classList.remove('opening');
+      settingsMenu.classList.add('closing');
+      setTimeout(() => {
+        settingsMenu.classList.remove('closing');
+        isOpen = false;
+      }, animationDuration);
+    };
 
-  document.addEventListener('click', closeMenu);
-});
+    settingsIcon.addEventListener('click', (e) => {
+      isOpen ? closeMenu() : openMenu(e);
+    });
 
-// Profile Edit Popup and Inline Editing
+    document.addEventListener('click', closeMenu);
+  }
 
-document.addEventListener('DOMContentLoaded', () => {
-  const saveBtn = document.querySelector('.saveProfile');
-
-  saveBtn.addEventListener('click', () => {
-    // Submit the form
-    const form = document.querySelector('form[method="POST"]');
-    form.submit();
-  });
-
-
+  // === Profile Edit Popup Logic ===
   const openEditBtn = document.getElementById('openEditProfile');
   const overlay = document.getElementById('editProfileOverlay');
-  const closePopup = document.querySelector('.closePopup');
+  const closeBtn = document.querySelector('.closePopup');
+  const saveBtn = document.getElementById('saveChangesBtn');
+  const form = document.querySelector('.editProfileSection form');
 
   if (!openEditBtn || !overlay) return;
 
-  // Open popup
+  const inputs = {
+    user_name: document.getElementById('user_name'),
+    email: document.getElementById('email'),
+    phone: document.getElementById('phone'),
+    githup: document.getElementById('githup'),
+    linkedin: document.getElementById('linkedin'),
+    password: document.getElementById('password'),
+    confirm_password: document.getElementById('confirm_password')
+  };
+
+  let initialValues = {};
+
+  function captureInitialValues() {
+    initialValues = {};
+    Object.keys(inputs).forEach(key => {
+      if (inputs[key]) {
+        if (key === 'password' || key === 'confirm_password') {
+          initialValues[key] = '';
+        } else {
+          initialValues[key] = inputs[key].value.trim();
+        }
+      }
+    });
+  }
+
+  function checkChanges() {
+    let hasChanged = false;
+    Object.keys(inputs).forEach(key => {
+      const input = inputs[key];
+      if (!input) return;
+
+      const currentVal = input.value.trim();
+      const initVal = initialValues[key] || '';
+
+      if (currentVal !== initVal) {
+        hasChanged = true;
+      }
+    });
+
+    if (saveBtn) {
+      saveBtn.disabled = !hasChanged;
+    }
+  }
+
+  // Attach input listeners to all fields
+  Object.keys(inputs).forEach(key => {
+    const input = inputs[key];
+    if (input) {
+      input.addEventListener('input', checkChanges);
+      input.addEventListener('change', checkChanges);
+    }
+  });
+
+  // Opening Modal
   openEditBtn.addEventListener('click', (e) => {
-    e.preventDefault();   // 🔥 prevents 404
+    e.preventDefault();
     e.stopPropagation();
     overlay.classList.add('active');
+    document.body.classList.add('no-scroll');
 
-    // Scroll to top on mobile screens
-    if (window.innerWidth <= 768) {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    }
+    // Always refresh baseline when opening
+    captureInitialValues();
+    if (saveBtn) saveBtn.disabled = true;
   });
 
-  // Close popup button
-  closePopup.addEventListener('click', () => {
+  // Closing Modal
+  const closePopupAction = () => {
     overlay.classList.remove('active');
-  });
+    document.body.classList.remove('no-scroll');
+  };
 
-  // Close on background click
+  if (closeBtn) closeBtn.addEventListener('click', closePopupAction);
   overlay.addEventListener('click', (e) => {
-    if (e.target === overlay) {
-      overlay.classList.remove('active');
-    }
+    if (e.target === overlay) closePopupAction();
   });
 
-  // Inline edit toggle
-  document.querySelectorAll('.editBtn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      btn.closest('.editField').classList.toggle('editing');
+  // Toggle Password Visibility
+  document.querySelectorAll('.toggle-password-btn').forEach(btn => {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      const input = this.closest('.passwordWrapper')?.querySelector('input') || this.previousElementSibling;
+      if (!input) return;
+      const type = input.type === 'password' ? 'text' : 'password';
+      input.type = type;
+      this.innerHTML = type === 'text' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
     });
-  });
-
-});
-
-document.querySelectorAll('.toggle-password-btn').forEach(btn => {
-  btn.addEventListener('click', function () {
-    const input = this.previousElementSibling;
-
-    const type = input.type === 'password' ? 'text' : 'password';
-    input.type = type;
-
-    this.innerHTML =
-      type === 'text'
-        ? '<i class="fas fa-eye"></i>'
-        : '<i class="fas fa-eye-slash"></i>';
   });
 });
