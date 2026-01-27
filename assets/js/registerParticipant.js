@@ -81,6 +81,9 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', (e) => {
         let valid = true;
 
+        // Show loading indicator if validation passes
+        const submitBtn = form.querySelector('button[type="submit"]');
+
         // Name Validation
         if (nameInput.value.trim().length === 0) {
             showError(nameInput, errorName, 'Name is required');
@@ -168,53 +171,53 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             clearError(workshopSelect, errorWorkshop);
         }
-// ✅ Password Strength Indicator - Add this at the end of registerParticipant.js
+        // ✅ Password Strength Indicator - Add this at the end of registerParticipant.js
 
-// Show password requirements when user focuses on password field
-passwordInput.addEventListener('focus', function () {
-    document.getElementById('passwordRequirements').style.display = 'block';
-});
+        // Show password requirements when user focuses on password field
+        passwordInput.addEventListener('focus', function () {
+            document.getElementById('passwordRequirements').style.display = 'block';
+        });
 
-// Real-time password strength checking
-passwordInput.addEventListener('input', function () {
-    const password = this.value;
+        // Real-time password strength checking
+        passwordInput.addEventListener('input', function () {
+            const password = this.value;
 
-    // Check each requirement
-    const hasLength = password.length >= 8;
-    const hasUppercase = /[A-Z]/.test(password);
-    const hasLowercase = /[a-z]/.test(password);
-    const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+            // Check each requirement
+            const hasLength = password.length >= 8;
+            const hasUppercase = /[A-Z]/.test(password);
+            const hasLowercase = /[a-z]/.test(password);
+            const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
 
-    // Update visual indicators
-    updateRequirement('req-length', hasLength);
-    updateRequirement('req-uppercase', hasUppercase);
-    updateRequirement('req-lowercase', hasLowercase);
-    updateRequirement('req-special', hasSpecial);
-});
+            // Update visual indicators
+            updateRequirement('req-length', hasLength);
+            updateRequirement('req-uppercase', hasUppercase);
+            updateRequirement('req-lowercase', hasLowercase);
+            updateRequirement('req-special', hasSpecial);
+        });
 
-// Helper function to update requirement status
-function updateRequirement(elementId, isMet) {
-    const element = document.getElementById(elementId);
-    const icon = element.querySelector('i');
+        // Helper function to update requirement status
+        function updateRequirement(elementId, isMet) {
+            const element = document.getElementById(elementId);
+            const icon = element.querySelector('i');
 
-    if (isMet) {
-        element.style.color = '#4CAF50'; // Green
-        icon.className = 'fas fa-check-circle';
-        icon.style.fontSize = '12px';
-    } else {
-        element.style.color = '#999'; // Gray
-        icon.className = 'fas fa-circle';
-        icon.style.fontSize = '6px';
-    }
-}
+            if (isMet) {
+                element.style.color = '#4CAF50'; // Green
+                icon.className = 'fas fa-check-circle';
+                icon.style.fontSize = '12px';
+            } else {
+                element.style.color = '#999'; // Gray
+                icon.className = 'fas fa-circle';
+                icon.style.fontSize = '6px';
+            }
+        }
 
-// Hide requirements when user leaves password field (optional)
-passwordInput.addEventListener('blur', function () {
-    // Keep it visible if password is not empty
-    if (this.value.length === 0) {
-        document.getElementById('passwordRequirements').style.display = 'none';
-    }
-});
+        // Hide requirements when user leaves password field (optional)
+        passwordInput.addEventListener('blur', function () {
+            // Keep it visible if password is not empty
+            if (this.value.length === 0) {
+                document.getElementById('passwordRequirements').style.display = 'none';
+            }
+        });
 
         // Image Validation
         if (imageInput.files.length === 0) {
@@ -236,6 +239,25 @@ passwordInput.addEventListener('blur', function () {
 
         if (!valid) {
             e.preventDefault(); // Stop form submission
+        } else {
+            // Show loading popup
+            Swal.fire({
+                title: 'Please Wait...',
+                html: '<i class="fas fa-spinner fa-spin" style="font-size: 48px; color: #d4a574;"></i><br><br>Registering your account...',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                showConfirmButton: false,
+                customClass: {
+                    popup: 'swal-custom-popup',
+                    title: 'swal-custom-title',
+                    htmlContainer: 'swal-custom-text'
+                },
+                background: 'linear-gradient(to bottom, #fffdf5, #ffe4b5)',
+                backdrop: 'rgba(0,0,0,0.7)',
+                didOpen: () => {
+                    document.body.classList.add('no-scroll');
+                }
+            });
         }
     });
 

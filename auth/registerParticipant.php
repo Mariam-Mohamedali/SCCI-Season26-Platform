@@ -1,8 +1,15 @@
 <?php
+session_start();
 include('../includes/config.php');
 
 $error = "";
 $success = "";
+
+// Check for session success message
+if (isset($_SESSION['success'])) {
+    $success = $_SESSION['success'];
+    unset($_SESSION['success']);
+}
 
 // ✅ Password Validation Function
 function validatePassword($password) {
@@ -81,7 +88,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                  '$passwordhashing','1','$image',0)";   
 
                 if (mysqli_query($connect, $insert_p)) {
-                    $success = "Registered Successfully";
+                    $_SESSION['success'] = "Registered Successfully";
+                    header("Location: registerParticipant.php");
+                    exit();
                 } else {
                     $error = "Database Error: " . mysqli_error($connect);
                 }
@@ -258,34 +267,39 @@ Swal.fire({
 
 <?php if (!empty($success)) { ?>
 <script>
-Swal.fire({
-    icon: 'success',
-    title: 'Welcome!',
-    text: '<?php echo $success; ?>',
-    timer: 2500,
-    showConfirmButton: false,
-    customClass: {
-        popup: 'swal-custom-popup',
-        title: 'swal-custom-title',
-        htmlContainer: 'swal-custom-text'
-    },
-    background: 'linear-gradient(to bottom, #fffdf5, #ffe4b5)',
-    backdrop: 'rgba(0,0,0,0.7)',
-    showClass: {
-        popup: 'animate__animated animate__zoomIn'
-    },
-    hideClass: {
-        popup: 'animate__animated animate__zoomOut'
-    },
-    didOpen: () => {
-        document.body.classList.add('no-scroll');
-    },
-    willClose: () => {
-        document.body.classList.remove('no-scroll');
-    }
-}).then(() => {
-    window.location.href = 'login.php';
-});
+// Close loading popup and show success message
+Swal.close();
+setTimeout(() => {
+    Swal.fire({
+        icon: 'success',
+        title: 'Account Created Successfully!',
+        html: '<p style="margin-bottom: 10px; font-size: 16px;">Your account has been created successfully.</p><p style="font-size: 15px; color: #666;">Your data is currently being reviewed by the <strong style="color: #d4a574; font-weight: 700; text-transform: uppercase;">IT Team</strong>.</p>',
+        confirmButtonText: 'OK',
+        allowOutsideClick: false,
+        customClass: {
+            popup: 'swal-custom-popup',
+            title: 'swal-custom-title',
+            htmlContainer: 'swal-custom-text',
+            confirmButton: 'swal-custom-button'
+        },
+        background: 'linear-gradient(to bottom, #fffdf5, #ffe4b5)',
+        backdrop: 'rgba(0,0,0,0.7)',
+        showClass: {
+            popup: 'animate__animated animate__zoomIn'
+        },
+        hideClass: {
+            popup: 'animate__animated animate__zoomOut'
+        },
+        didOpen: () => {
+            document.body.classList.add('no-scroll');
+        },
+        willClose: () => {
+            document.body.classList.remove('no-scroll');
+        }
+    }).then(() => {
+        window.location.href = '../index.php';
+    });
+}, 300);
 </script>
 <?php } ?>
      <script src="../assets/js/all.min.js"></script>
