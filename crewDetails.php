@@ -1,5 +1,10 @@
 <?php
 include './includes/config.php';
+// منع الدخول المباشر عن طريق الرابط
+if (!isset($_SERVER['HTTP_REFERER']) || strpos($_SERVER['HTTP_REFERER'], $_SERVER['HTTP_HOST']) === false) {
+    header("Location: home.php"); // حوله لصفحة الرئيسية أو أي صفحة تانية
+    exit();
+}
 
 // Initialize title
 $page_title = 'Crew Details';
@@ -149,7 +154,7 @@ WHERE c.committee_id = ?
                             $item = trim($item);
                             // Filter out empty items
                             if (!empty($item)) {
-                                echo '<span>⚜ </span>' . htmlspecialchars($item) . '.<br>';
+                                echo '<span>⚜ </span>' . htmlspecialchars($item ?? '') . '.<br>';
                             }
                         }
                         ?>
@@ -193,17 +198,17 @@ WHERE c.committee_id = ?
                                 <div class="backCard">
                                     <div class="memberInfo">
                                         <div class="memberImageContainer">
-                                            <img src="assets/uploadedImages/<?= htmlspecialchars($member['Image']) ?>"
-                                                alt="<?= htmlspecialchars($member['user_name']) ?>" class="memberImage"
+                                            <img src="assets/uploadedImages/<?= htmlspecialchars($member['Image'] ?? '') ?>"
+                                                alt="<?= htmlspecialchars($member['user_name'] ?? '') ?>" class="memberImage"
                                                 loading="lazy">
                                         </div>
 
                                         <div class="memberName">
-                                            <h5><?= htmlspecialchars($member['user_name']) ?></h5>
+                                            <h5><?= htmlspecialchars($member['user_name'] ?? '') ?></h5>
                                         </div>
 
                                         <div class="memberTitle">
-                                            <p><?= htmlspecialchars($committee['committee_member']) ?></p>
+                                            <p><?= htmlspecialchars($committee['committee_member'] ?? '') ?></p>
                                         </div>
                                     </div>
                                 </div>

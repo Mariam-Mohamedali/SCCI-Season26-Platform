@@ -1,7 +1,11 @@
 <?php
 include './includes/config.php';
 
-// Check if user is logged in
+// منع الدخول المباشر عن طريق الرابط
+if (!isset($_SERVER['HTTP_REFERER']) || strpos($_SERVER['HTTP_REFERER'], $_SERVER['HTTP_HOST']) === false) {
+    header("Location: home.php"); // حوله لصفحة الرئيسية أو أي صفحة تانية
+    exit();
+}
 
 if (isset($_GET['user_id'])) {
   $user_id = $_GET['user_id'];

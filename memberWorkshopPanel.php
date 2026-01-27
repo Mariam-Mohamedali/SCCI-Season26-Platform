@@ -1472,18 +1472,6 @@ if (isset($_POST['resetAttendance'])) {
               <i class="fas fa-arrow-right"></i>
             </a>
           </div>
-
-          <!-- Stats Preview -->
-          <!-- <div class="statsPreview">
-                  <div class="statItem">
-                      <i class="fas fa-users"></i>
-                      <span>300 Players</span>
-                  </div>
-                  <div class="statItem">
-                      <i class="fas fa-crown"></i>
-                      <span>Top Score: 98/100</span>
-                  </div>
-              </div> -->
         </div>
       </article>
     </section>
