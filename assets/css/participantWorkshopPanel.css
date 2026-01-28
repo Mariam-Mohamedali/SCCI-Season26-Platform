@@ -337,6 +337,12 @@
     --color-white-gradient: #d4d2d2;
 }
 
+.materialActions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
 .sessionsSelector {
     position: relative;
     display: flex;
