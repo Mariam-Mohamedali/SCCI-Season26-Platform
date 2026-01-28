@@ -107,7 +107,7 @@ Huge appreciation for the entire team — your collaboration made this project p
 | **Abdelrahman Rassmy** | Frontend + UI/UX | [LinkedIn](https://www.linkedin.com/in/abdelrahman-rassmy-057153346) |
 | **Hazem Mohamed** | Backend + UI/UX | [LinkedIn](https://www.linkedin.com/in/hazem-mohamed-3b994a251) |
 | **Mohamed Radwan** | Backend | [LinkedIn](http://linkedin.com/in/mohamed-radwan-876602242/) |
-| **Ahmed Hany** | Frontend + UI/UX |[LinkedIN](https://www.linkedin.com/in/ahmed-abdelgawad-1abab8329/) |
+| **Ahmed Hany** | Frontend + UI/UX |[LinkedIn](https://www.linkedin.com/in/ahmed-abdelgawad-1abab8329/) |
 | **Ahmed Gamal** | Backend | |
 
 ## �📞 Contact
