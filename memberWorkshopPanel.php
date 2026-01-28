@@ -1196,7 +1196,7 @@ if (isset($_POST['resetAttendance'])) {
             <div class="inputsBox" style="flex: 1; display: flex; flex-direction: column;">
               <div class="formLabel">Upload File:</div>
               <div class="uploadContainer">
-                <label class="formLabel uploadLabel">
+                <label for="taskUpload" class="formLabel uploadLabel">
                   <div class="uploadIcon"></div>
                 </label>
                 <p class="uploadText">Drag and drop or click to browse</p>
@@ -1329,7 +1329,7 @@ if (isset($_POST['resetAttendance'])) {
             <div class="inputsBox" style="flex: 1; display: flex; flex-direction: column;">
               <div class="formLabel">Upload File:</div>
               <div class="uploadContainer">
-                <label class="formLabel uploadLabel">
+                <label for="material_file" class="formLabel uploadLabel">
                   <div class="uploadIcon"></div>
                   <p class="uploadText">Drag and drop or click to browse</p>
                 </label>

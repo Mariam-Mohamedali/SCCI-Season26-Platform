@@ -434,7 +434,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const ALLOWED_EXT = ["pdf", "doc", "docx", "png", "jpg", "jpeg", "zip", "ppt", "pptx", "xls", "xlsx", "csv", "txt", "rar"];
 
-  document.querySelectorAll(".fileUpload").forEach((container) => {
+  document.querySelectorAll(".uploadContainer").forEach((container) => {
     const fileInput = container.querySelector("input[type='file']");
     const fileState = container.querySelector(".uploadText");
     const fileUploadedName = container.querySelector(".fileUploadedName");
