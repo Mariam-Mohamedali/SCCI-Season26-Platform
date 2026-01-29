@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -11,7 +12,7 @@
   <meta property="og:image" content="./assets/images/seo/landing.png" />
   <meta property="og:title" content="SCCI`26" />
   <meta property="og:description"
-    content="SCCI 26 is the official student community platform for workshops, events, profiles, and creative collaboration">
+    content="SCCI is the university's premier student community, uniting creative minds to build the future of tech, media, business, and entrepreneurship." />
   <meta name="keywords"
     content="SCCI, Student Community, Creative Minds, Tech, Media, Business, Entrepreneurship, University, Community, College" />
   <!-- google fonts -->
@@ -23,8 +24,8 @@
   <!-- FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <!-- css -->
-  <link rel="stylesheet" href="./assets/css/index.css?v=<?= ASSET_VERSION ?>" />
-  <title>SCCI 26 – Student Community Creative Innovation</title>
+  <link rel="stylesheet" href="./assets/css/index.css" />
+  <title>SCCI - Landing</title>
 </head>
 
 <body>
@@ -49,7 +50,7 @@
       </header>
     </section>
   </main>
-  <script src="./assets/js/indexRedirect.js?v=<?= ASSET_VERSION ?>" defer></script>
+  <script src="./assets/js/indexRedirect.js" defer></script>
 </body>
 
 </html>
