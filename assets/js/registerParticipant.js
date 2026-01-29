@@ -220,10 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Image Validation
-        if (imageInput.files.length === 0) {
-            showError(imageInput, errorImage, 'Please upload an image');
-            valid = false;
-        } else {
+        if (imageInput.files.length > 0) {
             const fileName = imageInput.files[0].name.toLowerCase();
             const allowedExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.bmp'];
             const isValid = allowedExtensions.some(ext => fileName.endsWith(ext));
@@ -231,12 +228,14 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!isValid) {
                 showError(imageInput, errorImage, 'Only Image files (JPG, PNG, GIF, WEBP) are allowed');
                 valid = false;
-            } else if (imageInput.files[0].size > 2 * 1024 * 1024) {
-                showError(imageInput, errorImage, 'Image size must be less than 2MB');
+            } else if (imageInput.files[0].size > 3 * 1024 * 1024) {
+                showError(imageInput, errorImage, 'Image size must be less than 3MB');
                 valid = false;
             } else {
                 clearError(imageInput, errorImage);
             }
+        } else {
+            clearError(imageInput, errorImage);
         }
 
 

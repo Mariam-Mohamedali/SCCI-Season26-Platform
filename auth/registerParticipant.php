@@ -65,20 +65,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 
         // Image validation
         if (empty($_FILES['image']['name'])) {
+            $uniqueName = "default.png";
+            $insert_p = "INSERT INTO `users`
+            (`user_id`,`workshop_id`,`user_name`,`email`,`phone`,
+             `password`,`role`,`Image`,`status`)
+            VALUES
+            (NULL,'$workshop','$name','$email','$phone',
+             '$passwordhashing','1','$uniqueName',0)";   
 
-            $error = "Please upload an image";
-
+            if (mysqli_query($connect, $insert_p)) {
+                $_SESSION['success'] = "Registered Successfully";
+                header("Location: registerParticipant.php");
+                exit();
+            } else {
+                $error = "Database Error: " . mysqli_error($connect);
+            }
         } else {
-
             $image = $_FILES['image']['name'];
             $imageExtension = strtolower(pathinfo($image, PATHINFO_EXTENSION));
             $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp'];
 
             if (!in_array($imageExtension, $allowedExtensions)) {
                 $error = "Only Image files (JPG, PNG, GIF, WEBP) are allowed";
-            } elseif ($_FILES['image']['size'] > 2 * 1024 * 1024) {
-                // 2 * 1024 * 1024 = 2,097,152 bytes = 2MB
-                $error = "Image size must be less than 2MB";
+            } elseif ($_FILES['image']['size'] > 3 * 1024 * 1024) {
+                // 3 * 1024 * 1024 = 3MB
+                $error = "Image size must be less than 3MB";
             } else {
                 $tempname = $_FILES['image']['tmp_name'];
                 
@@ -90,27 +101,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                 $folder = "../assets/uploadedImages/" . $uniqueName;
 
                 if (move_uploaded_file($tempname, $folder)) {
+                    $insert_p = "INSERT INTO `users`
+                    (`user_id`,`workshop_id`,`user_name`,`email`,`phone`,
+                     `password`,`role`,`Image`,`status`)
+                    VALUES
+                    (NULL,'$workshop','$name','$email','$phone',
+                     '$passwordhashing','1','$uniqueName',0)";   
 
-                $insert_p = "INSERT INTO `users`
-                (`user_id`,`workshop_id`,`user_name`,`email`,`phone`,
-                 `password`,`role`,`Image`,`status`)
-                VALUES
-                (NULL,'$workshop','$name','$email','$phone',
-                 '$passwordhashing','1','$uniqueName',0)";   
-
-                if (mysqli_query($connect, $insert_p)) {
-                    $_SESSION['success'] = "Registered Successfully";
-                    header("Location: registerParticipant.php");
-                    exit();
+                    if (mysqli_query($connect, $insert_p)) {
+                        $_SESSION['success'] = "Registered Successfully";
+                        header("Location: registerParticipant.php");
+                        exit();
+                    } else {
+                        $error = "Database Error: " . mysqli_error($connect);
+                    }
                 } else {
-                    $error = "Database Error: " . mysqli_error($connect);
+                    $error = "Failed to upload image";
                 }
-
-            } else {
-                $error = "Failed to upload image";
             }
         }
-    }
 }
 }
 
@@ -196,7 +205,7 @@ $run_w = mysqli_query($connect, $select_w);
         <div class="input-group password-group">
             <label>Password</label>
             <div class="password-wrapper">
-                <input type="password" name="password" id="password" placeholder="Aa123..." required oncopy="return false" oncut="return false" onpaste="return false">
+                <input type="password" name="password" id="password" placeholder="e.g. Aa123..." required oncopy="return false" oncut="return false" onpaste="return false">
                 <span class="toggle-password-btn" id="togglePasswordBtn">
                     <i class="fas fa-eye-slash"></i>
                 </span>
@@ -208,7 +217,7 @@ $run_w = mysqli_query($connect, $select_w);
         <div class="input-group password-group">
             <label>Confirm Password</label>
             <div class="password-wrapper">
-                <input type="password" name="cpassword" id="cpassword" placeholder="Aa123..." required oncopy="return false" oncut="return false" onpaste="return false">
+                <input type="password" name="cpassword" id="cpassword" placeholder="e.g. Aa123..." required oncopy="return false" oncut="return false" onpaste="return false">
                 <span class="toggle-password-btn" id="toggleCPasswordBtn">
                     <i class="fas fa-eye-slash"></i>
                 </span>
@@ -232,7 +241,7 @@ $run_w = mysqli_query($connect, $select_w);
         <div class="input-group">
             <label>Image</label>
             <div class="file-upload-wrapper">
-                <input type="file" name="image" id="image" accept="image/*" required style="display: none;">
+                <input type="file" name="image" id="image" accept="image/*" style="display: none;">
                 <label for="image" class="file-upload-label" id="fileLabel">
                     <span class="file-upload-btn">Choose Image</span>
                     <span class="file-upload-text" id="fileName">No image chosen</span>
@@ -328,13 +337,13 @@ setTimeout(() => {
         // Client-side image size validation
         document.getElementById('image').addEventListener('change', function() {
             const file = this.files[0];
-            const maxSize = 2 * 1024 * 1024; // 2MB
+            const maxSize = 3 * 1024 * 1024; // 3MB
 
             if (file && file.size > maxSize) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops!',
-                    text: 'Image size must be less than 2MB',
+                    text: 'Image size must be less than 3MB',
                     confirmButtonText: 'Try Again',
                     customClass: {
                         popup: 'swal-custom-popup',

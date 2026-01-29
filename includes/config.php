@@ -1,6 +1,6 @@
 <?php
 date_default_timezone_set('Africa/Cairo');
-define('ASSET_VERSION', '1.0.2');
+define('ASSET_VERSION', '1.0.3');
 
 
 // Error Reporting & Logging
@@ -28,7 +28,7 @@ $localhost = "localhost";
 $username = "root";
 $password = "";
 // $database = "scci_26";
-$database = "SCCI";
+$database = "finalsccidb";
 
 
 
