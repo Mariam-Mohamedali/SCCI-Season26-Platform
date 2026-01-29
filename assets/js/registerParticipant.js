@@ -231,6 +231,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!isValid) {
                 showError(imageInput, errorImage, 'Only Image files (JPG, PNG, GIF, WEBP) are allowed');
                 valid = false;
+            } else if (imageInput.files[0].size > 2 * 1024 * 1024) {
+                showError(imageInput, errorImage, 'Image size must be less than 2MB');
+                valid = false;
             } else {
                 clearError(imageInput, errorImage);
             }

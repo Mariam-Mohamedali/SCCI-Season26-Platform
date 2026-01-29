@@ -370,6 +370,7 @@ function renderStars($rating)
     <link rel="stylesheet" href="./assets/css/message-toast.css?v=<?= ASSET_VERSION ?>">
     <link rel="stylesheet" href="./assets/css/participantWorkshopPanel.css?v=<?= ASSET_VERSION ?>">
     <link rel="stylesheet" href="./assets/css/task-management.css?v=<?= ASSET_VERSION ?>">
+    <!-- Quill CSS -->
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <title>SCCI - Workshop Panel</title>
 </head>
@@ -967,8 +968,8 @@ function renderStars($rating)
             anchorPlacement: 'top-bottom'
         });
     </script>
-    <script src="./assets/js/all.min.js?v=<?= ASSET_VERSION ?>" defer></script>
-    <script src="./assets/js/messages.js?v=<?= ASSET_VERSION ?>" defer></script>
+    <script src="./assets/js/all.min.js" defer></script>
+    <script src="./assets/js/messages.js" defer></script>
     <script>
         (function () {
             const urlParams = new URLSearchParams(window.location.search);

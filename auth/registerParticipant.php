@@ -76,12 +76,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 
             if (!in_array($imageExtension, $allowedExtensions)) {
                 $error = "Only Image files (JPG, PNG, GIF, WEBP) are allowed";
-            } elseif ($_FILES['image']['size'] > 1 * 1024 * 1024) {
-                // 1 * 1024 * 1024 = 1,048,576 bytes = 1MB
-                $error = "Image size must be less than 1MB";
+            } elseif ($_FILES['image']['size'] > 2 * 1024 * 1024) {
+                // 2 * 1024 * 1024 = 2,097,152 bytes = 2MB
+                $error = "Image size must be less than 2MB";
             } else {
                 $tempname = $_FILES['image']['tmp_name'];
-                $folder = "../assets/uploadedImages/" . $image;
+                
+                // Sanitize and ensure unique name
+                $originalName = pathinfo($image, PATHINFO_FILENAME);
+                $safeName = preg_replace("/[^a-zA-Z0-9_-]/", "_", $originalName);
+                $uniqueName = "user_" . time() . "_" . $safeName . "." . $imageExtension;
+                
+                $folder = "../assets/uploadedImages/" . $uniqueName;
 
                 if (move_uploaded_file($tempname, $folder)) {
 
@@ -90,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                  `password`,`role`,`Image`,`status`)
                 VALUES
                 (NULL,'$workshop','$name','$email','$phone',
-                 '$passwordhashing','1','$image',0)";   
+                 '$passwordhashing','1','$uniqueName',0)";   
 
                 if (mysqli_query($connect, $insert_p)) {
                     $_SESSION['success'] = "Registered Successfully";
@@ -322,13 +328,13 @@ setTimeout(() => {
         // Client-side image size validation
         document.getElementById('image').addEventListener('change', function() {
             const file = this.files[0];
-            const maxSize = 1 * 1024 * 1024; // 1MB
+            const maxSize = 2 * 1024 * 1024; // 2MB
 
             if (file && file.size > maxSize) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops!',
-                    text: 'Image size must be less than 1MB',
+                    text: 'Image size must be less than 2MB',
                     confirmButtonText: 'Try Again',
                     customClass: {
                         popup: 'swal-custom-popup',
