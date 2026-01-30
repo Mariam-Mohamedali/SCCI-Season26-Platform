@@ -241,8 +241,8 @@ include './includes/config.php';
             </div>
 
             <div class="arrowsContainer">
-                <button class="sliderBtn next" id="nextBtn"></button>
                 <button class="sliderBtn prev" id="prevBtn"></button>
+                <button class="sliderBtn next" id="nextBtn"></button>
             </div>
         </div>
     </section>
