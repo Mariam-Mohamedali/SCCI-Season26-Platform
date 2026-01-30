@@ -213,7 +213,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'submi
         exit;
     }
 
-    $allowedExt = ['pdf', 'doc', 'docx', 'zip', 'rar', 'png', 'jpg', 'jpeg'];
+    $allowedExt = ['pdf', 'doc', 'docx', 'ppt', 'pptx', 'zip', 'rar', 'png', 'jpg', 'jpeg','xls','xlsx','csv','txt'];
     $fileName = $_FILES['submit_link']['name'];
     $tmpName = $_FILES['submit_link']['tmp_name'];
     $ext = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));

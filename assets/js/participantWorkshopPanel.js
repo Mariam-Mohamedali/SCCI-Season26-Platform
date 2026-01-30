@@ -155,7 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const MAX_FILE_SIZE = 20 * 1024 * 1024; // 20 MB
-  const ALLOWED_EXT = ["pdf", "doc", "docx", "zip", "rar", "png", "jpg", "jpeg"];
+  const ALLOWED_EXT = ["pdf", "doc", "docx", "png", "jpg", "jpeg", "zip", "ppt", "pptx", "xls", "xlsx", "csv", "txt", "rar"];
 
   if (fileInput) {
     fileInput.addEventListener("change", () => {
