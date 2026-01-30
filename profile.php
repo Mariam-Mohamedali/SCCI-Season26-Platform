@@ -189,7 +189,7 @@ if (isset($user['role']) && ($user['role'] == 4 or $user['role'] == 5)) {
   <link rel="stylesheet" href="./assets/css/profile.css?v=<?= ASSET_VERSION ?>">
   <!-- aos -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-  <script src="./assets/js/profile.js?v=<?= ASSET_VERSION ?>"></script>
+
   <title>SCCI - <?php echo htmlspecialchars($user['user_name']); ?> Profile</title>
 </head>
 

@@ -661,6 +661,12 @@ body.no-scroll {
   font-family: inherit;
 }
 
+/* Hide native password reveal eye in Edge/IE */
+.input-group input::-ms-reveal,
+.input-group input::-ms-clear {
+  display: none;
+}
+
 .input-group input::placeholder {
   color: #999;
   font-style: italic;

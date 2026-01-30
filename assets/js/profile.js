@@ -121,10 +121,15 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.toggle-password-btn').forEach(btn => {
     btn.addEventListener('click', function (e) {
       e.preventDefault();
-      const input = this.closest('.passwordWrapper')?.querySelector('input') || this.previousElementSibling;
+      const wrapper = this.closest('.passwordWrapper');
+      const input = wrapper ? wrapper.querySelector('input') : this.previousElementSibling;
+
       if (!input) return;
+
       const type = input.type === 'password' ? 'text' : 'password';
       input.type = type;
+
+      // Use innerHTML to ensure compatibility with FontAwesome SVG replacement
       this.innerHTML = type === 'text' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
     });
   });
