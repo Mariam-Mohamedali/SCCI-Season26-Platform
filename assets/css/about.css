@@ -788,7 +788,7 @@ body.red-theme .decorative-element {
 .crewCard {
   position: absolute;
   inset: 0;
-  width: 1000rem;
+  width: 100%;
   height: auto;
   object-fit: contain;
   opacity: 1;

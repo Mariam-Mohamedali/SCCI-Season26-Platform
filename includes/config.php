@@ -1,6 +1,6 @@
 <?php
 date_default_timezone_set('Africa/Cairo');
-define('ASSET_VERSION', '1.0.3');
+define('ASSET_VERSION', '1.1.3');
 
 
 // Error Reporting & Logging
