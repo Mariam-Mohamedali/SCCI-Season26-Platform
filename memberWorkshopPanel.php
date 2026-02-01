@@ -1174,7 +1174,7 @@ if (isset($_POST['resetAttendance'])) {
               <div class="inputsBox">
                 <div class="groupInputs">
                   <label class="formLabel" for="taskDeadline">Deadline:</label>
-                  <input class="textInput" type="datetime-local" name="taskDeadline" id="taskDeadline">
+                  <input class="textInput" type="date" name="taskDeadline" id="taskDeadline">
                 </div>
                 <p id="taskDeadlineMessage"></p>
               </div>

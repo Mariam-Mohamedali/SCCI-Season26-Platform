@@ -631,19 +631,12 @@ function renderStars($rating)
                                 <article class="materialItem">
                                     <div class="materialInfo">
                                         <span class="materialFileName">
-                                            <?php if (!empty($task['taskName'])): ?>
-                                                <?= htmlspecialchars($task['taskName']) ?>
+                                            <?php if (!empty($task['submit_link'])): ?>
+                                                <?= htmlspecialchars(basename($task['submit_link'])) ?>
                                             <?php else: ?>
-                                                No Task Name
+                                                You Didn't Submit Yet
                                             <?php endif; ?>
                                         </span>
-                                        <p class="taskDescription">
-                                            <?php if (!empty($task['taskDeadline'])): ?>
-                                                <?= htmlspecialchars($task['taskDeadline']) ?>
-                                            <?php else: ?>
-                                                No Task Deadline
-                                            <?php endif; ?>
-                                        </p>
                                     </div>
                                     <div class="materialActions">
                                         <?php if (!empty($task['submit_link'])): ?>
@@ -653,13 +646,6 @@ function renderStars($rating)
                                                 onclick="deleteSubmission(<?= (int) $task['submission_id'] ?>)">Delete
                                                 Submission</button>
                                         <?php elseif (!empty($task['task_file'])): ?>
-                                            <?php if (filter_var($task['task_file'], FILTER_VALIDATE_URL)): ?>
-                                                <a href="<?= htmlspecialchars($task['task_file']) ?>" target="_blank"
-                                                    class="downloadFileBtn"><i class="fa-solid fa-link"></i> Open URL</a>
-                                            <?php else: ?>
-                                                <a href="<?= htmlspecialchars($task['task_file']) ?>" target="_blank"
-                                                    class="downloadFileBtn"><i class="fa-solid fa-file-download"></i> Task Resource</a>
-                                            <?php endif; ?>
                                         <?php endif; ?>
                                     </div>
                                 </article>
