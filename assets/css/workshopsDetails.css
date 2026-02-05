@@ -719,11 +719,6 @@
         aspect-ratio: 2/3;
     }
 
-    .memberName {
-        min-width: 160px;
-        padding: var(--space-2) var(--space-4);
-    }
-
     .memberName h3 {
         font-size: var(--fs-base);
     }
