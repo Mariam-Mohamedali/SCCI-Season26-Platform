@@ -81,6 +81,7 @@ if (isset($_SESSION['user_id'])) {
         <?php
         if ($committeeId == 6) {
             echo '<a href="/SCCI-Season26-Platform/itPanel.php" id="homeNavLine">IT panel</a>';
+            echo '<a href="/SCCI-Season26-Platform/itResetPassword.php" id="homeNavLine">Reset Passwords</a>';
         }
         ?>
     </nav>
@@ -150,6 +151,7 @@ if (isset($_SESSION['user_id'])) {
             <?php
             if ($committeeId == 6) {
                 echo '<a href="/SCCI-Season26-Platform/itPanel.php"><i class="fa-solid fa-screwdriver-wrench"></i> IT panel</a>';
+                echo '<a href="/SCCI-Season26-Platform/itResetPassword.php"><i class="fa-solid fa-key"></i> Reset Passwords</a>';
             }
             ?>
 
