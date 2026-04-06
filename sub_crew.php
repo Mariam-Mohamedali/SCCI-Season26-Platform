@@ -154,7 +154,7 @@ if ($group === 'technical') {
                             <div class="flipSide flipBack" data-title="IT">
                                 <div class="backCard">
                                     <div class="memberImageContainer">
-                                        <img src="./assets/uploadedImages/SCCI Board/Mahmoud Alaam.jpg" alt="Mahmoud Alaam" class="memberImage" />
+                                        <img src="./assets/uploadedImages/SCCI Board/Mahmoud Alaam.jpg" loading="lazy" alt="Mahmoud Alaam" class="memberImage" />
                                     </div>
                                     <div class="memberName">
                                         <h3>Mahmoud Allam</h3>
@@ -175,7 +175,7 @@ if ($group === 'technical') {
                             <div class="flipSide flipBack" data-title="SMM">
                                 <div class="backCard">
                                     <div class="memberImageContainer">
-                                        <img src="./assets/uploadedImages/SCCI Board/Nour Mohamed.jpg" alt="Nour Mohamed" class="memberImage" />
+                                        <img src="./assets/uploadedImages/SCCI Board/default.png" loading="lazy" alt="Nour Mohamed" class="memberImage" />
                                     </div>
                                     <div class="memberName">
                                         <h3>Nour Mohamed</h3>
@@ -198,7 +198,7 @@ if ($group === 'technical') {
                             <div class="flipSide flipBack" data-title="MP">
                                 <div class="backCard">
                                     <div class="memberImageContainer">
-                                        <img src="./assets/uploadedImages/SCCI Board/Omar Ahmed.jpg" alt="Omar Ahmed" class="memberImage" />
+                                        <img src="./assets/uploadedImages/SCCI Board/Omar Ahmed.jpg" loading="lazy" alt="Omar Ahmed" class="memberImage" />
                                     </div>
                                     <div class="memberName">
                                         <h3>Omar Ahmed</h3>
@@ -219,7 +219,7 @@ if ($group === 'technical') {
                             <div class="flipSide flipBack" data-title="DD">
                                 <div class="backCard">
                                     <div class="memberImageContainer">
-                                        <img src="./assets/uploadedImages/SCCI Board/Mohamed El Hossiny.jpg" alt="Mohamed El Hossiny" class="memberImage" />
+                                        <img src="./assets/uploadedImages/SCCI Board/Mohamed El Hossiny.jpg" loading="lazy" alt="Mohamed El Hossiny" class="memberImage" />
                                     </div>
                                     <div class="memberName">
                                         <h3>Mohamed El Hossiny</h3>
@@ -258,7 +258,7 @@ if ($group === 'technical') {
                             <div class="flipSide flipBack" data-title="ER">
                                 <div class="backCard">
                                     <div class="memberImageContainer">
-                                        <img src="./assets/uploadedImages/SCCI Board/Mohamed Hesham.jpg" alt="Mohamed Hesham" class="memberImage" />
+                                        <img src="./assets/uploadedImages/SCCI Board/Mohamed Hesham.jpg" loading="lazy" alt="Mohamed Hesham" class="memberImage" />
                                     </div>
                                     <div class="memberName">
                                         <h3>Mohamed Hesham</h3>
@@ -299,7 +299,7 @@ if ($group === 'technical') {
                             <div class="flipSide flipBack" data-title="BD">
                                 <div class="backCard">
                                     <div class="memberImageContainer">
-                                        <img src="./assets/uploadedImages/SCCI Board/Omar Hesham.jpg" alt="Omar Hesham" class="memberImage" />
+                                        <img src="./assets/uploadedImages/SCCI Board/Omar Hesham.jpg" loading="lazy" alt="Omar Hesham" class="memberImage" />
                                     </div>
                                     <div class="memberName">
                                         <h3>Omar Hesham</h3>
@@ -321,7 +321,7 @@ if ($group === 'technical') {
                             <div class="flipSide flipBack" data-title="LOGISTICS">
                                 <div class="backCard">
                                     <div class="memberImageContainer">
-                                        <img src="./assets/uploadedImages/SCCI Board/Asser El-Sayed.jpg" alt="Asser El-Sayed" class="memberImage" />
+                                        <img src="./assets/uploadedImages/SCCI Board/Asser El-Sayed.jpg" loading="lazy" alt="Asser El-Sayed" class="memberImage" />
                                     </div>
                                     <div class="memberName">
                                         <h3>Asser El-Sayed</h3>
@@ -365,7 +365,7 @@ if ($group === 'technical') {
                             <div class="flipSide flipBack" data-title="PR">
                                 <div class="backCard">
                                     <div class="memberImageContainer">
-                                        <img src="./assets/uploadedImages/SCCI Board/Yasmine Gawish.jpg" alt="Yasmine Gawish" class="memberImage" />
+                                        <img src="./assets/uploadedImages/SCCI Board/Yasmine Gawish.jpg" loading="lazy" alt="Yasmine Gawish" class="memberImage" />
                                     </div>
                                     <div class="memberName">
                                         <h3>Yasmine Gawish</h3>
