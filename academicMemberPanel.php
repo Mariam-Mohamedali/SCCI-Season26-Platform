@@ -508,15 +508,15 @@ $wsColors = ['#6C63FF', '#FF6584', '#43B97F', '#F5A623', '#3B82F6', '#8B5CF6', '
                                     <div class="submission-info">
                                         <span class="submission-name">
                                             <i class="fas fa-user-graduate" style="color:var(--accent-color)"></i>
-                                            <?= htmlspecialchars($sub['user_name']) ?>
+                                            <?= htmlspecialchars($sub['user_name'] ?? '') ?>
                                         </span>
                                         <span class="submission-task">
                                             <i class="fas fa-file-alt" style="color:var(--color-gray-medium)"></i>
-                                            <?= htmlspecialchars($sub['task_title']) ?>
+                                            <?= htmlspecialchars($sub['task_title'] ?? '') ?>
                                         </span>
                                         <span class="submission-date">
                                             <i class="far fa-clock" style="color:var(--color-gray-light)"></i>
-                                            <?= htmlspecialchars($sub['submission_date']) ?>
+                                            <?= htmlspecialchars($sub['submission_date'] ?? '') ?>
                                         </span>
                                     </div>
                                     <span

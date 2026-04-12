@@ -1,0 +1,363 @@
+/* =========================================================================
+   academicLeaderboard.css
+   ========================================================================= */
+
+.leaderboard-header-wrapper {
+    background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--background-footer) 100%);
+    padding: 80px 0 40px;
+    border-bottom: 3px solid var(--color-parchment);
+    margin-bottom: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.leaderboard-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800;
+    color: var(--color-white);
+    margin-bottom: 15px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.highlight-icon {
+    color: #FFD700;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+    margin-right: 12px;
+    animation: float 3s ease-in-out infinite;
+}
+
+.leaderboard-subtitle {
+    color: var(--color-parchment);
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto;
+    font-family: var(--font-system);
+}
+
+.leaderboard-page {
+    padding-bottom: 80px;
+    min-height: 60vh;
+}
+
+/* Tabs */
+.lb-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 50px;
+    justify-content: center;
+}
+
+.lb-tab {
+    background: var(--color-white);
+    border: 2px solid var(--color-gray-lighter);
+    color: var(--color-gray-dark);
+    padding: 12px 25px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: var(--font-system);
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: var(--shadow-light);
+}
+
+.lb-tab:hover {
+    background: var(--color-secondary-very-light);
+    color: var(--color-secondary);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-medium);
+}
+
+.lb-tab.active {
+    background: var(--color-primary);
+    border-color: var(--color-primary-dark);
+    color: var(--color-white);
+    box-shadow: 0 5px 15px rgba(171, 32, 32, 0.4);
+}
+
+/* Sections */
+.ws-section {
+    margin-bottom: 60px;
+    animation: fadeIn 0.5s ease;
+}
+
+.ws-section-header {
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    border-bottom: 3px solid var(--ws-accent, var(--color-primary));
+    padding-bottom: 15px;
+}
+
+.ws-section-header h2 {
+    font-size: 2.2rem;
+    color: var(--color-secondary-dark);
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 0;
+}
+
+.ws-section-header i {
+    color: var(--ws-accent, var(--color-primary));
+}
+
+/* Grid layout for two main boxes */
+.lb-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+@media (max-width: 900px) {
+    .lb-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Glass Box (Now adapted to light theme of root) */
+.glass-box {
+    background: var(--color-white);
+    border: 1px solid var(--color-gray-lighter);
+    border-radius: var(--radius-xl);
+    padding: 30px;
+    box-shadow: var(--shadow-medium);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-box:hover {
+    box-shadow: var(--shadow-strong);
+    transform: translateY(-5px);
+}
+
+.glass-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 5px;
+    background: linear-gradient(90deg, transparent, var(--ws-accent, var(--color-primary)), transparent);
+}
+
+.box-title {
+    font-size: 1.5rem;
+    font-family: "Irish Grover", system-ui;
+    color: var(--color-secondary);
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.small-empty {
+    color: var(--color-gray-medium);
+    font-style: italic;
+    font-size: 1rem;
+    text-align: center;
+    padding: 30px 0;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 80px 20px;
+    background: var(--color-white);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-medium);
+}
+
+.empty-state i {
+    font-size: 5rem;
+    margin-bottom: 25px;
+    color: #FFD700;
+}
+
+.empty-state h2 {
+    color: var(--color-primary-dark);
+    margin-bottom: 15px;
+}
+
+.empty-state p {
+    color: var(--color-gray-dark);
+    font-size: 1.1rem;
+}
+
+/* Fastest List */
+.fastest-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.fastest-item {
+    background: var(--color-secondary-very-light);
+    border: 1px solid var(--color-gray-lighter);
+    border-radius: var(--radius-lg);
+    padding: 18px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.fastest-item:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: var(--shadow-medium);
+    background: var(--color-white);
+}
+
+.f-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.f-task {
+    font-weight: 700;
+    color: var(--color-secondary-dark);
+    font-size: 1.15rem;
+    font-family: var(--font-system);
+}
+
+.f-team {
+    color: var(--color-primary-dark);
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.f-team i {
+    color: var(--ws-accent, var(--color-primary));
+}
+
+.f-time {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-gray-dark);
+}
+
+.f-badge {
+    background: rgba(245, 166, 35, 0.15);
+    color: #D35400;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: 800;
+    font-size: 0.85rem;
+    border: 1px solid rgba(245, 166, 35, 0.4);
+    box-shadow: 0 2px 5px rgba(245, 166, 35, 0.2);
+}
+
+/* Podium List */
+.podium-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.podium-item {
+    display: flex;
+    align-items: center;
+    background: var(--color-white);
+    border: 1px solid var(--color-gray-lighter);
+    border-radius: var(--radius-lg);
+    padding: 15px 20px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-light);
+}
+
+.podium-item:hover {
+    background: var(--color-secondary-very-light);
+    transform: scale(1.02);
+}
+
+.p-rank {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1.3rem;
+    margin-right: 20px;
+    border-radius: 50%;
+    background: var(--color-gray-lighter);
+    color: var(--color-gray-dark);
+}
+
+.p-team {
+    flex: 1;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--color-secondary);
+}
+
+.p-score {
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--color-white);
+    background: var(--color-primary);
+    padding: 6px 15px;
+    border-radius: 8px;
+    box-shadow: 0 3px 8px rgba(197, 37, 37, 0.3);
+}
+
+/* Medals */
+.podium-item.gold .p-rank {
+    background: rgba(255, 215, 0, 0.2);
+    color: #DAA520; /* Darker gold for text readability on light bg */
+    font-size: 1.5rem;
+    box-shadow: 0 0 10px rgba(255,215,0,0.5);
+}
+.podium-item.gold {
+    background: linear-gradient(90deg, rgba(255,215,0,0.08), var(--color-white));
+    border-left: 5px solid #FFD700;
+}
+
+.podium-item.silver .p-rank {
+    background: rgba(192, 192, 192, 0.3);
+    color: #7F8C8D;
+    font-size: 1.4rem;
+}
+.podium-item.silver {
+    background: linear-gradient(90deg, rgba(192,192,192,0.1), var(--color-white));
+    border-left: 5px solid #C0C0C0;
+}
+
+.podium-item.bronze .p-rank {
+    background: rgba(205, 127, 50, 0.2);
+    color: #A0522D;
+    font-size: 1.3rem;
+}
+.podium-item.bronze {
+    background: linear-gradient(90deg, rgba(205,127,50,0.1), var(--color-white));
+    border-left: 5px solid #CD7F32;
+}
+
+/* Medal Colors for general use */
+.gold { color: #FFD700; }
+.silver { color: #C0C0C0; }
+.bronze { color: #CD7F32; }
+
+@keyframes float {
+    0% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-8px) scale(1.1); }
+    100% { transform: translateY(0px) scale(1); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}

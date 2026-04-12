@@ -215,18 +215,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'submi
         }
     }
 
+    // Prevent DB crash on Duplicate Submissions
+    $checkStmt = mysqli_prepare($connect, "SELECT submission_id FROM academic_submissions WHERE participant_id = ? AND task_id = ?");
+    if ($checkStmt) {
+        mysqli_stmt_bind_param($checkStmt, "ii", $participantId, $taskId);
+        mysqli_stmt_execute($checkStmt);
+        $checkRes = mysqli_stmt_get_result($checkStmt);
+        if (mysqli_num_rows($checkRes) > 0) {
+            setFlash('error', 'You have already submitted this task. Please wait or contact your IT to delete the previous submission.');
+            mysqli_stmt_close($checkStmt);
+            header("Location: academicParticipantPanel.php?workshop_id=" . $wsId);
+            exit;
+        }
+        mysqli_stmt_close($checkStmt);
+    }
+
     $fileUrl = "uploads/academic_tasks/" . $newName;
 
-    // Insert submission
+    // Get explicit PHP configured time (Cairo)
+    $now = date('Y-m-d H:i:s');
+
+    // Insert submission with explicitly formatted correct time
     $stmt = mysqli_prepare(
         $connect,
-        "INSERT INTO academic_submissions (participant_id, task_id, file_url, project_url, team_photo, project_desc, status)
-         VALUES (?, ?, ?, ?, ?, ?, 'pending')"
+        "INSERT INTO academic_submissions (participant_id, task_id, file_url, project_url, team_photo, project_desc, status, submission_date)
+         VALUES (?, ?, ?, ?, ?, ?, 'pending', ?)"
     );
     if ($stmt) {
-        mysqli_stmt_bind_param($stmt, "iissss", $participantId, $taskId, $fileUrl, $projectUrl, $teamPhotoPath, $projectDesc);
+        mysqli_stmt_bind_param($stmt, "iisssss", $participantId, $taskId, $fileUrl, $projectUrl, $teamPhotoPath, $projectDesc, $now);
         if (mysqli_stmt_execute($stmt)) {
-            $now = date('Y-m-d H:i:s');
             setFlash('success', "Task submitted successfully ✓ — Submission date: {$now}");
         } else {
             setFlash('error', 'An error occurred while saving the submission');
@@ -593,17 +610,17 @@ unset($_SESSION['flash']);
                                     <div class="prev-sub-info">
                                         <span class="prev-sub-task">
                                             <i class="fas fa-file-alt" style="color:var(--accent-color)"></i>
-                                            <?= htmlspecialchars($sub['task_title']) ?>
+                                            <?= htmlspecialchars($sub['task_title'] ?? '') ?>
                                         </span>
                                         <span class="prev-sub-date" style="margin-left: 10px;">
                                             <i class="far fa-clock" style="color:var(--color-gray-light)"></i>
-                                            <?= htmlspecialchars($sub['submission_date']) ?>
+                                            <?= htmlspecialchars($sub['submission_date'] ?? '') ?>
                                         </span>
                                     </div>
                                     <?php if (!empty($sub['feedback'])): ?>
                                         <div class="prev-sub-desc"
                                             style="margin-top: 10px; font-size: 0.9rem; color: var(--color-gray-dark); background: rgba(255,255,255,0.05); padding: 10px; border-radius: 6px; border-left: 3px solid var(--accent-color);">
-                                            <strong>Feedback:</strong> <?= nl2br(htmlspecialchars($sub['feedback'])) ?>
+                                            <strong>Feedback:</strong> <?= nl2br(htmlspecialchars($sub['feedback'] ?? '')) ?>
                                         </div>
                                     <?php endif; ?>
 
@@ -619,14 +636,14 @@ unset($_SESSION['flash']);
 
                                             <div style="display: flex; flex-wrap: wrap; gap: 15px;">
                                                 <?php if (!empty($sub['project_url'])): ?>
-                                                    <a href="<?= htmlspecialchars($sub['project_url']) ?>" target="_blank"
+                                                    <a href="<?= htmlspecialchars($sub['project_url'] ?? '') ?>" target="_blank"
                                                         style="color: var(--accent-color); text-decoration: none; font-weight: 600;">
                                                         <i class="fas fa-external-link-alt"></i> Live Site
                                                     </a>
                                                 <?php endif; ?>
 
                                                 <?php if (!empty($sub['team_photo'])): ?>
-                                                    <a href="<?= htmlspecialchars($sub['team_photo']) ?>" target="_blank"
+                                                    <a href="<?= htmlspecialchars($sub['team_photo'] ?? '') ?>" target="_blank"
                                                         style="color: var(--accent-color); text-decoration: none; font-weight: 600;">
                                                         <i class="fas fa-image"></i> Team Photo
                                                     </a>
@@ -644,7 +661,7 @@ unset($_SESSION['flash']);
                                         </span>
 
                                         <?php if (!empty($sub['file_url'])): ?>
-                                            <a href="<?= htmlspecialchars($sub['file_url']) ?>" target="_blank" download
+                                            <a href="<?= htmlspecialchars($sub['file_url'] ?? '') ?>" target="_blank" download
                                                 class="download-sub-btn"
                                                 style="display: inline-flex; align-items: center; gap: 5px; padding: 6px 12px; border-radius: 50px; background: rgba(122, 65, 220, 0.1); color: var(--accent-color); font-size: 0.85rem; font-weight: 600; text-decoration: none; transition: all 0.3s ease;"
                                                 onmouseover="this.style.background='rgba(122, 65, 220, 0.2)'; this.style.transform='translateY(-1px)'"
@@ -656,13 +673,13 @@ unset($_SESSION['flash']);
                                         <?php if ($sub['score'] !== null): ?>
                                             <span class="score-display">
                                                 <i class="fas fa-star" style="color:#FFD700"></i>
-                                                <?= htmlspecialchars($sub['score']) ?>
+                                                <?= htmlspecialchars($sub['score'] ?? '') ?>
                                             </span>
                                         <?php endif; ?>
 
                                         <?php
                                         // Check if submission was in the last 60 seconds
-                                        $subTime = strtotime($sub['submission_date']);
+                                        $subTime = strtotime($sub['submission_date'] ?? 'now');
                                         $isRecently = (time() - $subTime) < 60;
                                         if ($isRecently && $isLeader === 1):
                                             ?>
